@@ -1,0 +1,49 @@
+{
+  "name": "vital-avellaneda",
+  "version": "0.0.0",
+  "scripts": {
+    "ng": "ng",
+    "start": "ng serve",
+    "build": "ng build",
+    "watch": "ng build --watch --configuration development",
+    "test": "ng test",
+    "serve:ssr:vital-avellaneda": "node dist/vital-avellaneda/server/server.mjs",
+    "deploy-fb": "ng build && firebase deploy --only hosting"
+  },
+  "private": true,
+  "dependencies": {
+    "@angular/common": "^20.0.4",
+    "@angular/compiler": "^20.0.4",
+    "@angular/core": "^20.0.4",
+    "@angular/fire": "^20.0.1",
+    "@angular/forms": "^20.0.4",
+    "@angular/platform-browser": "^20.0.4",
+    "@angular/platform-server": "^20.0.4",
+    "@angular/router": "^20.0.4",
+    "@angular/ssr": "^20.0.3",
+    "@tailwindcss/postcss": "^4.1.8",
+    "environment": "^1.1.0",
+    "express": "^5.1.0",
+    "firebase": "^11.9.1",
+    "postcss": "^8.5.4",
+    "rxjs": "~7.8.0",
+    "tailwindcss": "^4.1.8",
+    "tslib": "^2.3.0",
+    "zone.js": "~0.15.0"
+  },
+  "devDependencies": {
+    "@angular/build": "^20.0.3",
+    "@angular/cli": "^20.0.3",
+    "@angular/compiler-cli": "^20.0.4",
+    "@types/express": "^5.0.1",
+    "@types/jasmine": "~5.1.0",
+    "@types/node": "^20.17.19",
+    "jasmine-core": "~5.7.0",
+    "karma": "~6.4.0",
+    "karma-chrome-launcher": "~3.2.0",
+    "karma-coverage": "~2.2.0",
+    "karma-jasmine": "~5.1.0",
+    "karma-jasmine-html-reporter": "~2.1.0",
+    "typescript": "~5.8.2"
+  }
+}
