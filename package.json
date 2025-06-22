@@ -21,6 +21,7 @@
     "@angular/platform-server": "^20.0.4",
     "@angular/router": "^20.0.4",
     "@angular/ssr": "^20.0.3",
+    "@fontsource-variable/rubik": "^5.2.6",
     "@tailwindcss/postcss": "^4.1.8",
     "environment": "^1.1.0",
     "express": "^5.1.0",

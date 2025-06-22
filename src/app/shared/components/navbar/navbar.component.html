@@ -1,0 +1,32 @@
+<nav
+  class="flex items-center justify-between bg-navbar-primary px-10 text-white size-full"
+>
+  <!-- Logo -->
+  <a routerLink="/" class="flex items-center justify-center h-full w-80 ml-10">
+    <img
+      class="object-contain"
+      src="/logo.png"
+      alt="Logo"
+    />
+  </a>
+
+  <!-- Navegation -->
+  <ul class="flex justify-center items-center mr-24 h-full">
+    @for (item of navItems; track item.title) {
+    <li>
+      <a
+        class="flex items-center justify-center
+        p-4
+        text-lg font-semibold 
+        hover:shadow-black
+        hover:text-navbar-secondary
+        transition-all duration-300"
+        [routerLink]="item.href"
+        tabindex="0"
+      >
+        {{ item.title }}
+      </a>
+    </li>
+    }
+  </ul>
+</nav>

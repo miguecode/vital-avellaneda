@@ -1,5 +1,12 @@
 @import "tailwindcss";
+@import "@fontsource-variable/rubik";
 
 @theme {
-  --color-rojo-formula: #d10000;
+  --color-navbar-primary: #0e347a;
+  --color-navbar-secondary: #38b6ff;
+  --color-navbar-third: #081e46;
+}
+
+html {
+  font-family: "Rubik Variable";
 }
