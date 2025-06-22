@@ -5,7 +5,7 @@
   <a routerLink="/" class="flex items-center justify-center h-full w-80 ml-10">
     <img
       class="object-contain"
-      src="/logo.png"
+      src="/logos/logo.png"
       alt="Logo"
     />
   </a>
@@ -23,6 +23,7 @@
         transition-all duration-300"
         [routerLink]="item.href"
         tabindex="0"
+        [attr.aria-label]="item.ariaLabel"
       >
         {{ item.title }}
       </a>

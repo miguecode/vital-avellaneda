@@ -1,12 +1,22 @@
+/* Framework CSS */
 @import "tailwindcss";
+
+/* Swiper Library for Sliders */
+@import "swiper/css";
+@import "swiper/css/navigation";
+@import "swiper/css/pagination";
+
+/* Font */
 @import "@fontsource-variable/rubik";
 
+/* Custom Tailwind Utilities */
 @theme {
   --color-navbar-primary: #0e347a;
   --color-navbar-secondary: #38b6ff;
   --color-navbar-third: #081e46;
 }
 
+/* Global Styles */
 html {
   font-family: "Rubik Variable";
 }

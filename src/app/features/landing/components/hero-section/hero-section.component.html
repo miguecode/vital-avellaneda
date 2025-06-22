@@ -1,1 +1,27 @@
-<p>hero-section works!</p>
+<div class="relative w-full h-[500px] overflow-hidden">
+  <div class="swiper">
+    <div class="swiper-wrapper">
+      @for (slide of slides; track slide.title) {
+        <div class="swiper-slide">
+          <div
+            class="w-full h-[500px] bg-cover bg-center flex flex-col justify-center items-start text-white p-8"
+            [ngStyle]="{ 'background-image': 'url(' + slide.image + ')' }"
+          >
+            <h1 class="text-4xl font-bold mb-2 drop-shadow-md">{{ slide.title }}</h1>
+            <p class="text-lg mb-4 max-w-lg drop-shadow-sm">{{ slide.description }}</p>
+            <a
+              [routerLink]="slide.buttonLink"
+              class="px-5 py-2 bg-white text-primary font-semibold rounded shadow hover:scale-105 transition"
+              >{{ slide.buttonText }}</a
+            >
+          </div>
+        </div>
+      }
+    </div>
+
+    <!-- Arrows -->
+    <div class="swiper-button-prev text-white"></div>
+    <div class="swiper-button-next text-white"></div>
+    <div class="swiper-pagination"></div>
+  </div>
+</div>
