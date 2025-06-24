@@ -1,0 +1,50 @@
+<!-- Slider main container -->
+<div class="swiper">
+  <!-- Additional required wrapper -->
+  <div class="swiper-wrapper">
+
+    <!-- Slides -->
+    @for (slide of slides; track slide.title) {
+      <div class="swiper-slide relative">
+
+        <!-- Background Image with filter -->
+        <div
+          class="absolute inset-0 bg-cover bg-center bg-no-repeat z-0"
+          [ngStyle]="{
+            'background-image':
+              'linear-gradient(90deg, rgba(1, 21, 58, 0.8), rgba(0, 36, 104, 0.5)), url(' + slide.image + ')'
+          }"
+        ></div>
+
+        <!-- Detail content -->
+        <div
+          class="relative z-10 mx-44 px-8 flex flex-col select-none
+          justify-center text-white h-main-carousel"
+        >
+          <!-- Title -->
+          <h1 class="text-5xl font-bold mb-4 drop-shadow-md">
+            {{ slide.title }}
+          </h1>
+          <!-- Description -->
+          <p class="text-2xl mb-6 max-w-xl drop-shadow-md text-pretty">
+            {{ slide.description }}
+          </p>
+          <!-- Link Button -->
+          <a
+            [routerLink]="slide.buttonLink"
+            class="px-10 py-2 w-fit rounded drop-shadow-2xl
+            bg-va-primary/80 text-white text-main-button font-semibold
+            hover:bg-va-third/90 transition"
+            >{{ slide.buttonText }}</a
+          >
+        </div>
+      </div>
+    }
+  </div>
+
+  <!-- Swiper Navigation -->
+  <div class="swiper-button-prev"></div>
+  <div class="swiper-button-next"></div>
+  <!-- Swiper Pagination -->
+  <div class="swiper-pagination"></div>
+</div>
