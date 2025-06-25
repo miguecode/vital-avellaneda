@@ -13,11 +13,13 @@
 @theme {
   /* Colors */
   --color-va-primary: #0e347a;
-  --color-va-secondary: #38b6ff;
+  --color-va-secondary: #38B6FF;
   --color-va-third: #204da0;
+  --color-va-fourth: #55c1ff;
 
   /* Spacing */
   --spacing-main-carousel: 35rem;
+  --spacing-panel-selector: 70rem;
 
   /* Font Sizes */
   --text-main-button: 1.4rem;
