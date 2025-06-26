@@ -1,0 +1,39 @@
+<div
+  class="flex justify-start items-start h-36 bg-lightblue-primary
+  w-home-page mt-8 text-va-primary border border-va-third/20 shadow-sm"
+>
+  <app-information-card [title]="'Contacto vía mail'">
+    <app-email-icon icon size="48px" color="currentColor"></app-email-icon>
+    <p description class="text-sm text-gray-700">
+      Podés enviarnos tu consulta o cualquier inquietud acá:
+      <strong class="font-bold underline underline-offset-2"
+        >vitalavellaneda&#64;gmail.com</strong
+      >
+    </p>
+  </app-information-card>
+  <app-information-card
+    [title]="'Contacto telefónico'"
+    [border]="'border-x border-va-third/20'"
+  >
+    <app-phone-icon icon size="48px" color="currentColor"></app-phone-icon>
+    <p description class="text-sm text-black">
+      Solicitá tu turno o hacé tu consulta llamando a:
+      <strong class="font-bold underline underline-offset-2"
+        >4123-1234 | 5678-8765</strong
+      >
+    </p>
+  </app-information-card>
+  <app-information-card [title]="'Ubicación'">
+    <app-location-icon
+      icon
+      size="48px"
+      color="currentColor"
+    ></app-location-icon>
+    <p description class="text-sm text-black">
+      V.A Avellaneda 123, Provincia de Buenos Aires, Argentina.
+      <strong class="font-bold underline underline-offset-2"
+        >Ver en el mapa</strong
+      >
+    </p>
+  </app-information-card>
+</div>

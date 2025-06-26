@@ -13,13 +13,16 @@
 @theme {
   /* Colors */
   --color-va-primary: #0e347a;
-  --color-va-secondary: #38B6FF;
+  --color-va-secondary: #d7e7ff;
   --color-va-third: #204da0;
-  --color-va-fourth: #55c1ff;
+  --color-va-fourth: #b6d3ff;
+  --color-lightblue-primary: #F5F9FF;
+  --color-lightblue-secondary: #6292FA;
 
   /* Spacing */
   --spacing-main-carousel: 35rem;
-  --spacing-panel-selector: 70rem;
+  --spacing-home-page: 75rem;
+  --spacing-presentation-wrapper: 35rem;
 
   /* Font Sizes */
   --text-main-button: 1.4rem;

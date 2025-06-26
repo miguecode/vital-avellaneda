@@ -23,7 +23,7 @@ export class NavbarComponent implements NavbarContent {
       ariaLabel: 'Sección sobre quiénes somos',
       href: '/',
     },
-    { title: 'Contacto', ariaLabel: 'Sección de contacto', href: '/' },
+    // { title: 'Contacto', ariaLabel: 'Sección de contacto', href: '/' },
     {
       title: 'Especialidades y Servicios',
       ariaLabel: 'Sección de Especialidades y Servicios',

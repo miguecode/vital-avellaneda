@@ -1,0 +1,14 @@
+<div
+  class="w-full h-full p-2
+  flex justify-center items-center gap-5
+  {{ border }}"
+>
+  <div class="ml-0.5">
+    <ng-content select="[icon]"></ng-content>
+  </div>
+
+  <div class="flex flex-col">
+    <h1 class="text-xl font-semibold">{{ title }}</h1>
+    <ng-content select="[description]"></ng-content>
+  </div>
+</div>
