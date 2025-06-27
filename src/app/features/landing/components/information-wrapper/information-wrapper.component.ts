@@ -1,8 +1,10 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { InformationCardComponent } from '../information-card/information-card.component';
-import { EmailIconComponent } from '../../../../icons/email-icon.component';
-import { PhoneIconComponent } from '../../../../icons/phone-icon.component';
-import { LocationIconComponent } from '../../../../icons/location-icon.component';
+import {
+  EmailIconComponent,
+  PhoneIconComponent,
+  LocationIconComponent,
+} from '../../../../icons';
 
 @Component({
   selector: 'app-information-wrapper',

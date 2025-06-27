@@ -1,14 +1,14 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { PatientIconComponent } from "../../../../icons/patient-icon.component";
-import { SpecialistIconComponent } from "../../../../icons/specialist-icon.component";
+import {
+  PatientIconComponent,
+  SpecialistIconComponent,
+} from '../../../../icons';
 
 @Component({
   selector: 'app-panel-selector',
   imports: [PatientIconComponent, SpecialistIconComponent],
   templateUrl: './panel-selector.component.html',
   styleUrl: './panel-selector.component.css',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class PanelSelectorComponent {
-
-}
+export class PanelSelectorComponent {}

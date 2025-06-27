@@ -1,8 +1,9 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { NgStyle } from '@angular/common';
 
 @Component({
   selector: 'app-presentation-wrapper',
-  imports: [],
+  imports: [NgStyle],
   templateUrl: './presentation-wrapper.component.html',
   styleUrl: './presentation-wrapper.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,

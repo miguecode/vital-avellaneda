@@ -1,9 +1,14 @@
-<div class="flex w-home-page h-presentation-wrapper mt-8
- bg-lightblue-primary border border-va-third/20 shadow-sm">
+<div
+  class="flex w-home-page h-presentation-wrapper mt-10 bg-lightblue-primary border border-va-third/20 shadow-sm"
+>
   <!-- Image -->
-  <div class="w-1/3 justify-center items-center">
-    <img [src]="srcImage" [alt]="altImage"/>
-  </div>
+  <div
+    class="w-1/3 h-full bg-cover bg-center"
+    [ngStyle]="{
+      'background-image':
+      'linear-gradient(90deg, rgba(1, 21, 58, 0.2), rgba(0, 36, 104, 0.2)), url(' + srcImage+ ')'
+    }"
+  ></div>
 
   <!-- Content -->
   <div class="flex flex-col px-24 pt-18 w-2/3">
@@ -18,9 +23,11 @@
       <li class="marker:text-va-third">{{ itemText }}</li>
       }
     </ul>
-    <a [href]="anchorHref" class="mt-7 py-3 px-5 w-fit 
-    text-white font-semibold bg-va-primary hover:bg-va-third transition-all duration-300 shadow-md">{{
-      anchorText
-    }}</a>
+    <a
+      [href]="anchorHref"
+      class="mt-7 py-3 px-5 w-fit text-white font-semibold bg-va-primary hover:bg-va-third active:bg-va-third/90
+       transition-all duration-300 shadow-md"
+      >{{ anchorText }}</a
+    >
   </div>
 </div>

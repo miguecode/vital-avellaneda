@@ -1,9 +1,12 @@
-<!-- Header -->
-<app-header></app-header>
+<div class="min-h-screen flex flex-col">
+  <!-- Header -->
+  <app-header></app-header>
 
-<!-- Slot -->
-<router-outlet />
+  <!-- Slot principal -->
+  <main class="flex-1">
+    <router-outlet />
+  </main>
 
-<!-- Footer -->
-<!-- Footer Component -->
-<app-footer></app-footer>
+  <!-- Footer -->
+  <app-footer />
+</div>

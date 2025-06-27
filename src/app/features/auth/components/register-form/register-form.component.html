@@ -1,0 +1,59 @@
+<div class="w-full p-6 shadow bg-lightblue-primary border border-va-third/20">
+  
+  <!-- Toggle Form -->
+  <button
+    class="mb-4 px-4 py-2 bg-va-primary text-white rounded"
+    (click)="toggleMode()"
+  >
+    Cambiar a {{ isSpecialist() ? 'Paciente' : 'Especialista' }}
+  </button>
+
+  <!-- Form -->
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" class="flex flex-col gap-4">
+    
+    <!-- User base inputs -->
+    <input type="text" formControlName="firstName" placeholder="Nombre" />
+    <input type="text" formControlName="lastName" placeholder="Apellido" />
+    <input type="number" formControlName="age" placeholder="Edad" />
+    <input type="text" formControlName="dni" placeholder="DNI" />
+    <input type="email" formControlName="email" placeholder="Correo electrónico" />
+    <input type="date" formControlName="birthDate" />
+    <input type="text" formControlName="phone" placeholder="Teléfono (opcional)" />
+    <input type="password" formControlName="password" placeholder="Contraseña" />
+
+    <!-- Patient inputs -->
+    @if (userMode() === 'patient') {
+      <input
+        type="text"
+        formControlName="healthInsurance"
+        placeholder="Obra social"
+      />
+    }
+
+
+    <!-- Specialist inputs -->
+    @if (userMode() === 'specialist') {
+      <label for="specialty">Especialidades</label>
+      <input
+        type="text"
+        formControlName="specialty"
+        placeholder="Ej: Cardiología, Neurología"
+      />
+
+      <label for="availability">Disponibilidad</label>
+      <input
+        type="text"
+        formControlName="availability"
+        placeholder="Ej: Lunes a Viernes de 9 a 17hs"
+      />
+    }
+
+    <!-- Submit button -->
+    <button
+      type="submit"
+      class="mt-4 bg-va-secondary text-white px-4 py-2 rounded"
+    >
+      Registrarme
+    </button>
+  </form>
+</div>
