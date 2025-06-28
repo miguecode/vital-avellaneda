@@ -1,59 +1,159 @@
-<div class="w-full p-6 shadow bg-lightblue-primary border border-va-third/20">
-  
-  <!-- Toggle Form -->
-  <button
-    class="mb-4 px-4 py-2 bg-va-primary text-white rounded"
-    (click)="toggleMode()"
-  >
-    Cambiar a {{ isSpecialist() ? 'Paciente' : 'Especialista' }}
-  </button>
+<div class="p-6 bg-lightblue-primary border border-va-third/20 shadow">
+  <!-- Title, description and Toggle button -->
+  <div class="ml-3">
+    <h2 class="text-va-primary text-3xl font-semibold">
+      Nuevo {{ this.isSpecialist() ? "Especialista" : "Paciente" }}
+    </h2>
+    <p class="mb-4 text-lg">
+      Este es el formulario de registro para
+
+      <strong class="text-va-primary">{{
+        this.isSpecialist() ? "Especialista" : "Paciente"
+      }}</strong
+      >. Si querés registrarte como
+
+      <strong class="text-va-primary">{{
+        this.isSpecialist() ? "Paciente" : "Especialista"
+      }}</strong
+      >,
+
+      <button
+        class="cursor-pointer p-1 bg-va-third text-white hover:underline hover:underline-offset-2"
+        (click)="toggleMode()"
+      >
+        hacé clic acá.
+      </button>
+    </p>
+  </div>
 
   <!-- Form -->
-  <form [formGroup]="form" (ngSubmit)="onSubmit()" class="flex flex-col gap-4">
-    
-    <!-- User base inputs -->
-    <input type="text" formControlName="firstName" placeholder="Nombre" />
-    <input type="text" formControlName="lastName" placeholder="Apellido" />
-    <input type="number" formControlName="age" placeholder="Edad" />
-    <input type="text" formControlName="dni" placeholder="DNI" />
-    <input type="email" formControlName="email" placeholder="Correo electrónico" />
-    <input type="date" formControlName="birthDate" />
-    <input type="text" formControlName="phone" placeholder="Teléfono (opcional)" />
-    <input type="password" formControlName="password" placeholder="Contraseña" />
+  <form
+    [formGroup]="form"
+    (ngSubmit)="onSubmit()"
+    class="flex flex-wrap gap-4 justify-between"
+  >
+    <!-- Input Group (User base 1) -->
+    <div class="flex flex-col gap-10 p-2 w-full sm:w-input-group min-w-64">
+      <app-input-custom
+        type="text"
+        formControlName="firstName"
+        placeholder="Nombre"
+        [maxlength]="30"
+      />
+      <app-input-custom
+        type="text"
+        formControlName="lastName"
+        [maxlength]="30"
+        placeholder="Apellido"
+      />
+      <app-input-custom
+        type="number"
+        formControlName="age"
+        placeholder="Edad"
+        [min]="0"
+        [max]="200"
+      />
+      <app-input-custom
+        type="text"
+        formControlName="dni"
+        placeholder="DNI"
+        [maxlength]="8"
+        pattern="^[0-9]*$"
+      />
+    </div>
 
-    <!-- Patient inputs -->
-    @if (userMode() === 'patient') {
-      <input
+    <!-- Input Group (User base 2) -->
+    <div class="flex flex-col gap-10 p-2 w-full sm:w-input-group min-w-64">
+      <app-input-custom
+        type="email"
+        formControlName="email"
+        [maxlength]="50"
+        placeholder="Correo electrónico"
+      />
+      <app-input-custom
+        type="password"
+        formControlName="password"
+        [maxlength]="50"
+        placeholder="Contraseña"
+      />
+      <app-input-custom type="date" formControlName="birthDate" />
+      <app-input-custom
+        type="text"
+        formControlName="phone"
+        placeholder="Teléfono (opcional)"
+        [maxlength]="15"
+      />
+    </div>
+
+    <!-- Input Group (Rol properties) -->
+    <div class="flex flex-col gap-10 p-2 w-full sm:w-input-group min-w-64">
+      <!-- Patient -->
+      @if (userMode() === 'patient') {
+      <app-input-custom
         type="text"
         formControlName="healthInsurance"
         placeholder="Obra social"
       />
-    }
 
+      <div class="flex flex-wrap  items-center gap-2">
+        <div class="w-full">
+          <app-select-custom
+            formControlName="bloodType"
+            [options]="[
+              'Sin especificar',
+              'A+',
+              'A-',
+              'B+',
+              'B-',
+              'AB+',
+              'AB-',
+              'O+',
+              'O-'
+            ]"
+            placeholder="Seleccionar Grupo Sanguíneo"
+          ></app-select-custom>
+        </div>
+      </div>
 
-    <!-- Specialist inputs -->
-    @if (userMode() === 'specialist') {
+      <app-input-custom
+        type="number"
+        formControlName="height"
+        placeholder="Altura en centímetros (opcional)"
+        [min]="100"
+        [max]="250"
+      />
+
+      <app-input-custom
+        type="number"
+        formControlName="weight"
+        placeholder="Peso en kilogramos (opcional)"
+        [min]="30"
+        [max]="250"
+      />
+
+      <!-- Specialist -->
+      } @if (userMode() === 'specialist') {
       <label for="specialty">Especialidades</label>
-      <input
+      <app-input-custom
         type="text"
         formControlName="specialty"
         placeholder="Ej: Cardiología, Neurología"
       />
 
       <label for="availability">Disponibilidad</label>
-      <input
+      <app-input-custom
         type="text"
         formControlName="availability"
         placeholder="Ej: Lunes a Viernes de 9 a 17hs"
       />
-    }
+      }
+    </div>
 
-    <!-- Submit button -->
-    <button
-      type="submit"
-      class="mt-4 bg-va-secondary text-white px-4 py-2 rounded"
-    >
-      Registrarme
-    </button>
+    <!-- Register Button -->
+    <div class="w-full mt-12 flex justify-center">
+      <button type="submit" class="bg-va-secondary text-white px-6 py-3">
+        Registrarme
+      </button>
+    </div>
   </form>
 </div>

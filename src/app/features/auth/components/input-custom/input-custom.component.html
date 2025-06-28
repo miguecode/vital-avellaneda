@@ -1,0 +1,13 @@
+<input
+  [type]="type"
+  [placeholder]="placeholder"
+  [attr.minlength]="minlength"
+  [attr.maxlength]="maxlength"
+  [value]="value"
+  [disabled]="isDisabled"
+  [min]="min"
+  [max]="max"
+  (input)="handleInput($event)"
+  class="w-full bg-white border border-va-third py-2 pl-2
+   placeholder:text-gray-700 focus:outline-2 focus:outline-va-third shadow"
+/>

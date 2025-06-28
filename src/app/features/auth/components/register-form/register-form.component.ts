@@ -13,25 +13,35 @@ import {
   ReactiveFormsModule,
   FormsModule,
 } from '@angular/forms';
-import { CommonModule } from '@angular/common';
+
 import { UserRoles as R, UserStatus } from '../../../../core/enums';
+import { InputCustomComponent } from '../input-custom/input-custom.component';
+import { SelectCustomComponent } from '../select-custom/select-custom.component';
 
 // User mode to toggle forms
 type UserMode = R.PATIENT | R.SPECIALIST;
 
 @Component({
   selector: 'app-register-form',
-  imports: [CommonModule, ReactiveFormsModule, FormsModule],
+  imports: [
+    ReactiveFormsModule,
+    FormsModule,
+    InputCustomComponent,
+    SelectCustomComponent,
+  ],
   templateUrl: './register-form.component.html',
   styleUrl: './register-form.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  host: { class: 'block h-full w-full' },
 })
 export class RegisterFormComponent {
   // Current mode (Patient or Specialist)
   readonly userMode: WritableSignal<UserMode> = signal<UserMode>(R.PATIENT);
 
   // Boolean signal
-  readonly isSpecialist: Signal<boolean> = computed(() => this.userMode() === R.SPECIALIST);
+  readonly isSpecialist: Signal<boolean> = computed(
+    () => this.userMode() === R.SPECIALIST
+  );
 
   // Main Form
   readonly form: FormGroup;
@@ -55,8 +65,11 @@ export class RegisterFormComponent {
 
       // Patient properties
       healthInsurance: [''],
+      bloodType: [''],
+      height: [''],
+      weight: [''],
 
-      // Patient properties
+      // Specialist properties
       specialty: [[]],
       availability: [[]],
     });
@@ -64,11 +77,11 @@ export class RegisterFormComponent {
 
   // If the user mode is Patient, change to Specialist, and vice versa
   toggleMode(): void {
-    const newMode =
-      this.userMode() === R.PATIENT ? R.SPECIALIST : R.PATIENT;
+    const newMode = this.userMode() === R.PATIENT ? R.SPECIALIST : R.PATIENT;
     this.userMode.set(newMode);
   }
 
+  // Submit action
   onSubmit(): void {
     if (this.form.invalid) return;
 
