@@ -6,8 +6,6 @@ import { NavbarComponent } from '../navbar/navbar.component';
   imports: [NavbarComponent],
   templateUrl: './header.component.html',
   styleUrl: './header.component.css',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class HeaderComponent {
-
-}
+export class HeaderComponent {}

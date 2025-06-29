@@ -3,18 +3,17 @@ import {
   Component,
   Input,
   forwardRef,
-  signal
+  signal,
 } from '@angular/core';
 import {
   ControlValueAccessor,
   NG_VALUE_ACCESSOR,
-  ReactiveFormsModule
+  ReactiveFormsModule,
 } from '@angular/forms';
-import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-select-custom',
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [ReactiveFormsModule],
   templateUrl: './select-custom.component.html',
   styleUrl: './select-custom.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -22,12 +21,14 @@ import { CommonModule } from '@angular/common';
     {
       provide: NG_VALUE_ACCESSOR,
       useExisting: forwardRef(() => SelectCustomComponent),
-      multi: true
-    }
-  ]
+      multi: true,
+    },
+  ],
 })
 export class SelectCustomComponent implements ControlValueAccessor {
   @Input() options: string[] = [];
+  @Input() label: string = 'Campo';
+  @Input() labelMap?: Map<string, string>;
   @Input() placeholder: string = 'Seleccionar...';
 
   value = signal('');

@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { PatientIconComponent } from "../../../icons/patient-icon.component";
 
 interface NavbarContent {
   navItems: Array<{
@@ -11,7 +12,7 @@ interface NavbarContent {
 
 @Component({
   selector: 'app-navbar',
-  imports: [RouterLink],
+  imports: [RouterLink, PatientIconComponent],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -35,13 +36,8 @@ export class NavbarComponent implements NavbarContent {
       href: '/',
     },
     {
-      title: 'Portal para Especialistas',
-      ariaLabel: 'Portal para Especialistas',
-      href: '/',
-    },
-    {
-      title: 'Portal para Pacientes',
-      ariaLabel: 'Portal para Pacientes',
+      title: 'Novedades',
+      ariaLabel: 'Sección de Novedades',
       href: '/',
     },
   ];

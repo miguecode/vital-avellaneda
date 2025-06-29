@@ -25,6 +25,7 @@ import {
   ],
 })
 export class InputCustomComponent implements ControlValueAccessor {
+  @Input() label: string = 'Campo';
   @Input() type: string = 'text';
   @Input() placeholder: string = '';
   @Input() minlength?: number;

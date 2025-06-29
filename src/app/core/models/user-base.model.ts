@@ -1,16 +1,16 @@
-import { UserStatus, UserRoles } from '../enums';
+import { UserStatus, UserRoles, Sex } from '../enums';
 
 export interface UserBase {
   id: string;
   firstName: string;
   lastName: string;
-  age: number;
   dni: string;
-  email: string;
+  sex: Sex;
   birthDate: Date;
+  email: string;
+  password?: string;
   phone?: string;
   profilePictureUrl: string;
-  password?: string;
   registrationDate: Date;
   rol: UserRoles;
   status: UserStatus;

@@ -13,8 +13,19 @@ import {
   ReactiveFormsModule,
   FormsModule,
 } from '@angular/forms';
+import {
+  UserRoles as R,
+  UserStatus,
+  HealthInsurances,
+  Sex,
+  BloodTypes,
+} from '../../../../core/enums';
+import {
+  BLOOD_TYPE_LABELS,
+  SEX_LABELS,
+  HEALTH_INSURANCE_LABELS,
+} from '../../../../core/enums/enum-labels';
 
-import { UserRoles as R, UserStatus } from '../../../../core/enums';
 import { InputCustomComponent } from '../input-custom/input-custom.component';
 import { SelectCustomComponent } from '../select-custom/select-custom.component';
 
@@ -35,10 +46,18 @@ type UserMode = R.PATIENT | R.SPECIALIST;
   host: { class: 'block h-full w-full' },
 })
 export class RegisterFormComponent {
-  // Current mode (Patient or Specialist)
+  // Options and Labels for enums properties
+  readonly bloodTypeOptions = Object.values(BloodTypes);
+  readonly sexOptions = Object.values(Sex);
+  readonly healthInsuranceOptions = Object.values(HealthInsurances);
+  readonly bloodTypeLabels = BLOOD_TYPE_LABELS;
+  readonly sexLabels = SEX_LABELS;
+  readonly healthInsuranceLabels = HEALTH_INSURANCE_LABELS;
+
+  // Signal for Current mode (Patient or Specialist)
   readonly userMode: WritableSignal<UserMode> = signal<UserMode>(R.PATIENT);
 
-  // Boolean signal
+  // Signal to known if the current mode is specialist or not
   readonly isSpecialist: Signal<boolean> = computed(
     () => this.userMode() === R.SPECIALIST
   );
@@ -46,6 +65,7 @@ export class RegisterFormComponent {
   // Main Form
   readonly form: FormGroup;
 
+  // Create form
   constructor(private fb: FormBuilder) {
     this.form = this.createForm();
   }
@@ -55,17 +75,16 @@ export class RegisterFormComponent {
       // User base properties
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
-      age: [null, Validators.required],
       dni: ['', Validators.required],
+      sex: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
+      password: ['', Validators.required],
       birthDate: ['', Validators.required],
       phone: [''],
-      profilePictureId: [''],
-      password: ['', Validators.required],
 
       // Patient properties
       healthInsurance: [''],
-      bloodType: [''],
+      bloodType: ['', Validators.required],
       height: [''],
       weight: [''],
 

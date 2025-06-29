@@ -1,13 +1,13 @@
 <nav
-  class="flex items-center justify-between px-10 size-full bg-va-primary text-white"
+  class="flex items-center justify-between px-10
+   size-full bg-va-primary text-white"
 >
   <!-- Logo -->
-  <a routerLink="/home" class="flex items-center justify-center h-full w-80 ml-10">
-    <img
-      class="object-contain"
-      src="/logos/logo.png"
-      alt="Logo"
-    />
+  <a
+    routerLink="/home"
+    class="flex items-center justify-center h-full w-80 ml-20"
+  >
+    <img class="object-contain" src="/logos/logo.png" alt="Logo" />
   </a>
 
   <!-- Navegation -->
@@ -15,12 +15,8 @@
     @for (item of navItems; track item.title) {
     <li>
       <a
-        class="flex items-center justify-center
-        p-4
-        text-lg font-semibold 
-        hover:shadow-black
-        hover:text-va-secondary
-        transition-all duration-300"
+        class="flex items-center justify-center p-4 text-lg font-semibold rounded
+      hover:bg-va-third hover:shadow active:bg-va-third/30 transition-colors duration-300"
         [routerLink]="item.href"
         tabindex="0"
         [attr.aria-label]="item.ariaLabel"
@@ -29,5 +25,19 @@
       </a>
     </li>
     }
+    <li class="ml-20 flex justify-center items-center">
+      <a
+        routerLink="/portal"
+        aria-label="Acceso al Portal"
+        class="flex justify-center items-center gap-3 p-4
+        text-lg font-semibold bg-va-third/70 rounded
+      hover:bg-va-third active:bg-va-third/70 transition duration-300 shadow"
+      >
+        <div class="flex justify-center items-center">
+          <app-patient-icon size="32"></app-patient-icon>
+        </div>
+        Acceso al Portal
+      </a>
+    </li>
   </ul>
 </nav>

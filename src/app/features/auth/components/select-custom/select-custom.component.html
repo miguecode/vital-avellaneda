@@ -1,12 +1,17 @@
-<select
-  class="w-full bg-white border border-va-third p-2
-  text-gray-700 focus:outline-2 focus:outline-va-third shadow"
-  [value]="value()"
-  (change)="onSelectChange($event)"
-  [disabled]="isDisabled"
->
-  <option disabled value="">{{ placeholder }}</option>
-  @for (opt of options; track opt) {
-    <option [value]="opt">{{ opt }}</option>
-  }
-</select>
+<div class="w-full">
+  <span class="text-va-primary font-medium">{{ label }}</span>
+  <select
+    class="w-full bg-white text-black border border-va-third
+     h-select-height pl-2 py-2 focus:outline focus:shadow-va-third shadow"
+    [value]="value() || ''"
+    (change)="onSelectChange($event)"
+    [disabled]="isDisabled"
+  >
+    <option hidden [value]="''">{{ placeholder }}</option>
+    @for (opt of options; track opt) {
+    <option class="text-sm text-black" [value]="opt">
+      {{ labelMap?.get(opt) ?? opt }}
+    </option>
+    }
+  </select>
+</div>

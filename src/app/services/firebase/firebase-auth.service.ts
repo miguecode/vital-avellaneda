@@ -10,7 +10,7 @@ import {
 
 import { AuthRepository } from '../../core/interfaces/auth.repository';
 import { UserBase } from '../../core/models';
-import { UserStatus, UserRoles } from '../../core/enums/';
+import { UserStatus, UserRoles, Sex } from '../../core/enums/';
 
 @Injectable({
   providedIn: 'root',
@@ -47,10 +47,11 @@ export class FirebaseAuthService implements AuthRepository {
           id: user.uid,
           firstName: '',
           lastName: '',
-          age: 0,
           dni: '',
-          email: user.email || '',
+          sex: Sex.UNSPECIFIED,
           birthDate: new Date(),
+          email: user.email || '',
+          phone: '',
           profilePictureUrl: user.photoURL || '',
           registrationDate: new Date(user.metadata.creationTime || Date.now()),
           rol: UserRoles.USER,

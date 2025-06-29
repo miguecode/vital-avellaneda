@@ -1,13 +1,18 @@
-<input
-  [type]="type"
-  [placeholder]="placeholder"
-  [attr.minlength]="minlength"
-  [attr.maxlength]="maxlength"
-  [value]="value"
-  [disabled]="isDisabled"
-  [min]="min"
-  [max]="max"
-  (input)="handleInput($event)"
-  class="w-full bg-white border border-va-third py-2 pl-2
-   placeholder:text-gray-700 focus:outline-2 focus:outline-va-third shadow"
-/>
+<div class="w-full">
+  <label class="text-va-primary font-medium">
+    {{ label }}
+  </label>
+  <input
+    [type]="type"
+    [placeholder]="placeholder"
+    [attr.minlength]="minlength"
+    [attr.maxlength]="maxlength"
+    [value]="value"
+    [disabled]="isDisabled"
+    [min]="min"
+    [max]="max"
+    (input)="handleInput($event)"
+    class="w-full bg-white border border-va-third py-2 pl-2
+     placeholder:text-gray-500 placeholder:text-sm focus:outline focus:shadow-va-third shadow"
+  />
+</div>
