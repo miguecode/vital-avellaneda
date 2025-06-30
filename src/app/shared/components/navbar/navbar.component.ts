@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { PatientIconComponent } from "../../../icons/patient-icon.component";
+import { UserIconComponent } from "../../../icons/user-icon.component";
 
 interface NavbarContent {
   navItems: Array<{
@@ -9,10 +9,9 @@ interface NavbarContent {
     href: string;
   }>;
 }
-
 @Component({
   selector: 'app-navbar',
-  imports: [RouterLink, PatientIconComponent],
+  imports: [RouterLink, UserIconComponent],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,

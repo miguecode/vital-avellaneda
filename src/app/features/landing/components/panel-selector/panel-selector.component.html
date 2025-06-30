@@ -1,34 +1,27 @@
 <div
-  class="flex justify-between items-center
-  h-50 w-home-page"
+  class="relative flex justify-between items-center overflow-hidden
+   h-50 w-home-page hover:shadow-lightblue-primary hover:shadow-lg"
 >
   <a
     href=""
-    class="text-3xl font-bold flex flex-col gap-1 pt-4 items-center text-white 
-     bg-va-primary hover:bg-va-third active:bg-va-third/90 transition size-full"
+    class="flex flex-col text-3xl font-bold gap-1 text-white border
+     border-blue-900 rounded shadow bg-va-primary hover:bg-va-third
+     active:bg-va-third/90 transition duration-400 size-full"
   >
-      <app-patient-icon size="72px"></app-patient-icon>
-      <p class="text-3xl font-bold
-        underline underline-offset-4">
-        Ingresar como Paciente
+    <div class="my-icon absolute right-7 text-va-third
+     transition duration-400">
+      <app-login-icon size="200"></app-login-icon>
+    </div>
+    <div>
+      <h2 class="pt-7 pl-12 text-3xl font-bold">{{ title }}</h2>
+      <p class="pl-12 mt-5 text-xl font-normal text-white/90">
+        Iniciá sesión o registrate como 
+        <strong class="font-semibold">Paciente</strong> o 
+        <strong class="font-semibold">Especialista</strong>.
+        <br />
+        También podes usar los 
+        <strong class="font-semibold">ingresos rápidos</strong> para probar el sitio.
       </p>
-      <p class="text-xl font-normal mt-3">
-        Solicitá un turno, consultá horarios y más.
-      </p>
-  </a>
-
-  <a
-    href=""
-    class="text-3xl font-bold flex flex-col gap-1 pt-4 items-center text-va-primary 
-     bg-va-secondary hover:bg-va-fourth active:bg-va-fourth/90 transition size-full"
-  >
-    <app-specialist-icon size="72px"></app-specialist-icon>
-    <p class="text-3xl font-bold
-    underline underline-offset-4">
-    Ingresar como Especialista
-    </p>
-    <p class="text-xl font-normal mt-3">
-      Gestioná turnos, respondé consultas y más.
-    </p>
+    </div>
   </a>
 </div>
