@@ -1,8 +1,13 @@
 export interface Availability {
   day: WeekDay;
-  startTime: string;
-  endTime: string;
+  intervals: TimeInterval[];
 }
+
+export interface TimeInterval {
+  start: string;
+  end: string;
+}
+
 export type WeekDay =
   | 'monday'
   | 'tuesday'

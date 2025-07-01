@@ -3,5 +3,4 @@ export interface Specialty {
   name: string;
   description: string;
   active: boolean;
-  imageUrl?: string;
 }

@@ -28,6 +28,9 @@ import {
 
 import { InputCustomComponent } from '../input-custom/input-custom.component';
 import { SelectCustomComponent } from '../select-custom/select-custom.component';
+import { SpecialtySelectorComponent } from "../specialty-selector/specialty-selector.component";
+import { AvailabilitySelectorComponent } from "../availability-selector/availability-selector.component";
+import { Availability, Specialty } from '../../../../core/models';
 
 // User mode to toggle forms
 type UserMode = R.PATIENT | R.SPECIALIST;
@@ -39,7 +42,9 @@ type UserMode = R.PATIENT | R.SPECIALIST;
     FormsModule,
     InputCustomComponent,
     SelectCustomComponent,
-  ],
+    SpecialtySelectorComponent,
+    AvailabilitySelectorComponent
+],
   templateUrl: './register-form.component.html',
   styleUrl: './register-form.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -89,13 +94,14 @@ export class RegisterFormComponent {
       weight: [''],
 
       // Specialist properties
-      specialty: [[]],
+      specialties: [[]],
       availability: [[]],
     });
   }
 
   // If the user mode is Patient, change to Specialist, and vice versa
   toggleMode(): void {
+    if (this.showSpecialtyModal() || this.showAvailabilityModal()) this.closeModals();
     const newMode = this.userMode() === R.PATIENT ? R.SPECIALIST : R.PATIENT;
     this.userMode.set(newMode);
   }
@@ -121,5 +127,30 @@ export class RegisterFormComponent {
         };
 
     console.log('Registrando usuario:', data);
+  }
+
+  // Specialty and Availability Modals
+  readonly showSpecialtyModal: WritableSignal<boolean> = signal(false);
+  readonly showAvailabilityModal: WritableSignal<boolean> = signal(false);
+
+  // Open Modal
+  openModal(modalToShow: WritableSignal<boolean>): void {
+    modalToShow.set(true);
+  }
+
+  // Close both Modals
+  closeModals(): void {
+    this.showSpecialtyModal.set(false);
+    this.showAvailabilityModal.set(false);
+  }
+
+  onSpecialtiesSelected(specialties: Specialty[]): void {
+    this.form.get('specialties')?.setValue(specialties);
+    this.closeModals();
+  }
+  
+  onAvailabilitySelected(availability: Availability[]): void {
+    this.form.get('availability')?.setValue(availability);
+    this.closeModals();
   }
 }

@@ -1,0 +1,46 @@
+<div class="relative ml-2 flex flex-col flex-wrap p-4 overflow-hidden">
+  <!-- Close icon -->
+  <div class="cursor-pointer absolute top-5 right-7 text-black hover:text-black/60 transition">
+    <app-close-icon size="40"></app-close-icon>
+  </div>
+
+  <!-- Title and description -->
+  <h2 class="text-xl font-semibold">Selector de Especialidades</h2>
+  <p class="">Podés seleccionar una o más especialidades y usar la barra de búsqueda.</p>
+
+  <!-- Specialties cards -->
+  <div class="flex flex-wrap items-center justify-center mt-3
+   gap-4 py-5 rounded border border-va-third/20 shadow max-h-72 overflow-y-auto">
+    @for (specialty of specialties; track $index) {
+      <div (click)="toggleSelected(specialty)"
+      [class.selected]="selectedString.includes(specialty)"
+      class="select-none cursor-pointer flex flex-col flex-wrap
+       items-center justify-center outline outline-lightblue-primary
+       p-3 w-specialty-width  rounded
+       overflow-hidden bg-lightblue-primary text-va-primary text-lg font-medium
+      active:bg-lightblue-third/10 transition-colors">
+        <h3>{{specialty}}</h3>
+      </div>
+    }
+  </div>
+
+  <!-- Information -->
+  <p class="mt-2 ml-6 font-medium">
+    <span>{{ selectedString.length }}
+      especialidades seleccionadas
+    </span> 
+  </p>
+
+  <!-- Buttons -->
+  <div class="flex flex-wrap mr-10 gap-2 justify-end items-center">
+    <button class="cursor-pointer font-medium rounded
+      py-3 px-6 hover:bg-gray-200 active:bg-gray-300 transition duration-300">
+      Salir sin guardar
+    </button>
+    <button class="cursor-pointer font-medium
+     text-white py-3 px-6 rounded
+     bg-va-primary hover:bg-va-third active:bg-va-third/90 duration-300 transition">
+      Guardar cambios
+    </button>
+  </div>
+</div>
