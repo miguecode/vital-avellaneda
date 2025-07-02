@@ -2,6 +2,7 @@ import {
   ChangeDetectionStrategy,
   Component,
   computed,
+  inject,
   Signal,
   signal,
   WritableSignal,
@@ -142,13 +143,20 @@ export class RegisterFormComponent {
   closeModals(): void {
     this.showSpecialtyModal.set(false);
     this.showAvailabilityModal.set(false);
+
+    console.log(this.form.get('specialties')?.value);
   }
 
+  // Get selected specialties
   onSpecialtiesSelected(specialties: Specialty[]): void {
-    this.form.get('specialties')?.setValue(specialties);
+    this.form.get('specialties')?.setValue([...specialties]);
     this.closeModals();
+    console.log('Especialidades seleccionadas y guardadas en el form: ', specialties);
+    console.log('nazi');
+    console.log(this.form.get('specialties')?.value);
   }
-  
+
+  // Get selected avaliability
   onAvailabilitySelected(availability: Availability[]): void {
     this.form.get('availability')?.setValue(availability);
     this.closeModals();

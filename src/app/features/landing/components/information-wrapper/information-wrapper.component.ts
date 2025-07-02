@@ -4,7 +4,7 @@ import {
   EmailIconComponent,
   PhoneIconComponent,
   LocationIconComponent,
-} from '../../../../icons';
+} from '../../../../shared/icons';
 
 @Component({
   selector: 'app-information-wrapper',

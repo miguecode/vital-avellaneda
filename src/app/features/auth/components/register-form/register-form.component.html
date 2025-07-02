@@ -176,7 +176,7 @@
       <!-- Selector Modals -->
       @if (showSpecialtyModal()) {
         <app-specialty-selector
-          [selected]="form.get('specialties')?.value"
+          [lastSelected]="form.get('specialties')?.value"
           (confirm)="onSpecialtiesSelected($event)"
           (cancel)="closeModals()"
           class="absolute top-0 left-0 w-full h-full z-20

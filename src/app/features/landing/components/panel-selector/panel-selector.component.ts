@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { LoginIconComponent } from '../../../../icons';
+import { LoginIconComponent } from '../../../../shared/icons';
 
 @Component({
   selector: 'app-panel-selector',

@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { UserIconComponent } from "../../../icons/user-icon.component";
+import { UserIconComponent } from "../../icons/user-icon.component";
 
 interface NavbarContent {
   navItems: Array<{

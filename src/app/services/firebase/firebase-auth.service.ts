@@ -7,7 +7,6 @@ import {
   onAuthStateChanged,
   User as FirebaseUser,
 } from '@angular/fire/auth';
-
 import { AuthRepository } from '../../core/interfaces/auth.repository';
 import { UserBase } from '../../core/models';
 import { UserStatus, UserRoles, Sex } from '../../core/enums/';
