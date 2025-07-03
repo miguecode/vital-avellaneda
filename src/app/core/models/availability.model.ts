@@ -14,4 +14,11 @@ export type WeekDay =
   | 'wednesday'
   | 'thursday'
   | 'friday'
-  | 'saturday';
+  | 'saturday'
+  | 'sunday'
+  | 'unknown';
+
+export interface AvailabilityPreset {
+  name: string;
+  value: Availability[];
+}

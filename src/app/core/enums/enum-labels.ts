@@ -1,7 +1,7 @@
 import { BloodTypes, HealthInsurances, Sex } from './index';
 
 // Health Insurance
-export const HEALTH_INSURANCE_LABELS = new Map<HealthInsurances, string>([
+export const HEALTH_INSURANCE_LABELS = new Map<string, string>([
   [HealthInsurances.OSDE, 'OSDE'],
   [HealthInsurances.SWISS_MEDICAL, 'Swiss Medical'],
   [HealthInsurances.GALENO, 'Galeno'],

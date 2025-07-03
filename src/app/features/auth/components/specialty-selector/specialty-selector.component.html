@@ -9,29 +9,34 @@
 
   <!-- Title and description -->
   <h2 class="text-xl font-semibold">Selector de Especialidades</h2>
-  <p class="">Podés seleccionar una o más especialidades y usar la barra de búsqueda.</p>
+  <p>Podés seleccionar una o más especialidades y usar la barra de búsqueda.</p>
 
   <!-- Specialties cards -->
   <div class="flex flex-wrap items-center justify-center mt-3
    gap-4 py-5 rounded border border-va-third/20 shadow max-h-72 overflow-y-auto">
 
-
-
-
-    @for (specialty of specialties(); track $index) {
-      <div (click)="toggleSelected(specialty)"
-      [class.selected]="isSelected(specialty)"
-      class="select-none cursor-pointer flex flex-col flex-wrap
-       items-center justify-center outline outline-lightblue-primary
-       p-3 w-specialty-width  rounded
-       overflow-hidden bg-lightblue-primary text-va-primary text-lg font-medium
-      active:bg-lightblue-third/10 transition-colors">
-        <h3>{{specialty.name}}</h3>
-      </div>
-    }
-
-    
-
+    @defer (when specialties().length > 0) {
+      @for (specialty of specialties(); track $index) {
+        <div (click)="toggleSelected(specialty)"
+        [class.selected]="isSelected(specialty)"
+        class="select-none cursor-pointer flex flex-col flex-wrap
+         items-center justify-center outline outline-lightblue-primary
+         p-3 w-specialty-width rounded
+         overflow-hidden bg-lightblue-primary text-va-primary text-lg font-medium
+        active:bg-lightblue-third/10 transition-colors">
+          <h3>{{specialty.name}}</h3>
+        </div>
+      }
+        <!-- Loading not working at all -->
+        <!-- } @loading (minimum 1.5s) { 
+          @for (i of [1, 2, 3, 4, 5, 6, 7, 8]; track $index) {
+            <div class="w-specialty-width h-20 bg-lightblue-primary animate-pulse rounded"></div>
+          } -->
+      } @placeholder (minimum 1.8s) {
+        @for (i of [1, 2, 3, 4, 5, 6, 7, 8]; track $index) {
+          <div class="w-specialty-width h-16 bg-lightblue-secondary animate-pulse rounded"></div>
+        }
+      }
   </div>
 
   <!-- Information -->

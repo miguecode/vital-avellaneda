@@ -2,7 +2,6 @@ import {
   ChangeDetectionStrategy,
   Component,
   computed,
-  inject,
   Signal,
   signal,
   WritableSignal,
@@ -14,6 +13,7 @@ import {
   ReactiveFormsModule,
   FormsModule,
 } from '@angular/forms';
+import { Availability, Specialty } from '../../../../core/models';
 import {
   UserRoles as R,
   UserStatus,
@@ -26,12 +26,15 @@ import {
   SEX_LABELS,
   HEALTH_INSURANCE_LABELS,
 } from '../../../../core/enums/enum-labels';
+import {
+  AVAILABILITY_PRESETS,
+  AVAILABILITY_PRESETS_LABELS,
+  AVAILABILITY_PRESETS_OPTIONS,
+} from '../../../../core/constants/availability-presets';
 
 import { InputCustomComponent } from '../input-custom/input-custom.component';
 import { SelectCustomComponent } from '../select-custom/select-custom.component';
-import { SpecialtySelectorComponent } from "../specialty-selector/specialty-selector.component";
-import { AvailabilitySelectorComponent } from "../availability-selector/availability-selector.component";
-import { Availability, Specialty } from '../../../../core/models';
+import { SpecialtySelectorComponent } from '../specialty-selector/specialty-selector.component';
 
 // User mode to toggle forms
 type UserMode = R.PATIENT | R.SPECIALIST;
@@ -44,8 +47,7 @@ type UserMode = R.PATIENT | R.SPECIALIST;
     InputCustomComponent,
     SelectCustomComponent,
     SpecialtySelectorComponent,
-    AvailabilitySelectorComponent
-],
+  ],
   templateUrl: './register-form.component.html',
   styleUrl: './register-form.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -59,6 +61,11 @@ export class RegisterFormComponent {
   readonly bloodTypeLabels = BLOOD_TYPE_LABELS;
   readonly sexLabels = SEX_LABELS;
   readonly healthInsuranceLabels = HEALTH_INSURANCE_LABELS;
+
+  // Options and Labels for availability presets
+  readonly availabilityPresets = AVAILABILITY_PRESETS;
+  readonly availabilityOptions = AVAILABILITY_PRESETS_OPTIONS;
+  readonly availabilityLabels = AVAILABILITY_PRESETS_LABELS;
 
   // Signal for Current mode (Patient or Specialist)
   readonly userMode: WritableSignal<UserMode> = signal<UserMode>(R.PATIENT);
@@ -83,7 +90,7 @@ export class RegisterFormComponent {
       lastName: ['', Validators.required],
       dni: ['', Validators.required],
       sex: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]],
+      email: ['', Validators.required, Validators.email],
       password: ['', Validators.required],
       birthDate: ['', Validators.required],
       phone: [''],
@@ -102,7 +109,8 @@ export class RegisterFormComponent {
 
   // If the user mode is Patient, change to Specialist, and vice versa
   toggleMode(): void {
-    if (this.showSpecialtyModal() || this.showAvailabilityModal()) this.closeModals();
+    if (this.showSpecialtyModal() || this.showAvailabilityModal())
+      this.closeModals();
     const newMode = this.userMode() === R.PATIENT ? R.SPECIALIST : R.PATIENT;
     this.userMode.set(newMode);
   }
@@ -143,20 +151,15 @@ export class RegisterFormComponent {
   closeModals(): void {
     this.showSpecialtyModal.set(false);
     this.showAvailabilityModal.set(false);
-
-    console.log(this.form.get('specialties')?.value);
   }
 
   // Get selected specialties
   onSpecialtiesSelected(specialties: Specialty[]): void {
     this.form.get('specialties')?.setValue([...specialties]);
     this.closeModals();
-    console.log('Especialidades seleccionadas y guardadas en el form: ', specialties);
-    console.log('nazi');
-    console.log(this.form.get('specialties')?.value);
   }
 
-  // Get selected avaliability
+  // Get selected availability
   onAvailabilitySelected(availability: Availability[]): void {
     this.form.get('availability')?.setValue(availability);
     this.closeModals();
