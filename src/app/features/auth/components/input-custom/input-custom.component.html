@@ -1,7 +1,9 @@
-<div class="w-full">
-  <label class="text-va-primary font-medium">
-    {{ label }}
+<div class="w-full relative">
+  <label 
+    [class.error-label]="showErrors && errorMessages.length > 0"
+    class="text-va-primary font-medium">{{ label }}
   </label>
+
   <input
     [type]="type"
     [placeholder]="placeholder"
@@ -12,7 +14,18 @@
     [min]="min"
     [max]="max"
     (input)="handleInput($event)"
+    [class.error-input]="showErrors && errorMessages.length > 0"
     class="w-full bg-white border border-va-third py-2 pl-2 rounded
      placeholder:text-gray-500 placeholder:text-sm focus:outline focus:shadow-va-third shadow"
   />
+
+  @if (showErrors && errorMessages.length > 0) {
+    <ul class="absolute -bottom-7 p-0.5 bg-red-primary w-full rounded">
+      <li class="flex flex-wrap justify-start items-center
+      text-sm text-red-secondary font-medium pl-1 gap-1">
+        <app-error-icon size="18"></app-error-icon>
+        {{ errorMessages[0] }}
+      </li>
+    </ul>
+  }
 </div>

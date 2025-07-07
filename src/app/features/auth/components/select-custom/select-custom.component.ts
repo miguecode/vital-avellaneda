@@ -2,13 +2,14 @@ import {
   ChangeDetectionStrategy,
   Component,
   Input,
-  forwardRef,
   signal,
+  Optional,
+  Self,
 } from '@angular/core';
 import {
   ControlValueAccessor,
-  NG_VALUE_ACCESSOR,
   ReactiveFormsModule,
+  NgControl,
 } from '@angular/forms';
 
 @Component({
@@ -17,13 +18,7 @@ import {
   templateUrl: './select-custom.component.html',
   styleUrl: './select-custom.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [
-    {
-      provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => SelectCustomComponent),
-      multi: true,
-    },
-  ],
+
 })
 export class SelectCustomComponent implements ControlValueAccessor {
   @Input() options: string[] = [];
@@ -33,6 +28,15 @@ export class SelectCustomComponent implements ControlValueAccessor {
 
   value = signal('');
   isDisabled = false;
+  control: NgControl | null = null;
+
+  constructor(@Optional() @Self() private ngControl: NgControl) {
+    if (this.ngControl) this.ngControl.valueAccessor = this;
+  }
+
+  ngOnInit(): void {
+    this.control = this.ngControl;
+  }
 
   // Control Value Accessor
   onChange = (_: any) => {};
@@ -59,5 +63,16 @@ export class SelectCustomComponent implements ControlValueAccessor {
     this.value.set(selectedValue);
     this.onChange(selectedValue);
     this.onTouched();
+  }
+
+  get showErrors(): boolean {
+    return !!(this.control?.control?.invalid && (this.control?.control?.touched || this.control?.control?.dirty));
+  }
+
+  get errorMessage(): string | null {
+    const errors = this.control?.control?.errors;
+    if (!errors) return null;
+    if (errors['required']) return 'Este campo es obligatorio.';
+    return null;
   }
 }

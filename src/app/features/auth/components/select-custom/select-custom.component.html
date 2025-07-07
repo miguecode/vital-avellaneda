@@ -14,4 +14,10 @@
     </option>
     }
   </select>
+
+  @if (showErrors && errorMessage) {
+    <ul class="absolute -bottom-5 text-sm text-red-700">
+      <li>❌ {{ errorMessage }}</li>
+    </ul>
+  }
 </div>

@@ -19,6 +19,9 @@
   --color-lightblue-primary: #F5F9FF;
   --color-lightblue-secondary: #deebff;
   --color-lightblue-third: #6292FA;
+  --color-red-primary: #291D21;
+  --color-red-secondary: #FA99A4;
+
 
   /* Spacing */
   --spacing-main-carousel: 35rem;
@@ -39,7 +42,13 @@ html, body {
     BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell,
     "Open Sans", "Helvetica FNeue";
 }
-
 html {
   scroll-behavior: smooth;
+}
+
+/* Class for error message in forms */
+.error-input {
+  border-color: #9c254d ;
+  outline-color: #9c254d;
+  @apply focus:shadow-red-primary;
 }

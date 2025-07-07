@@ -1,4 +1,4 @@
-<div class="relative ml-2 flex flex-col flex-wrap p-4 overflow-hidden">
+<div class="relative pl-4 flex flex-col flex-wrap p-4 overflow-hidden h-full">
   <!-- Close icon -->
   <div 
   (click)="exit()"
@@ -9,7 +9,7 @@
 
   <!-- Title and description -->
   <h2 class="text-xl font-semibold">Selector de Especialidades</h2>
-  <p>Podés seleccionar una o más especialidades y usar la barra de búsqueda.</p>
+  <p>Podés seleccionar una o más especialidades.</p>
 
   <!-- Specialties cards -->
   <div class="flex flex-wrap items-center justify-center mt-3
@@ -40,14 +40,15 @@
   </div>
 
   <!-- Information -->
-  <p class="mt-2 ml-6 font-medium">
-    <span>{{ selectedSpecialties().length }}
+  <div class="flex flex-wrap justify-start mt-2 items-center">
+    <p class="pl-6 font-medium">
+      {{ selectedSpecialties().length }}
       especialidades seleccionadas
-    </span> 
-  </p>
+    </p>
+  </div>
 
   <!-- Buttons -->
-  <div class="flex flex-wrap mr-10 gap-2 justify-end items-center">
+  <div class="absolute bottom-5 right-9 flex flex-wrap justify-center items-center">
     <button 
     (click)="exit()"
     class="cursor-pointer font-medium rounded
