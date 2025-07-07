@@ -59,7 +59,6 @@ export const AVAILABILITY_PRESETS: AvailabilityPreset[] = [
   },
 ];
 
-
 export const AVAILABILITY_PRESETS_OPTIONS = AVAILABILITY_PRESETS.map(p => p.name);
 
 export const AVAILABILITY_PRESETS_LABELS = new Map<AvailabilityPreset['name'], string>([

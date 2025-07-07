@@ -238,6 +238,13 @@ export class RegisterFormComponent {
       ...rest
     } = formData;
 
+    // Map availability string to real object
+    let mappedAvailability = availability;
+    if (typeof availability === 'string' && availability) {
+      const preset = this.availabilityPresets.find(p => p.name === availability);
+      mappedAvailability = preset ? preset.value : [];
+    }
+
     return {
       firstName,
       lastName,
@@ -248,7 +255,7 @@ export class RegisterFormComponent {
       birthDate,
       phone,
       specialties,
-      availability,
+      availability: mappedAvailability,
       // Other fields (not patient)
       ...rest,
     };
