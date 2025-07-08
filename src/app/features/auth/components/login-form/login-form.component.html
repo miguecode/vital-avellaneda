@@ -1,0 +1,89 @@
+<div class="p-6 bg-lightblue-primary rounded
+ border border-va-third/20 shadow">
+  <!-- Title, description and Register link -->
+  <div class="ml-3">
+    <h2 class="text-va-primary text-3xl font-semibold">Iniciar Sesión</h2>
+    <p class="mb-4 text-lg">
+      Este es el formulario para iniciar sesión. ¿Sos nuevo?
+      <button
+        routerLink="/register"
+        class="cursor-pointer p-1 font-semibold text-va-third hover:underline hover:underline-offset-2"
+      >
+        Registrate haciendo clic acá.
+      </button>
+    </p>
+  </div>
+
+  <!-- Form -->
+  <div class="relative flex flex-wrap">
+    <form
+      [formGroup]="form"
+      (ngSubmit)="onSubmit()"
+      class="flex flex-wrap w-1/2 justify-center"
+    >
+      <!-- Input Group -->
+      <div class="flex flex-col gap-4 p-2 w-2/3 h-56">
+      <app-input-custom
+        type="email"
+        formControlName="email"
+        label="Correo electrónico"
+        placeholder="Ejemplo@gmail.com"
+        autocomplete="email"
+        [noShowErrors]="true"
+      />
+      <app-input-custom
+        type="password"
+        formControlName="password"
+        label="Contraseña"
+        placeholder="Contraseña"
+        [noShowErrors]="true"
+      />
+
+      <!-- Error Text -->
+      @if (submitted && loginError()) {
+        <div class="flex justify-start items-center gap-1 p-2
+        bg-red-primary rounded text-red-secondary text-pretty">
+        <app-error-icon size="20"></app-error-icon>
+          {{ loginError() }}
+        </div>
+      <!-- Information Text -->
+      } @else {
+        <div class="flex justify-start items-center gap-1 p-2
+        bg-va-primary rounded text-lightblue-primary text-pretty">
+        <app-info-icon size="20"></app-info-icon>
+          Completa ambos campos para ingresar.
+        </div>
+      }
+    </div>
+        
+      <!-- <p class="text-xs mt-2">
+        Form valid: {{ form.valid }} |
+        Email: {{ form.get('email')?.value }} |
+        Password: {{ form.get('password')?.value }}
+      </p> -->
+
+      <!-- Register Button -->
+      <div class="w-full flex justify-center mt-6">
+        <button
+          [disabled]="form.invalid"
+          type="submit"
+          class="cursor-pointer px-16 py-3 text-white text-lg rounded
+            font-medium bg-va-primary hover:bg-va-third active:bg-va-third/90
+            transition duration-300 shadow-md disabled:bg-va-primary/50
+            disabled:shadow-none disabled:cursor-auto"
+        >
+          Ingresar
+        </button>
+      </div>
+    </form>
+    <div
+      class="flex w-1/2 rounded border border-va-third/20 shadow bg-cover bg-center"
+      [ngStyle]="{
+        'background-image':
+          'linear-gradient(90deg, rgba(1, 21, 58, 0.5), rgba(0, 36, 104, 0.7)), url(' +
+          srcImage +
+          ')'
+      }"
+    ></div>
+  </div>
+</div>

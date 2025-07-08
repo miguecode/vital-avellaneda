@@ -17,8 +17,9 @@ import { UserStatus, UserRoles, Sex } from '../../core/enums/';
 export class FirebaseAuthService implements AuthRepository {
   private auth: Auth = inject(Auth);
 
-  async register(email: string, password: string): Promise<void> {
-    await createUserWithEmailAndPassword(this.auth, email, password);
+  async register(email: string, password: string): Promise<string> {
+    const userCredential = await createUserWithEmailAndPassword(this.auth, email, password);
+    return userCredential.user.uid;
   }
 
   async login(email: string, password: string): Promise<void> {

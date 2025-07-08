@@ -1,9 +1,10 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { LoginIconComponent } from '../../../../shared/icons';
 
 @Component({
   selector: 'app-panel-selector',
-  imports: [LoginIconComponent],
+  imports: [LoginIconComponent, RouterLink],
   templateUrl: './panel-selector.component.html',
   styleUrl: './panel-selector.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,

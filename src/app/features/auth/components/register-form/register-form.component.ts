@@ -2,6 +2,7 @@ import {
   ChangeDetectionStrategy,
   Component,
   computed,
+  inject,
   Signal,
   signal,
   WritableSignal,
@@ -36,6 +37,8 @@ import { InputCustomComponent } from '../input-custom/input-custom.component';
 import { SelectCustomComponent } from '../select-custom/select-custom.component';
 import { SpecialtySelectorComponent } from '../specialty-selector/specialty-selector.component';
 import { CustomValidators } from '../../../../core/validators/custom-validators';
+import { AuthFacade } from '../../auth.facade';
+import { UserFacade } from '../../user.facade';
 
 // User mode to toggle forms
 type UserMode = R.PATIENT | R.SPECIALIST;
@@ -55,6 +58,9 @@ type UserMode = R.PATIENT | R.SPECIALIST;
   host: { class: 'block h-full w-full' },
 })
 export class RegisterFormComponent {
+  private readonly authFacade = inject(AuthFacade);
+  private readonly userFacade = inject(UserFacade);
+
   // Options and Labels for enums properties
   readonly bloodTypeOptions = Object.values(BloodTypes);
   readonly sexOptions = Object.values(Sex);
@@ -68,6 +74,10 @@ export class RegisterFormComponent {
   readonly availabilityOptions = AVAILABILITY_PRESETS_OPTIONS;
   readonly availabilityLabels = AVAILABILITY_PRESETS_LABELS;
 
+  // Birth date limits
+  readonly maxBirthDate: string;
+  readonly minBirthDate: string;
+
   // Signal for Current mode (Patient or Specialist)
   readonly userMode: WritableSignal<UserMode> = signal<UserMode>(R.PATIENT);
 
@@ -76,23 +86,19 @@ export class RegisterFormComponent {
     () => this.userMode() === R.SPECIALIST
   );
 
-  // Birth date limits
-  readonly minBirthDate: string = new Date(
-    new Date().setFullYear(new Date().getFullYear() - 18)
-  )
-    .toISOString()
-    .split('T')[0];
-  readonly maxBirthDate: string = new Date(
-    new Date().setFullYear(new Date().getFullYear() - 150)
-  )
-    .toISOString()
-    .split('T')[0];
-
   // Main Form
   readonly form: FormGroup;
 
   // Create form
   constructor(private fb: FormBuilder) {
+    // Birth date limits logic
+    const maxDate = new Date();
+    const minDate = new Date();
+    maxDate.setFullYear(maxDate.getFullYear() - 18);
+    minDate.setFullYear(minDate.getFullYear() - 150);
+    this.maxBirthDate = maxDate.toISOString().split('T')[0];
+    this.minBirthDate = minDate.toISOString().split('T')[0];
+
     this.form = this.createForm();
     this.updateModeValidators();
   }
@@ -188,31 +194,40 @@ export class RegisterFormComponent {
   }
 
   // Submit action
-  onSubmit(): void {
+  async onSubmit(): Promise<void> {
     if (this.form.invalid) return;
 
     const formData = this.form.value;
-    let submitData = {};
+    const email = formData.email;
+    const password = formData.password;
 
-    if (this.isSpecialist()) {
-      // Clean data for specialist: remove patient fields
-      submitData = {
-        ...this.getSpecialistData(formData),
-        rol: R.SPECIALIST,
-        registrationDate: new Date(),
-        status: UserStatus.ACTIVE,
-      };
-    } else {
-      // Clean data for patient: remove specialist fields
-      submitData = {
-        ...this.getPatientData(formData),
-        rol: R.PATIENT,
-        registrationDate: new Date(),
-        status: UserStatus.ACTIVE,
-      };
+    try {
+      const userUid = await this.authFacade.register(email, password);
+      const submitData = this.isSpecialist()
+        ? {
+            // Clean data for specialist: remove patient fields
+            ...this.getSpecialistData(formData),
+            id: userUid,
+            rol: R.SPECIALIST,
+            registrationDate: new Date(),
+            status: UserStatus.ACTIVE,
+          }
+        : {
+            // Clean data for patient: remove specialist fields
+            ...this.getPatientData(formData),
+            id: userUid,
+            rol: R.PATIENT,
+            registrationDate: new Date(),
+            status: UserStatus.ACTIVE,
+          };
+
+      console.log('Form data:', formData);
+      console.log('Data to submit:', submitData);
+      this.userFacade.createUser(submitData);
+      console.log('User successfull created');
+    } catch (error) {
+      console.error('Register error', error);
     }
-
-    console.log('Registrando usuario:', submitData);
   }
 
   // Get only the relevant data for a specialist
@@ -224,7 +239,6 @@ export class RegisterFormComponent {
       dni,
       sex,
       email,
-      password,
       birthDate,
       phone,
       // Specialist fields
@@ -241,7 +255,9 @@ export class RegisterFormComponent {
     // Map availability string to real object
     let mappedAvailability = availability;
     if (typeof availability === 'string' && availability) {
-      const preset = this.availabilityPresets.find(p => p.name === availability);
+      const preset = this.availabilityPresets.find(
+        (p) => p.name === availability
+      );
       mappedAvailability = preset ? preset.value : [];
     }
 
@@ -251,7 +267,6 @@ export class RegisterFormComponent {
       dni,
       sex,
       email,
-      password,
       birthDate,
       phone,
       specialties,
@@ -270,7 +285,6 @@ export class RegisterFormComponent {
       dni,
       sex,
       email,
-      password,
       birthDate,
       phone,
       // Patient fields
@@ -290,7 +304,6 @@ export class RegisterFormComponent {
       dni,
       sex,
       email,
-      password,
       birthDate,
       phone,
       healthInsurance,

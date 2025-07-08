@@ -25,10 +25,12 @@ export class InputCustomComponent implements ControlValueAccessor, OnInit {
   @Input() label: string = 'Campo';
   @Input() type: string = 'text';
   @Input() placeholder: string = '';
+  @Input() autocomplete: string = 'off';
   @Input() minlength?: number;
   @Input() maxlength?: number;
   @Input() min?: number | string;
   @Input() max?: number | string;
+  @Input() noShowErrors?: boolean = false;
 
   value: any = '';
   isDisabled = false;
@@ -91,6 +93,9 @@ export class InputCustomComponent implements ControlValueAccessor, OnInit {
   }
 
   get showErrors(): boolean {
-    return !!(this.control?.control?.invalid && (this.control?.control?.touched || this.control?.control?.dirty));
+    if (this.noShowErrors) return false;
+    const control = this.control?.control;
+    if (!control || !control.errors) return false;
+    return control.touched || control.dirty;
   }
 }

@@ -64,7 +64,8 @@ export class AuthFacade {
       const user = await this.authService.getCurrentUser();
       this._user.set(user);
     } catch (error: any) {
-      this._error.set(error.message || 'Login failed');
+      const errorMessage = this.getLoginErrorMessage(error);
+      this._error.set(errorMessage || 'Error del servidor. Intenta más tarde.');
       this._user.set(null);
     } finally {
       this._loading.set(false);
@@ -77,14 +78,15 @@ export class AuthFacade {
    * @param password - User's password
    * @returns Promise<void>
    */
-  async register(email: string, password: string): Promise<void> {
+  async register(email: string, password: string): Promise<void | string> {
     this._loading.set(true);
     this._error.set(null);
 
     try {
-      await this.authService.register(email, password);
+      const uid = await this.authService.register(email, password);
       const user = await this.authService.getCurrentUser();
       this._user.set(user);
+      return uid;
     } catch (error: any) {
       this._error.set(error.message || 'Registration failed');
     } finally {
@@ -107,6 +109,31 @@ export class AuthFacade {
       this._error.set(error.message || 'Logout failed');
     } finally {
       this._loading.set(false);
+    }
+  }
+
+  /*
+  * Maps authentication error codes to user-friendly error messages.
+  * @param error - The error object containing the error code.
+  * @returns A user-friendly error message based on the error code.
+  */
+  private getLoginErrorMessage(error: any): string {
+    const code = error?.code;
+  
+    switch (code) {
+      case 'auth/user-not-found':
+      case 'auth/wrong-password':
+      case 'auth/invalid-credential':
+        return 'Correo o contraseña incorrectos.';
+  
+      case 'auth/too-many-requests':
+        return 'Demasiados intentos fallidos. Intenta más tarde.';
+  
+      case 'auth/invalid-email':
+        return 'Correo electrónico inválido.';
+  
+      default:
+        return 'Error al iniciar sesión. Intenta nuevamente.';
     }
   }
 }

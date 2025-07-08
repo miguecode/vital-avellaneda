@@ -40,6 +40,7 @@
           formControlName="firstName"
           label="Nombre"
           placeholder="Nombre (2-30 caracteres)"
+          autocomplete="given-name"
           [minlength]="2"
           [maxlength]="30"
         />
@@ -48,6 +49,7 @@
           formControlName="lastName"
           label="Apellido"
           placeholder="Apellido (2-30 caracteres)"
+          autocomplete="family-name"
           [minlength]="2"
           [maxlength]="30"
         />
@@ -56,6 +58,7 @@
           formControlName="dni"
           label="DNI"
           placeholder="12345678"
+          autocomplete="off"
           [minlength]="7"
           [maxlength]="9"
         />
@@ -78,6 +81,7 @@
           [maxlength]="50"
           label="Correo electrónico"
           placeholder="Ejemplo@gmail.com"
+          autocomplete="email"
         />
         <app-input-custom
           type="password"
@@ -92,6 +96,7 @@
           formControlName="birthDate"
           label="Fecha de nacimiento"
           placeholder="Fecha de nacimiento"
+          autocomplete="bday"
           [min]="minBirthDate"
           [max]="maxBirthDate"
         />
@@ -99,9 +104,10 @@
           type="text"
           formControlName="phone"
           label="Número de Teléfono (opcional)"
+          placeholder="Número (8-15 dígitos)"
+          autocomplete="tel"
           [minlength]="8"
           [maxlength]="15"
-          placeholder="Número (8-15 dígitos)"
         />
       </div>
 
@@ -130,6 +136,7 @@
           formControlName="height"
           label="Altura en centímetros (opcional)"
           placeholder="100-250 cm."
+          autocomplete="off"
           [min]="100"
           [max]="250"
         />
@@ -139,6 +146,7 @@
           formControlName="weight"
           label="Peso en kilogramos (opcional)"
           placeholder="100-250 kg."
+          autocomplete="off"
           [min]="30"
           [max]="250"
         />

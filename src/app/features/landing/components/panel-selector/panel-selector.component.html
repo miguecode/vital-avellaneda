@@ -3,8 +3,8 @@
    h-50 w-home-page hover:shadow-lightblue-primary hover:shadow-lg"
 >
   <a
-    href=""
-    class="flex flex-col text-3xl font-bold gap-1 text-white border
+    routerLink="/login"
+    class="flex flex-col text-3xl gap-1 text-white border
      border-blue-900 rounded shadow bg-va-primary hover:bg-va-third
      active:bg-va-third/90 transition duration-400 size-full"
   >
@@ -13,7 +13,7 @@
       <app-login-icon size="200"></app-login-icon>
     </div>
     <div>
-      <h2 class="pt-7 pl-12 text-3xl font-bold">{{ title }}</h2>
+      <h2 class="pt-7 pl-12 text-3xl text-white font-bold">{{ title }}</h2>
       <p class="pl-12 mt-5 text-xl font-normal text-white/90">
         Iniciá sesión o registrate como 
         <strong class="font-semibold">Paciente</strong> o 

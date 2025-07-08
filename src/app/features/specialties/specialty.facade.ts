@@ -7,8 +7,11 @@ import { SPECIALTY_REPOSITORY } from '../../core/interfaces/specialty.repository
 })
 export class SpecialtyFacade {
   private specialtyService = inject(SPECIALTY_REPOSITORY);
-
+  
+  // Private signals (source of truth)
   private _specialties = signal<Specialty[]>([]);
+
+  // Public signal (to communicate with others)
   readonly specialties = this._specialties.asReadonly();
 
   async loadSpecialties(): Promise<void> {
