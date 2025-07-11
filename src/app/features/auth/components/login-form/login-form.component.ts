@@ -8,10 +8,7 @@ import {
 } from '@angular/forms';
 import { InputCustomComponent } from '../input-custom/input-custom.component';
 import { NgStyle } from '@angular/common';
-import {
-  InfoIconComponent,
-  ErrorIconComponent,
-} from '../../../../shared/icons/';
+import { SvgIconComponent } from '../../../../shared/icons/svg-icon.component';
 import { RouterLink } from '@angular/router';
 import { AuthFacade } from '../../auth.facade';
 
@@ -23,8 +20,7 @@ import { AuthFacade } from '../../auth.facade';
     FormsModule,
     InputCustomComponent,
     NgStyle,
-    InfoIconComponent,
-    ErrorIconComponent,
+    SvgIconComponent,
   ],
   templateUrl: './login-form.component.html',
   styleUrl: './login-form.component.css',

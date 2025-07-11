@@ -1,10 +1,10 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { LoginIconComponent } from '../../../../shared/icons';
+import { SvgIconComponent } from '../../../../shared/icons/svg-icon.component';
 
 @Component({
   selector: 'app-panel-selector',
-  imports: [LoginIconComponent, RouterLink],
+  imports: [SvgIconComponent, RouterLink],
   templateUrl: './panel-selector.component.html',
   styleUrl: './panel-selector.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,

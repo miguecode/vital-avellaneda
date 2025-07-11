@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { UserIconComponent } from "../../icons/user-icon.component";
+import { SvgIconComponent } from "../../icons/svg-icon.component";
 
 interface NavbarContent {
   navItems: Array<{
@@ -11,7 +11,7 @@ interface NavbarContent {
 }
 @Component({
   selector: 'app-navbar',
-  imports: [RouterLink, UserIconComponent],
+  imports: [RouterLink, SvgIconComponent],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,

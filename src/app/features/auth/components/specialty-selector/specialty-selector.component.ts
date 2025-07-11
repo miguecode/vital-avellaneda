@@ -12,12 +12,12 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import { Specialty } from '../../../../core/models';
-import { CloseIconComponent } from '../../../../shared/icons/close-icon.component';
+import { SvgIconComponent } from '../../../../shared/icons/svg-icon.component';
 import { SpecialtyFacade } from '../../../specialties/specialty.facade';
 
 @Component({
   selector: 'app-specialty-selector',
-  imports: [CloseIconComponent],
+  imports: [SvgIconComponent],
   templateUrl: './specialty-selector.component.html',
   styleUrl: './specialty-selector.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,

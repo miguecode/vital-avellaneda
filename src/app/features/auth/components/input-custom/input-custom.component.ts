@@ -11,12 +11,12 @@ import {
   NgControl,
   ReactiveFormsModule,
 } from '@angular/forms';
-import { ErrorIconComponent } from "../../../../shared/icons/error-icon.component";
+import { SvgIconComponent } from "../../../../shared/icons/svg-icon.component";
 
 @Component({
   selector: 'app-input-custom',
   standalone: true,
-  imports: [ReactiveFormsModule, ErrorIconComponent],
+  imports: [ReactiveFormsModule, SvgIconComponent],
   templateUrl: './input-custom.component.html',
   styleUrl: './input-custom.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,

@@ -1,8 +1,9 @@
 export const APP_SHARED_INFO = {
   social: {
-    facebook: '',
-    instagram: '',
-    whatsapp: '',
+    facebook: 'https://facebook.com',
+    instagram: 'https://instagram.com',
+    twitter: 'https://x.com',
+    tiktok: 'https://tiktok.com',
   },
   contact: {
     phone: '(54-11) 4123-1234',

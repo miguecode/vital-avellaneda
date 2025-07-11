@@ -43,14 +43,14 @@
       @if (submitted && loginError()) {
         <div class="flex justify-start items-center gap-1 p-2
         bg-red-primary rounded text-red-secondary text-pretty">
-        <app-error-icon size="20"></app-error-icon>
+        <app-svg-icon icon="error" size="20px"></app-svg-icon>
           {{ loginError() }}
         </div>
       <!-- Information Text -->
       } @else {
         <div class="flex justify-start items-center gap-1 p-2
         bg-va-primary rounded text-lightblue-primary text-pretty">
-        <app-info-icon size="20"></app-info-icon>
+        <app-svg-icon icon="info" size="20px"></app-svg-icon>
           Completa ambos campos para ingresar.
         </div>
       }

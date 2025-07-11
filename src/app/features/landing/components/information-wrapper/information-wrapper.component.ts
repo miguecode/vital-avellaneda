@@ -1,19 +1,13 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { InformationCardComponent } from '../information-card/information-card.component';
-import {
-  EmailIconComponent,
-  PhoneIconComponent,
-  LocationIconComponent,
-} from '../../../../shared/icons';
+import { SvgIconComponent } from '../../../../shared/icons/svg-icon.component';
 import { APP_SHARED_INFO } from '../../../../core/config/app-info';
 
 @Component({
   selector: 'app-information-wrapper',
   imports: [
     InformationCardComponent,
-    EmailIconComponent,
-    PhoneIconComponent,
-    LocationIconComponent,
+    SvgIconComponent,
   ],
   templateUrl: './information-wrapper.component.html',
   styleUrl: './information-wrapper.component.css',
