@@ -27,4 +27,16 @@ export class UserFacade {
       this._saving.set(false);
     }
   }
+
+  async dniExists(dni: string): Promise<boolean> {
+    const exists = await this.userService.dniExists(dni);
+
+    if (exists) {
+      this._error.set('Ese DNI ya está registrado.');
+    } else {
+      this._error.set(null);
+    }
+
+    return exists;
+  }
 }

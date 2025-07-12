@@ -20,6 +20,7 @@
       [formGroup]="form"
       (ngSubmit)="onSubmit()"
       class="flex flex-wrap w-1/2 justify-center"
+      [class.pointer-events-none]="isFormDisabled()"
     >
       <!-- Input Group -->
       <div class="flex flex-col gap-4 p-2 w-2/3 h-56">
@@ -42,14 +43,14 @@
       <!-- Error Text -->
       @if (submitted && loginError()) {
         <div class="flex justify-start items-center gap-1 p-2
-        bg-red-primary rounded text-red-secondary text-pretty">
+        bg-red-primary rounded text-red-secondary text-medium text-pretty">
         <app-svg-icon icon="error" size="20px"></app-svg-icon>
           {{ loginError() }}
         </div>
       <!-- Information Text -->
       } @else {
         <div class="flex justify-start items-center gap-1 p-2
-        bg-va-primary rounded text-lightblue-primary text-pretty">
+        bg-va-primary rounded text-lightblue-primary text-medium text-pretty">
         <app-svg-icon icon="info" size="20px"></app-svg-icon>
           Completa ambos campos para ingresar.
         </div>
@@ -65,14 +66,21 @@
       <!-- Register Button -->
       <div class="w-full flex justify-center mt-6">
         <button
-          [disabled]="form.invalid"
+          [disabled]="form.invalid || isFormDisabled()"
           type="submit"
           class="cursor-pointer px-16 py-3 text-white text-lg rounded
             font-medium bg-va-primary hover:bg-va-third active:bg-va-third/90
             transition duration-300 shadow-md disabled:bg-va-primary/50
-            disabled:shadow-none disabled:cursor-auto"
+            disabled:shadow-none disabled:cursor-auto relative"
         >
-          Ingresar
+          @if (isLoading()) {
+            <div class="absolute inset-0 flex items-center justify-center">
+              <div class="animate-spin rounded-full h-6 w-6 border-b-2 border-white"></div>
+            </div>
+            <span class="opacity-0">Ingresar</span>
+          } @else {
+            Ingresar
+          }
         </button>
       </div>
     </form>

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject, Signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, Signal, computed, effect } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -32,12 +32,25 @@ export class LoginFormComponent {
 
   private readonly authFacade = inject(AuthFacade);
   readonly loginError: Signal<string | null> = this.authFacade.error;
+  readonly isLoading: Signal<boolean> = this.authFacade.isLoading;
+
+  // Computed for disable the form during the load
+  readonly isFormDisabled = computed(() => this.isLoading());
 
   // Main Form
   readonly form: FormGroup;
 
   constructor(private fb: FormBuilder) {
     this.form = this.createForm();
+    
+    // Effect to enable/disable form controls
+    effect(() => {
+      if (this.isFormDisabled()) {
+        this.form.disable();
+      } else {
+        this.form.enable();
+      }
+    });
   }
 
   private createForm(): FormGroup {

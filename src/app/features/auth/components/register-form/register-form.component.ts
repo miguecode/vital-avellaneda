@@ -6,6 +6,7 @@ import {
   Signal,
   signal,
   WritableSignal,
+  effect,
 } from '@angular/core';
 import {
   FormBuilder,
@@ -39,6 +40,8 @@ import { SpecialtySelectorComponent } from '../specialty-selector/specialty-sele
 import { CustomValidators } from '../../../../core/validators/custom-validators';
 import { AuthFacade } from '../../auth.facade';
 import { UserFacade } from '../../user.facade';
+import { SvgIconComponent } from '../../../../shared/icons/svg-icon.component';
+import { RouterLink } from '@angular/router';
 
 // User mode to toggle forms
 type UserMode = R.PATIENT | R.SPECIALIST;
@@ -51,7 +54,9 @@ type UserMode = R.PATIENT | R.SPECIALIST;
     InputCustomComponent,
     SelectCustomComponent,
     SpecialtySelectorComponent,
-  ],
+    SvgIconComponent,
+    RouterLink
+],
   templateUrl: './register-form.component.html',
   styleUrl: './register-form.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -80,6 +85,27 @@ export class RegisterFormComponent {
 
   // Signal for Current mode (Patient or Specialist)
   readonly userMode: WritableSignal<UserMode> = signal<UserMode>(R.PATIENT);
+
+  // Show errors - combines both facades
+  submitted = false;
+  get registerError(): string | null {
+    return this.userFacade.error() || this.authFacade.error();
+  }
+
+  // Loading state - combines both facades
+  readonly isLoading: Signal<boolean> = computed(() => 
+    this.authFacade.isLoading() || this.userFacade.isSaving()
+  );
+
+  // Watch loading state and disable/enable form controls
+  private readonly loadingWatcher = effect(() => {
+    const loading = this.isLoading();
+    if (loading) {
+      this.form.disable();
+    } else {
+      this.form.enable();
+    }
+  });
 
   // Signal to known if the current mode is specialist or not
   readonly isSpecialist: Signal<boolean> = computed(
@@ -200,9 +226,24 @@ export class RegisterFormComponent {
     const formData = this.form.value;
     const email = formData.email;
     const password = formData.password;
+    const dni = formData.dni;
 
     try {
+      // Validate if DNI already exists
+      const dniExists = await this.userFacade.dniExists(dni);
+      if (dniExists) {
+        this.submitted = true;
+        return;
+      }
+
       const userUid = await this.authFacade.register(email, password);
+      
+      // Check if registration was successful (userUid is not undefined)
+      if (!userUid) {
+        this.submitted = true;
+        return;
+      }
+
       const submitData = this.isSpecialist()
         ? {
             // Clean data for specialist: remove patient fields
@@ -221,12 +262,12 @@ export class RegisterFormComponent {
             status: UserStatus.ACTIVE,
           };
 
-      console.log('Form data:', formData);
       console.log('Data to submit:', submitData);
-      this.userFacade.createUser(submitData);
+      await this.userFacade.createUser(submitData);
       console.log('User successfull created');
     } catch (error) {
       console.error('Register error', error);
+      this.submitted = true;
     }
   }
 

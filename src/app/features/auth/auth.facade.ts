@@ -88,7 +88,8 @@ export class AuthFacade {
       this._user.set(user);
       return uid;
     } catch (error: any) {
-      this._error.set(error.message || 'Registration failed');
+      const errorMessage = this.getRegisterErrorMessage(error);
+      this._error.set(errorMessage || 'Error del servidor. Intenta más tarde.');
     } finally {
       this._loading.set(false);
     }
@@ -113,27 +114,47 @@ export class AuthFacade {
   }
 
   /*
-  * Maps authentication error codes to user-friendly error messages.
-  * @param error - The error object containing the error code.
-  * @returns A user-friendly error message based on the error code.
-  */
+   * Maps authentication error codes to user-friendly error messages.
+   * @param error - The error object containing the error code.
+   * @returns A user-friendly error message based on the error code.
+   */
   private getLoginErrorMessage(error: any): string {
     const code = error?.code;
-  
+
     switch (code) {
       case 'auth/user-not-found':
       case 'auth/wrong-password':
       case 'auth/invalid-credential':
         return 'Correo o contraseña incorrectos.';
-  
+
       case 'auth/too-many-requests':
         return 'Demasiados intentos fallidos. Intenta más tarde.';
-  
+
       case 'auth/invalid-email':
         return 'Correo electrónico inválido.';
-  
+
       default:
         return 'Error al iniciar sesión. Intenta nuevamente.';
+    }
+  }
+
+  /*
+   * Maps registration error codes to user-friendly error messages.
+   * @param error - The error object containing the error code.
+   * @returns A user-friendly error message based on the error code.
+   */
+  private getRegisterErrorMessage(error: any): string {
+    const code = error?.code;
+
+    switch (code) {
+      case 'auth/email-already-in-use':
+        return 'Ese correo ya está registrado.';
+      case 'auth/invalid-email':
+        return 'Correo electrónico inválido.';
+      case 'auth/weak-password':
+        return 'La contraseña es muy débil. Usá una más segura.';
+      default:
+        return 'No se pudo crear la cuenta. Intenta más tarde.';
     }
   }
 }

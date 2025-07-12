@@ -23,7 +23,6 @@
   --color-red-primary: #291D21;
   --color-red-secondary: #FA99A4;
 
-
   /* Spacing */
   --spacing-main-carousel: 35rem;
   --spacing-home-page: 75rem;
@@ -32,6 +31,7 @@
   --spacing-input-group: 32%;
   --spacing-select-height: 2.64rem;
   --spacing-specialty-width: 15rem;
+  --spacing-register-form: 41.5rem;
 
   /* Font Sizes */
   --text-main-button: 1.4rem;
