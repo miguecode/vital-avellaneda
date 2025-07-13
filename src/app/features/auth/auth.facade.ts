@@ -1,6 +1,8 @@
 import { Injectable, computed, inject, signal } from '@angular/core';
+import { Router } from '@angular/router';
 import { AUTH_REPOSITORY } from '../../core/interfaces/auth.repository.token';
 import { UserBase } from '../../core/models';
+import { UserRoles } from '../../core/enums';
 
 @Injectable({
   providedIn: 'root',
@@ -11,16 +13,19 @@ export class AuthFacade {
 
   // Using the AUTH_REPOSITORY token to inject the AuthRepository implementation
   private authService = inject(AUTH_REPOSITORY);
+  private router = inject(Router);
 
   // Reactive state with signals
   private _user = signal<UserBase | null>(null);
   private _loading = signal<boolean>(false);
+  private _checkingAuth = signal<boolean>(false);
   private _error = signal<string | null>(null);
 
   // Public signals to interact with the auth service
   readonly user = this._user.asReadonly();
   readonly isAuthenticated = computed(() => !!this._user());
   readonly isLoading = this._loading.asReadonly();
+  readonly isCheckingAuth = this._checkingAuth.asReadonly();
   readonly error = this._error.asReadonly();
 
   /*
@@ -30,7 +35,7 @@ export class AuthFacade {
    * @returns Promise<void>
    */
   async checkAuthStatus(): Promise<void> {
-    this._loading.set(true);
+    this._checkingAuth.set(true);
 
     try {
       const isAuthenticated = await this.authService.isAuthenticated();
@@ -45,7 +50,7 @@ export class AuthFacade {
       this._user.set(null);
       this._error.set(error.message || 'Error checking authentication status');
     } finally {
-      this._loading.set(false);
+      this._checkingAuth.set(false);
     }
   }
 
@@ -63,6 +68,11 @@ export class AuthFacade {
       await this.authService.login(email, password);
       const user = await this.authService.getCurrentUser();
       this._user.set(user);
+      
+      // Redirect user to appropriate dashboard based on role
+      if (user) {
+        this.redirectUserByRole(user);
+      }
     } catch (error: any) {
       const errorMessage = this.getLoginErrorMessage(error);
       this._error.set(errorMessage || 'Error del servidor. Intenta más tarde.');
@@ -86,6 +96,12 @@ export class AuthFacade {
       const uid = await this.authService.register(email, password);
       const user = await this.authService.getCurrentUser();
       this._user.set(user);
+      
+      // Redirect user to appropriate dashboard based on role after registration
+      if (user) {
+        this.redirectUserByRole(user);
+      }
+      
       return uid;
     } catch (error: any) {
       const errorMessage = this.getRegisterErrorMessage(error);
@@ -155,6 +171,30 @@ export class AuthFacade {
         return 'La contraseña es muy débil. Usá una más segura.';
       default:
         return 'No se pudo crear la cuenta. Intenta más tarde.';
+    }
+  }
+
+  /*
+   * Redirects the user to the appropriate dashboard based on their role.
+   * @param user - The authenticated user object.
+   */
+  private redirectUserByRole(user: UserBase): void {
+    switch (user.rol) {
+      case UserRoles.PATIENT:
+        this.router.navigate(['/dashboard/patient']);
+        break;
+      case UserRoles.SPECIALIST:
+        this.router.navigate(['/dashboard/specialist']);
+        break;
+      case UserRoles.ADMIN:
+        // For now, redirecting to specialist dashboard as fallback
+        this.router.navigate(['/dashboard/specialist']);
+        break;
+      default:
+        // Default fallback
+        console.warn('Unknown user role:', user.rol);
+        this.router.navigate(['/dashboard/patient']);
+        break;
     }
   }
 }

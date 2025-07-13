@@ -1,8 +1,10 @@
 import { Routes } from '@angular/router';
 import { MainLayoutComponent } from './layouts/main-layout/main-layout.component';
 import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout.component';
+import { DashboardLayoutComponent } from './layouts/dashboard-layout/dashboard-layout.component';
 
 export const routes: Routes = [
+  // Main (/home)
   {
     path: '',
     component: MainLayoutComponent,
@@ -14,30 +16,37 @@ export const routes: Routes = [
       },
       {
         path: 'home',
-        loadComponent: () =>
-          import('./features/landing/pages/home-page/home-page.component').then(
-            (m) => m.HomePageComponent
+        loadChildren: () =>
+          import('./features/landing/landing.routes').then(
+            (m) => m.LANDING_ROUTES
           ),
       },
-      // Main routes
     ],
   },
+  // Authentication (auth/login, auth/register)
   {
     path: 'auth',
     component: AuthLayoutComponent,
     children: [
       {
-        path: 'login',
-        loadComponent: () =>
-          import('./features/auth/pages/login-page/login-page.component').then(
-            (m) => m.LoginPageComponent
+        path: '',
+        loadChildren: () =>
+          import('./features/auth/auth.routes').then(
+            (m) => m.AUTH_ROUTES
           ),
       },
+    ],
+  },
+  // Dashboard (dashboard/patient, dashboard/specialist)
+  {
+    path: 'dashboard',
+    component: DashboardLayoutComponent,
+    children: [
       {
-        path: 'register',
-        loadComponent: () =>
-          import('./features/auth/pages/register-page/register-page.component').then(
-            (m) => m.RegisterPageComponent
+        path: '',
+        loadChildren: () =>
+          import('./features/dashboard/dashboard.routes').then(
+            (m) => m.DASHBOARD_ROUTES
           ),
       },
     ],

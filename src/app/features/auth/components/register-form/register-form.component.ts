@@ -262,6 +262,7 @@ export class RegisterFormComponent {
             status: UserStatus.ACTIVE,
           };
 
+      console.log('Form values:', formData);
       console.log('Data to submit:', submitData);
       await this.userFacade.createUser(submitData);
       console.log('User successfull created');

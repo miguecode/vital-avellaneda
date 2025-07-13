@@ -219,6 +219,7 @@
         <button
           type="submit"
           [disabled]="form.invalid || isLoading()"
+          disabled
           class="self-center cursor-pointer w-80 px-12 py-3 text-white text-lg rounded font-medium
            bg-va-primary hover:bg-va-third active:bg-va-third/90
             transition duration-300 shadow-md 
@@ -232,7 +233,7 @@
             Registrarme
           }
         </button>
-
+        
         <p class="w-80 font-medium">
           ¿Ya tenes una cuenta?
           <a class="text-va-primary font-semibold hover:underline" 
