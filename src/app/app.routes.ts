@@ -2,6 +2,8 @@ import { Routes } from '@angular/router';
 import { MainLayoutComponent } from './layouts/main-layout/main-layout.component';
 import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout.component';
 import { DashboardLayoutComponent } from './layouts/dashboard-layout/dashboard-layout.component';
+import { publicGuard } from './core/guards/public.guard';
+import { authGuard } from './core/guards/auth.guard';
 
 export const routes: Routes = [
   // Main (/home)
@@ -24,9 +26,11 @@ export const routes: Routes = [
     ],
   },
   // Authentication (auth/login, auth/register)
+  // Public Paths: Only for not authenticated users
   {
     path: 'auth',
     component: AuthLayoutComponent,
+    canActivate: [publicGuard],
     children: [
       {
         path: '',
@@ -38,9 +42,11 @@ export const routes: Routes = [
     ],
   },
   // Dashboard (dashboard/patient, dashboard/specialist)
+  // Private Paths: Only for authenticated users
   {
     path: 'dashboard',
     component: DashboardLayoutComponent,
+    canActivate: [authGuard],
     children: [
       {
         path: '',

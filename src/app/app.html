@@ -1,1 +1,5 @@
-<router-outlet />
+@if (showSplash()) {
+  <app-splash />
+} @else {
+  <router-outlet />
+}

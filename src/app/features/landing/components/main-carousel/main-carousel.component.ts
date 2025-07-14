@@ -36,7 +36,7 @@ export class MainCarouselComponent implements AfterViewInit {
       description:
         'Solicitá turnos, gestioná tus consultas y accedé a tu historial médico en un solo lugar. Tu salud y bienestar, a un clic.',
       buttonText: 'Ingresar al portal',
-      buttonLink: '/portal-para-pacientes',
+      buttonLink: '/auth/login',
     },
     {
       image: '/images/carousel/carousel-3.webp',
@@ -44,7 +44,7 @@ export class MainCarouselComponent implements AfterViewInit {
       description:
         'Organizá tu agenda, gestioná pacientes y registrá diagnósticos de forma simple. Todo lo que necesitás, desde un único panel.',
       buttonText: 'Ingresar al portal',
-      buttonLink: '/portal-para-especialistas',
+      buttonLink: '/auth/login',
     },
     {
       image: '/images/carousel/carousel-4.webp',

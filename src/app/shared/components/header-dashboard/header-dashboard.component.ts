@@ -1,12 +1,11 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-header-dashboard',
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './header-dashboard.component.html',
   styleUrl: './header-dashboard.component.css',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class HeaderDashboardComponent {
-
-}
+export class HeaderDashboardComponent {}

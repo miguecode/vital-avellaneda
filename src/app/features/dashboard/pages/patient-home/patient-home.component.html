@@ -1,21 +1,15 @@
 <p>Hola</p>
 <p>La señal user tiene: {{ user() }}</p>
 
-
-
-
 @if (isCheckingAuth()) {
-  <div class="animate-spin w-28 h-28 border-6 border-red-500 text-red-500">
-    <span>Cargando...</span>
-  </div>
+<div class="animate-spin w-28 h-28 border-6 border-red-500 text-red-500">
+  <span>Cargando...</span>
+</div>
+} @else { @if (user()) {
+<p>Nombre: {{ user()?.firstName }}</p>
+<p>Apellido: {{ user()?.lastName }}</p>
+<p>Email: {{ user()?.email }}</p>
+<p>Rol: {{ user()?.rol }}</p>
 } @else {
-  @if (user()) {
-    <p>Nombre: {{user()?.firstName}}</p>
-    <p>Apellido: {{user()?.lastName}}</p>
-    <p>Email: {{user()?.email}}</p>
-    <p>Rol: {{user()?.rol}}</p>
-  } @else {
-    <p>Ningún usuario cargado</p>
-  }
-
-}
+<p>Ningún usuario cargado</p>
+} }
