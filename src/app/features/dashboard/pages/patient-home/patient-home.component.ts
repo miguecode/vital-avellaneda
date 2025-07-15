@@ -13,4 +13,8 @@ export class PatientHomeComponent {
   private readonly authFacade = inject(AuthFacade);
   readonly user: Signal<UserBase | null> = this.authFacade.user;
   readonly isCheckingAuth: Signal<boolean> = this.authFacade.isCheckingAuth;
+
+  logOut() {
+    this.authFacade.logout();
+  }
 }

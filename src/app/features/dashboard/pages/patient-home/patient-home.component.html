@@ -10,6 +10,8 @@
 <p>Apellido: {{ user()?.lastName }}</p>
 <p>Email: {{ user()?.email }}</p>
 <p>Rol: {{ user()?.rol }}</p>
+
+<button class="m-2 p-4 bg-va-primary text-white font-semibold cursor-pointer rounded" (click)="logOut()">Cerrar sesión</button>
 } @else {
 <p>Ningún usuario cargado</p>
 } }

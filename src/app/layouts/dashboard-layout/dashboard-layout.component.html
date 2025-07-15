@@ -1,3 +1,6 @@
+@if (showSplash()) {
+<app-splash backgroundColor="--color-va-primary"/>
+} @else {
 <div class="min-h-screen flex flex-col bg-white">
   <!-- Header -->
   <app-header-dashboard />
@@ -13,3 +16,4 @@
   <!-- Footer -->
   <app-footer />
 </div>
+}

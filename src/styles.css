@@ -40,7 +40,6 @@
 /* Global Styles */
 html,
 body {
-  background: var(--color-va-primary);
   font-family: "Rubik Variable", sans-serif, system-ui, -apple-system,
     BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell,
     "Open Sans", "Helvetica FNeue";
@@ -54,26 +53,4 @@ html {
   border-color: #9c254d;
   outline-color: #9c254d;
   @apply focus:shadow-red-primary;
-}
-
-/* Splash screens */
-/* Splash for index.html (first Splash) */
-#global-splash .splash-backdrop {
-  position: fixed;
-  inset: 0;
-  background: var(--color-va-primary);
-  z-index: 50;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-/* Splash Angular (same styles) */
-.splash-backdrop {
-  position: fixed;
-  inset: 0;
-  background: var(--color-va-primary);
-  z-index: 50;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }

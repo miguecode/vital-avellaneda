@@ -227,7 +227,11 @@
             flex items-center justify-center gap-2"
         >
           @if (isLoading()) {
-            <div class="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
+            <div class="animate-spin inline-block size-6 border-3
+             border-current border-t-transparent text-white rounded-full"
+             role="status"
+             aria-label="loading">
+            </div>
             Registrando...
           } @else {
             Registrarme

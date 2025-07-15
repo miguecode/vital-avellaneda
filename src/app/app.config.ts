@@ -35,6 +35,9 @@ import { FirebaseSpecialtyService } from './services/firebase/firebase-specialty
 
 export const appConfig: ApplicationConfig = {
   providers: [
+    // Initialize App checking auth status
+    // provideAppInitializer(() => inject(AuthFacade).checkAuthStatus()),
+
     // Core Angular providers
     provideBrowserGlobalErrorListeners(),
     provideZonelessChangeDetection(),
