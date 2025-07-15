@@ -1,8 +1,10 @@
 // Angular Application imports
 import {
   ApplicationConfig,
+  provideAppInitializer,
   provideBrowserGlobalErrorListeners,
   provideZonelessChangeDetection,
+  inject,
 } from '@angular/core';
 
 // Angular Router imports
@@ -32,11 +34,12 @@ import { SPECIALTY_REPOSITORY } from './core/interfaces/specialty.repository.tok
 import { FirebaseAuthService } from './services/firebase/firebase-auth.service';
 import { FirebaseUserService } from './services/firebase/firebase-user.service';
 import { FirebaseSpecialtyService } from './services/firebase/firebase-specialty.service';
+import { AuthFacade } from './features/auth/auth.facade';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     // Initialize App checking auth status
-    // provideAppInitializer(() => inject(AuthFacade).checkAuthStatus()),
+    provideAppInitializer(() => inject(AuthFacade).checkAuthStatus()),
 
     // Core Angular providers
     provideBrowserGlobalErrorListeners(),

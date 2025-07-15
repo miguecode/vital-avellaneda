@@ -1,6 +1,7 @@
 import { Component, inject } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
-import { AuthFacade } from './features/auth/auth.facade';
+import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
+import { NavigationService } from './shared/services/navigation/navigation.service';
+import { filter } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -10,9 +11,26 @@ import { AuthFacade } from './features/auth/auth.facade';
 })
 export class App {
   protected title = 'vital-avellaneda';
-  authFacade = inject(AuthFacade);
+
+  // Navigation control
+  private router = inject(Router);
+  private navigationService = inject(NavigationService);
 
   constructor() {
-    this.authFacade.checkAuthStatus();
+    this.router.events
+      .pipe(filter((event) => event instanceof NavigationEnd))
+      .subscribe((event: NavigationEnd) => {
+        const currentUrl = event.urlAfterRedirects;
+        this.navigationService.setCurrentUrl(currentUrl);
+
+        console.log(
+          'NavigationService - Current:',
+          this.navigationService.currentUrl()
+        );
+        console.log(
+          'NavigationService - Previous:',
+          this.navigationService.previousUrl()
+        );
+      });
   }
 }

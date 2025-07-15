@@ -3,7 +3,6 @@ import { Router } from '@angular/router';
 import { AUTH_REPOSITORY } from '../../core/interfaces/auth.repository.token';
 import { UserBase } from '../../core/models';
 import { UserRoles } from '../../core/enums';
-import { sign } from 'crypto';
 
 @Injectable({
   providedIn: 'root',
@@ -38,7 +37,7 @@ export class AuthFacade {
   async checkAuthStatus(): Promise<void> {
     this._checkingAuth.set(true);
     console.log('Check Auth Status Started');
-    console.log('Checking Auth: ', this._checkingAuth());
+    // console.log('Checking Auth: ', this._checkingAuth());
 
     try {
       const isAuthenticated = await this.authService.isAuthenticated();
@@ -54,7 +53,7 @@ export class AuthFacade {
       this._error.set(error.message || 'Error checking authentication status');
     } finally {
       this._checkingAuth.set(false);
-      console.log('Checking Auth: ', this._checkingAuth());
+      // console.log('Checking Auth: ', this._checkingAuth());
       console.log('Check Auth Status Finished');
     }
   }
