@@ -30,6 +30,7 @@
         label="Correo electrónico"
         placeholder="Ejemplo@gmail.com"
         autocomplete="email"
+        [maxlength]="50"
         [noShowErrors]="true"
       />
       <app-input-custom
@@ -37,6 +38,7 @@
         formControlName="password"
         label="Contraseña"
         placeholder="Contraseña"
+        [maxlength]="50"
         [noShowErrors]="true"
       />
 

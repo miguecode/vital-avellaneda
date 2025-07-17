@@ -23,6 +23,7 @@ export class App {
         const currentUrl = event.urlAfterRedirects;
         this.navigationService.setCurrentUrl(currentUrl);
 
+        /*
         console.log(
           'NavigationService - Current:',
           this.navigationService.currentUrl()
@@ -30,7 +31,7 @@ export class App {
         console.log(
           'NavigationService - Previous:',
           this.navigationService.previousUrl()
-        );
+        );*/
       });
   }
 }

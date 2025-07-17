@@ -1,8 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  signal,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { HeaderDashboardComponent } from '../../shared/components/header-dashboard/header-dashboard.component';
 import { FooterComponent } from '../../shared/components/footer/footer.component';

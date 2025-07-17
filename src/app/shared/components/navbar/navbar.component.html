@@ -10,13 +10,13 @@
     <img class="object-contain" src="/logos/logo-big.webp" alt="Logo" />
   </a>
 
-  <!-- Navegation -->
+  <!-- Navigation -->
   <ul class="flex justify-center items-center mr-24 h-full">
     @for (item of navItems; track item.title) {
     <li>
       <a
         class="flex items-center justify-center p-4 text-lg font-medium rounded
-      hover:bg-va-third hover:shadow active:bg-va-third/30 transition-colors duration-300"
+      hover:bg-va-third/60 hover:shadow active:bg-va-third/30 transition-colors duration-300"
         [routerLink]="item.href"
         tabindex="0"
         [attr.aria-label]="item.ariaLabel"
@@ -29,8 +29,8 @@
       <a
         routerLink="/auth/login"
         aria-label="Acceso al Portal"
-        class="flex justify-center items-center gap-2 p-4
-        text-lg font-semibold bg-white text-va-primary rounded
+        class="flex justify-center items-center gap-2 p-4 min-w-48
+        text-lg font-semibold bg-white text-va-primary rounded-full
       hover:bg-lightblue-primary active:bg-lightblue-primary/90 transition duration-300 shadow"
       >
         <div class="flex justify-center items-center">

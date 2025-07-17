@@ -1,0 +1,15 @@
+/* Dropdown Animation */
+.user-submenu-dropdown {
+  opacity: 0;
+  pointer-events: none;
+  transform: scale(0.7) translateX(-5px) translateY(0px);
+  transition: opacity 0.18s cubic-bezier(0.2,1,0.3,1), 
+              transform 0.28s cubic-bezier(0.2,1,0.3,1);
+  transform-origin: right top;
+}
+
+.user-submenu-dropdown.open {
+  opacity: 1;
+  pointer-events: auto;
+  transform: scale(1) translateY(0);
+}
