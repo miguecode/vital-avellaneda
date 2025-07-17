@@ -1,12 +1,17 @@
 <header class="fixed top-0 z-30 p-0 m-0 h-16 w-full shadow-sm">
-  <nav class="flex items-center justify-between px-10 py-11 size-full bg-va-primary text-white">
-    
+  <nav
+    class="flex items-center justify-between px-10 py-11 size-full bg-va-primary text-white"
+  >
     <!-- Logo and Title -->
     <div class="flex items-center">
-      <a routerLink="/home" class="flex items-center justify-center h-full w-80 ml-28">
+      <a
+        routerLink="/home"
+        class="flex items-center justify-center h-full w-80 ml-28"
+      >
         <img class="object-contain" src="/logos/logo-flat.webp" alt="Logo" />
       </a>
-      <hr class="ml-16 h-12 w-0.5 bg-white">
+      <hr class="ml-16 h-14 w-0.5 bg-white" />
+      <app-svg-icon class="ml-3" [icon]="userRoleIcon" size="34px"></app-svg-icon>
       <p class="ml-2 font-semibold text-lg">{{ title }}</p>
     </div>
 

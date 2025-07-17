@@ -1,27 +1,34 @@
 <div
-  class="relative flex justify-between items-center overflow-hidden
-   h-50 w-home-page hover:shadow-lightblue-primary hover:shadow-lg"
+  class="relative flex justify-between items-center overflow-hidden h-50 w-home-page hover:shadow-lightblue-primary hover:shadow-lg"
 >
   <a
     routerLink="/auth/login"
-    class="flex flex-col text-3xl gap-1 text-white border
-     border-blue-900 rounded shadow bg-va-primary hover:bg-va-third
-     active:bg-va-third/90 transition duration-400 size-full"
+    class="flex flex-wrap justify-between items-center text-3xl
+     gap-1 text-white border border-blue-900 rounded shadow
+    bg-va-primary hover:bg-va-third
+    active:bg-va-third/90 transition duration-400 size-full"
   >
-    <div class="my-icon absolute right-7 text-va-third
-     transition duration-400">
-      <app-svg-icon icon="login" size="200px"></app-svg-icon>
-    </div>
-    <div>
-      <h2 class="pt-7 pl-12 text-3xl text-white font-bold">{{ title }}</h2>
-      <p class="pl-12 mt-5 text-xl font-normal text-white/90">
-        Iniciá sesión o registrate como 
-        <strong class="font-semibold">Paciente</strong> o 
-        <strong class="font-semibold">Especialista</strong>.
-        <br />
-        También podes usar los 
-        <strong class="font-semibold">ingresos rápidos</strong> para probar el sitio.
+    <div class="ml-16 p-4 rounded-xl flex flex-col">
+      <h2 class="h-full text-3xl text-white font-bold">{{ title }}</h2>
+      <p class="text-xl mt-1 font-normal text-white/90 text-pretty">
+        Solicitá y gestioná turnos, horarios y consultas.
+         Vital Avellaneda, todo en un lugar.
       </p>
+      <div class="color-transition flex flex-wrap justify-start items-center ml-3
+      gap-2 text-lg mt-3 font-normal text-pretty
+      text-va-secondary/90 transition duration-400">
+        <app-svg-icon icon="auth" size="32px"></app-svg-icon>
+        Iniciá sesión o registrate como Paciente o Especialista.
+      </div>
+      <div class="color-transition flex flex-wrap justify-start items-center ml-3
+      gap-2 text-lg mt-3 font-normal text-pretty
+      text-va-secondary/90 transition duration-400">
+        <app-svg-icon icon="bolt" size="32px"></app-svg-icon>
+        Usá los ingresos rápidos para probar el sitio sin usar datos reales.
+      </div>
+    </div>
+    <div class="color-transition mr-14 text-va-fifth transition duration-400">
+      <app-svg-icon icon="login" size="200px"></app-svg-icon>
     </div>
   </a>
 </div>
