@@ -1,5 +1,5 @@
 import { Injectable, inject } from '@angular/core';
-import { Firestore, collection, doc, getDocs, query, setDoc, where } from '@angular/fire/firestore';
+import { Firestore, collection, doc, getDocs, getDoc, query, setDoc, where } from '@angular/fire/firestore';
 import { UserRepository } from '../../../app/core/interfaces/user.repository';
 import { Patient, Specialist } from '../../core/models';
 import { UserBase } from '../../core/models';
@@ -21,9 +21,10 @@ export class FirebaseUserService implements UserRepository {
 
   async getUserById(uid: string): Promise<UserBase | null> {
     const userRef = doc(this.firestore, 'users', uid);
-    const userSnap = await getDocs(query(collection(this.firestore, 'users'), where('id', '==', uid)));
-    if (!userSnap.empty) {
-      const data = userSnap.docs[0].data();
+    const userSnap = await getDoc(userRef);
+    
+    if (userSnap.exists()) {
+      const data = userSnap.data();
       return {
         ...data,
         birthDate: data['birthDate'] ? new Date(data['birthDate']) : new Date(),

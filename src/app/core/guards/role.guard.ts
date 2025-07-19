@@ -18,11 +18,11 @@ export const roleGuard = (allowedRoles: UserRoles[]) => {
       return false;
     }
 
-    if (allowedRoles.includes(user.rol)) {
+    if (allowedRoles.includes(user.role)) {
       return true;
     } else {
       // Redirect to the corresponding dashboard according to the user's role
-      switch (user.rol) {
+      switch (user.role) {
         case UserRoles.PATIENT:
           router.navigate(['/dashboard/patient']);
           break;

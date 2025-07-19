@@ -42,6 +42,7 @@ import { AuthFacade } from '../../auth.facade';
 import { UserFacade } from '../../user.facade';
 import { SvgIconComponent } from '../../../../shared/icons/svg-icon.component';
 import { RouterLink } from '@angular/router';
+import { Timestamp } from 'firebase/firestore';
 
 // User mode to toggle forms
 type UserMode = R.PATIENT | R.SPECIALIST;
@@ -55,8 +56,8 @@ type UserMode = R.PATIENT | R.SPECIALIST;
     SelectCustomComponent,
     SpecialtySelectorComponent,
     SvgIconComponent,
-    RouterLink
-],
+    RouterLink,
+  ],
   templateUrl: './register-form.component.html',
   styleUrl: './register-form.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -93,8 +94,8 @@ export class RegisterFormComponent {
   }
 
   // Loading state - combines both facades
-  readonly isLoading: Signal<boolean> = computed(() => 
-    this.authFacade.isLoading() || this.userFacade.isSaving()
+  readonly isLoading: Signal<boolean> = computed(
+    () => this.authFacade.isLoading() || this.userFacade.isSaving()
   );
 
   // Watch loading state and disable/enable form controls
@@ -236,9 +237,10 @@ export class RegisterFormComponent {
         return;
       }
 
+      // 1. Submit credentials to Firebase Authentication, and get the UID
       const userUid = await this.authFacade.register(email, password);
-      
-      // Check if registration was successful (userUid is not undefined)
+
+      // Check if registration was successful
       if (!userUid) {
         this.submitted = true;
         return;
@@ -246,26 +248,32 @@ export class RegisterFormComponent {
 
       const submitData = this.isSpecialist()
         ? {
-            // Clean data for specialist: remove patient fields
             ...this.getSpecialistData(formData),
             id: userUid,
-            rol: R.SPECIALIST,
-            registrationDate: new Date(),
+            role: R.SPECIALIST,
+            registrationDate: Timestamp.now(),
             status: UserStatus.ACTIVE,
           }
         : {
-            // Clean data for patient: remove specialist fields
             ...this.getPatientData(formData),
             id: userUid,
-            rol: R.PATIENT,
-            registrationDate: new Date(),
+            role: R.PATIENT,
+            registrationDate: Timestamp.now(),
             status: UserStatus.ACTIVE,
           };
+      delete submitData.password;
 
       console.log('Form values:', formData);
       console.log('Data to submit:', submitData);
+
+      // 2. Submit the user data to Firestore
       await this.userFacade.createUser(submitData);
-      console.log('User successfull created');
+
+      // 3. Set _user private signal in authFacade
+      this.authFacade.setUser(submitData);
+
+      // 4. Redirect to dashboard by role
+      this.authFacade.redirectUserByRole(submitData);
     } catch (error) {
       console.error('Register error', error);
       this.submitted = true;
@@ -294,7 +302,9 @@ export class RegisterFormComponent {
       ...rest
     } = formData;
 
-    // Map availability string to real object
+    // The selected value in the select is the name of the preset
+    const availabilityName = availability;
+    // Find the corresponding Availability object
     let mappedAvailability = availability;
     if (typeof availability === 'string' && availability) {
       const preset = this.availabilityPresets.find(
@@ -313,6 +323,7 @@ export class RegisterFormComponent {
       phone,
       specialties,
       availability: mappedAvailability,
+      availabilityName,
       // Other fields (not patient)
       ...rest,
     };

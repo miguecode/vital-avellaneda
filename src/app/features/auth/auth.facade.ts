@@ -20,13 +20,21 @@ export class AuthFacade {
   private _loading = signal<boolean>(false);
   private _checkingAuth = signal<boolean>(false);
   private _error = signal<string | null>(null);
-  
+
   // Public signals to interact with the auth service
   readonly user = this._user.asReadonly();
   readonly isAuthenticated = computed(() => !!this._user());
   readonly isLoading = this._loading.asReadonly();
   readonly isCheckingAuth = this._checkingAuth.asReadonly();
   readonly error = this._error.asReadonly();
+
+  /*
+   * Allows manually setting the user publicly (for example, after registration)
+   * @param user - The user to set in the signal
+   */
+  setUser(user: UserBase | null): void {
+    this._user.set(user);
+  }
 
   /*
    * Checks if the user is authenticated and updates the state.
@@ -37,7 +45,6 @@ export class AuthFacade {
   async checkAuthStatus(): Promise<void> {
     this._checkingAuth.set(true);
     console.log('Check Auth Status Started');
-    // console.log('Checking Auth: ', this._checkingAuth());
 
     try {
       const isAuthenticated = await this.authService.isAuthenticated();
@@ -53,8 +60,7 @@ export class AuthFacade {
       this._error.set(error.message || 'Error checking authentication status');
     } finally {
       this._checkingAuth.set(false);
-      // console.log('Checking Auth: ', this._checkingAuth());
-      console.log('Check Auth Status Finished');
+      this.consoleInform();
     }
   }
 
@@ -72,7 +78,7 @@ export class AuthFacade {
       await this.authService.login(email, password);
       const user = await this.authService.getCurrentUser();
       this._user.set(user);
-      
+
       // Redirect user to appropriate dashboard based on role
       if (user) {
         this.redirectUserByRole(user);
@@ -83,35 +89,29 @@ export class AuthFacade {
       this._user.set(null);
     } finally {
       this._loading.set(false);
+      this.consoleInform();
     }
   }
 
   /*
-   * Registers a new user with the provided credentials and updates the state.
+   * Registers a new user with the provided credentials
    * @param email - User's email
    * @param password - User's password
    * @returns Promise<void>
    */
-  async register(email: string, password: string): Promise<void | string> {
+  async register(email: string, password: string): Promise<string | void> {
     this._loading.set(true);
     this._error.set(null);
 
     try {
       const uid = await this.authService.register(email, password);
-      const user = await this.authService.getCurrentUser();
-      this._user.set(user);
-      
-      // Redirect user to appropriate dashboard based on role after registration
-      if (user) {
-        this.redirectUserByRole(user);
-      }
-      
       return uid;
     } catch (error: any) {
       const errorMessage = this.getRegisterErrorMessage(error);
       this._error.set(errorMessage || 'Error del servidor. Intenta más tarde.');
     } finally {
       this._loading.set(false);
+      this.consoleInform();
     }
   }
 
@@ -130,6 +130,7 @@ export class AuthFacade {
       this._error.set(error.message || 'Logout failed');
     } finally {
       this._loading.set(false);
+      this.consoleInform();
     }
   }
 
@@ -182,8 +183,8 @@ export class AuthFacade {
    * Redirects the user to the appropriate dashboard based on their role.
    * @param user - The authenticated user object.
    */
-  private redirectUserByRole(user: UserBase): void {
-    switch (user.rol) {
+  redirectUserByRole(user: UserBase): void {
+    switch (user.role) {
       case UserRoles.PATIENT:
         this.router.navigate(['/dashboard/patient']);
         break;
@@ -196,9 +197,17 @@ export class AuthFacade {
         break;
       default:
         // Default fallback
-        console.warn('Unknown user role:', user.rol);
+        console.warn('Unknown user role:', user.role);
         this.router.navigate(['/dashboard/patient']);
         break;
     }
+  }
+
+  /*
+   * Inform in console the authentication state
+   */
+  private consoleInform(): void {
+    const info = { isAuthenticated: this.isAuthenticated(), userSignal: this.user() }
+    console.log(info);
   }
 }

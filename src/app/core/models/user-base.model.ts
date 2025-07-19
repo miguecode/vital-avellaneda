@@ -12,6 +12,6 @@ export interface UserBase {
   phone?: string;
   profilePictureUrl: string;
   registrationDate: Date;
-  rol: UserRoles;
+  role: UserRoles;
   status: UserStatus;
 }

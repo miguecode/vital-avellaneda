@@ -3,22 +3,22 @@ import { roleGuard } from '../../core/guards/role.guard';
 import { UserRoles } from '../../core/enums';
 
 export const DASHBOARD_ROUTES: Routes = [
-  // Only for authenticated users with Patient rol
+  // Only for authenticated users with Patient role
   {
     path: 'patient',
     canActivate: [roleGuard([UserRoles.PATIENT])],
     loadComponent: () =>
-      import('./pages/patient-home/patient-home.component').then(
-        (m) => m.PatientHomeComponent
+      import('./pages/patient-page/patient-page.component').then(
+        (m) => m.PatientPageComponent
       ),
   },
-  // Only for authenticated users with Specialist or Admin rol
+  // Only for authenticated users with Specialist or Admin role
   {
     path: 'specialist',
     canActivate: [roleGuard([UserRoles.SPECIALIST, UserRoles.ADMIN])],
     loadComponent: () =>
-      import('./pages/specialist-home/specialist-home.component').then(
-        (m) => m.SpecialistHomeComponent
+      import('./pages/specialist-page/specialist-page.component').then(
+        (m) => m.SpecialistPageComponent
       ),
   },
-]; 
+];

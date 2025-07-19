@@ -44,6 +44,7 @@ export class FirebaseAuthService implements AuthRepository {
     return new Promise((resolve) => {
       onAuthStateChanged(this.auth, async (user: FirebaseUser | null) => {
         if (!user) return resolve(null);
+
         // Get full data from Firestore
         const userData = await this.userService.getUserById(user.uid);
         if (userData) {
@@ -52,16 +53,16 @@ export class FirebaseAuthService implements AuthRepository {
           // Fallback: only Auth data
           const userBase: UserBase = {
             id: user.uid,
-            firstName: '',
-            lastName: '',
-            dni: '',
+            firstName: 'Desconocido',
+            lastName: 'Desconocido',
+            dni: 'Desconocido',
             sex: Sex.UNSPECIFIED,
             birthDate: new Date(),
             email: user.email || '',
-            phone: '',
-            profilePictureUrl: user.photoURL || '',
+            phone: 'Desconocido',
+            profilePictureUrl: user.photoURL || 'Desconocido',
             registrationDate: new Date(user.metadata.creationTime || Date.now()),
-            rol: UserRoles.USER,
+            role: UserRoles.PATIENT,
             status: UserStatus.ACTIVE,
           };
           resolve(userBase);

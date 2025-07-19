@@ -25,7 +25,7 @@ export class UserSubmenuComponent {
   
   readonly user = this.authFacade.user;
   readonly name = this.user()?.firstName;
-  readonly rol = this.user()?.rol === R.PATIENT ? 'Paciente' : 'Especialista';
+  readonly role = this.user()?.role === R.PATIENT ? 'Paciente' : 'Especialista';
   
   // Signal to control the dropdown state
   readonly isDropdownOpen = signal(false);

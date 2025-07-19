@@ -4,6 +4,7 @@ import { AuthFacade } from '../../../features/auth/auth.facade';
 import { UserSubmenuComponent } from '../user-submenu/user-submenu.component';
 import { UserRoles as R } from '../../../core/enums';
 import { SvgIconComponent } from "../../icons/svg-icon.component";
+import { ROLE_LABELS } from '../../../core/enums/enum-labels';
 
 @Component({
   selector: 'app-header-dashboard',
@@ -16,15 +17,22 @@ export class HeaderDashboardComponent {
   private authFacade = inject(AuthFacade);
   readonly user = this.authFacade.user;
   
-  readonly title =
-  this.user()?.rol === R.PATIENT
-    ? 'Portal para Pacientes'
-    : 'Portal para Especialistas';
+  get roleLabel(): string {
+    const role = this.user()?.role;
+    return role ? ROLE_LABELS.get(role) ?? role : '';
+  }
+
+  get title(): string {
+    const role = this.user()?.role;
+    if (!role) return '';
+    const label = ROLE_LABELS.get(role) ?? '';
+    return `Portal para ${label ? label + 's' : ''}`;
+  }
 
   get userRoleIcon(): 'user' | 'patient' | 'specialist' {
-    const rol = this.user()?.rol;
-    if (rol === R.PATIENT) return 'patient';
-    if (rol === R.SPECIALIST) return 'specialist';
+    const role = this.user()?.role;
+    if (role === R.PATIENT) return 'patient';
+    if (role === R.SPECIALIST) return 'specialist';
     return 'user';
   }
 }

@@ -17,7 +17,7 @@ export const publicGuard = async () => {
   }
 
   // If already authenticated, redirect to their dashboard
-  switch (user.rol) {
+  switch (user.role) {
     case UserRoles.PATIENT:
       router.navigate(['/dashboard/patient']);
       break;

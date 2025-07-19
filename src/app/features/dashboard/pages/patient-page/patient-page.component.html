@@ -1,0 +1,16 @@
+@if (!user() || isCheckingAuth()) {
+  <app-splash></app-splash>
+} @else {
+  <div class="flex justify-center items-center size-full">
+    <div class="flex flex-wrap justify-start items-center
+     size-full outline outline-va-fourth bg-va-secondary/60 shadow mx-40 p-8 rounded-lg">
+  
+      <!-- User Information Card -->
+      <app-user-information></app-user-information>
+  
+    
+  
+    </div>
+
+  </div>
+}
