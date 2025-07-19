@@ -386,4 +386,8 @@ export class RegisterFormComponent {
     this.form.get('specialties')?.setValue([...specialties]);
     this.closeModal();
   }
+
+  // loadDB(): void {
+  //   console.log('Carga masiva de usuarios iniciada');
+  // }
 }

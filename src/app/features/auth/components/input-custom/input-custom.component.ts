@@ -26,6 +26,7 @@ export class InputCustomComponent implements ControlValueAccessor, OnInit {
   @Input() type: string = 'text';
   @Input() placeholder: string = '';
   @Input() autocomplete: string = 'off';
+  @Input() name: string = '';
   @Input() minlength?: number;
   @Input() maxlength?: number;
   @Input() min?: number | string;

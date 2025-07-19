@@ -39,6 +39,7 @@
         <app-input-custom
           type="text"
           formControlName="firstName"
+          name="firstName"
           label="Nombre"
           placeholder="Nombre (2-30 caracteres)"
           autocomplete="given-name"
@@ -48,6 +49,7 @@
         <app-input-custom
           type="text"
           formControlName="lastName"
+          name="lastName"
           label="Apellido"
           placeholder="Apellido (2-30 caracteres)"
           autocomplete="family-name"
@@ -57,6 +59,7 @@
         <app-input-custom
           type="text"
           formControlName="dni"
+          name="dni"
           label="DNI"
           placeholder="12345678"
           autocomplete="off"
@@ -79,6 +82,7 @@
         <app-input-custom
           type="email"
           formControlName="email"
+          name="email"
           [maxlength]="50"
           label="Correo electrónico"
           placeholder="Ejemplo@gmail.com"
@@ -87,14 +91,17 @@
         <app-input-custom
           type="password"
           formControlName="password"
+          name="password"
           [minlength]="8"
           [maxlength]="50"
           label="Contraseña"
           placeholder="Contraseña (8-50 caracteres)"
+          autocomplete="new-password"
         />
         <app-input-custom
           type="date"
           formControlName="birthDate"
+          name="birthDate"
           label="Fecha de nacimiento"
           placeholder="Fecha de nacimiento"
           autocomplete="bday"
@@ -104,6 +111,7 @@
         <app-input-custom
           type="text"
           formControlName="phone"
+          name="phone"
           label="Número de Teléfono (opcional)"
           placeholder="Número (8-15 dígitos)"
           autocomplete="tel"
@@ -135,6 +143,7 @@
         <app-input-custom
           type="number"
           formControlName="height"
+          name="height"
           label="Altura en centímetros (opcional)"
           placeholder="100-250 cm."
           autocomplete="off"
@@ -145,6 +154,7 @@
         <app-input-custom
           type="number"
           formControlName="weight"
+          name="weight"
           label="Peso en kilogramos (opcional)"
           placeholder="100-250 kg."
           autocomplete="off"
@@ -247,5 +257,6 @@
         </p>
       </div>
     </form>
+    <!-- <button (click)="loadDB()" class="cursor-pointer size-40 bg-amber-300 text-black rounded-lg p-3">Cargar</button> -->
   </div>
 </div>

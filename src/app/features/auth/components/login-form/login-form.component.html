@@ -17,6 +17,7 @@
   <!-- Form -->
   <div class="relative flex flex-wrap">
     <form
+      autocomplete="on"
       [formGroup]="form"
       (ngSubmit)="onSubmit()"
       class="flex flex-wrap w-1/2 justify-center"
@@ -27,6 +28,7 @@
       <app-input-custom
         type="email"
         formControlName="email"
+        name="email"
         label="Correo electrónico"
         placeholder="Ejemplo@gmail.com"
         autocomplete="email"
@@ -36,8 +38,10 @@
       <app-input-custom
         type="password"
         formControlName="password"
+        name="password"
         label="Contraseña"
         placeholder="Contraseña"
+        autocomplete="current-password"
         [maxlength]="50"
         [noShowErrors]="true"
       />
