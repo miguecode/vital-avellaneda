@@ -20,8 +20,8 @@ import { MOCK_USERS } from '../../mocks/mock-users';
 })
 export class FastLoginCardComponent {
   private userService = inject(FirebaseUserService);
-  private authFacade = inject(AuthFacade);
   private cache = inject(MockUserCacheService);
+  authFacade = inject(AuthFacade);
   users = signal<(UserBase & { password: string })[]>([]);
   showUsers = signal(false);
 
