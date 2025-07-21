@@ -21,7 +21,7 @@ import { AuthFacade } from '../../auth.facade';
     InputCustomComponent,
     NgStyle,
     SvgIconComponent,
-  ],
+],
   templateUrl: './login-form.component.html',
   styleUrl: './login-form.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -39,6 +39,8 @@ export class LoginFormComponent {
 
   // Main Form
   readonly form: FormGroup;
+
+  showPassword = false;
 
   constructor(private fb: FormBuilder) {
     this.form = this.createForm();

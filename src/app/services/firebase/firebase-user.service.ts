@@ -19,12 +19,27 @@ export class FirebaseUserService implements UserRepository {
     return !snapshot.empty;
   }
 
-  async getUserById(uid: string): Promise<UserBase | null> {
+  async getUserByUId(uid: string): Promise<UserBase | null> {
     const userRef = doc(this.firestore, 'users', uid);
     const userSnap = await getDoc(userRef);
     
     if (userSnap.exists()) {
       const data = userSnap.data();
+      return {
+        ...data,
+        birthDate: data['birthDate'] ? new Date(data['birthDate']) : new Date(),
+        registrationDate: data['registrationDate'] ? new Date(data['registrationDate']) : new Date(),
+      } as UserBase;
+    }
+    return null;
+  }
+
+  async getUserById(id: string): Promise<UserBase | null> {
+    const q = query(collection(this.firestore, 'users'), where('id', '==', id));
+    const snapshot = await getDocs(q);
+    if (!snapshot.empty) {
+      const docSnap = snapshot.docs[0];
+      const data = docSnap.data();
       return {
         ...data,
         birthDate: data['birthDate'] ? new Date(data['birthDate']) : new Date(),

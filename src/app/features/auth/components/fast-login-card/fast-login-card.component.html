@@ -1,0 +1,141 @@
+<div
+  class="special-glow flex flex-wrap justify-between items-center pr-16
+  py-4 w-full min-h-48 rounded-full relative overflow-hidden
+  backdrop-blur-xl shadow-md"
+  style="
+    background: radial-gradient(circle at 80% 20%, #311231 0%, transparent 40%),
+      radial-gradient(circle at 20% 80%, #311231 0%, transparent 70%),
+      linear-gradient(135deg, #000000 20%, #000000 100%),
+      linear-gradient(135deg, #000000 0%, #000000 100%);
+    border-radius: 2rem;
+  "
+>
+
+  <!-- Icon, Title and Description -->
+  <div class="flex justify-center items-center">
+
+    <!-- Icon -->
+    <div class="flex justify-center items-center ml-10 rounded-full h-full">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="92px"
+        height="92px"
+        viewBox="0 -960 960 960"
+      >
+        <defs>
+          <linearGradient
+            gradientTransform="rotate(150, 0.5, 0.5)"
+            x1="50%"
+            y1="0%"
+            x2="20%"
+            y2="100%"
+            id="ffflux-gradient"
+          >
+            <stop
+              stop-color="hsl(315, 48%, 74%)"
+              stop-opacity="1"
+              offset="0%"
+            ></stop>
+            <stop
+              stop-color="oklch(57.7% 0.245 27.325)"
+              stop-opacity="1"
+              offset="100%"
+            ></stop>
+          </linearGradient>
+          <filter
+            id="ffflux-filter"
+            x="-20%"
+            y="-20%"
+            width="140%"
+            height="140%"
+            filterUnits="objectBoundingBox"
+            primitiveUnits="userSpaceOnUse"
+            color-interpolation-filters="sRGB"
+          >
+            <feTurbulence
+              type="fractalNoise"
+              baseFrequency="0.005 0.003"
+              numOctaves="2"
+              seed="2"
+              stitchTiles="stitch"
+              x="0%"
+              y="0%"
+              width="100%"
+              height="100%"
+              result="turbulence"
+            ></feTurbulence>
+            <feGaussianBlur
+              stdDeviation="20 0"
+              x="0%"
+              y="0%"
+              width="100%"
+              height="100%"
+              in="turbulence"
+              edgeMode="duplicate"
+              result="blur"
+            ></feGaussianBlur>
+            <feBlend
+              mode="color-dodge"
+              x="0%"
+              y="0%"
+              width="100%"
+              height="100%"
+              in="SourceGraphic"
+              in2="blur"
+              result="blend"
+            ></feBlend>
+          </filter>
+        </defs>
+        <path
+          d="m422-232 207-248H469l29-227-185 267h139l-30 208ZM320-80l40-280H160l360-520h80l-40 320h240L400-80h-80Zm151-390Z"
+          fill="url(#ffflux-gradient)"
+        />
+      </svg>
+    </div>
+  
+    <!-- Title and Description -->
+    <div
+      class="flex flex-col justify-center ml-7
+      bg-gradient-to-br from-red-600 to-50% to-fuchsia-300
+      to bg-clip-text text-transparent h-full"
+    >
+      <h3 class="text-3xl font-medium">Ingresos Rápidos</h3>
+      <p class="w-96">
+        Para agilizar la prueba del sitio, usá nuestros usuarios por defecto, en
+        un clic.
+      </p>
+    </div>
+  </div>
+
+  <!-- <hr class="w-0.5 h-full bg-red-400/40"> -->
+
+  <!-- User Buttons -->
+  <div class="flex ml-6 gap-4 max-w-1/2">
+    @if (showUsers()) {
+      @for (user of users(); track user.id) {
+        <button 
+        (click)="fastLogin(user)"
+        class="cursor-pointer flex justify-center items-center
+        rounded-4xl h-full px-5 py-2
+      bg-maroon-primary hover:bg-maroon-secondary transition duration-300
+      active:hover:bg-maroon-secondary/70">
+        <div class="flex flex-col justify-center items-center
+        bg-gradient-to-br from-red-400 to-70% to-red-300
+        to bg-clip-text text-transparent">
+          <app-svg-icon class="text-red-200" [icon]="user.role === 'patient' ? 'patient' : 'specialist'"  size="75px"></app-svg-icon>
+          <span class="mt-1 font-medium text-lg">{{ user.firstName }}</span>
+          <span class="text-sm">{{ user.role === 'patient' ? 'Paciente' : 'Especialista' }}</span>
+        </div>
+      </button>
+      }
+    } @else {
+      @for (i of [0,1,2,3]; track i) {
+        <div class="flex flex-col items-center rounded-4xl h-full px-5 py-4 bg-black/20">
+          <div class="rounded-full bg-maroon-primary w-16 h-16 mt-2 mb-2 animate-pulse"></div>
+          <div class="h-4 w-20 bg-maroon-primary rounded mb-1"></div>
+          <div class="h-3 w-16 bg-maroon-primary rounded"></div>
+        </div>
+      }
+    }
+  </div>
+</div>

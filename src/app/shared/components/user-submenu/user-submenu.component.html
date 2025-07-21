@@ -26,7 +26,7 @@
       <div class="flex flex-col gap-1 justify-start items-center w-full mt-2">
         @for (item of menuItems; track item.text) {
           <button class="flex flex-wrap gap-2 justify-start items-center w-full
-            hover:bg-va-secondary/50 text-va-fifth active:bg-va-fourth/60 rounded h-full px-1.5
+            hover:bg-va-secondary/50 text-va-fifth active:bg-va-fourth/60 rounded-md h-full px-1.5
              py-2 transition duration-300 cursor-pointer"
               (click)="item.action?.()">
             <app-svg-icon [icon]="item.icon" size="28px"></app-svg-icon>
@@ -39,11 +39,10 @@
       (click)="handleLogoutClick()"
       class="flex flex-wrap gap-2 justify-start items-center w-full
         mt-2 hover:bg-red-third/10 text-red-third active:bg-red-third/20
-         rounded h-full px-1.5 py-2 transition duration-300 cursor-pointer">
+        rounded-md h-full px-1.5 py-2 transition duration-300 cursor-pointer">
         <app-svg-icon icon="logout" size="28px"></app-svg-icon>
         Cerrar Sesión
       </button>
     </div>
   }
 </div>
-

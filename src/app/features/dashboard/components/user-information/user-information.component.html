@@ -1,17 +1,16 @@
 <div class="flex flex-col flex-wrap justify-start items-center
- min-h-96 min-w-96 max-w-110 bg-lightblue-primary rounded-2xl gap-4
+ min-h-96 min-w-96 max-w-110 bg-lightblue-primary rounded-2xl
  border border-va-fourth shadow p-3">
 
   <!-- Profile Image -->
-  <div>
-    <div class="text-va-fifth flex justify-center items-center">
-      <app-svg-icon icon="user" size="90px"></app-svg-icon>
-    </div>
+  <div class="text-va-fifth flex justify-center items-center m-2 
+    outline-2 outline-va-fourth/80 size-32 rounded-full shadow">
+    <app-svg-icon icon="user" size="90px"></app-svg-icon>
   </div>
 
   <!-- Name and User State -->
-  <div class="flex flex-wrap flex-col justify-center items-center">
-    <h3 class="text-3xl text-va-primary font-bold">{{ user()?.firstName }}</h3>
+  <div class="flex flex-wrap flex-col justify-center items-center mb-2.5">
+    <h3 class="text-3xl text-va-primary font-bold mt-1">{{ user()?.firstName }}</h3>
     <div class="mt-2 flex flex-wrap justify-center items-center bg-green-secondary shadow
      outline outline-green-primary text-green-primary/90 text-sm
      font-medium rounded-full py-1 px-4 w-fit">
@@ -19,11 +18,11 @@
     </div>
   </div>
   
-  <hr class="h-0.5 w-full text-va-fourth/60">
+  <hr class="h-0.5 w-full text-va-fourth/80 my-2.5">
 
   <!-- Personal Data -->
   <div class="flex flex-col flex-wrap 
-    w-full rounded-lg bg-va-secondary/30 outline outline-va-fourth/60 py-1.5 px-3">
+    w-full rounded-lg px-3">
     <h4 class="font-semibold text-va-primary mb-0.5 text-lg">Datos personales</h4>
     @for (item of personalData; track item.label) {
       <p class="text-pretty">
@@ -33,9 +32,11 @@
     }
   </div>
 
+  <hr class="h-0.5 w-full text-va-fourth my-3">
+
   <!-- Medical Data -->
   <div class="flex flex-col flex-wrap 
-    w-full rounded-lg bg-va-secondary/30 p-1.5 outline outline-va-fourth/60 px-2">
+    w-full rounded-lg px-3">
     <h4 class="font-semibold text-va-primary mb-0.5 text-lg">Datos médicos</h4>
     @for (item of customData; track item.label) {
       <p class="text-pretty">

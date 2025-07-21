@@ -74,3 +74,8 @@ Thumbs.db
 *.tmp
 *.log
 *.tsbuildinfo
+
+# ================================
+#  App Mock Data
+# ================================
+src/app/features/auth/mocks/mock-users.ts

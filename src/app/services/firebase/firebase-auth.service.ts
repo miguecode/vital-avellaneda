@@ -46,7 +46,7 @@ export class FirebaseAuthService implements AuthRepository {
         if (!user) return resolve(null);
 
         // Get full data from Firestore
-        const userData = await this.userService.getUserById(user.uid);
+        const userData = await this.userService.getUserByUId(user.uid);
         if (userData) {
           resolve(userData);
         } else {

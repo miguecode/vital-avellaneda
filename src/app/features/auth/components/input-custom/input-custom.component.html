@@ -1,5 +1,6 @@
 <div class="w-full relative">
   <label
+    [for]="name"
     [class.error-label]="showErrors && errorMessages.length > 0"
     class="text-va-primary font-medium"
     >{{ label }}
@@ -10,6 +11,7 @@
     [placeholder]="placeholder"
     [autocomplete]="autocomplete"
     [name]="name"
+    [id]="name"
     [value]="value"
     [disabled]="isDisabled"
     [attr.minlength]="minlength"

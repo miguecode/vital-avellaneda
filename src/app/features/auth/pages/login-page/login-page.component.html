@@ -1,10 +1,19 @@
 <!-- Structure -->
 <div class="flex flex-col mx-72 mt-8">
-  <app-title-description
-    title="Ingreso al Portal"
-    description="En esta página es donde los pacientes y los especialistas pueden iniciar sesión."
-  ></app-title-description>
 
+  <!-- Title and Description -->
+  <app-title-description
+  title="Ingreso al Portal"
+  description="En esta página es donde los pacientes y los especialistas pueden iniciar sesión."
+  ></app-title-description>
+  
+  <!-- Fast Login Card -->
+  <div class="mx-20 mt-6">
+    <app-fast-login-card></app-fast-login-card>
+
+  </div>
+
+  <!-- Form -->
   <div class="mx-20 mt-6">
     <app-login-form></app-login-form>
   </div>

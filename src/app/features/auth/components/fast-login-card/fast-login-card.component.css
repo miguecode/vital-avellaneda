@@ -1,0 +1,10 @@
+.special-glow {
+  z-index: 0;
+  opacity: 1;
+  animation: glowPulse 6s infinite alternate;
+}
+
+@keyframes glowPulse {
+  0% { opacity: 0.96; }
+  100% { opacity: 1; }
+}

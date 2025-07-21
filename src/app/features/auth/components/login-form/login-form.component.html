@@ -1,5 +1,4 @@
-<div class="p-6 bg-lightblue-primary rounded
- border border-va-third/20 shadow">
+<div class="p-6 bg-lightblue-primary rounded border border-va-third/20 shadow">
   <!-- Title, description and Register link -->
   <div class="ml-3">
     <h2 class="text-va-primary text-3xl font-semibold">Iniciar Sesión</h2>
@@ -25,44 +24,59 @@
     >
       <!-- Input Group -->
       <div class="flex flex-col gap-4 p-2 w-2/3 h-56">
-      <app-input-custom
-        type="email"
-        formControlName="email"
-        name="email"
-        label="Correo electrónico"
-        placeholder="Ejemplo@gmail.com"
-        autocomplete="email"
-        [maxlength]="50"
-        [noShowErrors]="true"
-      />
-      <app-input-custom
-        type="password"
-        formControlName="password"
-        name="password"
-        label="Contraseña"
-        placeholder="Contraseña"
-        autocomplete="current-password"
-        [maxlength]="50"
-        [noShowErrors]="true"
-      />
+        <app-input-custom
+          type="email"
+          formControlName="email"
+          name="email"
+          label="Correo electrónico"
+          placeholder="Ejemplo@gmail.com"
+          autocomplete="email"
+          [maxlength]="50"
+          [noShowErrors]="true"
+        />
+        <app-input-custom
+          type="password"
+          formControlName="password"
+          name="password"
+          label="Contraseña"
+          placeholder="Contraseña"
+          autocomplete="current-password"
+          [type]="showPassword ? 'text' : 'password'"
+          [maxlength]="50"
+          [noShowErrors]="true"
+        />
+        <div class="flex items-center gap-1.5 -mt-2.5 ml-1">
+          <input
+            type="checkbox"
+            id="showPassword"
+            [(ngModel)]="showPassword"
+            [ngModelOptions]="{standalone: true}"
+            name="showPassword"
+          />
+          <label for="showPassword" class="text-sm cursor-pointer select-none"
+            >Mostrar contraseña</label
+          >
+        </div>
 
-      <!-- Error Text -->
-      @if (submitted && loginError()) {
-        <div class="flex justify-start items-center gap-1 p-2
-        bg-red-primary rounded text-red-secondary text-medium text-pretty">
-        <app-svg-icon icon="error" size="20px"></app-svg-icon>
+        <!-- Error Text -->
+        @if (submitted && loginError()) {
+        <div
+          class="flex justify-start items-center gap-1 p-2 bg-red-primary rounded text-red-secondary text-medium text-pretty"
+        >
+          <app-svg-icon icon="error" size="20px"></app-svg-icon>
           {{ loginError() }}
         </div>
-      <!-- Information Text -->
-      } @else {
-        <div class="flex justify-start items-center gap-1 p-2
-        bg-va-primary rounded text-lightblue-primary text-medium text-pretty">
-        <app-svg-icon icon="info" size="20px"></app-svg-icon>
+        <!-- Information Text -->
+        } @else {
+        <div
+          class="flex justify-start items-center gap-1 p-2 bg-va-primary rounded text-lightblue-primary text-medium text-pretty"
+        >
+          <app-svg-icon icon="info" size="20px"></app-svg-icon>
           Completa ambos campos para ingresar.
         </div>
-      }
-    </div>
-        
+        }
+      </div>
+
       <!-- <p class="text-xs mt-2">
         Form valid: {{ form.valid }} |
         Email: {{ form.get('email')?.value }} |
@@ -70,28 +84,23 @@
       </p> -->
 
       <!-- Register Button -->
-      <div class="w-full flex justify-center mt-6">
+      <div class="w-full flex justify-center mt-10">
         <button
           [disabled]="form.invalid || isFormDisabled()"
           type="submit"
           disabled
-          class="cursor-pointer px-16 py-3 text-white text-lg rounded
-            font-medium bg-va-primary hover:bg-va-third active:bg-va-third/90
-            transition duration-300 shadow-md disabled:bg-va-primary/50
-            disabled:shadow-none disabled:cursor-auto relative"
+          class="cursor-pointer px-16 py-3 text-white text-lg rounded font-medium bg-va-primary hover:bg-va-third active:bg-va-third/90 transition duration-300 shadow-md disabled:bg-va-primary/50 disabled:shadow-none disabled:cursor-auto relative"
         >
           @if (isLoading()) {
-            <div class="absolute inset-0 flex items-center justify-center">
-              <div class="animate-spin inline-block size-6 border-3
-              border-current border-t-transparent text-white rounded-full"
+          <div class="absolute inset-0 flex items-center justify-center">
+            <div
+              class="animate-spin inline-block size-6 border-3 border-current border-t-transparent text-white rounded-full"
               role="status"
-              aria-label="loading">
-             </div>
-            </div>
-            <span class="opacity-0">Ingresar</span>
-          } @else {
-            Ingresar
-          }
+              aria-label="loading"
+            ></div>
+          </div>
+          <span class="opacity-0">Ingresar</span>
+          } @else { Ingresar }
         </button>
       </div>
     </form>

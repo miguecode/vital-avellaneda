@@ -23,6 +23,7 @@ import {
 export class SelectCustomComponent implements ControlValueAccessor {
   @Input() options: string[] = [];
   @Input() label: string = 'Campo';
+  @Input() name: string = '';
   @Input() labelMap?: Map<string, string>;
   @Input() placeholder: string = 'Seleccionar...';
 
