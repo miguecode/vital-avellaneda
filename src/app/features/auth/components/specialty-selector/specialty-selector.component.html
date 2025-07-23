@@ -1,11 +1,12 @@
 <div class="relative pl-4 flex flex-col flex-wrap p-4 overflow-hidden h-full">
   <!-- Close icon -->
-  <div 
+  <button 
+  type="button"
   (click)="exit()"
   class="cursor-pointer absolute top-5 right-7 
   text-black hover:text-black/70 active:text-black/60 transition">
     <app-svg-icon icon="close" size="40px"></app-svg-icon>
-  </div>
+  </button>
 
   <!-- Title and description -->
   <h2 class="text-xl font-semibold">Selector de Especialidades</h2>
@@ -49,13 +50,15 @@
 
   <!-- Buttons -->
   <div class="absolute bottom-5 gap-3 right-9 flex flex-wrap justify-center items-center">
-    <button 
+    <button
+    type="button"
     (click)="exit()"
     class="cursor-pointer font-medium rounded
       py-3 px-6 hover:bg-gray-100 active:bg-gray-200 transition duration-300">
       Cancelar
     </button>
     <button 
+    type="button"
     (click)="save()"
     class="cursor-pointer font-medium
      text-white py-3 px-6 rounded

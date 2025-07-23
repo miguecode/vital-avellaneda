@@ -1,0 +1,41 @@
+@if (!user() || isCheckingAuth()) {
+<app-splash></app-splash>
+} @else {
+<div class="flex justify-center items-center size-full">
+  <div
+    class="flex flex-wrap flex-col justify-start items-start
+     min-h-dashboard-height size-full outline outline-lightblue-secondary/70
+      bg-va-secondary/10 shadow mx-32 py-8 px-16 rounded-xl"
+  >
+    <!-- Back Button -->
+    <button
+      [routerLink]="
+        this.user()?.role === 'patient'
+          ? '/dashboard/patient'
+          : '/dashboard/specialist'
+      "
+      class="-mt-4 -ml-13 flex flex-wrap justify-center items-center
+       gap-1 rounded-full px-6 py-1.5 cursor-pointer hover:text-va-third
+        hover:bg-va-secondary/50 active:bg-va-secondary/90 transition duration-300"
+    >
+      <app-svg-icon
+        icon="backArrow"
+        size="36px"
+      ></app-svg-icon>
+      <span class="text-lg">Atrás</span>
+    </button>
+
+    <!-- Title and Description -->
+    <app-title-description
+      class="text-black mt-4"
+      title="Mi cuenta"
+      description="En esta pantalla podés modificar los datos de tu cuenta."
+    ></app-title-description>
+
+    <!-- Edit Form -->
+     <div class="w-full mt-4">
+       <app-user-edit-form></app-user-edit-form>
+     </div>
+  </div>
+</div>
+}

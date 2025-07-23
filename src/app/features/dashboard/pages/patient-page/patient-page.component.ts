@@ -2,11 +2,11 @@ import { ChangeDetectionStrategy, Component, inject, Signal } from '@angular/cor
 import { AuthFacade } from '../../../auth/auth.facade';
 import { UserBase } from '../../../../core/models';
 import { SplashComponent } from "../../../../shared/components/splash/splash.component";
-import { UserInformationComponent } from "../../components/user-information/user-information.component";
+import { UserInformationCardComponent } from "../../components/user-information-card/user-information-card.component";
 
 @Component({
   selector: 'app-patient-page',
-  imports: [SplashComponent, UserInformationComponent],
+  imports: [SplashComponent, UserInformationCardComponent],
   templateUrl: './patient-page.component.html',
   styleUrl: './patient-page.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush

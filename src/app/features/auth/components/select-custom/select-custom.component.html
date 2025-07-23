@@ -1,18 +1,25 @@
 <div class="w-full">
-  <span class="text-va-primary font-medium">{{ label }}</span>
+  <div class="flex flex-wrap items-center gap-1.5">
+    <span class="text-va-primary font-medium">{{ label }}</span>
+    @if (showValue) {
+      <span class="text-sm p-0 mt-0.5">
+        (Valor previo: {{ initialValue ?? labelMap?.get(value()) }})
+      </span>
+    }
+  </div>
   <select
-  class="w-full bg-white text-black border border-va-third rounded
-  h-select-height pl-2 py-2 focus:outline focus:shadow-va-third shadow"
-    [name]="name || 'Campo'"
+    class="w-full bg-white text-black border border-va-third rounded
+    h-select-height pl-2 py-2 focus:outline focus:shadow-va-third shadow"
+    [name]="name || 'select'"
     [value]="value() || ''"
     (change)="onSelectChange($event)"
     [disabled]="isDisabled"
   >
     <option hidden [value]="''">{{ placeholder }}</option>
     @for (opt of options; track opt) {
-    <option class="text-sm text-black" [value]="opt">
-      {{ labelMap?.get(opt) ?? opt }}
-    </option>
+      <option class="text-sm text-black" [value]="opt">
+        {{ labelMap?.get(opt) ?? opt }}
+      </option>
     }
   </select>
 

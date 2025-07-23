@@ -5,6 +5,8 @@ import {
   signal,
   Optional,
   Self,
+  OnChanges,
+  SimpleChanges,
 } from '@angular/core';
 import {
   ControlValueAccessor,
@@ -20,14 +22,17 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush,
 
 })
-export class SelectCustomComponent implements ControlValueAccessor {
+export class SelectCustomComponent implements ControlValueAccessor, OnChanges {
   @Input() options: string[] = [];
   @Input() label: string = 'Campo';
   @Input() name: string = '';
   @Input() labelMap?: Map<string, string>;
   @Input() placeholder: string = 'Seleccionar...';
+  @Input() showValue?: boolean = false;
 
   value = signal('');
+  initialValue: string | null = null;
+  hasChanged: boolean = false;
   isDisabled = false;
   control: NgControl | null = null;
 
@@ -37,6 +42,15 @@ export class SelectCustomComponent implements ControlValueAccessor {
 
   ngOnInit(): void {
     this.control = this.ngControl;
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (this.control && this.control.control) {
+      const currentValue = this.control.control.value;
+      if (currentValue !== undefined && currentValue !== null) {
+        this.value.set(currentValue);
+      }
+    }
   }
 
   // Control Value Accessor
@@ -60,6 +74,9 @@ export class SelectCustomComponent implements ControlValueAccessor {
   }
 
   onSelectChange(event: Event) {
+    if (!this.hasChanged) this.initialValue = this.labelMap?.get(this.value()) ?? null;
+    this.hasChanged = true;
+
     const selectedValue = (event.target as HTMLSelectElement).value;
     this.value.set(selectedValue);
     this.onChange(selectedValue);

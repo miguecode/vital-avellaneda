@@ -1,6 +1,18 @@
-<div class="flex flex-col flex-wrap justify-start items-center
+<div class="user-card relative flex flex-col flex-wrap justify-start items-center
  min-h-96 min-w-96 max-w-110 bg-lightblue-primary rounded-2xl
  border border-va-fourth shadow p-3">
+
+  <!-- Edit Button -->
+  <button 
+    routerLink="/dashboard/profile/edit"
+    class="edit-btn opacity-0 cursor-pointer flex justify-center
+    absolute right-3 items-center text-va-fifth
+    rounded-2xl w-fit px-3 py-1.5 bg-va-fourth/30
+    gap-0.5 transition-all duration-300
+    hover:bg-va-fourth/40 active:bg-va-fourth/50">
+      <app-svg-icon icon="edit" size="22px"></app-svg-icon>
+      Editar
+  </button>
 
   <!-- Profile Image -->
   <div class="text-va-fifth flex justify-center items-center m-2 
@@ -32,7 +44,7 @@
     }
   </div>
 
-  <hr class="h-0.5 w-full text-va-fourth my-3">
+  <hr class="h-0.5 w-full text-va-fourth/80 my-3">
 
   <!-- Medical Data -->
   <div class="flex flex-col flex-wrap 

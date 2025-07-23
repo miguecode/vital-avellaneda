@@ -16,15 +16,16 @@ import {
   getEnumLabel,
 } from '../../../../core/enums/enum-labels';
 import { AVAILABILITY_PRESETS_LABELS } from '../../../../core/constants/availability-presets';
+import { RouterLink } from '@angular/router';
 
 @Component({
-  selector: 'app-user-information',
-  imports: [SvgIconComponent],
-  templateUrl: './user-information.component.html',
-  styleUrl: './user-information.component.css',
+  selector: 'app-user-information-card',
+  imports: [SvgIconComponent, RouterLink],
+  templateUrl: './user-information-card.component.html',
+  styleUrl: './user-information-card.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class UserInformationComponent {
+export class UserInformationCardComponent {
   private readonly authFacade = inject(AuthFacade);
   readonly user: Signal<UserBase | null> = this.authFacade.user;
 

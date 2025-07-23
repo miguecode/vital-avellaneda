@@ -1,4 +1,11 @@
-import { ChangeDetectionStrategy, Component, inject, signal, HostListener, ElementRef } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  signal,
+  HostListener,
+  ElementRef,
+} from '@angular/core';
 import { AuthFacade } from '../../../features/auth/auth.facade';
 import { SvgIconComponent } from '../../icons/svg-icon.component';
 import { UserRoles as R } from '../../../core/enums';
@@ -22,11 +29,11 @@ export class UserSubmenuComponent {
   private authFacade = inject(AuthFacade);
   private elementRef = inject(ElementRef);
   private router = inject(Router);
-  
+
   readonly user = this.authFacade.user;
   readonly name = this.user()?.firstName;
   readonly role = this.user()?.role === R.PATIENT ? 'Paciente' : 'Especialista';
-  
+
   // Signal to control the dropdown state
   readonly isDropdownOpen = signal(false);
   // Signal to control the dropdown visibility
@@ -35,25 +42,25 @@ export class UserSubmenuComponent {
   readonly menuItems: MenuItem[] = [
     {
       icon: 'user',
-      text: 'Mi perfil',
-      action: () => this.handleProfileClick()
+      text: 'Mi cuenta',
+      action: () => this.handleAccountClick(),
     },
     {
       icon: 'appointment',
       text: 'Mis turnos',
-      action: () => this.handleAppointmentsClick()
+      action: () => this.handleAppointmentsClick(),
     },
     {
       icon: 'configuration',
       text: 'Configuración',
-      action: () => this.handleSettingsClick()
-    }
+      action: () => this.handleSettingsClick(),
+    },
   ];
 
   // Method to toggle the dropdown
   toggleDropdown(event: Event): void {
     event.stopPropagation(); // Prevent the event from propagating to the document
-    
+
     if (this.isDropdownOpen()) {
       this.closeDropdown();
     } else {
@@ -83,12 +90,16 @@ export class UserSubmenuComponent {
   @HostListener('document:click', ['$event'])
   onDocumentClick(event: Event): void {
     // Only close if the dropdown is open and the click was outside the component
-    if (this.isDropdownOpen() && !this.elementRef.nativeElement.contains(event.target)) {
+    if (
+      this.isDropdownOpen() &&
+      !this.elementRef.nativeElement.contains(event.target)
+    ) {
       this.closeDropdown();
     }
   }
 
-  private handleProfileClick(): void {
+  private handleAccountClick(): void {
+    this.router.navigate(['/dashboard/profile/edit']);
     this.closeDropdown();
   }
 
@@ -102,7 +113,6 @@ export class UserSubmenuComponent {
 
   async handleLogoutClick(): Promise<void> {
     await this.authFacade.logout();
-    // this.closeDropdown();
     this.router.navigate(['/auth/login']);
   }
 }

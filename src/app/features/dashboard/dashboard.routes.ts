@@ -21,4 +21,12 @@ export const DASHBOARD_ROUTES: Routes = [
         (m) => m.SpecialistPageComponent
       ),
   },
+  {
+    path: 'profile/edit',
+    canActivate: [roleGuard([UserRoles.PATIENT, UserRoles.SPECIALIST, UserRoles.ADMIN])],
+    loadComponent: () =>
+      import('./pages/user-edit-page/user-edit-page.component').then(
+        (m) => m.UserEditPageComponent
+      ),
+  },
 ];

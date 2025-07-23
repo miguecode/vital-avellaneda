@@ -1,0 +1,120 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <div class="relative flex flex-wrap gap-4 w-full">
+    <!-- First Column -->
+    <div class="flex flex-col gap-7 w-86">
+      <app-input-custom
+        type="text"
+        formControlName="firstName"
+        name="firstName"
+        label="Nombre"
+        placeholder="Nombre (2-30 caracteres)"
+        autocomplete="given-name"
+        [minlength]="2"
+        [maxlength]="30"
+      />
+      <app-input-custom
+        type="text"
+        formControlName="lastName"
+        name="lastName"
+        label="Apellido"
+        placeholder="Apellido (2-30 caracteres)"
+        autocomplete="family-name"
+        [minlength]="2"
+        [maxlength]="30"
+      />
+    </div>
+
+    <!-- Second Column -->
+    <div class="flex flex-col gap-7 w-86">
+      <app-select-custom
+        formControlName="sex"
+        label="Sexo"
+        name="sex"
+        placeholder="Seleccionar..."
+        [required]="true"
+        [options]="sexOptions"
+        [labelMap]="sexLabels"
+        [showValue]="true"
+      />
+      <app-input-custom
+        type="text"
+        formControlName="phone"
+        name="phone"
+        label="Número de Teléfono (opcional)"
+        placeholder="Número (8-15 dígitos)"
+        autocomplete="tel"
+        [minlength]="8"
+        [maxlength]="15"
+      />
+    </div>
+
+    <!-- Third Column -->
+    <div class="flex flex-col gap-7 w-86">
+      @if (!isSpecialist()) {
+        <app-select-custom
+          formControlName="healthInsurance"
+          label="Obra Social"
+          [options]="healthInsuranceOptions"
+          [labelMap]="healthInsuranceLabels"
+          [showValue]="true"
+        ></app-select-custom>
+      }
+      @else {
+        <div class="w-full">
+          <label for="specialtiesButton" class="text-va-primary font-medium">Especialidades</label>
+          <button
+            id="specialtiesButton"
+            type="button"
+            (click)="openModal()"
+            class="cursor-pointer w-full h-select-height pt-0.5 pl-3 text-start
+             text-black rounded bg-white border border-va-third hover:bg-amber-50
+              active:bg-amber-100 transition-all duration-300 shadow
+              disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            Seleccionar ({{ form.get('specialties')?.value.length }} seleccionadas)
+          </button>
+        </div>
+      }
+    </div>
+
+    <!-- Specialty Selector Modal -->
+    @if (showSpecialtyModal()) {
+      <app-specialty-selector
+        [lastSelected]="form.get('specialties')?.value"
+        (confirm)="onSpecialtiesSelected($event)"
+        (cancel)="closeModal()"
+        class="absolute w-300 h-120 z-20 bg-white border border-va-third/20 shadow rounded"
+      />
+    }
+  </div>
+
+    <!-- Submit Button -->
+    <div class="mt-14 flex flex-col flex-wrap justify-center items-center
+     w-266 h-full gap-3">
+      <button
+        type="submit"
+        [disabled]="form.invalid || !hasChanges() ||  isLoading()"
+        class="cursor-pointer px-8 py-3 text-white text-lg rounded font-medium
+              bg-va-primary hover:bg-va-third active:bg-va-third/90
+              transition duration-300 shadow-md 
+              disabled:bg-va-primary/50 disabled:shadow-none disabled:cursor-auto
+              flex items-center justify-center gap-2"
+      >
+        @if (isLoading()) {
+          <div class="animate-spin inline-block size-6 border-3
+                      border-current border-t-transparent text-white rounded-full"
+              role="status" aria-label="loading"></div>
+          Guardando...
+        } @else {
+          Guardar cambios
+        }
+      </button>
+      <div class="flex justify-start items-start w-136
+       gap-2 bg-gray-200 text-black rounded p-3 mt-3">
+          <app-svg-icon class="h-full" icon="info" size="24px"></app-svg-icon>
+          <p class="h-full text-pretty w-full">
+            Para modificar otros datos de tu cuenta como el DNI o el correo electrónico, contactate con las sucursales activas o envianos un correo a: <strong class="font-medium">{{ email }}</strong>.
+          </p>
+      </div>
+  </div>
+</form>

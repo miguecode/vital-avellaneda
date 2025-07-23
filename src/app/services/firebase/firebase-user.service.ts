@@ -1,5 +1,5 @@
 import { Injectable, inject } from '@angular/core';
-import { Firestore, collection, doc, getDocs, getDoc, query, setDoc, where } from '@angular/fire/firestore';
+import { Firestore, collection, doc, getDocs, getDoc, query, setDoc, where, updateDoc } from '@angular/fire/firestore';
 import { UserRepository } from '../../../app/core/interfaces/user.repository';
 import { Patient, Specialist } from '../../core/models';
 import { UserBase } from '../../core/models';
@@ -47,5 +47,21 @@ export class FirebaseUserService implements UserRepository {
       } as UserBase;
     }
     return null;
+  }
+
+  async updateUser(updatedData: Partial<Patient | Specialist>): Promise<void> {
+    if (!updatedData.id) {
+      throw new Error('El campo "id" es obligatorio para actualizar un usuario.');
+    }
+
+    const q = query(collection(this.firestore, 'users'), where('id', '==', updatedData.id));
+    const snapshot = await getDocs(q);
+
+    if (snapshot.empty) {
+      throw new Error(`No se encontró un usuario con el ID: ${updatedData.id}`);
+    }
+
+    const userDoc = snapshot.docs[0].ref;
+    await updateDoc(userDoc, updatedData);
   }
 }
