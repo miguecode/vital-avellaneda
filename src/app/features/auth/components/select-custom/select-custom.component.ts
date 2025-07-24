@@ -27,11 +27,11 @@ export class SelectCustomComponent implements ControlValueAccessor, OnChanges {
   @Input() label: string = 'Campo';
   @Input() name: string = '';
   @Input() labelMap?: Map<string, string>;
-  @Input() placeholder: string = 'Seleccionar...';
+  @Input() placeholder: string | undefined = 'Seleccionar...';
   @Input() showValue?: boolean = false;
 
   value = signal('');
-  initialValue: string | null = null;
+  // initialValue: string | null = null;
   hasChanged: boolean = false;
   isDisabled = false;
   control: NgControl | null = null;
@@ -74,7 +74,7 @@ export class SelectCustomComponent implements ControlValueAccessor, OnChanges {
   }
 
   onSelectChange(event: Event) {
-    if (!this.hasChanged) this.initialValue = this.labelMap?.get(this.value()) ?? null;
+    // if (!this.hasChanged) this.initialValue = this.labelMap?.get(this.value()) ?? null;
     this.hasChanged = true;
 
     const selectedValue = (event.target as HTMLSelectElement).value;

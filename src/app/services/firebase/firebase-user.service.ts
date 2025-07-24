@@ -24,12 +24,12 @@ export class FirebaseUserService implements UserRepository {
     const userSnap = await getDoc(userRef);
     
     if (userSnap.exists()) {
-      const data = userSnap.data();
-      return {
-        ...data,
-        birthDate: data['birthDate'] ? new Date(data['birthDate']) : new Date(),
-        registrationDate: data['registrationDate'] ? new Date(data['registrationDate']) : new Date(),
-      } as UserBase;
+        const data = userSnap.data();
+        return {
+            ...data,
+            birthDate: data['birthDate'] ? new Date(data['birthDate']) : null,
+            registrationDate: data['registrationDate']?.toDate() || null,
+        } as UserBase;
     }
     return null;
   }

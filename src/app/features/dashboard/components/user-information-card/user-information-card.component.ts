@@ -121,11 +121,10 @@ export class UserInformationCardComponent {
   private formatDate(date: any): string {
     if (!date) return 'Desconocido';
     let d: Date;
-    // If it's a Firebase Timestamp
     if (typeof date === 'object' && typeof date.toDate === 'function') {
-      d = date.toDate();
+        d = date.toDate();
     } else {
-      d = new Date(date);
+        d = new Date(date);
     }
     if (isNaN(d.getTime())) return 'Desconocido';
     const day = String(d.getDate()).padStart(2, '0');
