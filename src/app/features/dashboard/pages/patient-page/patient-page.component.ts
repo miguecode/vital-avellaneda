@@ -3,10 +3,12 @@ import { AuthFacade } from '../../../auth/auth.facade';
 import { UserBase } from '../../../../core/models';
 import { SplashComponent } from "../../../../shared/components/splash/splash.component";
 import { UserInformationCardComponent } from "../../components/user-information-card/user-information-card.component";
+import { AppointmentsPendingComponent } from "../../components/appointments-pending/appointments-pending.component";
+import { AppointmentsFinishedComponent } from "../../components/appointments-finished/appointments-finished.component";
 
 @Component({
   selector: 'app-patient-page',
-  imports: [SplashComponent, UserInformationCardComponent],
+  imports: [SplashComponent, UserInformationCardComponent, AppointmentsPendingComponent, AppointmentsFinishedComponent],
   templateUrl: './patient-page.component.html',
   styleUrl: './patient-page.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush

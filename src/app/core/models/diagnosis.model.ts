@@ -1,6 +1,6 @@
 export interface Diagnosis {
   details: string;
   prescriptions?: string[];
-  observations?: string;  
+  aclarations?: string;
   date: Date;
 }

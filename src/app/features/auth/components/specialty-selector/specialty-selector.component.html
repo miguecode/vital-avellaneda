@@ -20,11 +20,12 @@
       @for (specialty of specialties(); track $index) {
         <div (click)="toggleSelected(specialty)"
         [class.selected]="isSelected(specialty)"
-        class="select-none cursor-pointer flex flex-col flex-wrap
+        class="select-none cursor-pointer flex flex-wrap
          items-center justify-center outline outline-lightblue-primary
-         p-3 w-specialty-width rounded
+         p-3 w-specialty-width rounded gap-1.5
          overflow-hidden bg-lightblue-primary text-va-primary text-lg font-medium
         active:bg-lightblue-third/10 transition-colors">
+          <app-svg-icon icon="medicalService"></app-svg-icon>
           <h3>{{specialty.name}}</h3>
         </div>
       }

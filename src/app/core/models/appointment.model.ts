@@ -1,13 +1,16 @@
-import { Diagnosis, Rating } from '../models';
+import { Diagnosis, Rating, Specialty } from '../models';
 import { AppointmentStatus } from '../enums/';
 
 export interface Appointment {
   id: string;
   patientId: string;
   specialistId: string;
-  date: Date;
   status: AppointmentStatus;
+  date: Date;
+  specialty: Specialty;
+  creationDate: Date;
   cancelationReason?: string;
   diagnosis?: Diagnosis;
+  privateAnnotations?: string[];
   rating?: Rating;
 }
