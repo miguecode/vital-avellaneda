@@ -1,0 +1,107 @@
+<form class="flex bg-lightblue-primary/20 size-full rounded-3xl
+ py-8 mt-4 px-12 gap-16 border border-va-fourth/20 shadow">
+
+  <!-- Stepper -->
+  <div class="relative max-w-96 max-h-98">
+    
+    <!-- Progress Line -->
+    <div class="progress-container w-1 bg-gray-300">
+      <div 
+        class="progress transition-all duration-300 ease-in-out bg-va-fifth w-full"
+        [style.height]="((currentStep() - 1) / (steps.length - 1)) * 100 + '%'">
+      </div>
+    </div>
+
+    <!-- Step Labels -->
+    <ol class="steps list-none relative p-0 m-0 z-1">
+      @for (step of steps; track step.number) {
+        <li 
+          class="step-item flex items-center mb-14
+           text-gray-300 transition duration-300"
+          [class.current]="currentStep() === step.number"
+          [class.done]="currentStep() > step.number"
+        >
+          <div 
+          class="step-marker size-step-size flex justify-center items-center
+           rounded-full bg-gray-300 text-white text-2xl
+            shrink-0 transition duration-300">
+            @if (currentStep() > step.number) {
+              <app-svg-icon icon="check" size="30px"></app-svg-icon>
+            } @else {
+              <span>{{ step.number }}</span>
+            }
+          </div>
+          <div class="ml-2 text-lg font-medium text-pretty">{{ step.title }}</div>
+        </li>
+      }
+    </ol>
+  </div>
+
+  <!-- Form Content -->
+  <div class="flex-1 w-full">
+    <div class="relative overflow-hidden min-h-40">
+      @for (step of steps; track step.number) {
+        @if (currentStep() === step.number && step.number === 1) {
+          <div class="step-content py-2 px-4">
+            <h3 class="text-3xl font-bold mb-2">{{ step.title }}</h3>
+            <p class="text-lg">Seleccioná la atención que necesites.</p>
+          </div>
+        } @else if (currentStep() === step.number && step.number === 2) {
+          <div class="step-content py-2 px-4">
+            <h3 class="text-3xl font-bold mb-2">{{ step.title }}</h3>
+            <p class="text-lg">Seleccioná la fecha y hora del turno, basado en la disponibilidad actual.</p>
+          </div>
+        } @else if (currentStep() === step.number && step.number === 3) {
+          <div class="step-content py-2 px-4">
+            <h3 class="text-3xl font-bold mb-2">{{ step.title }}</h3>
+            <p class="text-lg">Podés elegir al especialista en caso de tener alguna preferencia.</p>
+          </div>
+        } @else if (currentStep() === step.number && step.number === 4) {
+          <div class="step-content py-2 px-4">
+            <h3 class="text-3xl font-bold mb-2">{{ step.title }}</h3>
+            <p class="text-lg">Revisá la información del turno antes de confirmar la solicitud.</p>
+          </div>
+        }
+      }
+    </div>
+
+    <!-- Navigation -->
+    <div class="controls flex justify-center gap-14
+     mt-6 px-4">
+      @if (currentStep() > 1) {
+        <button 
+          type="button"
+          (click)="prevStep()"
+          class="cursor-pointer flex justify-center items-center w-40 py-3 px-8
+           font-medium text-lg text-black rounded-lg 
+           hover:bg-gray-100 active:bg-gray-200 transition duration-300"
+        >
+          Atrás
+        </button>
+      } @else {
+        <div class="opacity-0 select-none w-40 py-3 px-8 text-lg">Atrás</div>
+      }
+
+      @if (currentStep() < steps.length) {
+        <button type="button"
+          (click)="nextStep()"
+          class="cursor-pointer flex justify-center items-center py-3 px-14 w-72
+          font-medium text-lg text-lightblue-primary rounded-lg
+          bg-va-primary hover:bg-va-primary/90 active:bg-va-primary/80 transition duration-300"
+        >
+          Siguiente
+        </button>
+      }
+
+      @if (currentStep() === steps.length) {
+        <button
+          class="cursor-pointer flex justify-center items-center py-3 px-8 w-72
+          font-medium text-lg text-lightblue-primary rounded-lg
+          bg-va-primary hover:bg-va-primary/90 active:bg-va-primary/80 transition duration-300"
+        >
+          Confirmar Turno
+        </button>
+      }
+    </div>
+  </div>
+</form>

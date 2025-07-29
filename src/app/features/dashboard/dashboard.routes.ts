@@ -12,6 +12,14 @@ export const DASHBOARD_ROUTES: Routes = [
         (m) => m.PatientPageComponent
       ),
   },
+  {
+    path: 'request-appointment',
+    canActivate: [roleGuard([UserRoles.PATIENT])],
+    loadComponent: () =>
+      import('./pages/request-appointment-page/request-appointment-page.component').then(
+        (m) => m.RequestAppointmentPageComponent
+      ),
+  },
   // Only for authenticated users with Specialist or Admin role
   {
     path: 'specialist',

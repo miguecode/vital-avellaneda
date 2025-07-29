@@ -1,0 +1,48 @@
+.progress-container {
+  position: absolute;
+  top: calc(var(--spacing-step-size) / 2);
+  left: calc(var(--spacing-step-size) / 2);
+  bottom: calc(var(--spacing-step-size) / 2);
+  transform: translateX(-50%);
+}
+
+/* Other Transition */
+/* .step-item {
+  transition: color 0.3s linear 0.3s;
+} */
+
+.step-item:last-child {
+  margin-bottom: 0;
+}
+
+.step-item.done {
+  color: var(--color-va-primary)
+}
+
+.step-item.done .step-marker {
+  background-color: var(--color-va-primary);
+}
+
+.step-item.current {
+  color: var(--color-va-fifth);
+}
+
+.step-item.current .step-marker {
+  background-color: var(--color-va-fifth);
+  box-shadow: 0 0 0 3px var(--color-va-fourth);
+}
+
+.step-content {
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

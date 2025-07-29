@@ -42,8 +42,8 @@ export class FirebaseUserService implements UserRepository {
       const data = docSnap.data();
       return {
         ...data,
-        birthDate: data['birthDate'] ? new Date(data['birthDate']) : new Date(),
-        registrationDate: data['registrationDate'] ? new Date(data['registrationDate']) : new Date(),
+        birthDate: data['birthDate'] ? new Date(data['birthDate']) : null,
+        registrationDate: data['registrationDate']?.toDate() || null,
       } as UserBase;
     }
     return null;

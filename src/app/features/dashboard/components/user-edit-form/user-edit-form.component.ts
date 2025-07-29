@@ -184,14 +184,8 @@ export class UserEditFormComponent implements OnInit {
   }
   
   arraysAreEqual(a: Specialty[], b: Specialty[]): boolean {
-    console.log('Estoy en arraysAreEqual. FormValue[specialties]: ', a);
-    console.log('Estoy en arraysAreEqual. currentUser.specialties: ', b);
-
     const idsA = a.map(s => s.id).sort();
     const idsB = b.map(s => s.id).sort();
-
-    console.log('Voy a retornar...:', JSON.stringify(idsA) === JSON.stringify(idsB));
-
     return JSON.stringify(idsA) === JSON.stringify(idsB);
   } 
 }

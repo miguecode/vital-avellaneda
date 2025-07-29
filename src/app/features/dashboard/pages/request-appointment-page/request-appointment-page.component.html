@@ -9,33 +9,25 @@
   >
     <!-- Back Button -->
     <button
-      [routerLink]="
-        this.user()?.role === 'patient'
-          ? '/dashboard/patient'
-          : '/dashboard/specialist'
-      "
-      class="-mt-4 -ml-13 flex flex-wrap justify-center items-center
-       gap-1 rounded-full px-6 py-1.5 cursor-pointer hover:text-va-third
+      routerLink="/dashboard/patient"
+      class="-mt-4 -ml-13 flex flex-wrap justify-center items-center gap-1
+       rounded-full px-6 py-1.5 cursor-pointer hover:text-va-third
         hover:bg-va-secondary/50 active:bg-va-secondary/90 transition duration-300"
     >
-      <app-svg-icon
-        icon="backArrow"
-        size="36px"
-      ></app-svg-icon>
+      <app-svg-icon icon="backArrow" size="36px"></app-svg-icon>
       <span class="text-lg">Perfil</span>
     </button>
 
     <!-- Title and Description -->
     <app-title-description
-      class="text-black mt-4"
-      title="Mi cuenta"
-      description="En esta pantalla podés modificar los datos de tu cuenta."
+    class="text-black mt-4"
+    title="Solicitar Turno"
+    description="En esta pantalla podés solicitar un nuevo turno, avanzando paso a paso."
     ></app-title-description>
 
-    <!-- Edit Form -->
-     <div class="w-full mt-4">
-       <app-user-edit-form></app-user-edit-form>
-     </div>
+    <div class="size-full">
+      <app-request-appointment-form></app-request-appointment-form>
+    </div>
   </div>
 </div>
 }
