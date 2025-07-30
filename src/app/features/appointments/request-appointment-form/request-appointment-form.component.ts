@@ -34,6 +34,7 @@ export class RequestAppointmentFormComponent {
   public currentStep = signal<number>(1);
   readonly specialtySelected = signal<Specialty | null>(null);
   readonly specialistSelected = signal<Specialist | null>(null);
+  readonly firstMoment = signal<boolean>(false);
 
   public onSpecialtySelected(specialty: Specialty | null): void {
     this.specialtySelected.set(specialty);

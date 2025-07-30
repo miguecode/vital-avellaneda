@@ -64,6 +64,7 @@
           <div class="step-content py-2 px-4">
             <h3 class="text-3xl font-bold mb-2">{{ step.title }}</h3>
             <p class="text-lg">Seleccioná la fecha y hora del turno, basado en la disponibilidad actual.</p>
+
           </div>
         } @else if (currentStep() === step.number && step.number === 4) {
           <div class="step-content py-2 px-4">
@@ -75,28 +76,31 @@
     </div>
 
     <!-- Navigation -->
-    <div class="controls flex justify-center gap-14
+    <div class="controls flex justify-center gap-10
      mt-6 px-4">
-      @if (currentStep() > 1) {
-        <button 
-          type="button"
-          (click)="prevStep()"
-          class="cursor-pointer flex justify-center items-center w-40 py-3 px-8
-           font-medium text-lg text-black rounded-lg 
-           hover:bg-gray-100 active:bg-gray-200 transition duration-300"
-        >
-          Atrás
-        </button>
-      } @else {
-        <div class="opacity-0 select-none w-40 py-3 px-8 text-lg">Atrás</div>
-      }
+      <button 
+        type="button"
+        (click)="prevStep()"
+        disabled
+        [disabled]="currentStep() === 1"
+        class="cursor-pointer flex justify-center items-center w-40 py-3 px-8
+          font-medium text-lg text-black rounded-lg 
+        hover:bg-gray-100 active:bg-gray-200 transition duration-300
+        disabled:text-gray-400 disabled:bg-transparent disabled:cursor-auto"
+      >
+        Atrás
+      </button>
 
       @if (currentStep() < steps.length) {
         <button type="button"
           (click)="nextStep()"
+          disabled
+          [disabled]="(currentStep() === 1 && !this.specialtySelected())
+                      || (currentStep() === 2 && !this.specialistSelected())"
           class="cursor-pointer flex justify-center items-center py-3 px-14 w-72
           font-medium text-lg text-lightblue-primary rounded-lg
-          bg-va-primary hover:bg-va-primary/90 active:bg-va-primary/80 transition duration-300"
+          bg-va-primary hover:bg-va-primary/90 active:bg-va-primary/80 transition duration-300
+          disabled:bg-va-primary/50 disabled:cursor-auto"
         >
           Siguiente
         </button>
