@@ -15,6 +15,8 @@ export class SpecialtyFacade {
   readonly specialties = this._specialties.asReadonly();
 
   async loadSpecialties(): Promise<void> {
+    if (this._specialties().length > 0) return;
+
     const data = await this.specialtyService.getAll();
     this._specialties.set(data);
   }

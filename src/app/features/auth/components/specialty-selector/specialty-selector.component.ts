@@ -39,7 +39,6 @@ export class SpecialtySelectorComponent implements OnInit, OnChanges {
   ngOnInit(): void {
     // Load the list of specialties from the Database
     this.specialtyFacade.loadSpecialties();
-    console.log(this.specialties());
   }
 
   ngOnChanges(changes: SimpleChanges): void {

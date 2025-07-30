@@ -49,6 +49,19 @@ export class FirebaseUserService implements UserRepository {
     return null;
   }
 
+  async getUsersByRole(role: string): Promise<UserBase[]> {
+    const q = query(collection(this.firestore, 'users'), where('role', '==', role));
+    const snapshot = await getDocs(q);
+    return snapshot.docs.map(doc => {
+      const data = doc.data();
+      return {
+        ...data,
+        birthDate: data['birthDate'] ? new Date(data['birthDate']) : null,
+        registrationDate: data['registrationDate']?.toDate() || null,
+      } as UserBase;
+    });
+  }
+
   async updateUser(updatedData: Partial<Patient | Specialist>): Promise<void> {
     if (!updatedData.id) {
       throw new Error('El campo "id" es obligatorio para actualizar un usuario.');

@@ -39,22 +39,31 @@
 
   <!-- Form Content -->
   <div class="flex-1 w-full">
-    <div class="relative overflow-hidden min-h-40">
+    <div class="relative overflow-hidden min-h-104">
       @for (step of steps; track step.number) {
         @if (currentStep() === step.number && step.number === 1) {
           <div class="step-content py-2 px-4">
             <h3 class="text-3xl font-bold mb-2">{{ step.title }}</h3>
             <p class="text-lg">Seleccioná la atención que necesites.</p>
+            <app-appointment-specialty-selector 
+              [lastSelected]="this.specialtySelected()"
+              (specialtyEmitted)="onSpecialtySelected($event)">
+            </app-appointment-specialty-selector>
           </div>
         } @else if (currentStep() === step.number && step.number === 2) {
           <div class="step-content py-2 px-4">
             <h3 class="text-3xl font-bold mb-2">{{ step.title }}</h3>
-            <p class="text-lg">Seleccioná la fecha y hora del turno, basado en la disponibilidad actual.</p>
+            <p class="text-lg">Podés elegir al especialista en caso de tener alguna preferencia.</p>
+            <app-appointment-specialist-selector 
+              [specialty]="this.specialtySelected()"
+              [lastSelected]="this.specialistSelected()"
+              (specialistEmitted)="onSpecialistSelected($event)">
+            </app-appointment-specialist-selector>
           </div>
         } @else if (currentStep() === step.number && step.number === 3) {
           <div class="step-content py-2 px-4">
             <h3 class="text-3xl font-bold mb-2">{{ step.title }}</h3>
-            <p class="text-lg">Podés elegir al especialista en caso de tener alguna preferencia.</p>
+            <p class="text-lg">Seleccioná la fecha y hora del turno, basado en la disponibilidad actual.</p>
           </div>
         } @else if (currentStep() === step.number && step.number === 4) {
           <div class="step-content py-2 px-4">

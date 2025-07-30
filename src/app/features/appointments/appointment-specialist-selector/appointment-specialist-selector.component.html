@@ -1,0 +1,40 @@
+<div class="flex flex-wrap items-center justify-center mt-3
+gap-4 py-5 rounded border border-va-third/20 shadow max-h-78 overflow-x-auto">
+
+  @defer (when filteredSpecialists().length > 0) {
+    @for (specialist of filteredSpecialists(); track specialist.id) {
+      <div (click)="selectSpecialist(specialist)"
+        [class.selected]="isSelected(specialist)"
+        class="select-none cursor-pointer flex flex-col items-center
+        justify-start p-3 min-w-56 min-h-56 h-64 rounded-lg overflow-hidden
+        bg-lightblue-secondary/30 text-va-primary active:bg-lightblue-third/10
+        transition-colors outline outline-lightblue-primary">
+        
+        <!-- Profile Icon -->
+        <div class="w-20 h-20 rounded-full outline-2 outline-va-fourth flex items-center justify-center mb-2">
+          <app-svg-icon icon="specialist" size="48px"></app-svg-icon>
+        </div>
+
+        <!-- Specialist Info -->
+        <div class="flex flex-col w-full justify-center items-center text-center">
+          <h3 class="font-semibold text-lg">{{ specialist.firstName }} <br> {{ specialist.lastName }}</h3>
+          <hr class="w-full h-1 text-va-primary/40 mb-1.5">
+          <div class="flex flex-col justify-start items-start gap-0.5 w-52 text-start">
+            <div class="flex gap-0.5 size-full justify-start items-start">
+              <app-svg-icon [icon]="specialist.sex === 'male' ? 'male' : 'female'" size="19px"></app-svg-icon>
+              <p class="text-sm text-va-primary">{{ sexLabels.get(specialist.sex) }}</p>
+            </div>
+            <div class="flex gap-0.5 size-full">
+              <app-svg-icon icon="schedule" size="19px"></app-svg-icon>
+              <p class="text-sm text-va-primary text-pretty">{{ availabilityLabels.get(specialist.availabilityName) }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    }
+  } @placeholder (minimum 1s) {
+      @for (i of [1, 2, 3, 4]; track $index) {
+        <div class="w-48 h-48 bg-lightblue-secondary animate-pulse rounded-lg"></div>
+      }
+    }
+</div>

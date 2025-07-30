@@ -20,13 +20,17 @@
       @for (specialty of specialties(); track $index) {
         <div (click)="toggleSelected(specialty)"
         [class.selected]="isSelected(specialty)"
-        class="select-none cursor-pointer flex flex-wrap
-         items-center justify-center outline outline-lightblue-primary
-         p-3 w-specialty-width rounded gap-1.5
+        class="select-none cursor-pointer flex flex-col
+         items-start justify-start outline outline-lightblue-primary
+         px-3 py-2 w-specialty-width h-24 max-h-36 rounded
          overflow-hidden bg-lightblue-primary text-va-primary text-lg font-medium
         active:bg-lightblue-third/10 transition-colors">
-          <app-svg-icon icon="medicalService"></app-svg-icon>
-          <h3>{{specialty.name}}</h3>
+          <div class="flex justify-center items-center gap-1.5">
+            <app-svg-icon [icon]="$any(specialty.id)"></app-svg-icon>
+            <h3 class="mt-1">{{specialty.name}}</h3>
+          </div>
+          <hr class="text-va-primary/40 w-full h-1">
+          <p class="text-sm text-va-primary/70 font-normal text-pretty">{{specialty.description}}</p>
         </div>
       }
         <!-- Loading not working at all -->
@@ -34,9 +38,9 @@
           @for (i of [1, 2, 3, 4, 5, 6, 7, 8]; track $index) {
             <div class="w-specialty-width h-20 bg-lightblue-primary animate-pulse rounded"></div>
           } -->
-      } @placeholder (minimum 1.8s) {
+      } @placeholder (minimum 1s) {
         @for (i of [1, 2, 3, 4, 5, 6, 7, 8]; track $index) {
-          <div class="w-specialty-width h-16 bg-lightblue-secondary animate-pulse rounded"></div>
+          <div class="w-specialty-width h-24 bg-lightblue-secondary animate-pulse rounded"></div>
         }
       }
   </div>
