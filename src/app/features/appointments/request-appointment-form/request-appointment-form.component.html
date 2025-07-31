@@ -44,7 +44,7 @@
         @if (currentStep() === step.number && step.number === 1) {
           <div class="step-content py-2 px-4">
             <h3 class="text-3xl font-bold mb-2">{{ step.title }}</h3>
-            <p class="text-lg">Seleccioná la atención que necesites.</p>
+            <p class="text-lg">{{ step.description }}</p>
             <app-appointment-specialty-selector 
               [lastSelected]="this.specialtySelected()"
               (specialtyEmitted)="onSpecialtySelected($event)">
@@ -53,7 +53,7 @@
         } @else if (currentStep() === step.number && step.number === 2) {
           <div class="step-content py-2 px-4">
             <h3 class="text-3xl font-bold mb-2">{{ step.title }}</h3>
-            <p class="text-lg">Podés elegir al especialista en caso de tener alguna preferencia.</p>
+            <p class="text-lg">{{ step.description }}</p>
             <app-appointment-specialist-selector 
               [specialty]="this.specialtySelected()"
               [lastSelected]="this.specialistSelected()"
@@ -63,13 +63,22 @@
         } @else if (currentStep() === step.number && step.number === 3) {
           <div class="step-content py-2 px-4">
             <h3 class="text-3xl font-bold mb-2">{{ step.title }}</h3>
-            <p class="text-lg">Seleccioná la fecha y hora del turno, basado en la disponibilidad actual.</p>
-
+            <p class="text-lg">{{ step.description }}</p>
+            <app-appointment-date-selector
+              [specialist]="this.specialistSelected()"
+              [lastSelected]="this.dateTimeSelected()"
+              (dateTimeSelected)="onDateTimeSelected($event)">
+            </app-appointment-date-selector>
           </div>
         } @else if (currentStep() === step.number && step.number === 4) {
           <div class="step-content py-2 px-4">
             <h3 class="text-3xl font-bold mb-2">{{ step.title }}</h3>
-            <p class="text-lg">Revisá la información del turno antes de confirmar la solicitud.</p>
+            <p class="text-lg">{{ step.description }}</p>
+            <app-appointment-confirm
+              [specialty]="specialtySelected()"
+              [specialist]="specialistSelected()"
+              [dateTime]="dateTimeSelected()"
+            ></app-appointment-confirm>
           </div>
         }
       }
@@ -94,9 +103,7 @@
       @if (currentStep() < steps.length) {
         <button type="button"
           (click)="nextStep()"
-          disabled
-          [disabled]="(currentStep() === 1 && !this.specialtySelected())
-                      || (currentStep() === 2 && !this.specialistSelected())"
+          [disabled]="isNextStepDisabled()"
           class="cursor-pointer flex justify-center items-center py-3 px-14 w-72
           font-medium text-lg text-lightblue-primary rounded-lg
           bg-va-primary hover:bg-va-primary/90 active:bg-va-primary/80 transition duration-300

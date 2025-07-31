@@ -5,7 +5,9 @@ import {
   provideBrowserGlobalErrorListeners,
   provideZonelessChangeDetection,
   inject,
+  LOCALE_ID,
 } from '@angular/core';
+
 
 // Angular Router imports
 import { provideRouter } from '@angular/router';
@@ -17,6 +19,11 @@ import {
   withEventReplay,
   withIncrementalHydration,
 } from '@angular/platform-browser';
+
+// Language Configuration
+import { registerLocaleData } from '@angular/common';
+import localeEs from '@angular/common/locales/es';
+registerLocaleData(localeEs, 'es');
 
 // Firebase imports
 import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
@@ -52,9 +59,12 @@ export const appConfig: ApplicationConfig = {
     provideAuth(() => getAuth()),
     provideFirestore(() => getFirestore()),
 
-    // Custom providers
+    // Service providers
     { provide: AUTH_REPOSITORY, useClass: FirebaseAuthService },
     { provide: USER_REPOSITORY, useClass: FirebaseUserService },
     { provide: SPECIALTY_REPOSITORY, useClass: FirebaseSpecialtyService },
+
+    // Language provide
+    { provide: LOCALE_ID, useValue: 'es' },
   ],
 };

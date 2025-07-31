@@ -1,0 +1,50 @@
+<div
+  class="flex flex-wrap items-start justify-start mt-3 gap-4
+   py-2 px-2 rounded border border-va-third/20
+    shadow max-h-86 h-78 overflow-y-auto"
+>
+  <div class="flex flex-col px-10 mt-2 w-240">
+
+    <!-- Information Title -->
+    <div class="flex gap-2 justify-start items-center">
+      <app-svg-icon icon="assignment" size="30px"></app-svg-icon>
+      <h3 class="text-2xl font-semibold">Información del Turno</h3>
+    </div>
+
+    <hr class="text-va-primary w-full" />
+
+    <!-- Information Content -->
+    <div class="flex flex-col gap-1.5 mt-4">
+      <div class="flex gap-2 justify-start items-start">
+        <app-svg-icon icon="medicalService" size="26px"></app-svg-icon>
+        <p class="text-lg font-medium">Especialidad: <span class="font-normal">{{ specialty?.name }}</span></p>
+      </div>
+      <div class="flex gap-2 justify-start items-start">
+        <app-svg-icon icon="specialist" size="26px"></app-svg-icon>
+        <p class="text-lg font-medium">Especialista: <span class="font-normal">{{ specialist?.firstName }} {{ specialist?.lastName }}</span></p>
+      </div>
+      <div class="flex gap-2 justify-start items-start">
+        <app-svg-icon icon="appointment" size="26px"></app-svg-icon>
+        <p class="text-lg font-medium">Fecha: <span class="font-normal">{{ dateTime | date:'EEEE, d \'de\' MMMM' }}</span></p>
+      </div>
+      <div class="flex gap-2 justify-start items-start">
+        <app-svg-icon icon="schedule" size="26px"></app-svg-icon>
+        <p class="text-lg font-medium">Horario: <span class="font-normal">{{ dateTime | date:'HH:mm' }} hs</span></p>
+      </div>
+    </div>
+    
+    <!-- Detail -->
+    <div 
+      class="flex px-10 py-2 justify-start items-start mt-3
+        gap-2 bg-amber-200 border-2 border-amber-300 text-black rounded">
+      <app-svg-icon class="h-full text-amber-900" icon="info" size="26px"></app-svg-icon>
+      <p class="h-full text-pretty w-full text-sm">
+        Revisá bien los datos antes de confirmar. Si hay algo mal, podés volver
+        hacia atrás para ajustar tus preferencias. En caso de que esté todo
+        bien, recordá que se recomienda llegar 15 minutos antes de cada sesión. En
+        el Portal para Pacientes vas a poder ver la información del turno, el estado
+        del mismo y más.
+      </p>
+    </div>
+  </div>
+</div>

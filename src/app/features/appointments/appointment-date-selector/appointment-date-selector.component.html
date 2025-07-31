@@ -1,0 +1,59 @@
+<div class="flex flex-wrap items-start justify-center mt-3
+gap-4 py-2 rounded border border-va-third/20 shadow max-h-86 h-78 overflow-x-auto">
+  <div class="flex flex-col w-full px-10">
+    <h4 class="text-xl font-semibold mb-2">Fechas disponibles</h4>
+    @if (availableDays().length > 0) {
+      <div class="flex flex-wrap gap-4 w-full">
+        @for (day of availableDays(); track day) {
+          <button
+            type="button"
+            (click)="onDaySelected(day)"
+            [class.selected]="day === selectedDay()"
+          class="cursor-pointer flex flex-col items-center justify-between text-black
+            py-3 px-4 rounded-lg border border-va-fourth/40 shadow min-w-34 h-28
+          hover:bg-lightblue-secondary/40 active:bg-lightblue-secondary/60
+            transition-colors duration-200"
+          >
+            <span class="font-semibold text-lg">{{ getDayDisplay(day).dayName }}</span>
+            <span class="text-3xl font-bold">{{ getDayDisplay(day).dayNumber }}</span>
+            <span class="font-medium">{{ getDayDisplay(day).monthName }}</span>
+          </button>
+        }
+      </div>
+    } @else {
+      <p class="text-center text-gray-500 mt-4">
+        El especialista seleccionado no tiene turnos disponibles en los próximos 7 días.
+      </p>
+    }
+
+    @if (selectedDay()) {
+      <div class="mt-5">
+        <h4 class="text-xl font-semibold mb-2">Horarios disponibles</h4>
+        @if (availableTimes().length > 0) {
+          <div class="flex flex-wrap gap-4 w-full">
+            @for (time of availableTimes(); track time) {
+              <button
+                type="button"
+                (click)="onTimeSelected(time)"
+                [class.selected]="time === selectedTime()"
+                class="cursor-pointer p-3 rounded-lg border border-va-fourth/20 w-26 shadow
+                hover:bg-lightblue-secondary/40 active:bg-lightblue-secondary/60
+                transition-colors duration-200 font-medium text-lg"
+              >
+                {{ time }}
+              </button>
+            }
+          </div>
+        } @else {
+          <p class="text-center text-gray-500 mt-4">
+            No hay horarios disponibles para el día seleccionado.
+          </p>
+        }
+      </div>
+    } @else {
+      <p class="text-start text-gray-500 mt-4">
+        Al seleccionar una fecha, se mostrarán sus horarios disponibles.
+      </p>
+    }
+  </div>
+</div>
