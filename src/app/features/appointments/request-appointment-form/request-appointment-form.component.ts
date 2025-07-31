@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
 import { SvgIconComponent } from '../../../shared/icons/svg-icon.component';
 import { AppointmentSpecialtySelectorComponent } from '../appointment-specialty-selector/appointment-specialty-selector.component';
@@ -15,9 +14,7 @@ interface Step {
 
 @Component({
   selector: 'app-request-appointment-form',
-  standalone: true,
   imports: [
-    CommonModule,
     SvgIconComponent,
     AppointmentSpecialtySelectorComponent,
     AppointmentSpecialistSelectorComponent,

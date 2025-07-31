@@ -33,7 +33,6 @@ import { SpecialtySelectorComponent } from "../../../auth/components/specialty-s
 
 @Component({
   selector: 'app-user-edit-form',
-  standalone: true,
   imports: [
     ReactiveFormsModule,
     InputCustomComponent,

@@ -1,12 +1,11 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { SvgIconComponent } from '../../../shared/icons/svg-icon.component';
 import { Specialist, Specialty } from '../../../core/models';
-import { DatePipe } from '@angular/common';
+import { DatePipe, TitleCasePipe } from '@angular/common';
 
 @Component({
   selector: 'app-appointment-confirm',
-  standalone: true,
-  imports: [SvgIconComponent, DatePipe],
+  imports: [SvgIconComponent, DatePipe, TitleCasePipe],
   templateUrl: './appointment-confirm.component.html',
   styleUrl: './appointment-confirm.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,

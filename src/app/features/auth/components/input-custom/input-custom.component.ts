@@ -15,7 +15,6 @@ import { SvgIconComponent } from "../../../../shared/icons/svg-icon.component";
 
 @Component({
   selector: 'app-input-custom',
-  standalone: true,
   imports: [ReactiveFormsModule, SvgIconComponent],
   templateUrl: './input-custom.component.html',
   styleUrl: './input-custom.component.css',
