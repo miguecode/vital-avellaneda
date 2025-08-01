@@ -13,6 +13,8 @@ import { Specialist, Specialty } from '../../../core/models';
 import { AppointmentDateSelectorComponent } from '../appointment-date-selector/appointment-date-selector.component';
 import { AppointmentConfirmComponent } from '../appointment-confirm/appointment-confirm.component';
 import { AppointmentsFacade } from '../appointments.facade';
+import { DialogService } from '../../../shared/services/dialog/dialog.service';
+import { Router } from '@angular/router';
 
 interface Step {
   number: number;
@@ -23,11 +25,11 @@ interface Step {
 @Component({
   selector: 'app-request-appointment-form',
   imports: [
-    SvgIconComponent,
     AppointmentSpecialtySelectorComponent,
     AppointmentSpecialistSelectorComponent,
     AppointmentDateSelectorComponent,
     AppointmentConfirmComponent,
+    SvgIconComponent,
   ],
   templateUrl: './request-appointment-form.component.html',
   styleUrl: './request-appointment-form.component.css',
@@ -35,7 +37,9 @@ interface Step {
 })
 export class RequestAppointmentFormComponent {
   readonly appointmentsFacade = inject(AppointmentsFacade);
-  
+  readonly dialogService = inject(DialogService);
+  readonly router = inject(Router);
+
   public steps: Step[] = [
     {
       number: 1,
@@ -130,7 +134,23 @@ export class RequestAppointmentFormComponent {
       );
 
       if (newAppointment) {
-        console.log('Se creó correctamente el turno: ', newAppointment);
+        this.dialogService
+        .open({
+          title: '¡Turno Confirmado!',
+          message:
+            'Tu turno fue agendado con éxito. Podés ver los detalles en tu perfil.',
+          confirmText: 'Ir a Mi Perfil',
+          icon: 'check',
+          iconColor: 'text-green-700',
+          iconBgColor: 'bg-green-primary',
+        })
+        .subscribe((result) => {
+          if (result) {
+            this.router.navigate(['/dashboard/patient']);
+          } else {
+            this.router.navigate(['/home']);
+          }
+        });
       }
     } catch (error) {
       console.error(error);
