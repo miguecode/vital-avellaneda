@@ -1,10 +1,18 @@
-import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  computed,
+  effect,
+  signal,
+} from '@angular/core';
 import { SvgIconComponent } from '../../../shared/icons/svg-icon.component';
 import { AppointmentSpecialtySelectorComponent } from '../appointment-specialty-selector/appointment-specialty-selector.component';
 import { AppointmentSpecialistSelectorComponent } from '../appointment-specialist-selector/appointment-specialist-selector.component';
 import { Specialist, Specialty } from '../../../core/models';
 import { AppointmentDateSelectorComponent } from '../appointment-date-selector/appointment-date-selector.component';
 import { AppointmentConfirmComponent } from '../appointment-confirm/appointment-confirm.component';
+import { AppointmentsFacade } from '../appointments.facade';
 
 interface Step {
   number: number;
@@ -26,6 +34,8 @@ interface Step {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RequestAppointmentFormComponent {
+  readonly appointmentsFacade = inject(AppointmentsFacade);
+  
   public steps: Step[] = [
     {
       number: 1,
@@ -70,6 +80,18 @@ export class RequestAppointmentFormComponent {
     }
   });
 
+  constructor() {
+    effect(() => {
+      if (this.currentStep() === 4) {
+        console.group('Form values');
+        console.log('Specialty:', this.specialtySelected());
+        console.log('Specialist:', this.specialistSelected());
+        console.log('DateTime:', this.dateTimeSelected());
+        console.groupEnd();
+      }
+    });
+  }
+
   public onSpecialtySelected(specialty: Specialty | null): void {
     this.specialtySelected.set(specialty);
     this.specialistSelected.set(null);
@@ -92,6 +114,26 @@ export class RequestAppointmentFormComponent {
   public prevStep(): void {
     if (this.currentStep() > 1) {
       this.currentStep.update((prev) => prev - 1);
+    }
+  }
+
+  public async onSubmit(): Promise<void> {
+    try {
+      const specialty = this.specialtySelected();
+      const specialist = this.specialistSelected();
+      const dateTime = this.dateTimeSelected();
+
+      if (!specialty || !specialist || !dateTime) return;
+
+      const newAppointment = await this.appointmentsFacade.createAppointment(
+        specialty, specialist, dateTime
+      );
+
+      if (newAppointment) {
+        console.log('Se creó correctamente el turno: ', newAppointment);
+      }
+    } catch (error) {
+      console.error(error);
     }
   }
 }

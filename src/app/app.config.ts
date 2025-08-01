@@ -38,9 +38,11 @@ import { environment } from '../environments/environment';
 import { AUTH_REPOSITORY } from './core/interfaces/auth.repository.token';
 import { USER_REPOSITORY } from './core/interfaces/user.repository.token';
 import { SPECIALTY_REPOSITORY } from './core/interfaces/specialty.repository.token';
+import { APPOINTMENT_REPOSITORY } from './core/interfaces/appointment.repository.token';
 import { FirebaseAuthService } from './services/firebase/firebase-auth.service';
 import { FirebaseUserService } from './services/firebase/firebase-user.service';
 import { FirebaseSpecialtyService } from './services/firebase/firebase-specialty.service';
+import { FirebaseAppointmentService } from './services/firebase/firebase-appointment.service';
 import { AuthFacade } from './features/auth/auth.facade';
 
 export const appConfig: ApplicationConfig = {
@@ -63,6 +65,7 @@ export const appConfig: ApplicationConfig = {
     { provide: AUTH_REPOSITORY, useClass: FirebaseAuthService },
     { provide: USER_REPOSITORY, useClass: FirebaseUserService },
     { provide: SPECIALTY_REPOSITORY, useClass: FirebaseSpecialtyService },
+    { provide: APPOINTMENT_REPOSITORY, useClass: FirebaseAppointmentService },
 
     // Language provide
     { provide: LOCALE_ID, useValue: 'es' },

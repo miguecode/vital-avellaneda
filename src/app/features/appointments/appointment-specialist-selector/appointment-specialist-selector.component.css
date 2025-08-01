@@ -3,8 +3,4 @@
   color: #1e5baa;
   outline-width: 0.2rem;
   outline-color: #266fcf;
-
-  &:active {
-    background-color: #eef3f5;
-  }
 }

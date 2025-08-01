@@ -9,10 +9,9 @@ gap-4 py-2 rounded shadow max-h-86 h-78 overflow-x-auto">
             type="button"
             (click)="onDaySelected(day)"
             [class.selected]="day === selectedDay()"
-          class="cursor-pointer flex flex-col items-center justify-between text-black
-            py-3 px-4 rounded-lg border border-va-fourth/40 shadow min-w-34 h-28
-          hover:bg-lightblue-secondary/40 active:bg-lightblue-secondary/60
-            transition-colors duration-200"
+            class="cursor-pointer flex flex-col items-center justify-between text-black
+              py-3 px-4 rounded-lg border border-va-fourth/40 shadow min-w-34 h-28
+            hover:bg-lightblue-secondary/40 transition-colors duration-300"
           >
             <span class="font-semibold text-lg">{{ getDayDisplay(day).dayName }}</span>
             <span class="text-3xl font-bold">{{ getDayDisplay(day).dayNumber }}</span>

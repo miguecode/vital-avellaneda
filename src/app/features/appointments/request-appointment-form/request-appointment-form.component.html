@@ -91,10 +91,10 @@
         type="button"
         (click)="prevStep()"
         disabled
-        [disabled]="currentStep() === 1"
+        [disabled]="currentStep() === 1 || appointmentsFacade.isSaving()"
         class="cursor-pointer flex justify-center items-center w-40 py-3 px-8
           font-medium text-lg text-black rounded-lg 
-        hover:bg-gray-100 active:bg-gray-200 transition duration-300
+        hover:bg-gray-100 active:bg-gray-200 transition duration-200
         disabled:text-gray-400 disabled:bg-transparent disabled:cursor-auto"
       >
         Atrás
@@ -103,10 +103,10 @@
       @if (currentStep() < steps.length) {
         <button type="button"
           (click)="nextStep()"
-          [disabled]="isNextStepDisabled()"
+          [disabled]="isNextStepDisabled() || appointmentsFacade.isSaving()"
           class="cursor-pointer flex justify-center items-center py-3 px-14 w-72
           font-medium text-lg text-lightblue-primary rounded-lg
-          bg-va-primary hover:bg-va-primary/90 active:bg-va-primary/80 transition duration-300
+          bg-va-primary hover:bg-va-primary/90 active:bg-va-primary/80 transition duration-200
           disabled:bg-va-primary/50 disabled:cursor-auto"
         >
           Siguiente
@@ -115,13 +115,33 @@
 
       @if (currentStep() === steps.length) {
         <button
-          class="cursor-pointer flex justify-center items-center py-3 px-8 w-72
+          type="button"
+          (click)="onSubmit()"
+          [disabled]="appointmentsFacade.isSaving()"
+          class="relative cursor-pointer flex justify-center items-center py-3 px-8 w-72
           font-medium text-lg text-lightblue-primary rounded-lg
-          bg-va-primary hover:bg-va-primary/90 active:bg-va-primary/80 transition duration-300"
+         bg-va-primary hover:bg-va-primary/90
+         active:bg-va-primary/80 transition duration-300"
         >
-          Confirmar Turno
+          @if (appointmentsFacade.isSaving()) {
+            <div class="absolute inset-0 flex items-center justify-center">
+              <div
+                class="animate-spin inline-block size-6 border-3
+                 border-current border-t-transparent text-lightblue-primary rounded-full"
+                role="status"
+                aria-label="loading"
+              ></div>
+            </div>
+            <span class="opacity-0">Confirmar Turno</span>
+          } @else {
+            <span>Confirmar Turno</span>
+          }
         </button>
       }
     </div>
+
+    @if (appointmentsFacade.error()) {
+      <p class="text-center text-red-primary font-medium">{{ appointmentsFacade.error() }}</p>
+    }
   </div>
 </form>

@@ -24,8 +24,8 @@ import {
 })
 export class AppointmentDateSelectorComponent {
   @Input({ required: true }) specialist!: Specialist | null;
-  @Output() dateTimeSelected = new EventEmitter<Date | null>();
   @Input() lastSelected: Date | null = null;
+  @Output() dateTimeSelected = new EventEmitter<Date | null>();
 
   readonly availableDays = signal<Date[]>([]);
   readonly availableTimes = signal<string[]>([]);

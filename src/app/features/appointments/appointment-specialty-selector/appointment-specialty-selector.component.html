@@ -1,26 +1,30 @@
-<div class="flex flex-wrap items-center justify-center mt-3
-gap-4 py-5 rounded shadow max-h-86 h-78 overflow-y-auto">
-
- @defer (when specialties().length > 0) {
-   @for (specialty of specialties(); track specialty.id) {
-     <div (click)="selectSpecialty(specialty)"
-     [class.selected]="isSelected(specialty)"
-     class="select-none cursor-pointer flex flex-col
-      items-start justify-start outline outline-lightblue-primary
-      px-3 py-2 w-specialty-width h-24 max-h-36 rounded
-      overflow-hidden bg-lightblue-secondary/30 text-va-primary text-lg font-medium
-     active:bg-lightblue-third/10 transition-colors">
-       <div class="flex justify-center items-center gap-1.5">
-         <app-svg-icon [icon]="$any(specialty.id)"></app-svg-icon>
-         <h3 class="mt-1">{{specialty.name}}</h3>
-       </div>
-       <hr class="text-va-primary/40 w-full h-1">
-       <p class="text-sm text-va-primary/70 font-normal text-pretty">{{specialty.description}}</p>
-     </div>
-   }
-   } @placeholder (minimum 1.8s) {
-     @for (i of [1, 2, 3, 4, 5, 6, 7, 8]; track $index) {
-       <div class="w-specialty-width h-24 bg-lightblue-secondary animate-pulse rounded"></div>
-     }
-   }
+<div
+  class="flex flex-wrap items-center justify-center
+   mt-3 gap-4 py-5 rounded shadow max-h-86 h-78 overflow-y-auto"
+>
+  @defer (when specialties().length > 0) { @for (specialty of specialties();
+  track specialty.id) {
+  <div
+    (click)="selectSpecialty(specialty)"
+    [class.selected]="isSelected(specialty)"
+    class="select-none cursor-pointer flex flex-col items-start
+      justify-start outline outline-lightblue-primary px-3 py-2
+      w-specialty-width h-24 max-h-36 rounded overflow-hidden
+      bg-lightblue-secondary/30 text-va-primary text-lg font-medium transition"
+  >
+    <div class="flex justify-center items-center gap-1.5">
+      <app-svg-icon [icon]="$any(specialty.id)"></app-svg-icon>
+      <h3 class="mt-1">{{ specialty.name }}</h3>
+    </div>
+    <hr class="text-va-primary/40 w-full h-1" />
+    <p class="text-sm text-va-primary/70 font-normal text-pretty">
+      {{ specialty.description }}
+    </p>
+  </div>
+  } } @placeholder (minimum 1.8s) { @for (i of [1, 2, 3, 4, 5, 6, 7, 8]; track
+  $index) {
+  <div
+    class="w-specialty-width h-24 bg-lightblue-secondary animate-pulse rounded"
+  ></div>
+  } }
 </div>

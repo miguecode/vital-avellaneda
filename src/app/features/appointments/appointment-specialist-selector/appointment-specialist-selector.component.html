@@ -7,7 +7,7 @@ gap-4 py-5 rounded shadow max-h-86 h-78 overflow-x-auto">
         [class.selected]="isSelected(specialist)"
         class="select-none cursor-pointer flex flex-col items-center
         justify-start p-3 min-w-56 min-h-56 h-64 rounded-lg overflow-hidden
-        bg-lightblue-secondary/30 text-va-primary active:bg-lightblue-third/10
+        bg-lightblue-secondary/30 text-va-primary
         transition-colors outline outline-lightblue-primary">
         
         <!-- Profile Icon -->
@@ -32,7 +32,7 @@ gap-4 py-5 rounded shadow max-h-86 h-78 overflow-x-auto">
         </div>
       </div>
     }
-  } @loading (minimum 1s) {
+  } @loading (minimum 1.8s) {
       @for (i of [1, 2, 3, 4]; track $index) {
         <div class="w-48 h-48 bg-lightblue-secondary animate-pulse rounded-lg"></div>
       }
