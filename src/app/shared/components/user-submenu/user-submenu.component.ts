@@ -11,6 +11,7 @@ import { SvgIconComponent } from '../../icons/svg-icon.component';
 import { UserRoles as R } from '../../../core/enums';
 import { ICON_PATHS } from '../../icons/icon-paths';
 import { Router } from '@angular/router';
+import { DialogService } from '../../services/dialog/dialog.service';
 
 interface MenuItem {
   icon: keyof typeof ICON_PATHS;
@@ -29,6 +30,7 @@ export class UserSubmenuComponent {
   private authFacade = inject(AuthFacade);
   private elementRef = inject(ElementRef);
   private router = inject(Router);
+  readonly dialogService = inject(DialogService);
 
   readonly user = this.authFacade.user;
   readonly name = this.user()?.firstName;
@@ -78,7 +80,7 @@ export class UserSubmenuComponent {
   }
 
   // Method to close the dropdown
-  closeDropdown(): void {
+  async closeDropdown(): Promise<void> {
     this.isDropdownOpen.set(false);
     // Wait for the exit animation to finish before hiding the element
     setTimeout(() => {
@@ -112,7 +114,28 @@ export class UserSubmenuComponent {
   }
 
   async handleLogoutClick(): Promise<void> {
-    await this.authFacade.logout();
-    this.router.navigate(['/auth/login']);
+    await this.closeDropdown();
+
+    setTimeout(() => {
+      this.dialogService.open({
+        title: 'Cerrar Sesión',
+        message:
+          '¿Seguro de salir de tu cuenta?',
+        confirmText: 'Cerrar Sesión',
+        confirmTextColor: 'text-red-secondary',
+        confirmTextBgColor: 'bg-red-primary',
+        confirmTextBgColorHover: 'hover:bg-red-primary/90',
+        confirmTextBgColorActive: 'active:bg-red-primary/80',
+        cancelText: 'Cancelar',
+        icon: 'logout',
+        iconColor: 'text-red-secondary',
+        iconBgColor: 'bg-red-primary',
+      }).subscribe(async (result) => {
+        if (result) {
+          await this.authFacade.logout();
+          this.router.navigate(['/auth/login']);
+        }
+      });
+    }, 150);
   }
 }

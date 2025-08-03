@@ -26,6 +26,7 @@ import { AVAILABILITY_PRESETS_LABELS } from '../../../core/constants/availabilit
 export class AppointmentSpecialistSelectorComponent implements OnInit {
   @Input({ required: true }) specialty!: Specialty | null;
   @Input() lastSelected: Specialist | null = null;
+  @Input() preSpecialists: Specialist[] | null = null 
   @Output() specialistEmitted = new EventEmitter<Specialist | null>();
 
   private readonly userFacade = inject(UserFacade);
@@ -47,7 +48,10 @@ export class AppointmentSpecialistSelectorComponent implements OnInit {
 
   ngOnInit(): void {
     this.selectedSpecialist.set(this.lastSelected);
-    this.userFacade.getUsersByRole('specialist');
+
+    if (!this.specialists()) {
+      this.userFacade.getUsersByRole('specialist');
+    }
   }
 
   selectSpecialist(specialist: Specialist): void {

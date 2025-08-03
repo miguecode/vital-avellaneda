@@ -1,10 +1,10 @@
 <dialog
-  #dialog
-  class="m-auto z-10 rounded-2xl shadow
-   backdrop:bg-black/50 px-8 max-w-xl"
+#dialog
+class="m-auto z-10 rounded-2xl shadow
+  backdrop:bg-black/50 px-8 max-w-xl"
 >
-  <div class="p-8 text-center">
-    @if (config.icon) {
+<div class="p-8 text-center">
+  @if (config.icon) {
     <div class="flex justify-center mb-4">
       <div
         class="rounded-full p-4"
@@ -17,27 +17,32 @@
         ></app-svg-icon>
       </div>
     </div>
-    }
+  }
 
-    <h3 class="text-3xl font-bold text-gray-800 mb-2 text-pretty">{{ config.title }}</h3>
-    <p class="text-gray-600 mb-8 text-lg text-pretty">{{ config.message }}</p>
+  <h3 class="text-3xl font-bold text-gray-800 mb-2 text-pretty">{{ config.title }}</h3>
+  <p class="text-gray-600 mb-8 text-lg text-pretty">{{ config.message }}</p>
 
-    <div class="flex justify-center gap-4">
-      @if (config.cancelText) {
+  <div class="flex justify-center gap-4">
+    @if (config.cancelText) {
       <button
         (click)="onClose(false)"
         type="button"
         class="cursor-pointer py-2 px-6 rounded-lg font-semibold
-         border border-gray-300 hover:bg-gray-100 active:bg-gray-100/80 transition"
+        border border-gray-300 hover:bg-gray-100 active:bg-gray-100/80 transition"
       >
         {{ config.cancelText }}
       </button>
-      }
+    }
       <button
         (click)="onClose(true)"
         type="button"
-        class="cursor-pointer py-3 px-7 rounded-lg text-lg font-semibold text-white
-         bg-va-primary hover:bg-va-primary/90 active:bg-va-primary/80 transition"
+        class="cursor-pointer py-3 px-7 rounded-lg text-lg font-semibold transition"
+        [ngClass]="[
+          config.confirmTextBgColor || 'bg-va-primary',
+          config.confirmTextColor || 'text-white',
+          config.confirmTextBgColorHover || 'hover:bg-va-primary/90',
+          config.confirmTextBgColorActive || 'active:bg-va-primary/80'
+        ]"
       >
         {{ config.confirmText || "Aceptar" }}
       </button>

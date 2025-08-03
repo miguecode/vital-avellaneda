@@ -1,42 +1,38 @@
-<div class="flex flex-col mt-6">
-  <div class="flex flex-wrap justify-start items-start mb-2 ml-4 gap-1.5">
-    <app-svg-icon class="text-va-primary" size="32px" icon="assignmentCompleted"></app-svg-icon>
-    <h3 class="font-semibold text-va-primary text-2xl">Turnos finalizados</h3>
-  </div>
-  <div class="flex flex-wrap justify-center items-center 
-    bg-lightblue-primary/20 rounded-3xl min-w-290
-    p-4 gap-5 border border-va-fourth/20 shadow">
+<div class="flex flex-wrap justify-start items-start mt-2 ml-4 gap-1.5">
+  <app-svg-icon class="text-va-primary" size="32px" icon="assignmentCompleted"></app-svg-icon>
+  <h3 class="font-semibold text-va-primary text-2xl">Turnos finalizados</h3>
+</div>
+<div class="flex flex-wrap justify-center items-center 
+  bg-lightblue-primary/20 rounded-3xl min-w-290
+  p-4 gap-5 border border-va-fourth/20 shadow">
 
-    <!-- Example -->
-    <div class="relative flex flex-col justify-center items-center w-80
-    bg-lightblue-primary border-1 border-va-fourth shadow rounded-4xl">
-    
-      <!-- Badge -->
-      <!-- <div class="absolute -top-3 z-3 flex flex-wrap gap-1 justify-center items-center
-      bg-va-secondary px-3 rounded-full">
-      <app-svg-icon class="" size="18px"></app-svg-icon>
-      <span class="text-sm text-va-third">Completado</span>
-      </div> -->
+  <!-- Badge for Examples -->
+  <!-- <div class="absolute -top-3 z-3 flex flex-wrap gap-1 justify-center items-center
+  bg-va-secondary px-3 rounded-full">
+  <app-svg-icon class="" size="18px"></app-svg-icon>
+  <span class="text-sm text-va-third">Completado</span>
+  </div> -->
 
-      <!-- Information -->
-      <div class="flex flex-col justify-center items-start px-3 py-2.5 gap-1.5">
-        <div class="flex font-medium flex-wrap justify-start items-end gap-1.5 text-va-third px-4">
-          <app-svg-icon size="26px" icon="appointment"></app-svg-icon>
-          <span>27 de Septiembre de 2025</span>
-        </div>
-        <div class="flex flex-wrap font-medium justify-start items-end gap-1.5 text-va-third px-4">
-          <app-svg-icon size="26px" icon="pediatrics"></app-svg-icon>
-          <span>Pediatría</span>
-        </div>
+  <!-- Examples -->
+  <div class="relative flex flex-col justify-center items-center w-80
+  bg-lightblue-primary border-1 border-va-fourth shadow rounded-4xl">
+  
+    <div class="flex flex-col justify-center items-start px-3 py-2.5 gap-1.5">
+      <div class="flex font-medium flex-wrap justify-start items-end gap-1.5 text-va-third px-4">
+        <app-svg-icon size="26px" icon="appointment"></app-svg-icon>
+        <span>27 de Septiembre de 2025</span>
       </div>
-
-      <!-- Button -->
-      <button 
-        class="cursor-pointer flex flex-wrap rounded-2xl justify-center items-center 
-        px-16 py-1 mb-3 text-lg font-medium transition duration-300
-        bg-va-third text-lightblue-primary hover:bg-va-third/90 active:bg-va-third/80">
-        Ver detalle
-      </button>
+      <div class="flex flex-wrap font-medium justify-start items-end gap-1.5 text-va-third px-4">
+        <app-svg-icon size="26px" icon="pediatrics"></app-svg-icon>
+        <span>Pediatría</span>
+      </div>
     </div>
+
+    <button 
+      class="cursor-pointer flex flex-wrap rounded-2xl justify-center items-center 
+      px-16 py-1 mb-3 text-lg font-medium transition duration-300
+      bg-va-third text-lightblue-primary hover:bg-va-third/90 active:bg-va-third/80">
+      Ver detalle
+    </button>
   </div>
 </div>

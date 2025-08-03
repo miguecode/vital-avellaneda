@@ -7,32 +7,30 @@
      mx-22 max-mx-32 px-6 rounded-xl gap-8">
   
       <!-- User Information Card -->
-      <app-user-information-card></app-user-information-card>
-     
-      <!-- Appointments and Medical options -->
-      <div class="flex flex-col justify-start items-center min-h-dashboard-height h-full py-9">
-        <div class="flex justify-end items-center w-full mb-4 gap-4">
-          <button
-          routerLink="/dashboard/request-appointment"
-          class="text-xl font-semibold p-5 rounded-lg
-           cursor-pointer bg-va-third text-white transition duration-300
-           hover:bg-va-third/90 active:bg-va-third/80">Solicitar nuevo Turno</button>
-          <button
-          class="text-xl font-semibold p-5 rounded-lg
-          cursor-pointer bg-va-third text-white transition duration-300
-          hover:bg-va-third/90 active:bg-va-third/80">Ver mi historia clínica</button>
-          <button
-          class="text-xl font-semibold p-5 rounded-lg
-          cursor-pointer bg-va-third text-white transition duration-300
-          hover:bg-va-third/90 active:bg-va-third/80">Ver lista completa de turnos</button>
+      <div class="flex flex-col justify-center items-center 
+        min-h-dashboard-height h-full">
+        <app-user-information-card></app-user-information-card>
+      </div>
+        
+      <!-- Appointments and Access options -->
+      <div class="flex-1 flex flex-col justify-start items-center 
+        min-h-dashboard-height h-full gap-3 py-9">
+
+        <!-- Access Options -->
+        <div class="flex flex-col w-full">
+          <app-dashboard-access></app-dashboard-access>
         </div>
 
         <!-- Pending Appointments Preview -->
-        <app-appointments-pending></app-appointments-pending>
+        <div class="flex flex-col w-full flex-1">
+          <app-appointments-pending></app-appointments-pending>
+        </div>
         
         <!-- Finished Appointments Preview -->
-        <app-appointments-finished></app-appointments-finished>
-     </div>
+        <div class="flex flex-col w-full flex-1">
+          <app-appointments-finished></app-appointments-finished>
+        </div>
+      </div>
     </div>
   </div>
 }

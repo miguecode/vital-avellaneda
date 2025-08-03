@@ -1,0 +1,18 @@
+<div class="flex justify-center items-center 
+bg-lightblue-primary rounded-2xl
+  p-4 gap-5 border border-va-fourth shadow">
+
+  <div class="flex flex-start justify-center items-center gap-8">
+    @for (item of access; track $index) {
+      <button 
+        [routerLink]="item.routerLink"
+        class="text-xl font-semibold p-5 rounded-2xl w-80 
+        flex flex-wrap justify-center items-center gap-5
+        cursor-pointer bg-va-third text-white transition duration-300
+        hover:bg-va-third/90 active:bg-va-third/80">
+        <app-svg-icon [icon]="$any(item.icon)" size="36px"></app-svg-icon>
+        {{ item.title }}
+      </button>
+    }
+  </div>
+</div>

@@ -15,6 +15,7 @@ import { AppointmentConfirmComponent } from '../appointment-confirm/appointment-
 import { AppointmentsFacade } from '../appointments.facade';
 import { DialogService } from '../../../shared/services/dialog/dialog.service';
 import { Router } from '@angular/router';
+import { UserFacade } from '../../auth/user.facade';
 
 interface Step {
   number: number;
@@ -37,8 +38,10 @@ interface Step {
 })
 export class RequestAppointmentFormComponent {
   readonly appointmentsFacade = inject(AppointmentsFacade);
+  readonly userFacade = inject(UserFacade);
   readonly dialogService = inject(DialogService);
   readonly router = inject(Router);
+  readonly formCompleted = signal<boolean>(false);
 
   public steps: Step[] = [
     {
@@ -85,6 +88,8 @@ export class RequestAppointmentFormComponent {
   });
 
   constructor() {
+    this.userFacade.getUsersByRole('specialist');
+
     effect(() => {
       if (this.currentStep() === 4) {
         console.group('Form values');
@@ -134,15 +139,39 @@ export class RequestAppointmentFormComponent {
       );
 
       if (newAppointment) {
+        setTimeout(() => {
+          this.dialogService
+          .open({
+            title: '¡Turno Confirmado!',
+            message:
+              'Tu turno fue agendado con éxito. Podés ver los detalles en tu perfil.',
+            confirmText: 'Ir a Mi Perfil',
+            icon: 'check',
+            iconColor: 'text-green-700',
+            iconBgColor: 'bg-green-primary',
+          })
+          .subscribe((result) => {
+            if (result) {
+              this.router.navigate(['/dashboard/patient']);
+            } else {
+              this.router.navigate(['/home']);
+            }
+          });
+        }, 150);
+      } else throw new Error('No se obtuvo el turno creado. ');
+    } catch (error) {
+      console.error(error);
+
+      setTimeout(() => {
         this.dialogService
         .open({
-          title: '¡Turno Confirmado!',
+          title: 'Error',
           message:
-            'Tu turno fue agendado con éxito. Podés ver los detalles en tu perfil.',
-          confirmText: 'Ir a Mi Perfil',
-          icon: 'check',
-          iconColor: 'text-green-700',
-          iconBgColor: 'bg-green-primary',
+            'Hubo un problema con la solicitud del turno. Intentá más tarde.',
+          confirmText: 'Volver al Perfil',
+          icon: 'error',
+          iconColor: 'text-red-secondary',
+          iconBgColor: 'bg-red-primary',
         })
         .subscribe((result) => {
           if (result) {
@@ -151,9 +180,9 @@ export class RequestAppointmentFormComponent {
             this.router.navigate(['/home']);
           }
         });
-      }
-    } catch (error) {
-      console.error(error);
+      }, 150);
+    } finally {
+      this.formCompleted.set(true);
     }
   }
 }

@@ -12,6 +12,10 @@ export interface DialogConfig {
   title: string;
   message: string;
   confirmText?: string;
+  confirmTextColor?: string;
+  confirmTextBgColor?: string;
+  confirmTextBgColorHover?: string;
+  confirmTextBgColorActive?: string;
   cancelText?: string;
   icon?: string;
   iconColor?: string;

@@ -1,8 +1,9 @@
-import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { HeaderDashboardComponent } from '../../shared/components/header-dashboard/header-dashboard.component';
 import { FooterComponent } from '../../shared/components/footer/footer.component';
 import { SplashComponent } from '../../shared/components/splash/splash.component';
+import { DialogService } from '../../shared/services/dialog/dialog.service';
 
 @Component({
   selector: 'app-dashboard-layout',
@@ -17,7 +18,8 @@ import { SplashComponent } from '../../shared/components/splash/splash.component
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DashboardLayoutComponent {
-  showSplash = signal(true);
+  readonly showSplash = signal(true);
+  readonly  dialogService = inject(DialogService);
 
   constructor() {
     console.log('Dashboard Layout Started');

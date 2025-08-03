@@ -93,7 +93,7 @@
         disabled
         [disabled]="currentStep() === 1 || appointmentsFacade.isSaving()"
         class="cursor-pointer flex justify-center items-center w-40 py-3 px-8
-          font-medium text-lg text-black rounded-lg 
+          font-medium text-lg text-black rounded-lg border border-gray-200
         hover:bg-gray-100 active:bg-gray-200 transition duration-200
         disabled:text-gray-400 disabled:bg-transparent disabled:cursor-auto"
       >
@@ -117,11 +117,12 @@
         <button
           type="button"
           (click)="onSubmit()"
-          [disabled]="appointmentsFacade.isSaving()"
+          [disabled]="appointmentsFacade.isSaving() || formCompleted()"
           class="relative cursor-pointer flex justify-center items-center py-3 px-8 w-72
           font-medium text-lg text-lightblue-primary rounded-lg
-         bg-va-primary hover:bg-va-primary/90
-         active:bg-va-primary/80 transition duration-300"
+          bg-va-primary hover:bg-va-primary/90
+          active:bg-va-primary/80 disabled:bg-va-primary/50 disabled:shadow-none 
+          disabled:cursor-auto transition duration-300"
         >
           @if (appointmentsFacade.isSaving()) {
             <div class="absolute inset-0 flex items-center justify-center">

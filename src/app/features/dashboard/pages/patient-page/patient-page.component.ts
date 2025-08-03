@@ -10,7 +10,7 @@ import { SplashComponent } from '../../../../shared/components/splash/splash.com
 import { UserInformationCardComponent } from '../../components/user-information-card/user-information-card.component';
 import { AppointmentsPendingComponent } from '../../components/appointments-pending/appointments-pending.component';
 import { AppointmentsFinishedComponent } from '../../components/appointments-finished/appointments-finished.component';
-import { RouterLink } from '@angular/router';
+import { DashboardAccessComponent } from "../../components/dashboard-access/dashboard-access.component";
 
 @Component({
   selector: 'app-patient-page',
@@ -19,8 +19,8 @@ import { RouterLink } from '@angular/router';
     UserInformationCardComponent,
     AppointmentsPendingComponent,
     AppointmentsFinishedComponent,
-    RouterLink,
-  ],
+    DashboardAccessComponent
+],
   templateUrl: './patient-page.component.html',
   styleUrl: './patient-page.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,

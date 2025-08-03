@@ -1,6 +1,6 @@
 <div class="user-card relative flex flex-col flex-wrap justify-start items-center
- min-h-96 min-w-96 max-w-110 bg-lightblue-primary rounded-2xl
- border border-va-fourth shadow p-3">
+  min-h-96 min-w-96 max-w-110 bg-lightblue-primary rounded-2xl
+  border border-va-fourth shadow p-3 overflow-auto">
 
   <!-- Edit Button -->
   <button 
@@ -24,8 +24,8 @@
   <div class="flex flex-wrap flex-col justify-center items-center mb-2.5">
     <h3 class="text-3xl text-va-primary font-bold mt-1">{{ user()?.firstName }}</h3>
     <div class="mt-2 flex flex-wrap justify-center items-center bg-green-primary shadow
-     outline outline-green-700 text-green-800 text-sm
-     font-medium rounded-full py-1 px-4 w-fit">
+    outline outline-green-700 text-green-800 text-sm
+    font-medium rounded-full py-1 px-4 w-fit">
       {{ roleLabel }} {{ statusLabel }}
     </div>
   </div>
