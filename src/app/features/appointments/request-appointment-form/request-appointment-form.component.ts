@@ -12,7 +12,7 @@ import { AppointmentSpecialistSelectorComponent } from '../appointment-specialis
 import { Specialist, Specialty } from '../../../core/models';
 import { AppointmentDateSelectorComponent } from '../appointment-date-selector/appointment-date-selector.component';
 import { AppointmentConfirmComponent } from '../appointment-confirm/appointment-confirm.component';
-import { AppointmentsFacade } from '../appointments.facade';
+import { AppointmentFacade } from '../appointment.facade';
 import { DialogService } from '../../../shared/services/dialog/dialog.service';
 import { Router } from '@angular/router';
 import { UserFacade } from '../../auth/user.facade';
@@ -37,7 +37,7 @@ interface Step {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RequestAppointmentFormComponent {
-  readonly appointmentsFacade = inject(AppointmentsFacade);
+  readonly appointmentFacade = inject(AppointmentFacade);
   readonly userFacade = inject(UserFacade);
   readonly dialogService = inject(DialogService);
   readonly router = inject(Router);
@@ -134,7 +134,7 @@ export class RequestAppointmentFormComponent {
 
       if (!specialty || !specialist || !dateTime) return;
 
-      const newAppointment = await this.appointmentsFacade.createAppointment(
+      const newAppointment = await this.appointmentFacade.createAppointment(
         specialty, specialist, dateTime
       );
 

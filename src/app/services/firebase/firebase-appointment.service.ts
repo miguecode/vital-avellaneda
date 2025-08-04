@@ -3,9 +3,13 @@ import {
   Firestore,
   collection,
   doc,
+  getDocs,
   getDoc,
   setDoc,
   updateDoc,
+  query,
+  where,
+  orderBy,
 } from '@angular/fire/firestore';
 import { Appointment } from '../../core/models';
 import { AppointmentRepository } from '../../core/interfaces/appointment.repository';
@@ -18,14 +22,59 @@ export class FirebaseAppointmentService implements AppointmentRepository {
   private collectionName = 'appointments';
 
   async create(appointment: Appointment): Promise<void> {
-    const appointmentRef = doc(this.firestore, this.collectionName, appointment.id);
+    const appointmentRef = doc(
+      this.firestore,
+      this.collectionName,
+      appointment.id
+    );
     await setDoc(appointmentRef, appointment);
   }
 
-  getById(id: string): Promise<Appointment | null> {
-    throw new Error('Method not implemented.');
+  async getById(id: string): Promise<Appointment | null> {
+    const appointmentRef = doc(this.firestore, this.collectionName, id);
+    const docSnap = await getDoc(appointmentRef);
+    return docSnap.exists() ? (docSnap.data() as Appointment) : null;
   }
-  update(appointment: Partial<Appointment>): Promise<void> {
-    throw new Error('Method not implemented.');
+
+  async update(appointment: Partial<Appointment>): Promise<void> {
+    if (!appointment.id) {
+      throw new Error('El ID del turno es requerido para actualizarlo.');
+    }
+    const appointmentRef = doc(
+      this.firestore,
+      this.collectionName,
+      appointment.id
+    );
+    await updateDoc(appointmentRef, appointment);
+  }
+
+  private async getAppointmentsByField(
+    fieldName: 'patientId' | 'specialistId',
+    id: string
+  ): Promise<Appointment[]> {
+    const appointmentsCol = collection(this.firestore, this.collectionName);
+    const q = query(
+      appointmentsCol,
+      where(fieldName, '==', id),
+      orderBy('date', 'asc')
+    );
+    const snapshot = await getDocs(q);
+
+    return snapshot.docs.map((doc) => {
+      const data = doc.data();
+      return {
+        ...data,
+        date: data['date']?.toDate() || null,
+        creationDate: data['creationDate']?.toDate() || null,
+      } as Appointment;
+    });
+  }
+
+  async getForPatient(patientId: string): Promise<Appointment[]> {
+    return this.getAppointmentsByField('patientId', patientId);
+  }
+
+  async getForSpecialist(specialistId: string): Promise<Appointment[]> {
+    return this.getAppointmentsByField('specialistId', specialistId);
   }
 }

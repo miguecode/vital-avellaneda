@@ -1,114 +1,87 @@
-<div class="flex flex-wrap justify-start items-start mt-2 ml-4 gap-1.5">
+<div class="flex flex-wrap justify-start items-center mt-2 ml-4 gap-1.5">
   <app-svg-icon class="text-va-primary" size="32px" icon="assignment"></app-svg-icon>
-  <h3 class="font-semibold text-va-primary text-2xl">Turnos pendientes</h3>
+  <h3 class="font-semibold text-va-primary text-2xl">
+    Turnos pendientes 
+    <span class="text-xl">({{ pendingAppointments().length }})</span>
+  </h3>
+  <a href="" class="ml-2 underline underline-offset-1 text-va-fifth font-medium">
+    Ver todos
+  </a>
 </div>
-<div class="flex flex-wrap justify-center items-center 
-  bg-lightblue-primary/20 rounded-3xl min-w-290
-  p-4 gap-5 border border-va-fourth/20 shadow">
-
-  <!-- Examples -->
-  <div class="flex flex-col justify-center items-center w-90
-  bg-lightblue-primary border-1 border-va-fourth shadow rounded-4xl overflow-hidden">
-
+<div class="flex flex-wrap justify-center items-center bg-lightblue-primary/20
+ rounded-3xl min-w-290 p-4 gap-5 border border-va-fourth/20 shadow">
+  @if (loading()) {
+  <div class="flex flex-col justify-center items-center w-full h-58 shadow
+   rounded-4xl overflow-hidden">
+    <div class="animate-spin inline-block size-10 border-4 border-t-transparent
+     text-va-third rounded-full" role="status" aria-label="loading"></div>
+    <span class="text-center font-medium text-2xl mt-4">Cargando turnos...</span>
+  </div>
+  } @else if (appointmentFacade.error()) {
+  <div class="flex flex-col justify-center items-center w-full h-58
+   shadow rounded-4xl overflow-hidden">
+    <app-svg-icon icon="error" size="82px" class="text-red-primary"></app-svg-icon>
+    <p class="text-center font-medium text-xl text-red-primary">Hubo un error al cargar los turnos.</p>
+    <p class="text-sm text-gray-500">{{ appointmentFacade.error() }}</p>
+    <button 
+      (click)="appointmentFacade.loadUserAppointments()"
+      class="cursor-pointer underline underline-offset-1
+       mt-7 text-va-third active:text-va-third/90">
+      Reintentar
+    </button>
+  </div>
+  } @else { @for (apt of pendingAppointments(); track apt.id) {
+  <div class="flex flex-col justify-center items-center w-90 bg-lightblue-primary
+   border-1 border-va-fourth shadow rounded-4xl overflow-hidden h-58">
     <div class="text text-wrap flex justify-center items-end gap-4
-      bg-lightblue-secondary/80 w-full px-7 py-1.5 border-b border-va-fourth">
-      <span class="text-va-third font-bold text-2xl">Miércoles</span>
-      <span class="text-va-third text-xl font-medium">17:00 hs.</span>
+     bg-lightblue-secondary/80 w-full px-7 py-1.5 border-b border-va-fourth">
+      <span class="text-va-third font-bold text-2xl first-letter:capitalize">
+        {{ apt.date | date : "EEEE" }}
+      </span>
+      <span class="text-va-third text-xl font-medium">
+        {{ apt.date| date : "HH:mm" }} hs.
+      </span>
     </div>
 
     <div class="flex flex-col justify-center items-start px-6 py-2.5 gap-1.5">
       <div class="flex font-medium flex-wrap justify-start items-end gap-1.5 text-va-fifth px-4">
         <app-svg-icon size="26px" icon="appointment"></app-svg-icon>
-        <span>27 de Septiembre de 2025</span>
+        <span>
+          {{ apt.date | date: 'd' }} de {{ apt.date | date: 'MMMM' | titlecase }} de {{ apt.date | date: 'y' }}
+        </span>
       </div>
       <div class="flex font-medium flex-wrap justify-start items-end gap-1.5 text-va-fifth px-4">
         <app-svg-icon size="26px" icon="schedule"></app-svg-icon>
-        <span>17:00 hs.</span>
+        <span>{{ apt.date| date : "HH:mm" }} hs.</span>
       </div>
       <div class="flex flex-wrap font-medium justify-start items-end gap-1.5 text-va-fifth px-4">
-        <app-svg-icon size="26px" icon="pediatrics"></app-svg-icon>
-        <span>Pediatría</span>
+        <app-svg-icon size="26px" [icon]="$any(apt.specialty.id)"></app-svg-icon>
+        <span>{{ apt.specialty.name }}</span>
       </div>
       <div class="flex flex-wrap font-medium justify-start items-end gap-1.5 text-va-fifth px-4">
         <app-svg-icon size="26px" icon="specialist"></app-svg-icon>
-        <span>Susana González</span>
+        <span>{{ apt.specialistFirstName }} {{ apt.specialistLastName }}</span>
       </div>
     </div>
-      <button 
+    <button 
       class="cursor-pointer flex flex-wrap rounded-2xl justify-center items-center 
-      px-20 py-1 mb-3 text-lg font-medium transition duration-300
+      px-16 py-1 mb-3 text-lg font-medium transition duration-300
       bg-va-third text-lightblue-primary hover:bg-va-third/90 active:bg-va-third/80">
       Gestionar
     </button>
   </div>
-
-  <!-- <div class="flex flex-col justify-center items-center w-90
-  bg-lightblue-primary border-1 border-va-fourth shadow rounded-4xl overflow-hidden">
-
-    <div class="text text-wrap flex justify-center items-end gap-4
-      bg-lightblue-secondary/80 w-full px-7 py-1.5 border-b border-va-fourth">
-      <span class="text-va-third font-bold text-2xl">Miércoles</span>
-      <span class="text-va-third text-xl font-medium">17:00 hs.</span>
-    </div>
-
-    <div class="flex flex-col justify-center items-start px-6 py-2.5 gap-1.5">
-      <div class="flex font-medium flex-wrap justify-start items-end gap-1.5 text-va-fifth px-4">
-        <app-svg-icon size="26px" icon="appointment"></app-svg-icon>
-        <span>27 de Septiembre de 2025</span>
-      </div>
-      <div class="flex font-medium flex-wrap justify-start items-end gap-1.5 text-va-fifth px-4">
-        <app-svg-icon size="26px" icon="schedule"></app-svg-icon>
-        <span>17:00 hs.</span>
-      </div>
-      <div class="flex flex-wrap font-medium justify-start items-end gap-1.5 text-va-fifth px-4">
-        <app-svg-icon size="26px" icon="pediatrics"></app-svg-icon>
-        <span>Pediatría</span>
-      </div>
-      <div class="flex flex-wrap font-medium justify-start items-end gap-1.5 text-va-fifth px-4">
-        <app-svg-icon size="26px" icon="specialist"></app-svg-icon>
-        <span>Susana González</span>
-      </div>
-    </div>
-      <button 
-      class="cursor-pointer flex flex-wrap rounded-2xl justify-center items-center 
-      px-20 py-1 mb-3 text-lg font-medium transition duration-300
-      bg-va-third text-lightblue-primary hover:bg-va-third/90 active:bg-va-third/80">
-      Gestionar
+  } @empty {
+  <div class="flex flex-col justify-center items-center
+   w-full h-58 shadow rounded-4xl overflow-hidden">
+    <app-svg-icon icon="clear" size="82px" class="text-va-third/70"></app-svg-icon>
+    <p class="text-center font-medium text-2xl">No tenés turnos pendientes.</p>
+    <button 
+      (click)="appointmentFacade.loadUserAppointments()" 
+      class="cursor-pointer underline underline-offset-1
+       mt-7 text-va-third active:text-va-third/90">
+      Volver a cargar
     </button>
-  </div> -->
-  
-  <!-- <div class="flex flex-col justify-center items-center w-90
-  bg-lightblue-primary border-1 border-va-fourth shadow rounded-4xl overflow-hidden">
-
-    <div class="text text-wrap flex justify-center items-end gap-4
-      bg-lightblue-secondary/80 w-full px-7 py-1.5 border-b border-va-fourth">
-      <span class="text-va-third font-bold text-2xl">Miércoles</span>
-      <span class="text-va-third text-xl font-medium">17:00 hs.</span>
-    </div>
-
-    <div class="flex flex-col justify-center items-start px-6 py-2.5 gap-1.5">
-      <div class="flex font-medium flex-wrap justify-start items-end gap-1.5 text-va-fifth px-4">
-        <app-svg-icon size="26px" icon="appointment"></app-svg-icon>
-        <span>27 de Septiembre de 2025</span>
-      </div>
-      <div class="flex font-medium flex-wrap justify-start items-end gap-1.5 text-va-fifth px-4">
-        <app-svg-icon size="26px" icon="schedule"></app-svg-icon>
-        <span>17:00 hs.</span>
-      </div>
-      <div class="flex flex-wrap font-medium justify-start items-end gap-1.5 text-va-fifth px-4">
-        <app-svg-icon size="26px" icon="pediatrics"></app-svg-icon>
-        <span>Pediatría</span>
-      </div>
-      <div class="flex flex-wrap font-medium justify-start items-end gap-1.5 text-va-fifth px-4">
-        <app-svg-icon size="26px" icon="specialist"></app-svg-icon>
-        <span>Susana González</span>
-      </div>
-    </div>
-      <button 
-      class="cursor-pointer flex flex-wrap rounded-2xl justify-center items-center 
-      px-20 py-1 mb-3 text-lg font-medium transition duration-300
-      bg-va-third text-lightblue-primary hover:bg-va-third/90 active:bg-va-third/80">
-      Gestionar
-    </button>
-  </div> -->
+  </div>
+  } 
+}
 </div>

@@ -5,6 +5,10 @@ export interface Appointment {
   id: string;
   patientId: string;
   specialistId: string;
+  specialistFirstName: string,
+  specialistLastName: string,
+  patientFirstName: string,
+  patientLasttName: string,
   status: AppointmentStatus;
   date: Date;
   specialty: Specialty;

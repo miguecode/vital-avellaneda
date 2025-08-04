@@ -91,7 +91,7 @@
         type="button"
         (click)="prevStep()"
         disabled
-        [disabled]="currentStep() === 1 || appointmentsFacade.isSaving()"
+        [disabled]="currentStep() === 1 || appointmentFacade.isLoading()"
         class="cursor-pointer flex justify-center items-center w-40 py-3 px-8
           font-medium text-lg text-black rounded-lg border border-gray-200
         hover:bg-gray-100 active:bg-gray-200 transition duration-200
@@ -103,7 +103,7 @@
       @if (currentStep() < steps.length) {
         <button type="button"
           (click)="nextStep()"
-          [disabled]="isNextStepDisabled() || appointmentsFacade.isSaving()"
+          [disabled]="isNextStepDisabled() || appointmentFacade.isLoading()"
           class="cursor-pointer flex justify-center items-center py-3 px-14 w-72
           font-medium text-lg text-lightblue-primary rounded-lg
           bg-va-primary hover:bg-va-primary/90 active:bg-va-primary/80 transition duration-200
@@ -117,14 +117,14 @@
         <button
           type="button"
           (click)="onSubmit()"
-          [disabled]="appointmentsFacade.isSaving() || formCompleted()"
+          [disabled]="appointmentFacade.isLoading() || formCompleted()"
           class="relative cursor-pointer flex justify-center items-center py-3 px-8 w-72
           font-medium text-lg text-lightblue-primary rounded-lg
           bg-va-primary hover:bg-va-primary/90
           active:bg-va-primary/80 disabled:bg-va-primary/50 disabled:shadow-none 
           disabled:cursor-auto transition duration-300"
         >
-          @if (appointmentsFacade.isSaving()) {
+          @if (appointmentFacade.isLoading()) {
             <div class="absolute inset-0 flex items-center justify-center">
               <div
                 class="animate-spin inline-block size-6 border-3
@@ -141,8 +141,8 @@
       }
     </div>
 
-    @if (appointmentsFacade.error()) {
-      <p class="text-center text-red-primary font-medium">{{ appointmentsFacade.error() }}</p>
+    @if (appointmentFacade.error()) {
+      <p class="text-center text-red-primary font-medium">{{ appointmentFacade.error() }}</p>
     }
   </div>
 </form>
