@@ -3,10 +3,12 @@ import { UserInformationCardComponent } from "../../components/user-information-
 import { SplashComponent } from "../../../../shared/components/splash/splash.component";
 import { AuthFacade } from '../../../auth/auth.facade';
 import { UserBase } from '../../../../core/models';
+import { DashboardAccessComponent } from "../../components/dashboard-access/dashboard-access.component";
+import { AppointmentsPendingComponent } from "../../components/appointments-pending/appointments-pending.component";
 
 @Component({
   selector: 'app-specialist-page',
-  imports: [UserInformationCardComponent, SplashComponent],
+  imports: [UserInformationCardComponent, SplashComponent, DashboardAccessComponent, AppointmentsPendingComponent],
   templateUrl: './specialist-page.component.html',
   styleUrl: './specialist-page.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush

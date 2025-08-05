@@ -8,7 +8,7 @@ export interface Appointment {
   specialistFirstName: string,
   specialistLastName: string,
   patientFirstName: string,
-  patientLasttName: string,
+  patientLastName: string,
   status: AppointmentStatus;
   date: Date;
   specialty: Specialty;

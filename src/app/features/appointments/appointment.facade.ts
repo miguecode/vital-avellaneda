@@ -42,7 +42,7 @@ export class AppointmentFacade {
       specialistFirstName: specialist.firstName,
       specialistLastName: specialist.lastName,
       patientFirstName: patient.firstName,
-      patientLasttName: patient.lastName,
+      patientLastName: patient.lastName,
       specialty,
       date,
       status: AppointmentStatus.PENDING,

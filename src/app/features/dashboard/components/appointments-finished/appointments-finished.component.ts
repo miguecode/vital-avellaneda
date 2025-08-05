@@ -28,6 +28,9 @@ export class AppointmentsFinishedComponent {
           apt.status === AppointmentStatus.CANCELED
       )
   );
+  readonly displayedFinishedAppointments = computed(() =>
+    this.finishedAppointments().slice(0, 3)
+  );
 
   readonly loading = signal(false);
 

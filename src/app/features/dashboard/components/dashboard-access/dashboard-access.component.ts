@@ -1,6 +1,7 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { SvgIconComponent } from "../../../../shared/icons/svg-icon.component";
+import { AuthFacade } from '../../../auth/auth.facade';
 
 @Component({
   selector: 'app-dashboard-access',
@@ -10,7 +11,9 @@ import { SvgIconComponent } from "../../../../shared/icons/svg-icon.component";
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DashboardAccessComponent {
-  public access = [
+  readonly authFacade = inject(AuthFacade);
+
+  public patientAccess = [
     {
       title: 'Solicitar nuevo Turno',
       routerLink: '/dashboard/request-appointment',
@@ -20,6 +23,19 @@ export class DashboardAccessComponent {
       title: 'Ver Historia Clínica',
       routerLink: '',
       icon: 'medicalInformation',
+    },
+    {
+      title: 'Ver Lista de Turnos',
+      routerLink: '',
+      icon: 'list',
+    },
+  ];
+
+  public specialistAccess = [
+    {
+      title: 'Ver mis Pacientes',
+      routerLink: '',
+      icon: 'patient',
     },
     {
       title: 'Ver Lista de Turnos',

@@ -1,9 +1,14 @@
-<div class="flex flex-wrap justify-start items-start mt-2 ml-4 gap-1.5">
+<div class="flex flex-wrap justify-start items-center mt-2 mb-1 ml-4 gap-1.5">
   <app-svg-icon class="text-va-primary" size="32px" icon="assignmentCompleted"></app-svg-icon>
-  <h3 class="font-semibold text-va-primary text-2xl">Turnos completados o cancelados</h3>
+  <h3 class="font-semibold text-va-primary text-2xl">Últimos turnos completados</h3>
+  @if (finishedAppointments().length > 0) {
+    <a href="" class="ml-2 underline underline-offset-1 text-va-fifth font-medium">
+      Ver todos
+    </a>
+  }
 </div>
 <div class="flex flex-wrap justify-center items-center 
-  bg-lightblue-primary/20 rounded-3xl min-w-290
+  bg-lightblue-primary/20 rounded-3xl min-w-290 min-h-40
   p-4 gap-5 border border-va-fourth/20 shadow">
 
   <!-- Badge for Examples -->
@@ -14,7 +19,7 @@
   </div> -->
 
   @if (loading()) {
-    <div class="flex flex-col justify-center items-center w-full h-32 shadow
+    <div class="flex flex-col justify-center items-center w-full h-32
      rounded-4xl overflow-hidden">
       <div class="animate-spin inline-block size-10 border-4 border-t-transparent
        text-va-third rounded-full" role="status" aria-label="loading"></div>
@@ -22,7 +27,7 @@
     </div>
     } @else if (appointmentFacade.error()) {
     <div class="flex flex-col justify-center items-center w-full h-32
-     shadow rounded-4xl overflow-hidden">
+     rounded-4xl overflow-hidden">
       <app-svg-icon icon="error" size="82px" class="text-red-primary"></app-svg-icon>
       <p class="text-center font-medium text-xl text-red-primary">Hubo un error al cargar los turnos.</p>
       <p class="text-sm text-gray-500">{{ appointmentFacade.error() }}</p>
@@ -33,36 +38,48 @@
         Reintentar
       </button>
     </div>
-  } @else { @for (apt of finishedAppointments(); track apt.id) {
-    <div class="relative flex flex-col justify-center items-center w-80 h-32
-    bg-lightblue-primary border-1 border-va-fourth shadow rounded-4xl">
+  } @else {
+    @for (apt of displayedFinishedAppointments(); track apt.id) {
+      <div class="relative flex flex-col justify-center items-center w-80 h-32
+      bg-lightblue-primary border-1 border-va-fourth shadow rounded-4xl">
+      
+        <div class="flex flex-col justify-center items-start px-3 py-2.5 gap-1.5">
+          <div class="flex font-medium flex-wrap justify-start items-end gap-1.5 text-va-third px-4">
+            <app-svg-icon size="26px" [icon]="apt.status === 'completed' ? 'eventAvailable' : 'eventBusy'"></app-svg-icon>
+            <span>
+              {{ apt.date | date: 'd' }} de {{ apt.date | date: 'MMMM' | titlecase }} de {{ apt.date | date: 'y' }}
+            </span>
+          </div>
+          <div class="flex flex-wrap font-medium justify-start items-end gap-1.5 text-va-third px-4">
+            <app-svg-icon size="26px" [icon]="$any(apt.specialty.id)"></app-svg-icon>
+            <span>{{ apt.specialty.name }}</span>
+          </div>
+        </div>
     
-      <div class="flex flex-col justify-center items-start px-3 py-2.5 gap-1.5">
-        <div class="flex font-medium flex-wrap justify-start items-end gap-1.5 text-va-third px-4">
-          <app-svg-icon size="26px" icon="appointment"></app-svg-icon>
-          <span>
-            {{ apt.date | date: 'd' }} de {{ apt.date | date: 'MMMM' | titlecase }} de {{ apt.date | date: 'y' }}
-          </span>
-        </div>
-        <div class="flex flex-wrap font-medium justify-start items-end gap-1.5 text-va-third px-4">
-          <app-svg-icon size="26px" [icon]="$any(apt.specialty.id)"></app-svg-icon>
-          <span>{{ apt.specialty.name }}</span>
-        </div>
+        <button 
+          class="cursor-pointer flex flex-wrap rounded-2xl justify-center items-center
+          px-12 py-1 mb-3 text-lg font-medium transition duration-300 gap-3
+          bg-va-third text-lightblue-primary hover:bg-va-third/90 active:bg-va-third/80">
+          <app-svg-icon size="24px" icon="assignment"></app-svg-icon>
+          Ver Detalle
+        </button>
       </div>
-  
-      <button 
-        class="cursor-pointer flex flex-wrap rounded-2xl justify-center items-center 
-        px-16 py-1 mb-3 text-lg font-medium transition duration-300
-        bg-va-third text-lightblue-primary hover:bg-va-third/90 active:bg-va-third/80">
-        Ver detalle
-      </button>
-    </div>
-  } @empty {
-    <div class="flex gap-2 justify-center items-center
-     w-full h-32 shadow rounded-4xl overflow-hidden">
-      <app-svg-icon icon="clear" size="82px" class="text-va-third/70"></app-svg-icon>
-      <p class="text-center font-medium text-2xl">No tenés turnos completados o cancelados.</p>
-    </div>
+    } @empty {
+      <div class="flex gap-2 justify-center items-center
+      w-full h-32 rounded-4xl overflow-hidden">
+        <app-svg-icon icon="clear" size="82px" class="text-va-third/70"></app-svg-icon>
+        <p class="text-center font-medium text-2xl">No tenés turnos completados.</p>
+      </div>
     }
+
+    <!-- @if (finishedAppointments().length > 3) {
+      <button 
+        class="cursor-pointer flex flex-wrap gap-3
+         justify-center items-center w-full text-xl p-2 rounded-2xl font-medium transition
+         bg-va-fourth/40 text-va-fifth hover:bg-va-fourth/30 active:bg-va-fourth/20">
+          <app-svg-icon icon="list"></app-svg-icon>
+          Ver todos
+      </button>
+    } -->
   }
 </div>

@@ -8,8 +8,9 @@ import {
 } from '@angular/core';
 import { SvgIconComponent } from '../../../../shared/icons/svg-icon.component';
 import { AppointmentFacade } from '../../../appointments/appointment.facade';
-import { AppointmentStatus } from '../../../../core/enums';
+import { AppointmentStatus, UserRoles } from '../../../../core/enums';
 import { DatePipe, TitleCasePipe } from '@angular/common';
+import { AuthFacade } from '../../../auth/auth.facade';
 
 @Component({
   selector: 'app-appointments-pending',
@@ -19,12 +20,22 @@ import { DatePipe, TitleCasePipe } from '@angular/common';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppointmentsPendingComponent implements OnInit {
+  readonly authFacade = inject (AuthFacade);
   readonly appointmentFacade = inject(AppointmentFacade);
   readonly pendingAppointments = computed(() =>
     this.appointmentFacade
       .appointments()
       .filter((apt) => apt.status === AppointmentStatus.PENDING)
   );
+  readonly displayedPendingAppointments = computed(() => {
+    const user = this.authFacade.user();
+    if (user?.role === UserRoles.PATIENT) {
+      return this.pendingAppointments().slice(0, 3);
+    } else if (user?.role === UserRoles.SPECIALIST) {
+      return this.pendingAppointments().slice(0, 6);
+    }
+    return [];
+  });
 
   readonly loading = signal(false);
 
@@ -46,4 +57,22 @@ export class AppointmentsPendingComponent implements OnInit {
       this.loading.set(false);
     }
   }
+
+  /* public specialistButtons = [
+    {
+      title: 'Ver más',
+      icon: 'assignment',
+      action: '',
+    },
+    {
+      title: 'Finalizar',
+      icon: 'eventAvailable',
+      action: '',
+    },
+    {
+      title: 'Cancelar',
+      icon: 'eventBusy',
+      action: '',
+    }
+  ] */
 }

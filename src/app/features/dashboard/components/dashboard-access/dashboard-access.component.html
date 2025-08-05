@@ -3,7 +3,9 @@ bg-lightblue-primary rounded-2xl
   p-4 gap-5 border border-va-fourth shadow">
 
   <div class="flex flex-start justify-center items-center gap-8">
-    @for (item of access; track $index) {
+    @for (item of 
+      this.authFacade.user()!.role === 'patient' ?
+      patientAccess : specialistAccess ; track $index) {
       <button 
         [routerLink]="item.routerLink"
         class="text-xl font-semibold p-5 rounded-2xl w-80 
