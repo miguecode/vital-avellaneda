@@ -63,7 +63,10 @@ export class AppointmentFacade {
     };
 
     await this.appointmentService.create(newAppointment);
-    this._appointments.set([...this._appointments(), newAppointment]);
+    const updatedAppointments = [...this._appointments(), newAppointment].sort(
+      (a, b) => a.date.getTime() - b.date.getTime()
+    );
+    this._appointments.set(updatedAppointments);
     this._loading.set(false);
     return newAppointment;
   }
