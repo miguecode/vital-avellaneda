@@ -1,18 +1,18 @@
-<div class="flex flex-wrap justify-start items-center mt-2 mb-1 ml-4 gap-1.5">
+<div class="flex flex-wrap justify-start items-center mt-2 mb-1 gap-1.5">
   <app-svg-icon class="text-va-primary" size="32px" icon="assignment"></app-svg-icon>
   <h3 class="font-semibold text-va-primary text-2xl">
     Turnos pendientes
     <span class="text-xl">({{ pendingAppointments().length }})</span>
   </h3>
   @if (pendingAppointments().length > 0) {
-    <a href="" class="ml-2 underline underline-offset-1 text-va-fifth font-medium">
+    <a href="" class="ml-2 underline underline-offset-1 pt-1 text-va-fifth font-medium">
       Ver todos
     </a>
   }
 </div>
 <div 
-  class="flex flex-wrap justify-center items-center bg-lightblue-primary/20 max-h-148
-  rounded-3xl min-w-290 p-4 gap-5 border border-va-fourth/20 shadow">
+  class="flex flex-wrap justify-start items-center bg-lightblue-primary/20 max-h-148
+  rounded-3xl w-290 p-4 gap-5 border border-va-fourth/20 shadow">
   @if (loading()) {
   <div class="flex flex-col justify-center items-center w-full min-h-60
    rounded-4xl overflow-hidden">
@@ -36,9 +36,9 @@
   } @else {
     @for (apt of displayedPendingAppointments(); track apt.id) {
     <div class="flex flex-col justify-center items-center w-90 bg-lightblue-primary
-    border-1 border-va-fourth shadow rounded-4xl overflow-hidden min-h-60">
-      <div class="text text-wrap flex justify-center items-end gap-4
-      bg-lightblue-secondary/80 w-full px-7 py-1.5 border-b border-va-fourth">
+    border-1 border-va-fourth shadow rounded-4xl overflow-hidden h-60">
+      <div class="text flex justify-center items-end gap-4
+      bg-lightblue-secondary/80 w-full h-full px-7 py-1.5 border-b border-va-fourth">
         <span class="text-va-third font-bold text-2xl first-letter:capitalize">
           {{ apt.date | date : "EEEE" }}
         </span>
@@ -65,9 +65,9 @@
         <div class="flex flex-wrap font-medium justify-start items-end gap-1.5 text-va-fifth px-4">
           <app-svg-icon size="26px" [icon]="authFacade.user()?.role === 'patient' ? 'specialist' : 'patient'"></app-svg-icon>
           @if (authFacade.user()?.role === 'patient') {
-            <span>{{ apt.specialistFirstName }} {{ apt.specialistLastName }}</span>
+            <span class="truncate max-w-56">{{ apt.patientFirstName }} {{ apt.patientLastName }}</span>
           } @else if (authFacade.user()?.role === 'specialist') {
-            <span>{{ apt.patientFirstName }} {{ apt.patientLastName }}</span>
+            <span class="truncate max-w-56">{{ apt.patientFirstName }} {{ apt.patientLastName }}</span>
           }
         </div>
       </div>
@@ -81,7 +81,7 @@
     </div>
     } @empty {
     <div class="flex flex-col justify-center items-center
-    w-full h-58 rounded-4xl overflow-hidden">
+    w-full h-60 rounded-4xl overflow-hidden">
       <app-svg-icon icon="clear" size="82px" class="text-va-third/70"></app-svg-icon>
       <p class="text-center font-medium text-2xl">No tenés turnos pendientes.</p>
       <button 
@@ -93,7 +93,7 @@
     </div>
     }
 
-    @if ((this.authFacade.user()?.role === 'patient' && pendingAppointments().length > 1)
+    @if ((this.authFacade.user()?.role === 'patient' && pendingAppointments().length > 3)
           || (this.authFacade.user()?.role === 'specialist' && pendingAppointments().length > 6)) {
       <button 
       class="cursor-pointer flex flex-wrap gap-3

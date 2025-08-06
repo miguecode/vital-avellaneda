@@ -1,4 +1,4 @@
-import { Injectable, inject, signal } from '@angular/core';
+import { Injectable, effect, inject, signal } from '@angular/core';
 import { APPOINTMENT_REPOSITORY } from '../../core/interfaces/appointment.repository.token';
 import { Appointment, Specialist, Specialty } from '../../core/models';
 import { AuthFacade } from '../auth/auth.facade';
@@ -14,11 +14,24 @@ export class AppointmentFacade {
   private _appointments = signal<Appointment[]>([]);
   private _loading = signal(false);
   private _error = signal<string | null>(null);
-  
+
   // Public signals (to communicate with others)
   public readonly appointments = this._appointments.asReadonly();
   readonly isLoading = this._loading.asReadonly();
   readonly error = this._error.asReadonly();
+
+  constructor() {
+    effect(() => {
+      if (this.authFacade.user() === null) {
+        this._appointments.set([]);
+      }
+    });
+  }
+
+  // Manual settings
+  setAppointments(appointments: Appointment[]): void {
+    this._appointments.set(appointments);
+  }
 
   async createAppointment(
     specialty: Specialty,

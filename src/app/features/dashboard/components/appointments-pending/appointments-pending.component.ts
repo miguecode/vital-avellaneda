@@ -20,7 +20,7 @@ import { AuthFacade } from '../../../auth/auth.facade';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppointmentsPendingComponent implements OnInit {
-  readonly authFacade = inject (AuthFacade);
+  readonly authFacade = inject(AuthFacade);
   readonly appointmentFacade = inject(AppointmentFacade);
   readonly pendingAppointments = computed(() =>
     this.appointmentFacade
@@ -38,21 +38,29 @@ export class AppointmentsPendingComponent implements OnInit {
   });
 
   readonly loading = signal(false);
+  private lastLoadedUserId: string | null = null;
 
   async ngOnInit(): Promise<void> {
     console.log('Appointments Pending Started');
 
-    if (this.appointmentFacade.appointments().length > 0) {
+    const currentUser = this.authFacade.user();
+    if (
+      this.appointmentFacade.appointments().length > 0 ||
+      currentUser?.id === this.lastLoadedUserId
+    ) {
       return;
     }
 
     this.loading.set(true);
 
-    const minLoaderTimePromise = new Promise((resolve) => setTimeout(resolve, 1800));
+    const minLoaderTimePromise = new Promise((resolve) =>
+      setTimeout(resolve, 1800)
+    );
     const dataFetchPromise = this.appointmentFacade.loadUserAppointments();
 
     try {
       await Promise.all([dataFetchPromise, minLoaderTimePromise]);
+      this.lastLoadedUserId = currentUser?.id ?? null;
     } finally {
       this.loading.set(false);
     }
