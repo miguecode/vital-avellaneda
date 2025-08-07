@@ -8,12 +8,12 @@ import {
   effect,
   signal,
 } from '@angular/core';
-import { Specialist, TimeInterval } from '../../../core/models';
+import { Specialist, TimeInterval } from '../../../../core/models';
 import {
   MONTH_LABELS,
   WEEKDAY_LABELS,
   WEEKDAYS_ORDERED,
-} from '../../../core/constants/weekdays-map';
+} from '../../../../core/constants/weekdays-map';
 
 @Component({
   selector: 'app-appointment-date-selector',

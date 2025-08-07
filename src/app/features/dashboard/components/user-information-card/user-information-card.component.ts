@@ -133,7 +133,7 @@ export class UserInformationCardComponent {
     return `${day}/${month}/${year}`;
   }
 
-  // Calcula la edad a partir de la fecha de nacimiento y la muestra como 'X años'
+  // Calculate and format age
   private formatAge(birthDate: any): string {
     if (!birthDate) return 'Desconocido';
     let d: Date;

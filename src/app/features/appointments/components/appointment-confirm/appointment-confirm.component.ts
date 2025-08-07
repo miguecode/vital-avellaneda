@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { SvgIconComponent } from '../../../shared/icons/svg-icon.component';
-import { Specialist, Specialty } from '../../../core/models';
+import { SvgIconComponent } from '../../../../shared/icons/svg-icon.component';
+import { Specialist, Specialty } from '../../../../core/models';
 import { DatePipe, TitleCasePipe } from '@angular/common';
 
 @Component({

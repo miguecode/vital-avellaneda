@@ -10,7 +10,7 @@ import { UserBase } from '../../../../core/models';
 import { RouterLink } from '@angular/router';
 import { SvgIconComponent } from '../../../../shared/icons/svg-icon.component';
 import { TitleDescriptionComponent } from "../../../../shared/components/title-description/title-description.component";
-import { RequestAppointmentFormComponent } from "../../../appointments/request-appointment-form/request-appointment-form.component";
+import { RequestAppointmentFormComponent } from "../../../appointments/components/request-appointment-form/request-appointment-form.component";
 
 @Component({
   selector: 'app-request-appointment-page',

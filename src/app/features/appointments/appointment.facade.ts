@@ -14,11 +14,13 @@ export class AppointmentFacade {
   private _appointments = signal<Appointment[]>([]);
   private _loading = signal(false);
   private _error = signal<string | null>(null);
+  private _selectedAppointment = signal<Appointment | null>(null);
 
   // Public signals (to communicate with others)
   public readonly appointments = this._appointments.asReadonly();
   readonly isLoading = this._loading.asReadonly();
   readonly error = this._error.asReadonly();
+  public readonly selectedAppointment = this._selectedAppointment.asReadonly();
 
   constructor() {
     effect(() => {
@@ -92,6 +94,28 @@ export class AppointmentFacade {
       this._appointments.set(appointments);
     } catch (err: any) {
       this._error.set(err.message || 'Error al obtener los turnos');
+    } finally {
+      this._loading.set(false);
+    }
+  }
+
+  async loadAppointmentById(id: string): Promise<void> {
+    this._loading.set(true);
+    this._error.set(null);
+    this._selectedAppointment.set(null);
+
+    const existing = this.appointments().find((a) => a.id === id);
+    if (existing) {
+      this._selectedAppointment.set(existing);
+      this._loading.set(false);
+      return;
+    }
+
+    try {
+      const appointment = await this.appointmentService.getById(id);
+      this._selectedAppointment.set(appointment);
+    } catch (err: any) {
+      this._error.set(err.message || 'Error al obtener el turno');
     } finally {
       this._loading.set(false);
     }

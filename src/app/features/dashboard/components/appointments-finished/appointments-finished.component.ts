@@ -10,10 +10,11 @@ import { AppointmentFacade } from '../../../appointments/appointment.facade';
 import { AppointmentStatus } from '../../../../core/enums';
 import { DatePipe, TitleCasePipe } from '@angular/common';
 import { AuthFacade } from '../../../auth/auth.facade';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-appointments-finished',
-  imports: [SvgIconComponent, DatePipe, TitleCasePipe],
+  imports: [SvgIconComponent, DatePipe, TitleCasePipe, RouterLink],
   templateUrl: './appointments-finished.component.html',
   styleUrl: './appointments-finished.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,

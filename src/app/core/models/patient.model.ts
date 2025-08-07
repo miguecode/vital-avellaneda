@@ -7,5 +7,4 @@ export interface Patient extends UserBase {
   height?: number;
   weight?: number;
   bloodType: BloodTypes;
-  description?: string;
 }

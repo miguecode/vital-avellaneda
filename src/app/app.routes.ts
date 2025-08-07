@@ -25,7 +25,7 @@ export const routes: Routes = [
       },
     ],
   },
-  // Authentication (auth/login, auth/register)
+  // Authentication (/login, /register)
   // Public Paths: Only for not authenticated users
   {
     path: 'auth',
@@ -41,7 +41,7 @@ export const routes: Routes = [
       },
     ],
   },
-  // Dashboard (dashboard/patient, dashboard/specialist)
+  // Dashboard (/patient, /specialist)
   // Private Paths: Only for authenticated users
   {
     path: 'dashboard',

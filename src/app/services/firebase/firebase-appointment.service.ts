@@ -33,7 +33,15 @@ export class FirebaseAppointmentService implements AppointmentRepository {
   async getById(id: string): Promise<Appointment | null> {
     const appointmentRef = doc(this.firestore, this.collectionName, id);
     const docSnap = await getDoc(appointmentRef);
-    return docSnap.exists() ? (docSnap.data() as Appointment) : null;
+    if (docSnap.exists()) {
+      const data = docSnap.data();
+      return {
+        ...data,
+        date: data['date']?.toDate() || null,
+        creationDate: data['creationDate']?.toDate() || null,
+      } as Appointment;
+    }
+    return null;
   }
 
   async update(appointment: Partial<Appointment>): Promise<void> {

@@ -10,11 +10,11 @@ import {
   signal,
   Signal,
 } from '@angular/core';
-import { Specialty, Specialist } from '../../../core/models';
-import { SvgIconComponent } from '../../../shared/icons/svg-icon.component';
-import { UserFacade } from '../../auth/user.facade';
-import { SEX_LABELS } from '../../../core/enums/enum-labels';
-import { AVAILABILITY_PRESETS_LABELS } from '../../../core/constants/availability-presets';
+import { Specialty, Specialist } from '../../../../core/models';
+import { SvgIconComponent } from '../../../../shared/icons/svg-icon.component';
+import { UserFacade } from '../../../auth/user.facade';
+import { SEX_LABELS } from '../../../../core/enums/enum-labels';
+import { AVAILABILITY_PRESETS_LABELS } from '../../../../core/constants/availability-presets';
 
 @Component({
   selector: 'app-appointment-specialist-selector',

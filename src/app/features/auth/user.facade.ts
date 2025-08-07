@@ -24,7 +24,7 @@ export class UserFacade {
     try {
       await this.userService.createUser(user);
     } catch (err: any) {
-      this._error.set(err.message || 'Error creating user');
+      this._error.set(err.message || 'Error creando al usuario');
       throw err;
     } finally {
       this._saving.set(false);
@@ -72,7 +72,20 @@ export class UserFacade {
       const users = await this.userService.getUsersByRole(role);
       this._users.set(users);
     } catch (err: any) {
-      this._error.set(err.message || 'Error fetching users by role');
+      this._error.set(err.message || 'Error obteniendo usuarios por rol');
+      throw err;
+    } finally {
+      this._saving.set(false);
+    }
+  }
+
+  async getUserById(id: string): Promise<UserBase | null> {
+    this._saving.set(true);
+    this._error.set(null);
+    try {
+      return await this.userService.getUserById(id);
+    } catch (err: any) {
+      this._error.set(err.message || 'Error obteniendo usuarios por rol');
       throw err;
     } finally {
       this._saving.set(false);

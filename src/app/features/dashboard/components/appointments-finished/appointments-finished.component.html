@@ -2,7 +2,7 @@
   <app-svg-icon class="text-va-primary" size="32px" icon="assignmentCompleted"></app-svg-icon>
   <h3 class="font-semibold text-va-primary text-2xl">Últimos turnos completados</h3>
   @if (finishedAppointments().length > 0) {
-    <a href="" class="ml-2 underline underline-offset-1 pt-1 text-va-fifth font-medium">
+    <a routerLink="/dashboard/appointments-list" class="ml-2 underline underline-offset-1 pt-1 text-va-fifth font-medium">
       Ver todos
     </a>
   }

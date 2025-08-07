@@ -11,10 +11,11 @@ import { AppointmentFacade } from '../../../appointments/appointment.facade';
 import { AppointmentStatus, UserRoles } from '../../../../core/enums';
 import { DatePipe, TitleCasePipe } from '@angular/common';
 import { AuthFacade } from '../../../auth/auth.facade';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-appointments-pending',
-  imports: [SvgIconComponent, DatePipe, TitleCasePipe],
+  imports: [SvgIconComponent, DatePipe, TitleCasePipe, RouterLink],
   templateUrl: './appointments-pending.component.html',
   styleUrl: './appointments-pending.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,

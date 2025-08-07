@@ -3,7 +3,7 @@ import { roleGuard } from '../../core/guards/role.guard';
 import { UserRoles } from '../../core/enums';
 
 export const DASHBOARD_ROUTES: Routes = [
-  // Only for authenticated users with Patient role
+  // Authenticated users with Patient role
   {
     path: 'patient',
     canActivate: [roleGuard([UserRoles.PATIENT])],
@@ -20,15 +20,33 @@ export const DASHBOARD_ROUTES: Routes = [
         (m) => m.RequestAppointmentPageComponent
       ),
   },
-  // Only for authenticated users with Specialist or Admin role
+  // Authenticated users with Specialist role
   {
     path: 'specialist',
-    canActivate: [roleGuard([UserRoles.SPECIALIST, UserRoles.ADMIN])],
+    canActivate: [roleGuard([UserRoles.SPECIALIST])],
     loadComponent: () =>
       import('./pages/specialist-page/specialist-page.component').then(
         (m) => m.SpecialistPageComponent
       ),
   },
+  // Authenticated users with Patient or Specialist role
+  {
+    path: 'appointments-list',
+    canActivate: [roleGuard([UserRoles.PATIENT, UserRoles.SPECIALIST])],
+    loadComponent: () =>
+      import('./pages/appointment-list-page/appointment-list-page.component').then(
+        (m) => m.AppointmentListPageComponent
+      ),
+  },
+  {
+    path: 'appointments-manage/:id',
+    canActivate: [roleGuard([UserRoles.PATIENT, UserRoles.SPECIALIST])],
+    loadComponent: () =>
+      import('./pages/appointment-manage-page/appointment-manage-page.component').then(
+        (m) => m.AppointmentManagePageComponent
+      ),
+  },
+  // Authenticated users
   {
     path: 'profile/edit',
     canActivate: [roleGuard([UserRoles.PATIENT, UserRoles.SPECIALIST, UserRoles.ADMIN])],

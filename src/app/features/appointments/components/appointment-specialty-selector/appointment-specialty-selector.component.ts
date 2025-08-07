@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, inject, Input, OnInit, Output, signal, Signal } from '@angular/core';
-import { Specialty } from '../../../core/models';
-import { SpecialtyFacade } from '../../specialties/specialty.facade';
-import { SvgIconComponent } from "../../../shared/icons/svg-icon.component";
+import { Specialty } from '../../../../core/models';
+import { SpecialtyFacade } from '../../../specialties/specialty.facade';
+import { SvgIconComponent } from "../../../../shared/icons/svg-icon.component";
 
 @Component({
   selector: 'app-appointment-specialty-selector',

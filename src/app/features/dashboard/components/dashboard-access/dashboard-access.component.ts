@@ -26,7 +26,7 @@ export class DashboardAccessComponent {
     },
     {
       title: 'Ver Lista de Turnos',
-      routerLink: '',
+      routerLink: '/dashboard/appointments-list',
       icon: 'list',
     },
   ];

@@ -6,16 +6,16 @@ import {
   effect,
   signal,
 } from '@angular/core';
-import { SvgIconComponent } from '../../../shared/icons/svg-icon.component';
+import { SvgIconComponent } from '../../../../shared/icons/svg-icon.component';
 import { AppointmentSpecialtySelectorComponent } from '../appointment-specialty-selector/appointment-specialty-selector.component';
 import { AppointmentSpecialistSelectorComponent } from '../appointment-specialist-selector/appointment-specialist-selector.component';
-import { Specialist, Specialty } from '../../../core/models';
+import { Specialist, Specialty } from '../../../../core/models';
 import { AppointmentDateSelectorComponent } from '../appointment-date-selector/appointment-date-selector.component';
 import { AppointmentConfirmComponent } from '../appointment-confirm/appointment-confirm.component';
-import { AppointmentFacade } from '../appointment.facade';
-import { DialogService } from '../../../shared/services/dialog/dialog.service';
+import { AppointmentFacade } from '../../appointment.facade';
+import { DialogService } from '../../../../shared/services/dialog/dialog.service';
 import { Router } from '@angular/router';
-import { UserFacade } from '../../auth/user.facade';
+import { UserFacade } from '../../../auth/user.facade';
 
 interface Step {
   number: number;

@@ -1,0 +1,68 @@
+@if (!authFacade.user() || authFacade.isCheckingAuth() || isLoading() || !oppositeUser()) {
+  <app-splash></app-splash>
+  } @else {
+    <div class="flex justify-center items-center size-full">
+      <div
+        class="flex flex-wrap flex-col justify-start items-start
+         min-h-dashboard-height size-full outline outline-lightblue-secondary/70
+          bg-va-secondary/10 shadow mx-22 pb-4 px-16 rounded-xl"
+      >
+          <!-- Back Button -->
+          <a
+            [routerLink]="'/dashboard/' + authFacade.user()?.role"
+            class="mt-2 -ml-13 flex flex-wrap justify-center items-center gap-1
+            rounded-full px-6 py-1.5 cursor-pointer hover:text-va-third
+            hover:bg-va-secondary/50 active:bg-va-secondary/90 transition duration-300"
+        >
+          <app-svg-icon icon="backArrow" size="36px"></app-svg-icon>
+          <span class="text-lg">Perfil</span>
+        </a>
+
+      @if (error()) {
+        <div
+        class="flex px-10 py-3 justify-center items-center mt-12 m-0
+         gap-2 bg-amber-200 border-2 border-amber-300 text-black rounded"
+        >
+          <p class="h-full text-pretty w-full text-lg">
+            Ocurrió un error al buscar el turno solicitado. Intentá más tarde.
+          </p>
+        </div>
+      } @else if (appointment()) {
+        <!-- <h1 class="text-3xl font-bold">Gestionar Turno</h1> -->
+        
+        <!-- Appointment Information -->
+        <div class="w-full">
+          <app-appointment-info [appointment]="appointment()!"></app-appointment-info>
+        </div>
+        
+        <!-- User Information -->
+        <div class="w-full">
+          <app-appointment-user-info
+            [user]="oppositeUser()"
+            [userRoleToShow]="
+              authFacade.user()?.role === 'patient' ? 'specialist' : 'patient'
+            "
+        ></app-appointment-user-info>
+        </div>
+
+        <!-- Actions -->
+        <div class="w-full">
+          <app-appointment-actions
+            [userRoleToShow]="
+            authFacade.user()?.role === 'patient' ? 'patient' : 'specialist'
+            "
+          ></app-appointment-actions>
+        </div>
+      } @else {
+        <div
+        class="flex px-10 py-3 justify-center items-center mt-12 m-0
+         gap-2 bg-amber-200 border-2 border-amber-300 text-black rounded"
+        >
+          <p class="h-full text-pretty w-full text-lg">
+            Ocurrió un error al buscar el turno solicitado. Intentá más tarde.
+          </p>
+        </div>
+      }
+    </div>
+  </div>
+}

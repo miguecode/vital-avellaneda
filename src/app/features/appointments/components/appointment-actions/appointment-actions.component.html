@@ -1,0 +1,35 @@
+<div class="flex flex-col w-full">
+  <!-- Title -->
+  <div class="mt-6 ml-6 flex gap-2 justify-start items-center">
+    <app-svg-icon icon="actions" size="32px"></app-svg-icon>
+    <h3 class="text-2xl font-semibold">Acciones</h3>
+  </div>
+
+  <!-- Content -->
+  <div
+    class="flex gap-1 w-full p-4 ml-2 mt-1.5
+    rounded-2xl outline-2 outline-va-fifth shadow"
+  >
+    @for (action of userRoleToShow === 'patient' ? patientActions :
+    specialistActions; track action) { 
+      <button 
+        class="cursor-pointer rounded-xl w-72 px-6 py-4 
+        flex flex-wrap gap-4 justify-between items-center
+        text-xl transition"
+        [ngClass]="[
+          action.textColor || 'text-white',
+          action.bgColor || 'bg-va-primary',
+          action.bgColorHover || 'hover:bg-va-primary/90',
+          action.bgColorActive || 'active:bg-va-primary/80'
+        ]"
+      >
+        <app-svg-icon 
+          [icon]="$any(action.icon)"
+          size="32px"
+        >
+        </app-svg-icon>
+        {{ action.label }}
+      </button>
+    }
+  </div>
+</div>
