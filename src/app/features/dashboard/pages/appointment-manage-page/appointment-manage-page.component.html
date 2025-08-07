@@ -1,4 +1,4 @@
-@if (!authFacade.user() || authFacade.isCheckingAuth() || isLoading() || !oppositeUser()) {
+@if (!authFacade.user() || authFacade.isCheckingAuth() || isLoading()) {
   <app-splash></app-splash>
   } @else {
     <div class="flex justify-center items-center size-full">

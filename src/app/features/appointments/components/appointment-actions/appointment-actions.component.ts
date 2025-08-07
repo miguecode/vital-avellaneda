@@ -17,10 +17,10 @@ export class AppointmentActionsComponent {
       handler: this.cancelAppointmentHandler,
       label: 'Cancelar Turno',
       icon: 'eventBusy',
-      textColor: '',
-      bgColor: '',
-      bgColorHover:'',
-      bgColorActive: '',
+      textColor: 'text-red-secondary',
+      bgColor: 'bg-red-primary',
+      bgColorHover: 'hover:bg-red-primary/90',
+      bgColorActive:'active:bg-red-primary/80',
     }
   ];
 
@@ -28,7 +28,7 @@ export class AppointmentActionsComponent {
     {
       handler: this.completeAppointmentHandler,
       label: 'Completar Turno',
-      icon: 'check',
+      icon: 'eventAvailable',
       textColor: '',
       bgColor: '',
       bgColorHover:'',
@@ -38,10 +38,10 @@ export class AppointmentActionsComponent {
       handler: this.cancelAppointmentHandler,
       label: 'Cancelar Turno',
       icon: 'eventBusy',
-      textColor: '',
-      bgColor: '',
-      bgColorHover:'',
-      bgColorActive: '',
+      textColor: 'text-red-secondary',
+      bgColor: 'bg-red-primary',
+      bgColorHover: 'hover:bg-red-primary/90',
+      bgColorActive:'active:bg-red-primary/80',
     },
   ];
 

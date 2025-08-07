@@ -1,6 +1,6 @@
 <div class="flex flex-col w-full">
   <!-- Title -->
-  <div class="mt-6 ml-6 flex gap-2 justify-start items-center">
+  <div class="mt-6 ml-6 flex gap-2 justify-start items-center text-va-primary">
     <app-svg-icon
       [icon]="userRoleToShow === 'patient' ? 'patient' : 'specialist'"
       size="32px"
@@ -16,33 +16,47 @@
 
   <!-- Content -->
   <div class="flex flex-col gap-1.5 w-full p-4 ml-2 mt-1.5 rounded-2xl outline-2 outline-va-fifth shadow">
-    <!-- Personal Data -->
-    @for (item of personalData; track item.label) {
-      <div
-        class="flex gap-2 justify-start items-start border-b border-b-va-fifth/30"
-      >
-        <app-svg-icon icon="lineStart" size="26px"></app-svg-icon>
-        <p class="text-lg font-medium">
-          {{ item.label }}: 
-          <span class="font-normal">
-            {{ item.value }}
-          </span>
-        </p>
-      </div>
-    }
-  
-    <!-- Medical Data -->
-    @for (item of customData; track item.label) {
-      <div
-        class="flex gap-2 justify-start items-start border-b border-b-va-fifth/30"
-      >
-        <app-svg-icon icon="lineStart" size="26px"></app-svg-icon>
-        <p class="text-lg font-medium">
-          {{ item.label }}
-          <span class="font-normal">
-            {{ item.value }}
-          </span>
-        </p>
+    @if (showContent()) {
+      <!-- Personal Data -->
+      @for (item of personalData; track item.label) {
+        <div
+          class="flex gap-2 justify-start items-start border-b border-b-va-fifth/30"
+        >
+          <app-svg-icon icon="lineStart" size="26px"></app-svg-icon>
+          <p class="text-lg font-medium">
+            {{ item.label }}: 
+            <span class="font-normal">
+              {{ item.value }}
+            </span>
+          </p>
+        </div>
+      }
+    
+      <!-- Medical Data -->
+      @for (item of customData; track item.label) {
+        <div
+          class="flex gap-2 justify-start items-start border-b border-b-va-fifth/30"
+        >
+          <app-svg-icon icon="lineStart" size="26px"></app-svg-icon>
+          <p class="text-lg font-medium">
+            {{ item.label }}
+            <span class="font-normal">
+              {{ item.value }}
+            </span>
+          </p>
+        </div>
+      }  
+    } @else {
+      <div class="flex flex-col justify-center items-center w-full min-h-40">
+        <div 
+          class="animate-spin inline-block size-8
+            border-4 border-t-transparent text-va-third rounded-full" 
+          role="status" 
+          aria-label="loading"
+        ></div>
+        <span class="text-center font-medium text-xl mt-3">
+          Cargando información...
+        </span>
       </div>
     }
   </div>

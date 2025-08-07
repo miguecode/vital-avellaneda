@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, Input, OnInit, signal } from '@angular/core';
 import { SvgIconComponent } from '../../../../shared/icons/svg-icon.component';
 import {
   Patient,
@@ -22,9 +22,18 @@ import { AVAILABILITY_PRESETS_LABELS } from '../../../../core/constants/availabi
   styleUrl: './appointment-user-info.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AppointmentUserInfoComponent {
+export class AppointmentUserInfoComponent implements OnInit {
   @Input({ required: true }) user!: UserBase | null;
   @Input({ required: true }) userRoleToShow!: 'patient' | 'specialist';
+
+  readonly minTimePassed = signal(false);
+  readonly showContent = computed(() => this.minTimePassed() && !!this.user);
+
+  ngOnInit(): void {
+    setTimeout(() => {
+      this.minTimePassed.set(true);
+    }, 1000);
+  }
 
   get title(): string {
     return this.userRoleToShow === 'patient' ? 'Paciente' : 'Especialista';
