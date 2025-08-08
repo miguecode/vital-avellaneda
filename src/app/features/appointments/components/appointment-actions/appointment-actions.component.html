@@ -13,6 +13,7 @@
     @for (action of userRoleToShow === 'patient' ? patientActions :
     specialistActions; track action) { 
       <button 
+        (click)="action.handler()"
         class="cursor-pointer rounded-xl w-68 px-6 py-4 
         flex flex-wrap gap-3 justify-between items-center
         text-xl transition"

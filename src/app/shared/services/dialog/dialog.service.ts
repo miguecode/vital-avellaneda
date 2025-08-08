@@ -4,9 +4,11 @@ import {
   ApplicationRef,
   createComponent,
   EnvironmentInjector,
+  ComponentRef,
 } from '@angular/core';
 import { Subject } from 'rxjs';
 import { DialogComponent } from '../../components/dialog/dialog.component';
+import { NavigationStart, Router } from '@angular/router';
 
 export interface DialogConfig {
   title: string;
@@ -20,6 +22,11 @@ export interface DialogConfig {
   icon?: string;
   iconColor?: string;
   iconBgColor?: string;
+  showInput?: boolean;
+  inputLabel?: string;
+  inputPlaceholder?: string;
+  textareaRows?: number;
+  inputMaxLength?: number;
 }
 
 @Injectable({
@@ -28,34 +35,45 @@ export interface DialogConfig {
 export class DialogService {
   private appRef = inject(ApplicationRef);
   private injector = inject(EnvironmentInjector);
+  private router = inject(Router);
 
-  private dialogResult$ = new Subject<boolean>();
+  private dialogResult$ = new Subject<boolean | string>();
+  private dialogComponentRef: ComponentRef<DialogComponent> | null = null;
+
+  constructor() {
+    this.router.events.subscribe(event => {
+      if (event instanceof NavigationStart) {
+        this.destroyDialog();
+      }
+    });
+  }
 
   open(config: DialogConfig) {
-    const componentRef = createComponent(DialogComponent, {
+    this.dialogComponentRef = createComponent(DialogComponent, {
       environmentInjector: this.injector,
     });
 
-    componentRef.instance.config = config;
+    this.dialogComponentRef.instance.config = config;
 
-    const sub = componentRef.instance.closed.subscribe((result) => {
+    const sub = this.dialogComponentRef.instance.closed.subscribe((result) => {
       this.dialogResult$.next(result);
       this.dialogResult$.complete();
-      this.destroyDialog(componentRef);
+      this.destroyDialog();
       sub.unsubscribe();
     });
 
-    this.appRef.attachView(componentRef.hostView);
-    document.body.appendChild(componentRef.location.nativeElement);
+    this.appRef.attachView(this.dialogComponentRef.hostView);
+    document.body.appendChild(this.dialogComponentRef.location.nativeElement);
 
     return this.dialogResult$.asObservable();
   }
 
-  private destroyDialog(componentRef: any): void {
-    if (componentRef) {
-      this.appRef.detachView(componentRef.hostView);
-      componentRef.destroy();
+  private destroyDialog(): void {
+    if (this.dialogComponentRef) {
+      this.appRef.detachView(this.dialogComponentRef.hostView);
+      this.dialogComponentRef.destroy();
+      this.dialogComponentRef = null;
     }
-    this.dialogResult$ = new Subject<boolean>();
+    this.dialogResult$ = new Subject<boolean | string>();
   }
 }

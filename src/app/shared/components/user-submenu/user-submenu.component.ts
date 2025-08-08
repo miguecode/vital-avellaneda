@@ -116,7 +116,7 @@ export class UserSubmenuComponent {
   async handleLogoutClick(): Promise<void> {
     await this.closeDropdown();
 
-    setTimeout(() => {
+    // setTimeout(() => {
       this.dialogService.open({
         title: 'Cerrar Sesión',
         message:
@@ -136,6 +136,6 @@ export class UserSubmenuComponent {
           this.router.navigate(['/auth/login']);
         }
       });
-    }, 150);
+    // }, 150);
   }
 }

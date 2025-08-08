@@ -1,17 +1,17 @@
-dialog::backdrop {
+/* dialog::backdrop {
   -webkit-backdrop-filter: blur(4px);
   backdrop-filter: blur(4px);
 }
 
 dialog {
   opacity: 0;
-  will-change: opacity transform;
+  will-change: opacity;
 }
 
 dialog.showing {
-  animation: scale-in 0.1s linear both;
+  animation: scale-in 0.02s linear both;
 }
 
 dialog.closing {
-  animation: scale-out 0.1s linear both;
-}
+  animation: scale-out 0.002s linear both;
+} */

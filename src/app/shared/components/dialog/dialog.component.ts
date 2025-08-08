@@ -8,23 +8,27 @@ import {
   AfterViewInit,
   OnDestroy,
   ChangeDetectionStrategy,
+  signal,
 } from '@angular/core';
 import { DialogConfig } from '../../services/dialog/dialog.service';
 import { SvgIconComponent } from '../../icons/svg-icon.component';
 import { NgClass } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-dialog',
-  imports: [SvgIconComponent, NgClass],
+  imports: [SvgIconComponent, NgClass, FormsModule],
   templateUrl: './dialog.component.html',
   styleUrls: ['./dialog.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DialogComponent implements AfterViewInit, OnDestroy {
   @Input() config!: DialogConfig;
-  @Output() closed = new EventEmitter<boolean>();
+  @Output() closed = new EventEmitter<boolean | string>();
 
   @ViewChild('dialog') dialog!: ElementRef<HTMLDialogElement>;
+
+  inputValue = signal('');
 
   private readonly handleClose = () => this.onClose(false);
 
@@ -45,16 +49,12 @@ export class DialogComponent implements AfterViewInit, OnDestroy {
     this.dialog.nativeElement.removeEventListener('close', this.handleClose);
   }
 
-  onClose(result: boolean): void {
+  onClose(result: boolean | string): void {
     this.dialog.nativeElement.classList.add('closing');
 
-    this.dialog.nativeElement.addEventListener(
-      'animationend',
-      () => {
-        this.dialog.nativeElement.close();
-        this.closed.emit(result);
-      },
-      { once: true }
-    );
+    setTimeout(() => {
+      this.dialog.nativeElement.close();
+      this.closed.emit(result);
+    }, 50);
   }
 }

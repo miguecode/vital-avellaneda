@@ -1,10 +1,9 @@
 <dialog
-#dialog
-class="m-auto z-10 rounded-2xl shadow
-  backdrop:bg-black/50 px-8 max-w-xl"
+  #dialog
+  class="m-auto z-10 rounded-2xl shadow backdrop:bg-black/50 px-8 max-w-xl"
 >
-<div class="p-8 text-center">
-  @if (config.icon) {
+  <div class="p-8 text-center">
+    @if (config.icon) {
     <div class="flex justify-center mb-4">
       <div
         class="rounded-full p-4"
@@ -17,32 +16,60 @@ class="m-auto z-10 rounded-2xl shadow
         ></app-svg-icon>
       </div>
     </div>
-  }
+    }
 
-  <h3 class="text-3xl font-bold text-gray-800 mb-2 text-pretty">{{ config.title }}</h3>
-  <p class="text-gray-600 mb-8 text-lg text-pretty">{{ config.message }}</p>
+    <h3 class="text-3xl font-bold text-gray-800 mb-2 text-pretty">
+      {{ config.title }}
+    </h3>
+    <p class="text-gray-600 mb-8 text-lg text-pretty">{{ config.message }}</p>
 
-  <div class="flex justify-center gap-4">
-    @if (config.cancelText) {
+    @if (config.showInput) {
+    <div class="mb-4 text-left">
+      <label
+        class="block text-sm font-medium text-gray-700 mb-1"
+        for="dialog-input"
+        >{{ config.inputLabel }}</label
+      >
+      <textarea
+        id="dialog-input"
+        [(ngModel)]="inputValue"
+        [rows]="config.textareaRows || 4"
+        [maxLength]="config.inputMaxLength || 255"
+        class="w-full min-h-12 max-h-34 px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder:text-gray-400
+         focus:outline-none focus:ring-va-fifth focus:border-va-fifth sm:text-sm"
+        [placeholder]="config.inputPlaceholder || ''"
+      ></textarea>
+      @if(config.inputMaxLength) {
+        <div class="text-xs text-gray-500 mt-1 text-right">
+          {{ inputValue().length }} / {{ config.inputMaxLength }}
+        </div>
+      }
+    </div>
+    }
+
+    <div class="flex justify-center gap-4 mt-6">
+      @if (config.cancelText) {
       <button
         (click)="onClose(false)"
         type="button"
-        class="cursor-pointer py-2 px-6 rounded-lg font-semibold
-        border border-gray-300 hover:bg-gray-100 active:bg-gray-100/80 transition"
+        class="cursor-pointer py-2 px-6 rounded-lg font-semibold border transition
+         border-gray-300 hover:bg-gray-100 active:bg-gray-100/80"
       >
         {{ config.cancelText }}
       </button>
-    }
+      }
       <button
-        (click)="onClose(true)"
+        (click)="onClose(config.showInput ? inputValue() : true)"
         type="button"
-        class="cursor-pointer py-3 px-7 rounded-lg text-lg font-semibold transition"
+        class="cursor-pointer py-3 px-7 rounded-lg text-lg font-semibold transition
+          disabled:opacity-50 disabled:cursor-auto disabled:select-none"
         [ngClass]="[
           config.confirmTextBgColor || 'bg-va-primary',
           config.confirmTextColor || 'text-white',
           config.confirmTextBgColorHover || 'hover:bg-va-primary/90',
           config.confirmTextBgColorActive || 'active:bg-va-primary/80'
         ]"
+        [disabled]="config.showInput && inputValue().length < 5"
       >
         {{ config.confirmText || "Aceptar" }}
       </button>
