@@ -12,9 +12,11 @@ import { SplashComponent } from '../../../../shared/components/splash/splash.com
 import { AppointmentInfoComponent } from '../../../appointments/components/appointment-info/appointment-info.component';
 import { AppointmentUserInfoComponent } from '../../../appointments/components/appointment-user-info/appointment-user-info.component';
 import { UserFacade } from '../../../auth/user.facade';
-import { UserBase } from '../../../../core/models';
-import { SvgIconComponent } from "../../../../shared/icons/svg-icon.component";
-import { AppointmentActionsComponent } from "../../../appointments/components/appointment-actions/appointment-actions.component";
+import { Diagnosis, Patient, UserBase } from '../../../../core/models';
+import { SvgIconComponent } from '../../../../shared/icons/svg-icon.component';
+import { AppointmentActionsComponent } from '../../../appointments/components/appointment-actions/appointment-actions.component';
+import { CompleteAppointmentData } from '../../../appointments/components/complete-appointment-dialog/complete-appointment-dialog.component';
+import { AppointmentStatus, UserRoles } from '../../../../core/enums';
 
 @Component({
   selector: 'app-appointment-manage-page',
@@ -25,8 +27,8 @@ import { AppointmentActionsComponent } from "../../../appointments/components/ap
     AppointmentUserInfoComponent,
     RouterLink,
     SvgIconComponent,
-    AppointmentActionsComponent
-],
+    AppointmentActionsComponent,
+  ],
   templateUrl: './appointment-manage-page.component.html',
   styleUrl: './appointment-manage-page.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -63,9 +65,70 @@ export class AppointmentManagePageComponent implements OnInit {
     if (!apt || !currentUser) return;
 
     const oppositeUserId =
-      currentUser.role === 'patient' ? apt.specialistId : apt.patientId;
+      currentUser.role === UserRoles.PATIENT ? apt.specialistId : apt.patientId;
 
     const user = await this.userFacade.getUserById(oppositeUserId);
     this.oppositeUser.set(user);
+  }
+
+  async handleCancelAppointment(reason: string): Promise<void> {
+    if (reason) {
+      const appointmentId = this.appointment()?.id;
+      if (appointmentId) {
+        await this.appointmentFacade.updateAppointment(appointmentId, {
+          cancelationReason: reason,
+          canceledBy: this.authFacade.user()?.role,
+          status: AppointmentStatus.CANCELED,
+        });
+      }
+    }
+  }
+
+  async handleCompleteAppointment(
+    data: CompleteAppointmentData
+  ): Promise<void> {
+    if (data) {
+      const { details, prescriptions, anotations, height, weight } = data;
+
+      const diagnosis: Diagnosis = {
+        details,
+        prescriptions,
+      };
+
+      if (anotations && anotations.trim() !== '') {
+        diagnosis.anotations = anotations;
+      }
+
+      const appointmentId = this.appointment()?.id;
+      if (appointmentId) {
+        await this.appointmentFacade.updateAppointment(appointmentId, {
+          diagnosis: diagnosis,
+          status: AppointmentStatus.COMPLETED,
+        });
+      }
+
+      const oppositeUser = this.oppositeUser();
+      if (!oppositeUser || !oppositeUser.id) {
+          console.warn('No opposite user found to update height/weight.');
+        return;
+      }
+
+      const userUpdates: Partial<Patient> = {};
+
+      const parsedHeight = typeof height === 'string' ? parseFloat(height) : height;
+      if (typeof parsedHeight === 'number' && parsedHeight >= 100 && parsedHeight <= 250) {
+        userUpdates.height = parsedHeight;
+      }
+
+      const parsedWeight = typeof weight === 'string' ? parseFloat(weight) : weight;
+      if (typeof parsedWeight === 'number' && parsedWeight >= 30 && parsedWeight <= 250) {
+        userUpdates.weight = parsedWeight;
+      }
+
+      if (Object.keys(userUpdates).length > 0) {
+        await this.userFacade.updateUser({ ...userUpdates, id: this.oppositeUser()?.id });
+        await this.loadOppositeUser();
+      }
+    }
   }
 }

@@ -28,8 +28,6 @@
           </p>
         </div>
       } @else if (appointment()) {
-        <!-- <h1 class="text-3xl font-bold">Gestionar Turno</h1> -->
-        
         <!-- Appointment Information -->
         <div class="w-full">
           <app-appointment-info [appointment]="appointment()!"></app-appointment-info>
@@ -49,8 +47,10 @@
         <div class="w-full">
           <app-appointment-actions
             [userRoleToShow]="
-            authFacade.user()?.role === 'patient' ? 'patient' : 'specialist'
-            "
+            authFacade.user()?.role === 'patient' ? 'patient' : 'specialist'"
+            [appointmentState]="appointment()?.status!"
+            (cancelAppointment)="handleCancelAppointment($event)"
+            (completeAppointment)="handleCompleteAppointment($event)"
           ></app-appointment-actions>
         </div>
       } @else {

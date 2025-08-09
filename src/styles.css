@@ -85,3 +85,14 @@ body {
     opacity: 0;
   }
 } */
+
+.pending {
+  @apply text-amber-800;
+}
+.completed {
+  color: green;
+}
+.canceled {
+
+  color: yellow;
+}

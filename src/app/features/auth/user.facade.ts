@@ -49,11 +49,14 @@ export class UserFacade {
 
     try {
       await this.userService.updateUser(updatedData);
-      const updatedUser = await this.userService.getUserById(updatedData.id!);
-      if (updatedUser) {
-        this.authFacade.setUser(updatedUser);
-      } else {
-        throw new Error(`No se pudo obtener el usuario actualizado con el ID: ${updatedData.id}`);
+      // Only update the authenticated user's signal if the updated user is the authenticated user
+      if (this.authFacade.user()?.id === updatedData.id) {
+        const updatedUser = await this.userService.getUserById(updatedData.id!);
+        if (updatedUser) {
+          this.authFacade.setUser(updatedUser);
+        } else {
+          throw new Error(`No se pudo obtener el usuario actualizado con el ID: ${updatedData.id}`);
+        }
       }
     } catch (err: any) {
       this._error.set(err.message || 'Error al actualizar el usuario');

@@ -19,7 +19,9 @@ import { SvgIconComponent } from "../../../../shared/icons/svg-icon.component";
 export interface CompleteAppointmentData {
   details: string;
   prescriptions: string;
-  anotations: string | null;
+  anotations: string | undefined;
+  height: string | number | null;
+  weight: string | number | null;
 }
 
 export interface CompleteAppointmentDialogConfig {
@@ -80,7 +82,7 @@ export class CompleteAppointmentDialogComponent implements IDialog, OnInit, Afte
 
     if (result && this.form.valid) {
       const formValue = this.form.value;
-      if (formValue.anotations === '') formValue.anotations = null;
+      if (formValue.anotations === '') formValue.anotations = undefined;
       if (formValue.height === '') formValue.height = null;
       if (formValue.weight === '') formValue.weight = null;
       this.closed.emit(formValue);

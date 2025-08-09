@@ -1,5 +1,5 @@
 import { Diagnosis, Rating, Specialty } from '../models';
-import { AppointmentStatus } from '../enums/';
+import { AppointmentStatus, UserRoles } from '../enums/';
 
 export interface Appointment {
   id: string;
@@ -14,6 +14,7 @@ export interface Appointment {
   specialty: Specialty;
   creationDate: Date;
   cancelationReason?: string;
+  canceledBy?: UserRoles;
   diagnosis?: Diagnosis;
   rating?: Rating;
 }

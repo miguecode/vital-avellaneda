@@ -120,4 +120,29 @@ export class AppointmentFacade {
       this._loading.set(false);
     }
   }
+
+  async updateAppointment(
+    id: string,
+    updates: Partial<Appointment>
+  ): Promise<void> {
+    this._loading.set(true);
+    this._error.set(null);
+    try {
+      await this.appointmentService.update({ id, ...updates });
+      const currentAppointments = this._appointments();
+      const updatedAppointments = currentAppointments.map(app =>
+        app.id === id ? { ...app, ...updates } : app
+      );
+      this._appointments.set(updatedAppointments);
+
+      if (this._selectedAppointment()?.id === id) {
+        this._selectedAppointment.update(app => ({ ...app!, ...updates }));
+      }
+
+    } catch (err: any) {
+      this._error.set(err.message || 'Error al actualizar el turno');
+    } finally {
+      this._loading.set(false);
+    }
+  }
 }
