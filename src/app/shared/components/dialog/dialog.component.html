@@ -36,12 +36,12 @@
         [rows]="config.textareaRows || 4"
         [maxLength]="config.inputMaxLength || 255"
         class="w-full min-h-12 max-h-34 px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder:text-gray-400
-         focus:outline-none focus:ring-va-fifth focus:border-va-fifth sm:text-sm"
+         focus:outline-none focus:ring-va-fifth focus:border-va-fifth sm:text-sm field-sizing-content"
         [placeholder]="config.inputPlaceholder || ''"
       ></textarea>
       @if(config.inputMaxLength) {
         <div class="text-xs text-gray-500 mt-1 text-right">
-          {{ inputValue().length }} / {{ config.inputMaxLength }}
+          {{ inputValue().length }}/{{ config.inputMaxLength }}
         </div>
       }
     </div>

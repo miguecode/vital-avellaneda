@@ -2,6 +2,8 @@ import { ChangeDetectionStrategy, Component, Input, inject } from '@angular/core
 import { SvgIconComponent } from "../../../../shared/icons/svg-icon.component";
 import { NgClass } from '@angular/common';
 import { DialogService } from '../../../../shared/services/dialog/dialog.service';
+import { DialogComponent } from '../../../../shared/components/dialog/dialog.component';
+import { CompleteAppointmentDialogComponent } from '../complete-appointment-dialog/complete-appointment-dialog.component';
 
 @Component({
   selector: 'app-appointment-actions',
@@ -16,7 +18,7 @@ export class AppointmentActionsComponent {
   private dialogService = inject(DialogService);
 
   cancelAppointmentHandler = (): void => {
-    this.dialogService.open({
+    this.dialogService.openGeneric<DialogComponent, boolean | string>(DialogComponent, {
       title: 'Cancelar Turno',
       message: '¿Estás eguro de que deseas cancelar este turno? Esta acción no se puede deshacer.',
       confirmText: 'Cancelar Turno',
@@ -41,7 +43,18 @@ export class AppointmentActionsComponent {
   }
 
   completeAppointmentHandler = (): void => {
-
+    this.dialogService.openGeneric(CompleteAppointmentDialogComponent, {
+      title: 'Completar Turno',
+      message: 'Para dar por completado el turno, completá los siguientes datos que serán visibles para el paciente.',
+      confirmText: 'Confirmar',
+      cancelText: 'Cerrar',
+      icon: 'eventAvailable',
+    })
+      .subscribe(result => {
+        if (result) {
+          console.log('Resultado del dialogo:', result);
+        }
+      });
   }
 
   readonly patientActions = [

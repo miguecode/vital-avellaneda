@@ -15,6 +15,5 @@ export interface Appointment {
   creationDate: Date;
   cancelationReason?: string;
   diagnosis?: Diagnosis;
-  privateAnnotations?: string[];
   rating?: Rating;
 }

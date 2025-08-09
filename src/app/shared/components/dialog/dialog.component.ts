@@ -10,10 +10,29 @@ import {
   ChangeDetectionStrategy,
   signal,
 } from '@angular/core';
-import { DialogConfig } from '../../services/dialog/dialog.service';
+import { IDialog } from '../../services/dialog/dialog.service';
 import { SvgIconComponent } from '../../icons/svg-icon.component';
 import { NgClass } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+
+export interface DialogConfig {
+  title: string;
+  message: string;
+  confirmText?: string;
+  confirmTextColor?: string;
+  confirmTextBgColor?: string;
+  confirmTextBgColorHover?: string;
+  confirmTextBgColorActive?: string;
+  cancelText?: string;
+  icon?: string;
+  iconColor?: string;
+  iconBgColor?: string;
+  showInput?: boolean;
+  inputLabel?: string;
+  inputPlaceholder?: string;
+  textareaRows?: number;
+  inputMaxLength?: number;
+}
 
 @Component({
   selector: 'app-dialog',
@@ -22,7 +41,7 @@ import { FormsModule } from '@angular/forms';
   styleUrls: ['./dialog.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DialogComponent implements AfterViewInit, OnDestroy {
+export class DialogComponent implements AfterViewInit, OnDestroy, IDialog {
   @Input() config!: DialogConfig;
   @Output() closed = new EventEmitter<boolean | string>();
 

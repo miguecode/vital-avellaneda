@@ -16,6 +16,7 @@ import { AppointmentFacade } from '../../appointment.facade';
 import { DialogService } from '../../../../shared/services/dialog/dialog.service';
 import { Router } from '@angular/router';
 import { UserFacade } from '../../../auth/user.facade';
+import { DialogComponent } from '../../../../shared/components/dialog/dialog.component';
 
 interface Step {
   number: number;
@@ -141,7 +142,7 @@ export class RequestAppointmentFormComponent {
       if (newAppointment) {
         setTimeout(() => {
           this.dialogService
-          .open({
+          .openGeneric<DialogComponent, boolean>(DialogComponent, {
             title: '¡Turno Confirmado!',
             message:
               'Tu turno fue agendado con éxito. Podés ver los detalles en tu perfil.',
@@ -164,7 +165,7 @@ export class RequestAppointmentFormComponent {
 
       setTimeout(() => {
         this.dialogService
-        .open({
+        .openGeneric<DialogComponent, boolean>(DialogComponent, {
           title: 'Error',
           message:
             'Hubo un problema con la solicitud del turno. Intentá más tarde.',

@@ -1,5 +1,5 @@
 export interface Diagnosis {
   details: string;
   prescriptions: string;
-  date: Date;
+  anotations?: string;
 }

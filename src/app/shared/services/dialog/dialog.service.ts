@@ -5,28 +5,15 @@ import {
   createComponent,
   EnvironmentInjector,
   ComponentRef,
+  Type,
+  EventEmitter,
 } from '@angular/core';
-import { Subject } from 'rxjs';
-import { DialogComponent } from '../../components/dialog/dialog.component';
+import { Observable, Subject } from 'rxjs';
 import { NavigationStart, Router } from '@angular/router';
 
-export interface DialogConfig {
-  title: string;
-  message: string;
-  confirmText?: string;
-  confirmTextColor?: string;
-  confirmTextBgColor?: string;
-  confirmTextBgColorHover?: string;
-  confirmTextBgColorActive?: string;
-  cancelText?: string;
-  icon?: string;
-  iconColor?: string;
-  iconBgColor?: string;
-  showInput?: boolean;
-  inputLabel?: string;
-  inputPlaceholder?: string;
-  textareaRows?: number;
-  inputMaxLength?: number;
+export interface IDialog {
+  config: any;
+  closed: EventEmitter<any>;
 }
 
 @Injectable({
@@ -37,10 +24,10 @@ export class DialogService {
   private injector = inject(EnvironmentInjector);
   private router = inject(Router);
 
-  private dialogResult$ = new Subject<boolean | string>();
-  private dialogComponentRef: ComponentRef<DialogComponent> | null = null;
+  private dialogComponentRef: ComponentRef<IDialog> | null = null;
 
   constructor() {
+    console.log('dialog service!');
     this.router.events.subscribe(event => {
       if (event instanceof NavigationStart) {
         this.destroyDialog();
@@ -48,16 +35,18 @@ export class DialogService {
     });
   }
 
-  open(config: DialogConfig) {
-    this.dialogComponentRef = createComponent(DialogComponent, {
+  openGeneric<T extends IDialog, R>(component: Type<T>, config: T['config']): Observable<R> {
+    const dialogResult$ = new Subject<R>();
+
+    this.dialogComponentRef = createComponent(component, {
       environmentInjector: this.injector,
     });
 
     this.dialogComponentRef.instance.config = config;
 
-    const sub = this.dialogComponentRef.instance.closed.subscribe((result) => {
-      this.dialogResult$.next(result);
-      this.dialogResult$.complete();
+    const sub = this.dialogComponentRef.instance.closed.subscribe((result: R) => {
+      dialogResult$.next(result);
+      dialogResult$.complete();
       this.destroyDialog();
       sub.unsubscribe();
     });
@@ -65,7 +54,7 @@ export class DialogService {
     this.appRef.attachView(this.dialogComponentRef.hostView);
     document.body.appendChild(this.dialogComponentRef.location.nativeElement);
 
-    return this.dialogResult$.asObservable();
+    return dialogResult$.asObservable();
   }
 
   private destroyDialog(): void {
@@ -74,6 +63,5 @@ export class DialogService {
       this.dialogComponentRef.destroy();
       this.dialogComponentRef = null;
     }
-    this.dialogResult$ = new Subject<boolean | string>();
   }
 }

@@ -12,6 +12,7 @@ import { UserRoles as R } from '../../../core/enums';
 import { ICON_PATHS } from '../../icons/icon-paths';
 import { Router } from '@angular/router';
 import { DialogService } from '../../services/dialog/dialog.service';
+import { DialogComponent } from '../dialog/dialog.component';
 
 interface MenuItem {
   icon: keyof typeof ICON_PATHS;
@@ -117,7 +118,7 @@ export class UserSubmenuComponent {
     await this.closeDropdown();
 
     // setTimeout(() => {
-      this.dialogService.open({
+      this.dialogService.openGeneric<DialogComponent, boolean>(DialogComponent, {
         title: 'Cerrar Sesión',
         message:
           '¿Seguro de salir de tu cuenta?',
