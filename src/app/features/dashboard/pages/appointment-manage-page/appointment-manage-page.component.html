@@ -48,7 +48,7 @@
           <app-appointment-actions
             [userRoleToShow]="
             authFacade.user()?.role === 'patient' ? 'patient' : 'specialist'"
-            [appointmentState]="appointment()?.status!"
+            [appointment]="appointment()!"
             (cancelAppointment)="handleCancelAppointment($event)"
             (completeAppointment)="handleCompleteAppointment($event)"
           ></app-appointment-actions>

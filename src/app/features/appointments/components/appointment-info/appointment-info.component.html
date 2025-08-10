@@ -1,100 +1,48 @@
 <div class="flex flex-col w-full">
   <!-- Title -->
-  <div class="mt-3 ml-6 flex gap-2 justify-start items-center text-va-primary">
+  <div class="mt-3 ml-5 flex gap-2 justify-start items-center text-va-primary">
     <app-svg-icon icon="assignment" size="32px"></app-svg-icon>
     <h3 class="text-2xl font-semibold">Información del Turno</h3>
   </div>
 
   <!-- Content -->
   <div
-    class="flex flex-col gap-1.5 w-full py-4 pt-0 ml-2 mt-1.5 rounded-2xl outline-2 outline-va-fifth shadow"
+    class="flex flex-col w-full ml-2 mt-1.5 rounded-2xl outline-2 outline-va-fifth shadow overflow-hidden"
   >
     <div
-      class="flex gap-2 justify-start items-center border-b border-b-va-fifth/30 bg-amber-200"
+      class="flex gap-2 px-4 py-1 justify-start items-center border-b border-b-va-fifth/30"
+      [class.pending]="appointment.status === 'pending'"
+      [class.completed]="appointment.status === 'completed'"
+      [class.canceled]="appointment.status === 'canceled'"
     >
-      <!-- <app-svg-icon icon="status" size="26px"></app-svg-icon> -->
-      <p class="text-lg font-medium">
-        Estado:
-      </p>
-      <div 
-        class="flex justify-center items-center font-semibold py-1 ml-0.5 text-lg"
+      <app-svg-icon icon="status" size="24px"></app-svg-icon>
+      <p class="text-lg font-semibold">Estado actual:</p>
+      <div
+        class="flex justify-center items-center font-semibold ml-0.5 text-lg"
       >
-          @switch (appointment.status) {
-            @case ('pending') { Pendiente }
-            @case ('completed') { Completado }
-            @case ('canceled') { Cancelado }
-            @default { Desconocido }
-          }
+        @switch (appointment.status) {
+          @case ('pending') { Pendiente }
+          @case ('completed') { Completado }
+          @case ('canceled') { Cancelado }
+          @default { Desconocido }
+        }
       </div>
     </div>
-    <div
-      class="flex gap-2 justify-start items-start border-b border-b-va-fifth/30"
-    >
-      <!-- <app-svg-icon icon="appointment" size="26px"></app-svg-icon> -->
-      <p class="text-lg font-medium">
-        Fecha:
-        <span class="font-normal">
-          {{ appointment.date | date : "d" }} de
-          {{ appointment.date | date : "MMMM" | titlecase }} de
-          {{ appointment.date | date : "y" }}
-        </span>
-      </p>
-    </div>
-    <div
-      class="flex gap-2 justify-start items-start border-b border-b-va-fifth/30"
-    >
-      <!-- <app-svg-icon icon="schedule" size="26px"></app-svg-icon> -->
-      <p class="text-lg font-medium">
-        Horario:
-        <span class="font-normal"
-          >{{ appointment.date.getTime() | date : "HH:mm" }} hs.</span
+
+    <div class="flex flex-col gap-1.5 w-full px-4 pb-4 pt-2">
+      @for (item of appointmentData; track item.label) {
+        <div
+          class="flex gap-2 justify-start items-start border-b border-b-va-fifth/30"
         >
-      </p>
-    </div>
-    <div
-      class="flex gap-2 justify-start items-start border-b border-b-va-fifth/30"
-    >
-      <!-- <app-svg-icon icon="medicalService" size="26px"></app-svg-icon> -->
-      <p class="text-lg font-medium">
-        Especialidad:
-        <span class="font-normal">{{ appointment.specialty.name }}</span>
-      </p>
-    </div>
-    <div
-      class="flex gap-2 justify-start items-start border-b border-b-va-fifth/30"
-    >
-      <!-- <app-svg-icon icon="specialist" size="26px"></app-svg-icon> -->
-      <p class="text-lg font-medium">
-        Especialista:
-        <span class="font-normal">
-          {{ appointment.specialistFirstName }}
-          {{ appointment.specialistLastName }}
-        </span>
-      </p>
-    </div>
-    <div
-      class="flex gap-2 justify-start items-start border-b border-b-va-fifth/30"
-    >
-      <!-- <app-svg-icon icon="patient" size="26px"></app-svg-icon> -->
-      <p class="text-lg font-medium">
-        Paciente:
-        <span class="font-normal">
-          {{ appointment.patientFirstName }} {{ appointment.patientLastName }}
-        </span>
-      </p>
-    </div>
-    <div
-      class="flex gap-2 justify-start items-start border-b border-b-va-fifth/30"
-    >
-      <!-- <app-svg-icon icon="assigmentAdd" size="26px"></app-svg-icon> -->
-      <p class="text-lg font-medium">
-        Fecha de Solicitud:
-        <span class="font-normal">
-          {{ appointment.creationDate | date : "d" }} de
-          {{ appointment.creationDate | date : "MMMM" | titlecase }} de
-          {{ appointment.creationDate | date : "y" }}
-        </span>
-      </p>
+        <app-svg-icon icon="lineStart" size="24px"></app-svg-icon>
+          <p class="text-lg font-medium">
+            {{ item.label }}
+            <span class="font-normal">
+              {{ item.value }}
+            </span>
+          </p>
+        </div>
+      }
     </div>
   </div>
 </div>

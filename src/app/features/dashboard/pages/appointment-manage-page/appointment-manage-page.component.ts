@@ -20,7 +20,6 @@ import { AppointmentStatus, UserRoles } from '../../../../core/enums';
 
 @Component({
   selector: 'app-appointment-manage-page',
-  standalone: true,
   imports: [
     SplashComponent,
     AppointmentInfoComponent,
@@ -76,7 +75,7 @@ export class AppointmentManagePageComponent implements OnInit {
       const appointmentId = this.appointment()?.id;
       if (appointmentId) {
         await this.appointmentFacade.updateAppointment(appointmentId, {
-          cancelationReason: reason,
+          cancellationReason: reason,
           canceledBy: this.authFacade.user()?.role,
           status: AppointmentStatus.CANCELED,
         });

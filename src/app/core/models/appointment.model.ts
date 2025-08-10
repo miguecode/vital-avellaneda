@@ -13,7 +13,7 @@ export interface Appointment {
   date: Date;
   specialty: Specialty;
   creationDate: Date;
-  cancelationReason?: string;
+  cancellationReason?: string;
   canceledBy?: UserRoles;
   diagnosis?: Diagnosis;
   rating?: Rating;

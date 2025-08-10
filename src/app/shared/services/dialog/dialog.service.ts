@@ -27,7 +27,6 @@ export class DialogService {
   private dialogComponentRef: ComponentRef<IDialog> | null = null;
 
   constructor() {
-    console.log('dialog service!');
     this.router.events.subscribe(event => {
       if (event instanceof NavigationStart) {
         this.destroyDialog();

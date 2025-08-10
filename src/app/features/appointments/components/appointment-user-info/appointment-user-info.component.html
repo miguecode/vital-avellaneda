@@ -1,6 +1,6 @@
 <div class="flex flex-col w-full">
   <!-- Title -->
-  <div class="mt-6 ml-6 flex gap-2 justify-start items-center text-va-primary">
+  <div class="mt-6 ml-5 flex gap-2 justify-start items-center text-va-primary">
     <app-svg-icon
       [icon]="userRoleToShow === 'patient' ? 'patient' : 'specialist'"
       size="32px"
@@ -22,7 +22,7 @@
         <div
           class="flex gap-2 justify-start items-start border-b border-b-va-fifth/30"
         >
-          <!-- <app-svg-icon icon="lineStart" size="26px"></app-svg-icon> -->
+          <app-svg-icon icon="lineStart" size="24px"></app-svg-icon>
           <p class="text-lg font-medium">
             {{ item.label }}: 
             <span class="font-normal">
@@ -37,7 +37,7 @@
         <div
           class="flex gap-2 justify-start items-start border-b border-b-va-fifth/30"
         >
-          <!-- <app-svg-icon icon="lineStart" size="26px"></app-svg-icon> -->
+          <app-svg-icon icon="lineStart" size="24px"></app-svg-icon>
           <p class="text-lg font-medium">
             {{ item.label }}
             <span class="font-normal">
@@ -45,7 +45,7 @@
             </span>
           </p>
         </div>
-      }  
+      }
     } @else {
       <div 
         class="flex flex-col justify-center items-center w-full"
