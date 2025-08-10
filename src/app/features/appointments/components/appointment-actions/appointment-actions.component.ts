@@ -7,7 +7,7 @@ import {
   inject,
 } from '@angular/core';
 import { SvgIconComponent } from '../../../../shared/icons/svg-icon.component';
-import { NgClass } from '@angular/common';
+import { DatePipe, NgClass, TitleCasePipe } from '@angular/common';
 import { DialogService } from '../../../../shared/services/dialog/dialog.service';
 import { DialogComponent } from '../../../../shared/components/dialog/dialog.component';
 import {
@@ -24,6 +24,7 @@ import { Appointment } from '../../../../core/models';
   templateUrl: './appointment-actions.component.html',
   styleUrl: './appointment-actions.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [DatePipe, TitleCasePipe],
 })
 export class AppointmentActionsComponent {
   @Input({ required: true }) userRoleToShow!: 'patient' | 'specialist';
@@ -32,6 +33,8 @@ export class AppointmentActionsComponent {
   @Output() completeAppointment = new EventEmitter<CompleteAppointmentData>();
 
   private dialogService = inject(DialogService);
+  private datePipe = inject(DatePipe);
+  private titleCase = inject(TitleCasePipe);
 
   cancelAppointmentHandler = (): void => {
     this.dialogService
@@ -104,8 +107,22 @@ export class AppointmentActionsComponent {
   completedInformHandler = (): void => {
     this.dialogService.openGeneric(AppointmentInformDialogComponent, {
       title: 'Diagnóstico',
-      subtitle: `El turno fue completado con éxito, y el diagnóstico proporcionado por el especialista
-       ${this.appointment.specialistFirstName} ${this.appointment.specialistLastName} se muestra a continuación en este informe separado por secciones.`,
+      subtitle: `Este informe contiene el diagnóstico proporcionado por el especialista
+       ${this.appointment.specialistFirstName} ${
+        this.appointment.specialistLastName
+      }, correspondiente al turno de ${
+        this.appointment.specialty.name
+      } llevado a cabo el día 
+       ${
+         this.datePipe.transform(this.appointment.date, 'd') +
+           ' de ' +
+           this.titleCase.transform(
+             this.datePipe.transform(this.appointment.date, 'MMMM')
+           ) +
+           ' de ' +
+           this.datePipe.transform(this.appointment.date, 'y') || ''
+       }.
+       `,
       icon: 'diagnosis',
       inform: [
         {

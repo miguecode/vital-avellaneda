@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 import { roleGuard } from '../../core/guards/role.guard';
 import { UserRoles } from '../../core/enums';
+import { idGuard } from '../../core/guards/id.guard';
 
 export const DASHBOARD_ROUTES: Routes = [
   // Authenticated users with Patient role
@@ -40,7 +41,7 @@ export const DASHBOARD_ROUTES: Routes = [
   },
   {
     path: 'appointments-manage/:id',
-    canActivate: [roleGuard([UserRoles.PATIENT, UserRoles.SPECIALIST])],
+    canActivate: [roleGuard([UserRoles.PATIENT, UserRoles.SPECIALIST]), idGuard],
     loadComponent: () =>
       import('./pages/appointment-manage-page/appointment-manage-page.component').then(
         (m) => m.AppointmentManagePageComponent

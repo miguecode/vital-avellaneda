@@ -5,7 +5,6 @@ import { SvgIconComponent } from '../../../../shared/icons/svg-icon.component';
 
 @Component({
   selector: 'app-appointment-info',
-  standalone: true,
   imports: [SvgIconComponent],
   templateUrl: './appointment-info.component.html',
   styleUrl: './appointment-info.component.css',
