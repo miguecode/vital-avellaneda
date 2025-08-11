@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 import { roleGuard } from '../../core/guards/role.guard';
 import { UserRoles } from '../../core/enums';
 import { idGuard } from '../../core/guards/id.guard';
+import { medicalRecordGuard } from '../../core/guards/medical-record.guard';
 
 export const DASHBOARD_ROUTES: Routes = [
   // Authenticated users with Patient role
@@ -45,6 +46,14 @@ export const DASHBOARD_ROUTES: Routes = [
     loadComponent: () =>
       import('./pages/appointment-manage-page/appointment-manage-page.component').then(
         (m) => m.AppointmentManagePageComponent
+      ),
+  },
+  {
+    path: 'user-medical-record/:id',
+    canActivate: [roleGuard([UserRoles.PATIENT, UserRoles.SPECIALIST]), medicalRecordGuard],
+    loadComponent: () =>
+      import('./pages/user-medical-record-page/user-medical-record-page.component').then(
+        (m) => m.UserMedicalRecordPageComponent
       ),
   },
   // Authenticated users

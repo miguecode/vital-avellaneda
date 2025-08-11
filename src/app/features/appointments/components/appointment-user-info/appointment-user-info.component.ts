@@ -1,4 +1,11 @@
-import { ChangeDetectionStrategy, Component, computed, Input, OnInit, signal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  Input,
+  OnInit,
+  signal,
+} from '@angular/core';
 import { SvgIconComponent } from '../../../../shared/icons/svg-icon.component';
 import {
   Patient,

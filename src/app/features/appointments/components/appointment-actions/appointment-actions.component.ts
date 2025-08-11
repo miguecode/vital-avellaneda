@@ -17,14 +17,15 @@ import {
 import { AppointmentStatus } from '../../../../core/enums';
 import { AppointmentInformDialogComponent } from '../appointment-inform-dialog/appointment-inform-dialog.component';
 import { Appointment } from '../../../../core/models';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-appointment-actions',
   imports: [SvgIconComponent, NgClass],
   templateUrl: './appointment-actions.component.html',
   styleUrl: './appointment-actions.component.css',
-  changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [DatePipe, TitleCasePipe],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppointmentActionsComponent {
   @Input({ required: true }) userRoleToShow!: 'patient' | 'specialist';
@@ -35,6 +36,7 @@ export class AppointmentActionsComponent {
   private dialogService = inject(DialogService);
   private datePipe = inject(DatePipe);
   private titleCase = inject(TitleCasePipe);
+  private router = inject(Router);
 
   cancelAppointmentHandler = (): void => {
     this.dialogService
@@ -144,64 +146,69 @@ export class AppointmentActionsComponent {
     });
   };
 
+  medicalRecordHandler = (): void => {
+    this.router.navigate([
+      `/dashboard/user-medical-record/${this.appointment.patientId}`,
+    ]);
+  };
+
   get currentActions() {
-    if (this.appointment.status === AppointmentStatus.COMPLETED) {
-      return [
+    const { status } = this.appointment;
+    const { userRoleToShow } = this;
+
+    const medicalRecordAction = {
+      handler: this.medicalRecordHandler,
+      label: 'Ver Historia Clínica',
+      icon: 'medicalInformation',
+    };
+
+    let baseActions: any[] = [];
+
+    if (status === AppointmentStatus.COMPLETED) {
+      baseActions = [
         {
           handler: this.completedInformHandler,
           label: 'Ver Diagnóstico',
           icon: 'diagnosis',
         },
       ];
-    }
-
-    if (this.appointment.status === AppointmentStatus.CANCELED) {
-      return [
+    } else if (status === AppointmentStatus.CANCELED) {
+      baseActions = [
         {
           handler: this.canceledInformHandler,
           label: 'Ver Detalle',
           icon: 'eventBusy',
         },
       ];
-    }
+    } else if (status === AppointmentStatus.PENDING) {
+      const cancelAction = {
+        handler: this.cancelAppointmentHandler,
+        label: 'Cancelar Turno',
+        icon: 'eventBusy',
+        textColor: 'text-red-secondary',
+        bgColor: 'bg-red-primary',
+        bgColorHover: 'hover:bg-red-primary/90',
+        bgColorActive: 'active:bg-red-primary/80',
+      };
 
-    // Patient Actions
-    if (this.userRoleToShow === 'patient') {
-      if (this.appointment.status === AppointmentStatus.PENDING) {
-        return [
-          {
-            handler: this.cancelAppointmentHandler,
-            label: 'Cancelar Turno',
-            icon: 'eventBusy',
-            textColor: 'text-red-secondary',
-            bgColor: 'bg-red-primary',
-            bgColorHover: 'hover:bg-red-primary/90',
-            bgColorActive: 'active:bg-red-primary/80',
-          },
-        ];
-      }
-
-      // Specialist Actions
-    } else if (this.userRoleToShow === 'specialist') {
-      if (this.appointment.status === AppointmentStatus.PENDING) {
-        return [
+      if (userRoleToShow === 'patient') {
+        baseActions = [cancelAction];
+      } else if (userRoleToShow === 'specialist') {
+        baseActions = [
           {
             handler: this.completeAppointmentHandler,
             label: 'Completar Turno',
             icon: 'eventAvailable',
           },
-          {
-            handler: this.cancelAppointmentHandler,
-            label: 'Cancelar Turno',
-            icon: 'eventBusy',
-            textColor: 'text-red-secondary',
-            bgColor: 'bg-red-primary',
-            bgColorHover: 'hover:bg-red-primary/90',
-            bgColorActive: 'active:bg-red-primary/80',
-          },
+          cancelAction,
         ];
       }
     }
-    return [];
+
+    if (userRoleToShow === 'specialist') {
+      return [...baseActions, medicalRecordAction];
+    }
+
+    return baseActions;
   }
 }

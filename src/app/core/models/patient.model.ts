@@ -2,7 +2,7 @@ import { UserBase } from '../models';
 import { BloodTypes, HealthInsurances } from '../enums';
 
 export interface Patient extends UserBase {
-  medicalRecordId: string;
+  // medicalRecordId: string;
   healthInsurance: HealthInsurances;
   height?: number;
   weight?: number;

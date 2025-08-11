@@ -1,0 +1,85 @@
+@if (!user() || isCheckingAuth()) {
+<app-splash></app-splash>
+} @else {
+<div class="flex justify-center items-center size-full">
+  <div
+    class="flex flex-wrap flex-col justify-start items-start min-h-dashboard-height size-full
+     outline outline-lightblue-secondary/70 bg-va-secondary/10 shadow mx-22 py-8 px-16 rounded-xl"
+  >
+    <!-- Back Button -->
+    <a
+      [routerLink]="backButtonUrl()"
+      class="-mt-4 -ml-13 flex flex-wrap justify-center items-center gap-1 rounded-full
+       px-6 py-1.5 cursor-pointer hover:text-va-third hover:bg-va-secondary/50
+        active:bg-va-secondary/90 transition duration-300"
+    >
+      <app-svg-icon icon="backArrow" size="36px"></app-svg-icon>
+      <span class="text-lg">{{ backButtonText() }}</span>
+    </a>
+
+    <!-- Title and Description -->
+    <app-title-description
+      class="text-black mt-4"
+      title="Historia Clínica"
+      description="La historia clínica de un paciente es el registro de cada diagnóstico recibido en Vital Avellaneda."
+    ></app-title-description>
+
+    <!-- Medical Entries -->
+    <div class="size-full mt-8">
+      @if (showContent()) {
+        @for (entry of entries(); track entry.id) {
+          <div
+            class="w-full bg-white rounded-lg shadow outline outline-va-fourth/40 py-5
+            px-6 mb-4 flex justify-between gap-5 items-center"
+          >
+            <div class="flex gap-6 justify-center items-center">
+              <div class="rounded-full bg-va-secondary/70 p-4">
+                <app-svg-icon
+                  [icon]="$any(entry.specialty.id)"
+                  size="50px"
+                  class="text-va-primary"
+                ></app-svg-icon>
+              </div>
+              <div class="flex flex-col">
+                <span class="font-bold text-xl">{{ entry.specialty.name }}</span>
+                <span class="text-gray-700 text-lg"
+                  >Especialista {{ entry.specialistFirstName }}
+                  {{ entry.specialistLastName }}</span
+                >
+                <span class="text-gray-600">{{
+                  entry.date | date : "dd/MM/yyyy 'a las' HH:mm 'hs.'"
+                }}</span>
+              </div>
+            </div>
+            <button
+              (click)="openDiagnosisDialog(entry)"
+              class="cursor-pointer rounded-xl w-72 px-7 py-4 font-medium flex flex-wrap gap-3
+              justify-between items-center text-lg transition text-white
+                bg-va-primary hover:bg-va-primary/90 active:bg-va-primary/80"
+            >
+              <app-svg-icon icon="diagnosis" size="36px"> </app-svg-icon>
+              Ver Diagnóstico
+            </button>
+          </div>
+        } @empty {
+          <p class="text-center text-gray-500 mt-8">
+            No hay entradas en la historia clínica para mostrar.
+          </p>
+        } 
+      } @else {
+        <div class="flex flex-col justify-center items-center w-full mt-8">
+          <div
+            class="animate-spin inline-block size-8 border-4
+            border-t-transparent text-va-third rounded-full"
+            role="status"
+            aria-label="loading"
+          ></div>
+          <span class="text-center font-medium text-xl mt-3">
+            Cargando información...
+          </span>
+        </div>
+      }
+    </div>
+  </div>
+</div>
+}

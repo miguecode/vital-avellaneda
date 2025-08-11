@@ -1,8 +1,8 @@
-import { Diagnosis } from '../models';
+// import { Diagnosis } from '../models';
 
-export interface ClinicalEntry {
-  date: Date;
-  specialist: string;
-  speciality: string;
-  diagnosis: Diagnosis;
-}
+// export interface ClinicalEntry {
+//   date: Date;
+//   specialist: string;
+//   speciality: string;
+//   diagnosis: Diagnosis;
+// }

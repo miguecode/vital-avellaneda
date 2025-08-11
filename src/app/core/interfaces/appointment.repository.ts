@@ -6,4 +6,5 @@ export interface AppointmentRepository {
   update(appointment: Partial<Appointment>): Promise<void>;
   getForPatient(patientId: string): Promise<Appointment[]>;
   getForSpecialist(specialistId: string): Promise<Appointment[]>;
+  getCompletedForPatient(patientId: string): Promise<Appointment[]>;
 }

@@ -21,7 +21,7 @@ export class DashboardAccessComponent {
     },
     {
       title: 'Ver Historia Clínica',
-      routerLink: '',
+      routerLink: `/dashboard/user-medical-record/${this.authFacade.user()?.id}`,
       icon: 'medicalInformation',
     },
     {

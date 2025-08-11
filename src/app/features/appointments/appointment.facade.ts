@@ -9,23 +9,26 @@ import { AppointmentStatus, UserRoles } from '../../core/enums';
 export class AppointmentFacade {
   private appointmentService = inject(APPOINTMENT_REPOSITORY);
   private authFacade = inject(AuthFacade);
-  
+
   // Private signals (source of truth)
   private _appointments = signal<Appointment[]>([]);
   private _loading = signal(false);
   private _error = signal<string | null>(null);
   private _selectedAppointment = signal<Appointment | null>(null);
+  private _viewedPatientAppointments = signal<Appointment[] | null>(null);
 
   // Public signals (to communicate with others)
   public readonly appointments = this._appointments.asReadonly();
   readonly isLoading = this._loading.asReadonly();
   readonly error = this._error.asReadonly();
   public readonly selectedAppointment = this._selectedAppointment.asReadonly();
+  public readonly viewedPatientAppointments = this._viewedPatientAppointments.asReadonly();
 
   constructor() {
     effect(() => {
       if (this.authFacade.user() === null) {
         this._appointments.set([]);
+        this._viewedPatientAppointments.set(null);
       }
     });
   }
@@ -141,6 +144,19 @@ export class AppointmentFacade {
 
     } catch (err: any) {
       this._error.set(err.message || 'Error al actualizar el turno');
+    } finally {
+      this._loading.set(false);
+    }
+  }
+
+  async loadCompletedAppointmentsByPatientId(patientId: string): Promise<void> {
+    this._loading.set(true);
+    this._error.set(null);
+    try {
+      const appointments = await this.appointmentService.getCompletedForPatient(patientId);
+      this._viewedPatientAppointments.set(appointments);
+    } catch (err: any) {
+      this._error.set(err.message || 'Error al obtener la historia clínica.');
     } finally {
       this._loading.set(false);
     }

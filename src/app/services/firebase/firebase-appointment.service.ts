@@ -13,6 +13,7 @@ import {
 } from '@angular/fire/firestore';
 import { Appointment } from '../../core/models';
 import { AppointmentRepository } from '../../core/interfaces/appointment.repository';
+import { AppointmentStatus } from '../../core/enums';
 
 @Injectable({
   providedIn: 'root',
@@ -84,5 +85,25 @@ export class FirebaseAppointmentService implements AppointmentRepository {
 
   async getForSpecialist(specialistId: string): Promise<Appointment[]> {
     return this.getAppointmentsByField('specialistId', specialistId);
+  }
+
+  async getCompletedForPatient(patientId: string): Promise<Appointment[]> {
+    const appointmentsCol = collection(this.firestore, this.collectionName);
+    const q = query(
+      appointmentsCol,
+      where('patientId', '==', patientId),
+      where('status', '==', AppointmentStatus.COMPLETED),
+      orderBy('date', 'desc')
+    );
+    const snapshot = await getDocs(q);
+
+    return snapshot.docs.map(doc => {
+      const data = doc.data();
+      return {
+        ...data,
+        date: data['date']?.toDate() || null,
+        creationDate: data['creationDate']?.toDate() || null,
+      } as Appointment;
+    });
   }
 }

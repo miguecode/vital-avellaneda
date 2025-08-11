@@ -1,7 +1,7 @@
-import { ClinicalEntry } from '../models';
+// import { ClinicalEntry } from '../models';
 
-export interface MedicalRecord {
-  id: string;
-  patientId: string;
-  entries: ClinicalEntry[];
-}
+// export interface MedicalRecord {
+//   id: string;
+//   patientId: string;
+//   entries: ClinicalEntry[];
+// }

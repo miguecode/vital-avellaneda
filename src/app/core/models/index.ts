@@ -5,6 +5,6 @@ export * from './specialty.model';
 export * from './appointment.model';
 export * from './diagnosis.model';
 export * from './rating.model';
-export * from './medical-record.model';
-export * from './clinical-entry.model';
+// export * from './medical-record.model';
+// export * from './clinical-entry.model';
 export * from './availability.model';
