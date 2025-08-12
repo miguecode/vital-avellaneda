@@ -9,13 +9,13 @@
       >
           <!-- Back Button -->
           <a
-            [routerLink]="'/dashboard/' + authFacade.user()?.role"
+            [routerLink]="backButtonUrl()"
             class="mt-4 -ml-13 flex flex-wrap justify-center items-center gap-1
             rounded-full px-6 py-1.5 cursor-pointer hover:text-va-third
             hover:bg-va-secondary/50 active:bg-va-secondary/90 transition duration-300"
         >
           <app-svg-icon icon="backArrow" size="36px"></app-svg-icon>
-          <span class="text-lg">Perfil</span>
+          <span class="text-lg">{{ backButtonText() }}</span>
         </a>
 
       @if (error()) {

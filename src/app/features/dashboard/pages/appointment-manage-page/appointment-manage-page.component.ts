@@ -2,6 +2,7 @@ import {
   ChangeDetectionStrategy,
   Component,
   OnInit,
+  effect,
   inject,
   signal,
 } from '@angular/core';
@@ -17,6 +18,7 @@ import { SvgIconComponent } from '../../../../shared/icons/svg-icon.component';
 import { AppointmentActionsComponent } from '../../../appointments/components/appointment-actions/appointment-actions.component';
 import { CompleteAppointmentData } from '../../../appointments/components/complete-appointment-dialog/complete-appointment-dialog.component';
 import { AppointmentStatus, UserRoles } from '../../../../core/enums';
+import { NavigationService } from '../../../../shared/services/navigation/navigation.service';
 
 @Component({
   selector: 'app-appointment-manage-page',
@@ -38,11 +40,45 @@ export class AppointmentManagePageComponent implements OnInit {
   readonly authFacade = inject(AuthFacade);
   readonly userFacade = inject(UserFacade);
   public appointmentFacade = inject(AppointmentFacade);
+  private readonly navigationService = inject(NavigationService);
 
   appointment = this.appointmentFacade.selectedAppointment;
   isLoading = this.appointmentFacade.isLoading;
   error = this.appointmentFacade.error;
   readonly oppositeUser = signal<UserBase | null>(null);
+
+  readonly backButtonText = signal('Perfil');
+  readonly backButtonUrl = signal(['/dashboard/patient']);
+
+  constructor() {
+    effect(() => {
+      const previousUrl = this.navigationService.previousUrl();
+      const user = this.authFacade.user();
+
+      if (previousUrl && previousUrl.includes('/dashboard/specialist')) {
+        this.navigationService.setManageFromList(false);
+      }
+
+      if (previousUrl && this.navigationService.manageFromList()) {
+        this.backButtonText.set('Turnos');
+        this.backButtonUrl.set(['/dashboard/appointments-list']);
+      } else {
+        if (previousUrl && previousUrl.includes('appointments-list')) {
+          this.backButtonText.set('Turnos');
+          this.backButtonUrl.set([previousUrl]);
+          this.navigationService.setManageFromList(true);
+        } else {
+          this.backButtonText.set('Perfil');
+          this.navigationService.setManageFromList(false);
+          if (user?.role === 'specialist') {
+            this.backButtonUrl.set(['/dashboard/specialist']);
+          } else {
+            this.backButtonUrl.set(['/dashboard/patient']);
+          }
+        }
+      }
+    });
+  }
 
   async ngOnInit(): Promise<void> {
     const id = this.route.snapshot.paramMap.get('id');

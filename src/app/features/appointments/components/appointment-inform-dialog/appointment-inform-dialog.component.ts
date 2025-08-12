@@ -32,7 +32,6 @@ export interface AppointmentInformDialogConfig {
   templateUrl: './appointment-inform-dialog.component.html',
   styleUrls: ['./appointment-inform-dialog.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: true,
   imports: [SvgIconComponent],
 })
 export class AppointmentInformDialogComponent

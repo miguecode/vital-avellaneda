@@ -6,14 +6,12 @@ import { Injectable, signal } from '@angular/core';
 export class NavigationService {
   private _currentUrl = signal<string | null>(null);
   private _previousUrl = signal<string | null>(null);
+  private _manageFromList = signal<boolean>(false);
 
   readonly currentUrl = this._currentUrl.asReadonly();
   readonly previousUrl = this._previousUrl.asReadonly();
+  readonly manageFromList = this._manageFromList.asReadonly();
 
-  /**
-   * Sets the current URL and updates the previous one.
-   * If entering /home directly, forces previousUrl to /home
-   */
   setCurrentUrl(newUrl: string) {
     if (newUrl === '/home') {
       this._previousUrl.set('/home');
@@ -22,5 +20,9 @@ export class NavigationService {
     }
 
     this._currentUrl.set(newUrl);
+  }
+
+  setManageFromList(value: boolean) {
+    this._manageFromList.set(value);
   }
 }

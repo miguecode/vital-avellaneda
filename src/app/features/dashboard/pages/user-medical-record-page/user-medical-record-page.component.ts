@@ -80,7 +80,7 @@ export class UserMedicalRecordPageComponent implements OnInit {
   async ngOnInit() {
     const patientId = this.route.snapshot.paramMap.get('id');
 
-    if (patientId && !this.entries()) {
+    if (patientId) {
       await this.appointmentFacade.loadCompletedAppointmentsByPatientId(
         patientId
       );

@@ -1,0 +1,14 @@
+.pending {
+  background-color: var(--color-amber-200);
+  color: var(--color-amber-800);
+}
+
+.completed {
+  background-color: var(--color-green-primary);
+  color: var(--color-green-700)
+}
+
+.canceled {
+  background-color: var(--color-red-secondary);
+  color: var(--color-red-primary);
+}

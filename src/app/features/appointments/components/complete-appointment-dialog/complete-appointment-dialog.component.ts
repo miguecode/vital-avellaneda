@@ -43,7 +43,6 @@ export interface CompleteAppointmentDialogConfig {
   templateUrl: './complete-appointment-dialog.component.html',
   styleUrls: ['./complete-appointment-dialog.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: true,
   imports: [FormsModule, ReactiveFormsModule, NgClass, SvgIconComponent],
 })
 export class CompleteAppointmentDialogComponent implements IDialog, OnInit, AfterViewInit, OnDestroy {

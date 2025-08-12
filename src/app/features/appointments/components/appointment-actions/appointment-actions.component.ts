@@ -89,12 +89,12 @@ export class AppointmentActionsComponent {
   canceledInformHandler = (): void => {
     this.dialogService.openGeneric(AppointmentInformDialogComponent, {
       title: 'Turno Cancelado',
-      subtitle: `El turno fue cancelado por el ${
+      subtitle: `El turno fue cancelado por la/el ${
         this.appointment.canceledBy === 'patient' ? 'paciente' : 'especialista'
       } ${
         this.appointment.canceledBy === 'patient'
-          ? this.appointment.patientLastName
-          : this.appointment.specialistLastName
+          ? this.appointment.patientFirstName + ' ' + this.appointment.patientLastName
+          : this.appointment.specialistFirstName + ' ' + this.appointment.specialistLastName
       }. El motivo de la cancelación se muestra a continuación en este informe.`,
       icon: 'eventBusy',
       inform: [
@@ -109,7 +109,7 @@ export class AppointmentActionsComponent {
   completedInformHandler = (): void => {
     this.dialogService.openGeneric(AppointmentInformDialogComponent, {
       title: 'Diagnóstico',
-      subtitle: `Este informe contiene el diagnóstico proporcionado por el especialista
+      subtitle: `Este informe contiene el diagnóstico proporcionado por la/el especialista
        ${this.appointment.specialistFirstName} ${
         this.appointment.specialistLastName
       }, correspondiente al turno de ${

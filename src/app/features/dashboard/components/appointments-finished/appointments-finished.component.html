@@ -45,10 +45,19 @@
       
         <div class="flex flex-col justify-center items-start px-3 py-2.5 gap-1.5">
           <div class="flex font-medium flex-wrap justify-start items-end gap-1.5 text-va-third px-4">
-            <app-svg-icon size="26px" [icon]="apt.status === 'completed' ? 'eventAvailable' : 'eventBusy'"></app-svg-icon>
-            <span>
-              {{ apt.date | date: 'd' }} de {{ apt.date | date: 'MMMM' | titlecase }} de {{ apt.date | date: 'y' }}
-            </span>
+            <app-svg-icon 
+              size="26px"
+              [icon]="apt.status === 'completed' ? 'eventAvailable' : 'eventBusy'"
+            ></app-svg-icon>
+            @if (apt.status === 'completed') {
+              <span>
+                {{ apt.date | date: 'd' }} de {{ apt.date | date: 'MMMM' | titlecase }} de {{ apt.date | date: 'y' }}
+              </span>
+            } @else {
+              <span>
+                Cancelado
+              </span>
+            }
           </div>
           <div class="flex flex-wrap font-medium justify-start items-end gap-1.5 text-va-third px-4">
             <app-svg-icon size="26px" [icon]="$any(apt.specialty.id)"></app-svg-icon>

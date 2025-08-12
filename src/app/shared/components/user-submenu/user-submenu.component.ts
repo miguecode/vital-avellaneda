@@ -107,6 +107,7 @@ export class UserSubmenuComponent {
   }
 
   private handleAppointmentsClick(): void {
+    this.router.navigate(['/dashboard/appointments-list']);
     this.closeDropdown();
   }
 
