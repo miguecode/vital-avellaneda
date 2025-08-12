@@ -26,84 +26,132 @@
       
       <!-- Table Header -->
       <div class="hidden md:grid grid-cols-5 gap-4 p-4 border-b
-       border-gray-400 font-bold text-va-primary">
-        <div>Especialidad</div>
-        <div>{{ authFacade.user()?.role === 'patient' ? 'Especialista' : 'Paciente' }}</div>
-        <div>Fecha y Hora</div>
-        <div>Estado</div>
+       border-gray-400 font-bold text-va-primary select-none">
+        <div (click)="applySort('specialty.name')" class="flex items-center gap-1 cursor-pointer transition hover:text-va-fifth">
+          <span>Especialidad</span>
+          @if (sortConfig().key === 'specialty.name' && sortConfig().direction !== 'none') {
+            <app-svg-icon [icon]="sortConfig().direction === 'asc' ? 'arrowDropUp' : 'arrowDropDown'" size="24px"></app-svg-icon>
+          }
+        </div>
+        <div (click)="applySort('lastName')" class="flex items-center gap-1 cursor-pointer transition hover:text-va-fifth">
+          <span>{{ authFacade.user()?.role === 'patient' ? 'Especialista' : 'Paciente' }}</span>
+          @if (sortConfig().key === 'lastName' && sortConfig().direction !== 'none') {
+            <app-svg-icon [icon]="sortConfig().direction === 'asc' ? 'arrowDropUp' : 'arrowDropDown'" size="24px"></app-svg-icon>
+          }
+        </div>
+        <div (click)="applySort('date')" class="flex items-center gap-1 cursor-pointer transition hover:text-va-fifth">
+          <span>Fecha y Hora</span>
+          @if (sortConfig().key === 'date' && sortConfig().direction !== 'none') {
+            <app-svg-icon [icon]="sortConfig().direction === 'asc' ? 'arrowDropUp' : 'arrowDropDown'" size="24px"></app-svg-icon>
+          }
+        </div>
+        <div (click)="applySort('status')" class="flex items-center gap-1 cursor-pointer transition hover:text-va-fifth">
+          <span>Estado</span>
+          @if (sortConfig().key === 'status' && sortConfig().direction !== 'none') {
+            <app-svg-icon [icon]="sortConfig().direction === 'asc' ? 'arrowDropUp' : 'arrowDropDown'" size="24px"></app-svg-icon>
+          }
+        </div>
         <div>Acciones</div>
       </div>
 
       <!-- Table Body -->
-      @for (apt of displayedAppointments(); track apt.id) {
-        <div class="grid grid-cols-1 md:grid-cols-5 gap-4 items-center p-3.5
-         border-b border-gray-200 hover:bg-gray-50 transition">
-          <div class="font-medium text-gray-800">{{ apt.specialty.name }}</div>
-          <div>
-            {{ authFacade.user()?.role === 'patient' ? 
-              (apt.specialistFirstName + ' ' + apt.specialistLastName) : 
-              (apt.patientFirstName + ' ' + apt.patientLastName) }}
+      <div class="min-h-[390px]">
+        @for (apt of displayedAppointments(); track apt.id) {
+          <div class="grid grid-cols-1 md:grid-cols-5 gap-4 items-center p-3.5
+          border-b border-gray-200 hover:bg-gray-50 transition">
+            <div class="font-medium text-gray-800">{{ apt.specialty.name }}</div>
+            <div>
+              {{ authFacade.user()?.role === 'patient' ? 
+                (apt.specialistFirstName + ' ' + apt.specialistLastName) : 
+                (apt.patientFirstName + ' ' + apt.patientLastName) }}
+            </div>
+            <div>{{ apt.date | date:'dd/MM/yyyy HH:mm' }} hs.</div>
+            <div>
+              <span 
+                class="inline-block w-28 text-center px-4 py-2 rounded-full text-sm font-medium"
+                [class.pending]="apt.status === 'pending'"
+                [class.completed]="apt.status === 'completed'"
+                [class.canceled]="apt.status === 'canceled'"
+              >
+                  @switch (apt.status) {
+                    @case ('pending') { Pendiente }
+                    @case ('completed') { Completado }
+                    @case ('canceled') { Cancelado }
+                    @default { Desconocido }
+                  }
+              </span>
+            </div>
+            <div>
+              <a 
+                [routerLink]="['/dashboard/appointments-manage', apt.id]"
+                class="text-va-third hover:underline flex gap-1">
+                Ver Detalle
+                <app-svg-icon icon="link"></app-svg-icon>
+              </a>
+            </div>
           </div>
-          <div>{{ apt.date | date:'dd/MM/yyyy HH:mm' }} hs.</div>
-          <div>
-            <span 
-              class="inline-block w-28 text-center px-4 py-2 rounded-full text-sm font-medium"
-              [class.pending]="apt.status === 'pending'"
-              [class.completed]="apt.status === 'completed'"
-              [class.canceled]="apt.status === 'canceled'"
-            >
-                @switch (apt.status) {
-                  @case ('pending') { Pendiente }
-                  @case ('completed') { Completado }
-                  @case ('canceled') { Cancelado }
-                  @default { Desconocido }
-                }
-            </span>
+        } @empty {
+          <div class="flex flex-col justify-center items-center w-full min-h-[390px]">
+            <app-svg-icon icon="clear" size="82px" class="text-va-third/70"></app-svg-icon>
+            <p class="text-center font-medium text-2xl">No se encontraron turnos.</p>
+            <button 
+              (click)="appointmentFacade.loadUserAppointments()" 
+              class="cursor-pointer underline underline-offset-1
+              mt-7 text-va-third active:text-va-third/90">
+                Volver a cargar
+            </button>
           </div>
-          <div>
-            <a 
-              [routerLink]="['/dashboard/appointments-manage', apt.id]"
-              class="text-va-third hover:underline flex gap-1">
-              Ver Detalle
-              <app-svg-icon icon="link"></app-svg-icon>
-            </a>
-          </div>
-        </div>
-      } @empty {
-        <div class="flex flex-col justify-center items-center
-        w-full h-60 rounded-4xl overflow-hidden">
-          <app-svg-icon icon="clear" size="82px" class="text-va-third/70"></app-svg-icon>
-          <p class="text-center font-medium text-2xl">No se encontraron turnos.</p>
-          <button 
-            (click)="appointmentFacade.loadUserAppointments()" 
-            class="cursor-pointer underline underline-offset-1
-            mt-7 text-va-third active:text-va-third/90">
-              Volver a cargar
-          </button>
-        </div>
-      }
+        }
+      </div>
 
-      <!-- Pagination Controls -->
-      @if (totalPages() > 1) {
-        <div class="flex justify-center items-center mt-4 gap-4">
-          <button 
-            (click)="previousPage()" 
+      <!-- Pagination -->
+      @if (pages().length) {
+        <div class="flex justify-center items-center mt-6 gap-2">
+          
+          <!-- Previous Button -->
+          <button
+            (click)="previousPage()"
             [disabled]="currentPage() === 1"
-            class="cursor-pointer px-4 py-2 text-white rounded-md transition
-            bg-va-third not-disabled:hover:bg-va-third/90 not-disabled:active:bg-va-third/80
-            disabled:opacity-50 disabled:cursor-auto">
-            Anterior
+            class="cursor-pointer flex items-center justify-center size-9 rounded-full transition
+            text-va-primary not-disabled:hover:bg-gray-200 not-disabled:active:bg-gray-300
+            disabled:opacity-30 disabled:cursor-auto"
+          >
+            <app-svg-icon icon="arrowLeft" size="22px"></app-svg-icon>
           </button>
-          <span class="text-gray-700">
-            Página {{ currentPage() }} de {{ totalPages() }}
-          </span>
-          <button 
-            (click)="nextPage()" 
+
+          <!-- Page Numbers -->
+          @for (page of pages(); track $index) {
+            @if (page === '...') {
+              <span class="flex items-center justify-center size-9 rounded-full
+               text-va-gray-dark select-none">
+                ...
+              </span>
+            } @else {
+              <button
+                (click)="goToPage(+page)"
+                [class.bg-va-third]="currentPage() === page"
+                [class.text-white]="currentPage() === page"
+                [class.bg-gray-100]="currentPage() !== page"
+                [class.text-gray-500]="currentPage() !== page"
+                [class.hover:bg-gray-200]="currentPage() !== page"
+                [class.active:bg-gray-300]="currentPage() !== page"
+                class="cursor-pointer flex items-center justify-center size-9 rounded-full
+                font-medium transition"
+              >
+                {{ page }}
+              </button>
+            }
+          }
+
+          <!-- Next Button -->
+          <button
+            (click)="nextPage()"
             [disabled]="currentPage() === totalPages()"
-            class="cursor-pointer px-4 py-2 text-white rounded-md transition
-            bg-va-third not-disabled:hover:bg-va-third/90 not-disabled:active:bg-va-third/80
-            disabled:opacity-50 disabled:cursor-auto">
-            Siguiente
+            class="cursor-pointer flex items-center justify-center size-9 rounded-full transition
+            text-va-primary not-disabled:hover:bg-gray-200 not-disabled:active:bg-gray-300
+            disabled:opacity-30 disabled:cursor-auto"
+          >
+            <app-svg-icon icon="arrowRight" size="22px"></app-svg-icon>
           </button>
         </div>
       }
