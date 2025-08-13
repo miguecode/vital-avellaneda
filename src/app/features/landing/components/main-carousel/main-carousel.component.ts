@@ -4,6 +4,7 @@ import { NgStyle } from '@angular/common';
 import { AfterViewInit } from '@angular/core';
 import Swiper from 'swiper';
 import { Navigation, Pagination, Autoplay } from 'swiper/modules';
+import { SvgIconComponent } from "../../../../shared/icons/svg-icon.component";
 
 interface Slide {
   image: string;
@@ -15,7 +16,7 @@ interface Slide {
 
 @Component({
   selector: 'app-main-carousel',
-  imports: [RouterModule, NgStyle],
+  imports: [RouterModule, NgStyle, SvgIconComponent],
   templateUrl: './main-carousel.component.html',
   styleUrl: './main-carousel.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,

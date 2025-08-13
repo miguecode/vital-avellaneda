@@ -3,6 +3,7 @@ import { HeroSectionComponent } from '../../components/hero-section/hero-section
 import { InformationWrapperComponent } from '../../components/information-wrapper/information-wrapper.component';
 import { PresentationWrapperComponent } from '../../components/presentation-wrapper/presentation-wrapper.component';
 import { NewsCardsComponent } from '../../components/news-cards/news-cards.component';
+import { RecommendationsComponent } from '../../components/recommendations/recommendations.component';
 
 @Component({
   selector: 'app-home-page',
@@ -11,6 +12,7 @@ import { NewsCardsComponent } from '../../components/news-cards/news-cards.compo
     InformationWrapperComponent,
     PresentationWrapperComponent,
     PresentationWrapperComponent,
+    RecommendationsComponent,
   ],
   templateUrl: './home-page.component.html',
   styleUrl: './home-page.component.css',

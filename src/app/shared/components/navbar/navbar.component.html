@@ -15,7 +15,7 @@
     @for (item of navItems; track item.title) {
     <li>
       <a
-        class="flex items-center justify-center p-4 text-lg font-medium rounded
+        class="flex items-center justify-center p-4 text-lg font-medium rounded-lg
       hover:bg-va-third/60 hover:shadow active:bg-va-third/30 transition-colors duration-300"
         [routerLink]="item.href"
         tabindex="0"
@@ -29,7 +29,7 @@
       <a
         routerLink="/auth/login"
         aria-label="Acceso al Portal"
-        class="flex justify-center items-center gap-2 p-4 min-w-48
+        class="flex justify-center items-center gap-2 py-4 px-6 min-w-48
         text-lg font-semibold bg-white text-va-primary rounded-full
       hover:bg-lightblue-primary active:bg-lightblue-primary/90 transition duration-300 shadow"
       >
