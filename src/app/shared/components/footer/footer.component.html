@@ -11,40 +11,50 @@
         <!-- Contact -->
         <div>
           <h2 class="mb-4 text-sm font-semibold text-white">CONTACTOS</h2>
-          <ul class="text-lightblue-secondary/90 font-medium">
-            <li class="mb-2 max-w-52">
-              <a href="/" class="hover:underline"
-                >Teléfono <br />
-                {{ phone }}</a
-              >
-            </li>
-            <li class="max-w-52">
-              <a href="https://tailwindcss.com/" class="hover:underline"
-                >Correo <br />
-                {{ email }}</a
-              >
-            </li>
-          </ul>
+          <address class="not-italic">
+            <ul class="text-lightblue-secondary/90 font-medium">
+              <li class="mb-2 max-w-52">
+                <a href="tel:+541141231234" class="hover:underline"
+                  >Teléfono <br />
+                  {{ phone }}</a
+                >
+              </li>
+              <li class="max-w-52">
+                <a href="mailto:vitalavellaneda@gmail.com" class="hover:underline"
+                  >Correo <br />
+                  {{ email }}</a
+                >
+              </li>
+            </ul>
+          </address>
         </div>
         <!-- Locations -->
         <div>
           <h2 class="mb-4 text-sm font-semibold text-gray-900 dark:text-white">
             DIRECCIONES
           </h2>
-          <ul class="text-lightblue-secondary/90 font-medium">
-            <li class="mb-2 max-w-52">
-              <a
-                href=""
-                class="hover:underline"
-                >{{ firstLocation }}</a
-              >
-            </li>
-            <li class="max-w-52">
-              <a href="" class="hover:underline"
-                >{{ secondLocation }}</a
-              >
-            </li>
-          </ul>
+          <address class="not-italic">
+            <ul class="text-lightblue-secondary/90 font-medium">
+              <li class="mb-2 max-w-52">
+                <a
+                  href="https://www.google.com/maps/search/?api=1&query=V.A+Avellaneda+123%2C+Provincia+de+Buenos+Aires"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="hover:underline"
+                  >{{ firstLocation }}</a
+                >
+              </li>
+              <li class="max-w-52">
+                <a
+                  href="https://www.google.com/maps/search/?api=1&query=C.O+Cl%C3%ADnica+Online+456+Provincia+de+Buenos+Aires"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="hover:underline"
+                  >{{ secondLocation }}</a
+                >
+              </li>
+            </ul>
+          </address>
         </div>
         <!-- Legal -->
         <div>

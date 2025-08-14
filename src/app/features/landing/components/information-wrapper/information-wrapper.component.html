@@ -4,11 +4,13 @@
 >
   <app-information-card [title]="'Contacto vía mail'">
     <app-svg-icon icon="email" size="48px" color="currentColor"></app-svg-icon>
-    <p description class="text-sm text-black">
+    <p description class="text-sm text-black mt-0.5">
       Podés enviarnos tu consulta o cualquier inquietud acá:
-      <strong class="font-bold underline underline-offset-2"
-        >{{email}}</strong
-      >
+      <a
+        href="mailto:vitalavellaneda@gmail.com"
+        class="font-bold underline underline-offset-2"
+        >{{ email }}
+      </a>
     </p>
   </app-information-card>
   <app-information-card
@@ -16,11 +18,11 @@
     [border]="'border-x border-va-third/20'"
   >
     <app-svg-icon icon="phone" size="48px" color="currentColor"></app-svg-icon>
-    <p description class="text-sm text-black">
+    <p description class="text-sm text-black mt-0.5">
       Solicitá tu turno o hacé tu consulta llamando a:
-      <strong class="font-bold underline underline-offset-2"
-        >{{phone}}</strong
-      >
+      <a href="tel:+541141231234" class="font-bold underline underline-offset-2"
+        >{{ phone }}
+      </a>
     </p>
   </app-information-card>
   <app-information-card [title]="'Ubicación'">
@@ -29,11 +31,15 @@
       size="48px"
       color="currentColor"
     ></app-svg-icon>
-    <p description class="text-sm text-black">
-      {{location}}, Argentina.
-      <strong class="font-bold underline underline-offset-2"
-        >Ver en el mapa</strong
-      >
+    <p description class="text-sm text-black mt-0.5">
+      {{ location }}, Argentina.
+      <a
+        href="https://www.google.com/maps/search/?api=1&query=V.A+Avellaneda+123%2C+Provincia+de+Buenos+Aires"
+        target="_blank"
+        rel="noopener noreferrer" 
+        class="font-bold underline underline-offset-2">
+        Ver en el mapa
+      </a>
     </p>
   </app-information-card>
 </div>

@@ -26,32 +26,32 @@ export class RecommendationsComponent implements OnInit, OnDestroy {
   recommendations: Recommendation[] = [
     {
       quote:
-        'Más del 95% de los pacientes que se internaron en las Clínicas de Vital Avellaneda durante 2025 están muy satisfechos con la experiencia.',
+        'Más del <strong>95% de los pacientes</strong> que se internaron en las Clínicas de Vital Avellaneda durante 2025 están <strong>muy satisfechos</strong> con la experiencia.',
       author: 'Carlos Guzmán, paciente',
     },
     {
       quote:
-        'La atención médica en Vital Avellaneda es excepcional. Los profesionales son muy dedicados y el seguimiento es constante.',
+        'La atención médica en Vital Avellaneda es <strong>excepcional</strong>. Los profesionales son <strong>muy dedicados</strong> y el seguimiento es constante.',
       author: 'Ana Torres, paciente',
     },
     {
       quote:
-        'Gracias a Vital Avellaneda, pude acceder a un especialista rápidamente y mi tratamiento fue un éxito. ¡Totalmente recomendable!',
+        'Gracias a Vital Avellaneda, pude acceder a un especialista <strong>rápidamente</strong> y mi tratamiento fue un <strong>éxito</strong>. ¡Totalmente recomendable!',
       author: 'Roberto Pérez, paciente',
     },
     {
       quote:
-        'La plataforma online es muy intuitiva y facilita mucho la gestión de turnos y el acceso a mi historial médico.',
+        'La plataforma online es <strong>muy intuitiva</strong> y facilita mucho la gestión de turnos y el acceso a mi historial médico.',
       author: 'Laura García, paciente',
     },
     {
       quote:
-        'Como profesional, trabajar con Vital Avellaneda me permite organizar mi agenda de forma eficiente y brindar una atención de calidad.',
+        'Como profesional, trabajar con Vital Avellaneda me permite organizar mi agenda de <strong>forma eficiente</strong> y brindar una <strong>atención de calidad</strong>.',
       author: 'Dr. Martín Sosa, especialista',
     },
     {
       quote:
-        'La clínica ofrece un ambiente cálido y seguro, lo que hace que cada visita sea una experiencia positiva.',
+        'La clínica ofrece un ambiente <strong>cálido y seguro</strong>, lo que hace que cada visita sea una <strong>experiencia positiva</strong>.',
       author: 'Sofía Castro, paciente',
     },
   ];
