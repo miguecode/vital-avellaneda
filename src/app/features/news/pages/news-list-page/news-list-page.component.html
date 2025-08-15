@@ -1,1 +1,72 @@
-<p>news-list-page works!</p>
+<div class="w-full py-14">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <!-- Title -->
+    <div class="mb-10">
+      <h1 class="text-4xl font-bold tracking-tight text-va-primary sm:text-5xl">
+        Novedades y Artículos
+      </h1>
+      <p class="mt-4 text-lg text-gray-700">
+        Mantenete informado sobre los últimos avances y consejos de salud de
+        nuestros especialistas.
+      </p>
+     </div>
+
+    <!-- News Grid -->
+    <div
+      class="grid grid-cols-1 gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-3"
+    >
+      @for (post of newsPosts; track post.id) {
+      <a
+        [routerLink]="['/news', post.id]"
+        class="block group bg-white rounded-lg shadow-md hover:shadow-lg
+         transition duration-300 overflow-hidden outline outline-va-fourth/40 hover:outline-va-fourth"
+      >
+        <article class="flex flex-col h-full">
+          <!-- Image -->
+          <div class="aspect-video w-full overflow-hidden">
+            <img
+              [src]="post.imageUrl"
+              [alt]="'Imagen para la noticia: ' + post.title"
+              class="w-full h-full object-cover group-hover:scale-105
+               transition-transform duration-300"
+            />
+          </div>
+
+          <!-- Content -->
+          <div class="flex flex-col flex-grow p-6">
+            <!-- Publication Date -->
+            <p class="text-sm text-gray-500 mb-2">
+              {{ post.publicationDate | date: 'd' }}
+              de {{ post.publicationDate| date: 'MMMM' | titlecase }}
+              de {{ post.publicationDate | date: 'y' }}
+            </p>
+
+            <!-- Title -->
+            <h3
+              class="text-lg text-pretty font-semibold text-va-primary
+               group-hover:text-va-fifth transition-colors duration-300"
+            >
+              {{ post.title }}
+            </h3>
+
+            <!-- Summary -->
+            <p class="mt-3 text-sm text-gray-700 text-pretty flex-grow">
+              {{ post.summary }}
+            </p>
+
+            <!-- Tags -->
+            <div class="mt-4 flex flex-wrap gap-2">
+              @for(tag of post.tags; track tag){
+              <span
+                class="inline-flex items-center rounded-md bg-lightblue-secondary/70
+                 px-2 py-1 text-xs font-medium text-va-third"
+                >{{ tag }}</span
+              >}
+            </div>
+          </div>
+        </article>
+      </a>
+      }
+    </div>
+  </div>
+</div>

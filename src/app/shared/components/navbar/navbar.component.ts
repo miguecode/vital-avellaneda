@@ -37,7 +37,7 @@ export class NavbarComponent implements NavbarContent {
     {
       title: 'Novedades',
       ariaLabel: 'Sección de Novedades',
-      href: '/',
+      href: '/news',
     },
   ];
 }

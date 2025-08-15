@@ -1,1 +1,83 @@
-<p>news-detail-page works!</p>
+<div class="w-full py-14">
+  <div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+    @if (newsPost) {
+    <a 
+      routerLink="/news"
+      class="py-3 text-lg font-semibold text-va-fifth
+      transition-colors hover:underline">
+      Novedades
+    </a>
+
+    <article class="bg-white rounded-lg shadow mt-4
+     outline outline-va-fourth/40 overflow-hidden">
+      <!-- Image -->
+      <img
+      class="aspect-video h-98 w-full object-cover
+        transition-transform duration-300"
+        [src]="newsPost.imageUrl"
+        [alt]="newsPost.title"
+      />
+
+      <div class="p-6 sm:p-8">
+        <!-- Header -->
+        <header class="mb-6">
+          <h1
+            class="text-3xl text-pretty sm:text-4xl font-bold tracking-tight text-va-primary"
+          >
+            {{ newsPost.title }}
+          </h1>
+          <p class="mt-3 text-sm text-gray-500">
+            Por
+            <span class="font-medium text-gray-700">{{ newsPost.author }} </span>
+            <span class="mx-1">|</span>
+            Publicado el
+            {{ newsPost.publicationDate | date: 'd' }}
+              de {{ newsPost.publicationDate| date: 'MMMM' | titlecase }}
+              de {{ newsPost.publicationDate | date: 'y' }}
+          </p>
+        </header>
+
+        <!-- Content -->
+        <div
+          class="prose prose-lg max-w-none pt-6 border-t border-gray-200"
+          [innerHTML]="newsPost.content"
+        ></div>
+
+        <!-- Tags -->
+        @if(newsPost.tags && newsPost.tags.length > 0){
+        <footer class="flex justify-between mt-8 pt-6 border-t border-gray-200">
+          <div class="flex flex-wrap gap-2">
+            @for(tag of newsPost.tags; track tag){
+            <span
+              class="inline-flex items-center rounded-md bg-lightblue-secondary/70
+              0 px-2 py-1 text-xs font-medium text-va-third"
+              >{{ tag }}</span
+            >
+            }
+          </div>
+
+          <a 
+            routerLink="/news"
+            class="font-medium text-va-third hover:underline">
+            Blog de Vital Avellaneda
+          </a>
+        </footer>
+        }
+      </div>
+    </article>
+    } @else {
+      <p class="text-center text-gray-500">Cargando publicación...</p>
+    }
+
+    <!-- Back Button -->
+    <div class="mt-10 text-center">
+      <a
+        routerLink="/news"
+        class="p-3 font-semibold text-va-fifth
+        transition-colors hover:underline"
+      >
+        Ver más Novedades
+      </a>
+    </div>
+  </div>
+</div>

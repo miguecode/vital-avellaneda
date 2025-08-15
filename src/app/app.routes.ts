@@ -57,4 +57,19 @@ export const routes: Routes = [
       },
     ],
   },
+  // News (/news, /news/:id)
+  // Public Paths: For all users
+  {
+    path: 'news',
+    component: MainLayoutComponent,
+    children: [
+      {
+        path: '',
+        loadChildren: () =>
+          import('./features/news/news.routes').then(
+            (m) => m.NEWS_ROUTES
+          ),
+      },
+    ],
+  },
 ];

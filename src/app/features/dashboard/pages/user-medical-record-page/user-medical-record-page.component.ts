@@ -9,7 +9,7 @@ import {
   Signal,
 } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
-import { CommonModule, DatePipe, TitleCasePipe } from '@angular/common';
+import { DatePipe, TitleCasePipe } from '@angular/common';
 import { SplashComponent } from '../../../../shared/components/splash/splash.component';
 import { SvgIconComponent } from '../../../../shared/icons/svg-icon.component';
 import { TitleDescriptionComponent } from '../../../../shared/components/title-description/title-description.component';
@@ -23,9 +23,9 @@ import { NavigationService } from '../../../../shared/services/navigation/naviga
 @Component({
   selector: 'app-user-medical-record-page',
   imports: [
-    CommonModule,
     SplashComponent,
     SvgIconComponent,
+    DatePipe,
     TitleDescriptionComponent,
     RouterLink,
   ],
