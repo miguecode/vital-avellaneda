@@ -62,8 +62,8 @@ export const NEWS_DATA: NewsPost[] = [
       <ul class="list-disc pl-5 mb-4 space-y-2">
         <li class="mb-2"><strong>Disponibilidad en tiempo real:</strong> Consultá la agenda de nuestros especialistas al instante y elegí el horario que mejor se adapte a vos, sin demoras ni intermediarios.</li>
         <li class="mb-2"><strong>Recordatorios automáticos:</strong> Para que no olvides tu cita, recibirás notificaciones por email y WhatsApp 24 horas antes de tu turno.</li>
-        <li class="mb-2"><strong>Acceso a historial de citas:</strong> Revisá tus próximas citas, reprogramalas si es necesario y consultá el historial de visitas de forma sencilla y segura desde tu perfil.</li>
-        <li class="mb-2"><strong>Pago online integrado:</strong> Agilizá tu visita abonando la consulta o el coseguro de forma online al momento de solicitar el turno.</li>
+        <li class="mb-2"><strong>Acceso a historial de citas:</strong> Revisá tus próximas citas, gestionalas si es necesario y consultá el historial de turnos de forma sencilla y segura desde tu perfil.</li>
+        <li class="mb-2"><strong>Máxima velocidad:</strong> Agilizá la solicitud del turno en 4 simples pasos, sin demoras. Tu salud, en 4 clics.</li>
       </ul>
       <p class="mb-4 text-pretty">Te invitamos a ingresar a la sección "Solicitar Turno" en nuestra web para descubrir todas las mejoras que hemos implementado pensando en tu comodidad.</p>
     `,
@@ -130,5 +130,61 @@ export const NEWS_DATA: NewsPost[] = [
       <p class="mb-4 text-pretty">El taller está estructurado en cuatro encuentros semanales, donde abordaremos diferentes temáticas y técnicas. Se dictará los días martes de 18:00 a 19:30 hs. Los cupos son limitados para garantizar una experiencia personalizada y un ambiente de confianza. Para más información sobre el programa e inscripciones, comunicate con nuestro departamento de salud mental. ¡Invertir en tu bienestar es el primer paso para una vida más plena!</p>
     `,
     tags: ['Salud Mental', 'Estrés', 'Ansiedad', 'Taller'],
+  },
+  {
+    id: 'chequeo-medico-anual',
+    title: 'Chequeo Médico Anual: La Mejor Herramienta de Prevención',
+    author: 'Dr. Carlos Herrera, Medicina General',
+    publicationDate: '2025-04-07',
+    imageUrl: '/images/news/chequeo-medico-anual.webp',
+    summary:
+      'Descubrí por qué un chequeo médico anual es la inversión más importante que podés hacer en tu salud a largo plazo, permitiendo la detección temprana de posibles problemas.',
+    content: `
+      <p class="mb-4 text-pretty">Muchas veces, solo acudimos al médico cuando nos sentimos mal, pero la medicina preventiva es una de las herramientas más poderosas para garantizar una vida larga y saludable. El <strong>chequeo médico anual</strong> es fundamental para detectar a tiempo posibles factores de riesgo o enfermedades en etapas iniciales, cuando son más fáciles de tratar.</p>
+      <p class="mb-4 text-pretty">Un control de rutina permite a tu médico de cabecera evaluar tu estado de salud general, actualizar tu historial clínico y solicitar estudios específicos según tu edad, sexo y antecedentes. No se trata solo de análisis de sangre; incluye una evaluación física completa, control de la presión arterial, y una conversación sobre tus hábitos y estilo de vida.</p>
+      <p class="mb-4 text-pretty">Invertir un día al año en tu salud puede marcar la diferencia. No esperes a tener síntomas. Agendá tu chequeo anual y tomá el control de tu bienestar. Es un acto de responsabilidad con vos mismo y con quienes te rodean.</p>
+    `,
+    tags: ['Prevención', 'Chequeo Médico', 'Salud'],
+  },
+  {
+    id: 'sueno-impacto-salud',
+    title: 'El Sueño y su Impacto en la Salud: ¿Estás Durmiendo lo Suficiente?',
+    author: 'Dra. Valentina Rojas, Neurología',
+    publicationDate: '2025-04-02',
+    imageUrl: '/images/news/sueno-impacto-salud.webp',
+    summary:
+      'El buen descanso es un pilar fundamental para la salud física y mental. Te contamos por qué es tan importante y cómo mejorar la calidad de tu sueño con hábitos sencillos.',
+    content: `
+      <p class="mb-4 text-pretty">En la vorágine de la vida moderna, a menudo sacrificamos horas de sueño sin ser plenamente conscientes de su impacto. Dormir bien no es un lujo, sino una <strong>necesidad biológica crucial</strong> para el correcto funcionamiento de nuestro cuerpo y mente. Durante el sueño, el cerebro procesa información, consolida la memoria y el cuerpo se repara a nivel celular.</p>
+      <h2 class="text-xl font-semibold mt-6 mb-3">Tips para una mejor higiene del sueño:</h2>
+      <ul class="list-disc pl-5 mb-4 space-y-2">
+        <li class="mb-2"><strong>Creá un ambiente relajante:</strong> Asegurate de que tu habitación esté oscura, silenciosa y a una temperatura agradable.</li>
+        <li class="mb-2"><strong>Establecé un horario regular:</strong> Intentá acostarte y levantarte a la misma hora todos los días, incluso los fines de semana.</li>
+        <li class="mb-2"><strong>Evitá las pantallas antes de dormir:</strong> La luz azul de teléfonos y tablets puede interferir con la producción de melatonina, la hormona del sueño.</li>
+        <li class="mb-2"><strong>Cuidá tu alimentación:</strong> Evitá comidas pesadas, cafeína y alcohol cerca de la hora de acostarte.</li>
+      </ul>
+      <p class="mb-4 text-pretty">Si experimentás problemas de sueño de forma crónica, como insomnio o apneas, es importante que consultes a un especialista. Un buen descanso es sinónimo de una mejor calidad de vida.</p>
+    `,
+    tags: ['Sueño', 'Salud', 'Bienestar', 'Neurología'],
+  },
+  {
+    id: 'guia-primeros-auxilios-emergencias',
+    title: 'Guía de Primeros Auxilios: Cómo Actuar Ante Emergencias Comunes',
+    author: 'Servicio de Enfermería',
+    publicationDate: '2025-03-14',
+    imageUrl: '/images/news/guia-primeros-auxilios-emergencias.webp',
+    summary:
+      'Saber cómo reaccionar en los primeros minutos de una emergencia puede marcar la diferencia. Te ofrecemos una guía básica de primeros auxilios para situaciones cotidianas.',
+    content: `
+      <p class="mb-4 text-pretty">Nadie está exento de sufrir o presenciar un accidente doméstico. Tener conocimientos básicos de <strong>primeros auxilios</strong> es una habilidad invaluable que puede ayudar a prevenir complicaciones hasta que llegue la ayuda médica profesional. Aquí te dejamos algunas pautas para las situaciones más comunes:</p>
+      <h2 class="text-xl font-semibold mt-6 mb-3">Quemaduras leves:</h2>
+      <p class="mb-4 text-pretty">Refrescá la zona inmediatamente con agua fría (no helada) durante al menos 10 minutos. No apliques hielo, manteca ni remedios caseros. Cubrí la quemadura con una gasa estéril y limpia sin hacer presión.</p>
+      <h2 class="text-xl font-semibold mt-6 mb-3">Cortes y heridas:</h2>
+      <p class="mb-4 text-pretty">Lavá tus manos y luego la herida con agua y jabón neutro. Aplicá presión directa con una gasa limpia para detener el sangrado. Si es un corte profundo o no deja de sangrar, buscá atención médica.</p>
+      <h2 class="text-xl font-semibold mt-6 mb-3">Torceduras o esguinces:</h2>
+      <p class="mb-4 text-pretty">Aplicá el método <strong>R.I.C.E.</strong>: Reposo (no apoyar la zona afectada), Hielo (aplicar frío en intervalos de 15-20 minutos), Compresión (usar una venda elástica) y Elevación (mantener la extremidad elevada).</p>
+      <p class="mt-6 text-pretty">Recordá que esta es solo una guía básica. Ante cualquier duda o emergencia grave, lo más importante es mantener la calma y contactar al servicio de emergencias de inmediato.</p>
+    `,
+    tags: ['Primeros Auxilios', 'Emergencias', 'Prevención'],
   },
 ];

@@ -3,7 +3,7 @@
     @if (newsPost) {
     <a 
       routerLink="/news"
-      class="py-3 text-lg font-semibold text-va-fifth
+      class="py-3 text-2xl font-bold text-va-primary tracking-tight
       transition-colors hover:underline">
       Novedades
     </a>
@@ -65,12 +65,19 @@
         }
       </div>
     </article>
+
+    <div class="mt-16">
+      <app-news-preview-list 
+        [currentNewsId]="newsPost!.id">
+      </app-news-preview-list>
+    </div>
+
     } @else {
       <p class="text-center text-gray-500">Cargando publicación...</p>
     }
 
-    <!-- Back Button -->
-    <div class="mt-10 text-center">
+    <!-- Other News Anchor -->
+    <!-- <div class="mt-10 text-center">
       <a
         routerLink="/news"
         class="p-3 font-semibold text-va-fifth
@@ -78,6 +85,6 @@
       >
         Ver más Novedades
       </a>
-    </div>
+    </div> -->
   </div>
 </div>

@@ -15,13 +15,13 @@
     <div
       class="grid grid-cols-1 gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-3"
     >
-      @for (post of newsPosts; track post.id) {
+      @for (post of displayedNewsPosts(); track post.id) {
       <a
         [routerLink]="['/news', post.id]"
         class="block group bg-white rounded-lg shadow-md hover:shadow-lg
          transition duration-300 overflow-hidden outline outline-va-fourth/40 hover:outline-va-fourth"
       >
-        <article class="flex flex-col h-full">
+        <article class="flex flex-col h-126">
           <!-- Image -->
           <div class="aspect-video w-full overflow-hidden">
             <img
@@ -66,7 +66,63 @@
           </div>
         </article>
       </a>
+      } @empty {
+        <div class="mt-12">
+          <p class="text-gray-600">Sin noticias actualmente.</p>
+        </div>
       }
     </div>
+
+      <!-- Pagination -->
+      @if (pages().length) {
+        <div class="flex justify-center items-center gap-2 mt-8">
+          
+          <!-- Previous Button -->
+          <button
+            (click)="previousPage()"
+            [disabled]="currentPage() === 1"
+            class="cursor-pointer flex items-center justify-center size-9 rounded-full transition
+            text-va-primary not-disabled:hover:bg-gray-200 not-disabled:active:bg-gray-300
+            disabled:opacity-30 disabled:cursor-auto"
+          >
+            <app-svg-icon icon="arrowLeft" size="22px"></app-svg-icon>
+          </button>
+
+          <!-- Page Numbers -->
+          @for (page of pages(); track $index) {
+            @if (page === '...') {
+              <span class="flex items-center justify-center size-9 rounded-full
+                text-va-gray-dark select-none">
+                ...
+              </span>
+            } @else {
+              <button
+                (click)="goToPage(+page)"
+                [class.bg-va-third]="currentPage() === page"
+                [class.text-white]="currentPage() === page"
+                [class.bg-gray-100]="currentPage() !== page"
+                [class.text-gray-500]="currentPage() !== page"
+                [class.hover:bg-gray-200]="currentPage() !== page"
+                [class.active:bg-gray-300]="currentPage() !== page"
+                class="cursor-pointer flex items-center justify-center size-9 rounded-full
+                font-medium transition"
+              >
+                {{ page }}
+              </button>
+            }
+          }
+
+          <!-- Next Button -->
+          <button
+            (click)="nextPage()"
+            [disabled]="currentPage() === totalPages()"
+            class="cursor-pointer flex items-center justify-center size-9 rounded-full transition
+            text-va-primary not-disabled:hover:bg-gray-200 not-disabled:active:bg-gray-300
+            disabled:opacity-30 disabled:cursor-auto"
+          >
+            <app-svg-icon icon="arrowRight" size="22px"></app-svg-icon>
+          </button>
+        </div>
+      }
   </div>
 </div>

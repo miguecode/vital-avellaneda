@@ -8,10 +8,11 @@ import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { NewsFacade } from '../../news.facade';
 import { NewsPost } from '../../../../core/models/news-post.model';
 import { DatePipe, TitleCasePipe } from '@angular/common';
+import { NewsPreviewListComponent } from '../../components/news-preview-list/news-preview-list.component';
 
 @Component({
   selector: 'app-news-detail-page',
-  imports: [RouterLink, DatePipe, TitleCasePipe],
+  imports: [RouterLink, DatePipe, TitleCasePipe, NewsPreviewListComponent],
   templateUrl: './news-detail-page.component.html',
   styleUrl: './news-detail-page.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,

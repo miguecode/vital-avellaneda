@@ -15,7 +15,11 @@
   </div>
 
   <!-- Content -->
-  <div class="flex flex-col gap-1.5 w-full p-4 ml-2 mt-1.5 rounded-2xl outline-2 outline-va-fifth shadow">
+  <div 
+    class="flex flex-col justify-center gap-1.5 w-full p-4 ml-2 mt-1.5 rounded-2xl outline-2 outline-va-fifth shadow"
+    [class.min-h-60]="userRoleToShow === 'patient'"
+    [class.min-h-42]="userRoleToShow === 'specialist'"
+    >
     @if (showContent()) {
       <!-- Personal Data -->
       @for (item of personalData; track item.label) {
@@ -49,8 +53,6 @@
     } @else {
       <div 
         class="flex flex-col justify-center items-center w-full"
-        [class.min-h-51]="userRoleToShow === 'patient'"
-        [class.min-h-34]="userRoleToShow === 'specialist'"
       >
         <div 
           class="animate-spin inline-block size-8
