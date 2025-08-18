@@ -1,13 +1,14 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  computed,
+  effect,
   inject,
-  OnInit,
 } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { NewsFacade } from '../../news.facade';
-import { NewsPost } from '../../../../core/models/news-post.model';
-import { DatePipe, TitleCasePipe } from '@angular/common';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { DatePipe, TitleCasePipe, ViewportScroller } from '@angular/common';
 import { NewsPreviewListComponent } from '../../components/news-preview-list/news-preview-list.component';
 
 @Component({
@@ -17,26 +18,26 @@ import { NewsPreviewListComponent } from '../../components/news-preview-list/new
   styleUrl: './news-detail-page.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class NewsDetailPageComponent implements OnInit {
+export class NewsDetailPageComponent {
   private route = inject(ActivatedRoute);
   private router = inject(Router);
   private newsFacade = inject(NewsFacade);
+  private viewportScroller = inject(ViewportScroller);
 
-  public newsPost: NewsPost | undefined;
+  private params = toSignal(this.route.paramMap);
+  public newsPost = computed(() => {
+    const id = this.params()?.get('id');
+    if (!id) return undefined;
 
-  async ngOnInit(): Promise<void> {
-    const id = this.route.snapshot.paramMap.get('id');
+    this.viewportScroller.scrollToPosition([0, 0]);
+    return this.newsFacade.getNewsById(id);
+  });
 
-    if (!id) {
-      this.router.navigate(['/news']);
-      return;
-    }
-
-    this.newsPost = this.newsFacade.getNewsById(id);
-
-    if (!this.newsPost) {
-      this.router.navigate(['/news']);
-      return;
-    }
+  constructor() {
+    effect(() => {
+      if (this.params() && !this.newsPost()) {
+        this.router.navigate(['/news']);
+      }
+    });
   }
 }

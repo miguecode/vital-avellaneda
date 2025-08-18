@@ -1,0 +1,42 @@
+<div class="w-full py-14">
+  <div class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+    @if (infoPage()) {
+    <article
+      class="bg-white rounded-lg shadow mt-4
+     outline outline-va-fourth/40 overflow-hidden"
+    >
+
+      @if (infoPage()?.imageUrl) {
+        <!-- Image -->
+        <img
+          class="aspect-video h-98 w-full object-cover
+          transition-transform duration-300"
+          [src]="infoPage()?.imageUrl"
+          [alt]="infoPage()?.title"
+        />
+      }
+
+      <div class="p-6 sm:p-8">
+        <!-- Header -->
+        <header class="mb-3">
+          <h1
+            class="text-4xl text-pretty font-bold tracking-tight text-va-primary"
+          >
+            {{ infoPage()?.title }}
+          </h1>
+          <p class="mt-2 text-xl text-gray-600">
+            {{ infoPage()?.subtitle }}
+        </header>
+
+        <!-- Content -->
+        <div
+          class="prose prose-lg max-w-none pt-6 border-t border-gray-200"
+          [innerHTML]="infoPage()?.content"
+        ></div>
+      </div>
+    </article>
+    } @else {
+    <p class="text-center text-gray-500">Cargando Información...</p>
+    }
+  </div>
+</div>

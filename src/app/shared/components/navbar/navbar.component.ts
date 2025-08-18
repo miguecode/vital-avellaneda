@@ -21,18 +21,18 @@ export class NavbarComponent implements NavbarContent {
     {
       title: 'Quiénes Somos',
       ariaLabel: 'Sección sobre quiénes somos',
-      href: '/',
+      href: '/info/quienes-somos',
     },
     // { title: 'Contacto', ariaLabel: 'Sección de contacto', href: '/' },
     {
       title: 'Especialidades y Servicios',
       ariaLabel: 'Sección de Especialidades y Servicios',
-      href: '/',
+      href: '/info/especialidades-y-servicios',
     },
     {
       title: 'Nuestros Profesionales',
       ariaLabel: 'Sección de Nuestros Profesionales',
-      href: '/',
+      href: '/info/nuestros-profesionales',
     },
     {
       title: 'Novedades',

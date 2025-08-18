@@ -1,10 +1,11 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { APP_SHARED_INFO } from '../../../core/config/app-info';
 import { SvgIconComponent } from '../../icons/svg-icon.component';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-footer',
-  imports: [SvgIconComponent],
+  imports: [SvgIconComponent, RouterLink],
   templateUrl: './footer.component.html',
   styleUrl: './footer.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush

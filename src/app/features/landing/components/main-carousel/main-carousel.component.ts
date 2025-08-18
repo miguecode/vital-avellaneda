@@ -29,7 +29,7 @@ export class MainCarouselComponent implements AfterViewInit {
       description:
         'Somos una clínica digital y presencial al servicio de tu salud. Conectamos pacientes y profesionales de forma ágil, humana y segura.',
       buttonText: 'Conocé quiénes somos',
-      buttonLink: '/quienes-somos',
+      buttonLink: '/info/quienes-somos',
     },
     {
       image: '/images/carousel/carousel-2.webp',
@@ -53,7 +53,7 @@ export class MainCarouselComponent implements AfterViewInit {
       description:
         'Descubrí nuestra amplia oferta médica: clínica general, pediatría, cardiología, dermatología y más.',
       buttonText: 'Explorar nuestros servicios',
-      buttonLink: '/especialidades-y-servicios',
+      buttonLink: '/info/especialidades-y-servicios',
     },
     {
       image: '/images/carousel/carousel-5.webp',
@@ -61,7 +61,7 @@ export class MainCarouselComponent implements AfterViewInit {
       description:
         'Conocé al equipo médico que hace posible Vital Avellaneda. Compromiso, trayectoria y calidez humana en cada consulta.',
       buttonText: 'Conocé a nuestros profesionales',
-      buttonLink: '/nuestros-profesionales',
+      buttonLink: '/info/nuestros-profesionales',
     },
   ];
 
