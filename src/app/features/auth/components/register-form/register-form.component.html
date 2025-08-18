@@ -1,4 +1,5 @@
-<div class="p-6 bg-lightblue-primary rounded border border-va-third/20 shadow min-h-register-form">
+<div class="bg-lightblue-primary/70 rounded-3xl p-6 min-h-register-form
+  border border-va-fourth/40 shadow">
   <!-- Title, description and Toggle button -->
   <div class="ml-3">
     <h2 class="text-va-primary text-3xl font-semibold">
@@ -233,7 +234,7 @@
           type="submit"
           [disabled]="form.invalid || isLoading()"
           disabled
-          class="self-center cursor-pointer w-80 px-12 py-3 text-white text-lg rounded font-medium
+          class="self-center cursor-pointer w-80 px-12 py-3 text-white text-lg rounded-xl font-medium
            bg-va-primary hover:bg-va-third active:bg-va-third/90
             transition duration-300 shadow-md 
             disabled:bg-va-primary/50 disabled:shadow-none disabled:cursor-auto
@@ -253,7 +254,7 @@
         
         <p class="w-80 font-medium">
           ¿Ya tenes una cuenta?
-          <a class="text-va-primary font-semibold hover:underline" 
+          <a class="text-va-primary font-semibold underline underline-offset-2" 
           routerLink="/auth/login">
             Iniciá Sesión
           </a>

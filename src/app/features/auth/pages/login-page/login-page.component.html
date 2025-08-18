@@ -1,20 +1,23 @@
 <!-- Structure -->
-<div class="flex flex-col mx-72 mt-5">
+<div class="w-full py-6">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <!-- Title and Description -->
+    <h1 class="text-4xl font-bold tracking-tight text-va-primary">
+      Ingreso al Portal
+    </h1>
+    <p class="mt-2 text-xl text-gray-700">
+      Para ingresar, los pacientes y especialistas deben iniciar sesión. También
+      se pueden usar los ingresos rápidos.
+    </p>
 
-  <!-- Title and Description -->
-  <app-title-description
-  title="Ingreso al Portal"
-  description="En esta página es donde los pacientes y los especialistas pueden iniciar sesión."
-  ></app-title-description>
-  
-  <!-- Fast Login Card -->
-  <div class="mx-20 mt-6">
-    <app-fast-login-card></app-fast-login-card>
+    <!-- Fast Login Card -->
+    <div class="mt-6">
+      <app-fast-login-card></app-fast-login-card>
+    </div>
 
-  </div>
-
-  <!-- Form -->
-  <div class="mx-20 mt-6">
-    <app-login-form></app-login-form>
+    <!-- Form -->
+    <div class="mt-6">
+      <app-login-form></app-login-form>
+    </div>
   </div>
 </div>
