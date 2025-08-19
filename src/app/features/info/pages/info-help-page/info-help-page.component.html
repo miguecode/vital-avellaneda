@@ -15,14 +15,17 @@
       <div class="space-y-4">
         
         @for (item of faqItems; track $index) {
-          <details class="group bg-white p-6 rounded-xl shadow-sm border border-gray-200 overflow-hidden">
-            <summary class="flex items-center justify-between cursor-pointer list-none">
+          <details class="group bg-white rounded-xl shadow-sm 
+            border border-gray-200 overflow-hidden">
+            <summary class="cursor-pointer flex items-center justify-between
+             list-none px-6 py-4 hover:bg-gray-50
+             active:bg-gray-100 transition duration-300">
               <h3 class="text-lg font-medium text-gray-900">{{ item.question }}</h3>
               <div class="text-va-primary transition-transform duration-300 group-open:rotate-180">
                 <app-svg-icon icon="arrowDropDown" size="32px"></app-svg-icon>
               </div>
             </summary>
-            <div class="mt-4 text-gray-700 prose">
+            <div class="px-6 pb-4 text-gray-700 prose text-pretty">
               <p>{{ item.answer }}</p>
             </div>
           </details>
@@ -42,20 +45,7 @@
         </div>
       </div>
     </div>
-
-    <!-- Contact Support Section -->
-    <!-- <div class="max-w-4xl mx-auto mt-16 text-center">
-      <h2 class="text-3xl font-bold text-va-primary mb-4">¿Necesitás más ayuda?</h2>
-      <p class="text-lg text-gray-600 mb-6">
-        Si no encontraste la respuesta a tu pregunta, nuestro equipo de soporte está para ayudarte.
-      </p>
-      <a 
-        routerLink="/info/contact"
-        class="inline-block bg-va-third text-white font-bold py-3 px-8 rounded-full hover:bg-va-third/90 transition-colors shadow-lg"
-      >
-        Contactar a Soporte
-      </a>
-    </div> -->
+    
     <div class="mx-auto mt-10 flex flex-col
       justify-center items-center mb-6">
       <h2 class="text-3xl font-bold text-va-primary">Contactanos</h2>
