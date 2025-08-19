@@ -1,17 +1,17 @@
 <nav
-  class="flex items-center justify-between px-10
+  class="flex items-center justify-between pl-10
    size-full bg-va-primary text-white"
 >
   <!-- Logo -->
   <a
-    routerLink="/"
+    routerLink="/home"
     class="flex items-center justify-center h-full w-72 ml-28"
   >
     <img class="object-contain" src="/logos/logo-big.webp" alt="Logo" />
   </a>
 
   <!-- Navigation -->
-  <ul class="flex justify-center items-center mr-24 h-full">
+  <ul class="flex justify-center items-center h-full mr-8">
     @for (item of navItems; track item.title) {
     <li>
       <a
@@ -25,11 +25,11 @@
       </a>
     </li>
     }
-    <li class="ml-20 flex justify-center items-center">
+    <li class="ml-18 flex justify-between gap-20 items-center">
       <a
         routerLink="/auth/login"
         aria-label="Acceso al Portal"
-        class="flex justify-center items-center gap-2 py-4 px-6 min-w-48
+        class="flex justify-center items-center gap-2 py-4 px-7 min-w-48
         text-lg font-semibold bg-white text-va-primary rounded-full
       hover:bg-lightblue-primary active:bg-lightblue-primary/90 transition duration-300 shadow"
       >
@@ -39,8 +39,14 @@
         Ingresar al Portal
       </a>
 
-
-      <a href="">
+      <a
+        routerLink="info/user/help"
+        class="flex flex-col justify-center items-center rounded-xl py-3 px-5 gap-0.5
+         hover:bg-va-third/60 hover:shadow active:bg-va-third/30
+          transition duration-300"
+      >
+        <app-svg-icon icon="help" size="32px" class="text-white"></app-svg-icon>
+        <span class="text-sm text-white">Ayuda</span>
       </a>
     </li>
   </ul>

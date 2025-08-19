@@ -13,7 +13,7 @@ export const medicalRecordGuard = (
   const patientIdFromRoute = route.paramMap.get('id');
 
   if (!user || !patientIdFromRoute) {
-    router.navigate(['/home']);
+    router.navigate(['/']);
     return false;
   }
 

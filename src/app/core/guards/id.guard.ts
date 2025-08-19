@@ -14,7 +14,7 @@ export const idGuard = async (
   const user = authFacade.user();
 
   if (!appointmentId || !user) {
-    router.navigate(['/home']);
+    router.navigate(['/']);
     return false;
   }
 
