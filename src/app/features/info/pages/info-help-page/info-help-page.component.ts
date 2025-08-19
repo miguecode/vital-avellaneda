@@ -11,6 +11,8 @@ import { InformationWrapperComponent } from "../../../landing/components/informa
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class InfoHelpPageComponent {
+  openFaqItem: number | null = 0;
+
   faqItems = [
     {
       question: '¿Cómo solicito un nuevo turno?',
@@ -33,4 +35,8 @@ export class InfoHelpPageComponent {
         'Tu historia clínica es confidencial y solo puede ser accedida por vos y los profesionales autorizados. Podés consultar un resumen de tus últimas consultas en la sección "Mi Perfil" o solicitar una copia completa en la recepción de la clínica.',
     },
   ];
+
+  toggleFaqItem(index: number) {
+    this.openFaqItem = this.openFaqItem === index ? null : index;
+  }
 }

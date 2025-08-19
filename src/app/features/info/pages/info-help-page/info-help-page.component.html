@@ -15,20 +15,23 @@
       <div class="space-y-4">
         
         @for (item of faqItems; track $index) {
-          <details class="group bg-white rounded-xl shadow-sm 
-            border border-gray-200 overflow-hidden">
-            <summary class="cursor-pointer flex items-center justify-between
-             list-none px-6 py-4 hover:bg-gray-50
-             active:bg-gray-100 transition duration-300">
+          <div class="faq-item bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+            <input type="radio" name="faq" [id]="'faq-' + $index" class="hidden" [checked]="openFaqItem === $index">
+            <label 
+              [for]="'faq-' + $index" 
+              class="cursor-pointer flex items-center justify-between list-none px-6 py-4 hover:bg-gray-50 active:bg-gray-100 transition duration-300"
+              (click)="toggleFaqItem($index)">
               <h3 class="text-lg font-medium text-gray-900">{{ item.question }}</h3>
-              <div class="text-va-primary transition-transform duration-300 group-open:rotate-180">
+              <div class="icon text-va-primary transition-transform duration-300">
                 <app-svg-icon icon="arrowDropDown" size="32px"></app-svg-icon>
               </div>
-            </summary>
-            <div class="px-6 pb-4 text-gray-700 prose text-pretty">
-              <p>{{ item.answer }}</p>
+            </label>
+            <div class="content text-gray-700 prose text-pretty">
+              <div class="px-6 pb-4">
+                <p>{{ item.answer }}</p>
+              </div>
             </div>
-          </details>
+          </div>
         }
       </div>
     </div>

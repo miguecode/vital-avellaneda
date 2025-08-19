@@ -1,0 +1,21 @@
+.faq-item .content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.7s ease-in-out;
+}
+
+.faq-item input[type="radio"]:not(:checked) ~ .content {
+  transition: max-height 0s ease-in-out 0s;
+}
+
+.faq-item input[type="radio"]:checked ~ .content {
+  max-height: 1000px;
+}
+
+.faq-item .icon {
+  transition: transform 0.3s ease-in-out;
+}
+
+.faq-item input[type="radio"]:checked ~ label .icon {
+  transform: rotate(180deg);
+}
