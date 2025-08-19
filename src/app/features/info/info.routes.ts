@@ -8,4 +8,11 @@ export const INFO_ROUTES: Routes = [
         (m) => m.InfoDetailPageComponent
       ),
   },
+  {
+    path: 'user/help',
+    loadComponent: () =>
+      import('./pages/info-help-page/info-help-page.component').then(
+        (m) => m.InfoHelpPageComponent
+      ),
+  }
 ];

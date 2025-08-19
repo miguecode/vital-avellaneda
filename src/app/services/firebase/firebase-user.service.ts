@@ -1,5 +1,15 @@
 import { Injectable, inject } from '@angular/core';
-import { Firestore, collection, doc, getDocs, getDoc, query, setDoc, where, updateDoc } from '@angular/fire/firestore';
+import {
+  Firestore,
+  collection,
+  doc,
+  getDocs,
+  getDoc,
+  query,
+  setDoc,
+  where,
+  updateDoc,
+} from '@angular/fire/firestore';
 import { UserRepository } from '../../../app/core/interfaces/user.repository';
 import { Patient, Specialist } from '../../core/models';
 import { UserBase } from '../../core/models';
@@ -14,7 +24,10 @@ export class FirebaseUserService implements UserRepository {
   }
 
   async dniExists(dni: string): Promise<boolean> {
-    const q = query(collection(this.firestore, 'users'), where('dni', '==', dni));
+    const q = query(
+      collection(this.firestore, 'users'),
+      where('dni', '==', dni)
+    );
     const snapshot = await getDocs(q);
     return !snapshot.empty;
   }
@@ -22,14 +35,14 @@ export class FirebaseUserService implements UserRepository {
   async getUserByUId(uid: string): Promise<UserBase | null> {
     const userRef = doc(this.firestore, 'users', uid);
     const userSnap = await getDoc(userRef);
-    
+
     if (userSnap.exists()) {
-        const data = userSnap.data();
-        return {
-            ...data,
-            birthDate: data['birthDate'] ? new Date(data['birthDate']) : null,
-            registrationDate: data['registrationDate']?.toDate() || null,
-        } as UserBase;
+      const data = userSnap.data();
+      return {
+        ...data,
+        birthDate: data['birthDate'] ? new Date(data['birthDate']) : null,
+        registrationDate: data['registrationDate']?.toDate() || null,
+      } as UserBase;
     }
     return null;
   }
@@ -49,10 +62,30 @@ export class FirebaseUserService implements UserRepository {
     return null;
   }
 
-  async getUsersByRole(role: string): Promise<UserBase[]> {
-    const q = query(collection(this.firestore, 'users'), where('role', '==', role));
+  async getUsersByIds(ids: string[]): Promise<UserBase[]> {
+    if (ids.length === 0) {
+      return [];
+    }
+    const usersCol = collection(this.firestore, 'users');
+    const q = query(usersCol, where('id', 'in', ids));
     const snapshot = await getDocs(q);
-    return snapshot.docs.map(doc => {
+    return snapshot.docs.map((doc) => {
+      const data = doc.data();
+      return {
+        ...data,
+        birthDate: data['birthDate'] ? new Date(data['birthDate']) : null,
+        registrationDate: data['registrationDate']?.toDate() || null,
+      } as UserBase;
+    });
+  }
+
+  async getUsersByRole(role: string): Promise<UserBase[]> {
+    const q = query(
+      collection(this.firestore, 'users'),
+      where('role', '==', role)
+    );
+    const snapshot = await getDocs(q);
+    return snapshot.docs.map((doc) => {
       const data = doc.data();
       return {
         ...data,
@@ -64,10 +97,15 @@ export class FirebaseUserService implements UserRepository {
 
   async updateUser(updatedData: Partial<Patient | Specialist>): Promise<void> {
     if (!updatedData.id) {
-      throw new Error('El campo "id" es obligatorio para actualizar un usuario.');
+      throw new Error(
+        'El campo "id" es obligatorio para actualizar un usuario.'
+      );
     }
 
-    const q = query(collection(this.firestore, 'users'), where('id', '==', updatedData.id));
+    const q = query(
+      collection(this.firestore, 'users'),
+      where('id', '==', updatedData.id)
+    );
     const snapshot = await getDocs(q);
 
     if (snapshot.empty) {

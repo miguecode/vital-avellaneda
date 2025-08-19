@@ -6,7 +6,6 @@ import {
   getDocs,
   getDoc,
   setDoc,
-  updateDoc,
   query,
   where,
   orderBy,
@@ -98,6 +97,25 @@ export class FirebaseAppointmentService implements AppointmentRepository {
     const snapshot = await getDocs(q);
 
     return snapshot.docs.map(doc => {
+      const data = doc.data();
+      return {
+        ...data,
+        date: data['date']?.toDate() || null,
+        creationDate: data['creationDate']?.toDate() || null,
+      } as Appointment;
+    });
+  }
+
+  async getForSpecialistByStatuses(specialistId: string, statuses: AppointmentStatus[]): Promise<Appointment[]> {
+    const appointmentsCol = collection(this.firestore, this.collectionName);
+    const q = query(
+      appointmentsCol,
+      where('specialistId', '==', specialistId),
+      where('status', 'in', statuses),
+    );
+    const snapshot = await getDocs(q);
+
+    return snapshot.docs.map((doc) => {
       const data = doc.data();
       return {
         ...data,

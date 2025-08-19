@@ -1,3 +1,4 @@
+import { AppointmentStatus } from '../enums';
 import { Appointment } from '../models';
 
 export interface AppointmentRepository {
@@ -7,4 +8,5 @@ export interface AppointmentRepository {
   getForPatient(patientId: string): Promise<Appointment[]>;
   getForSpecialist(specialistId: string): Promise<Appointment[]>;
   getCompletedForPatient(patientId: string): Promise<Appointment[]>;
+  getForSpecialistByStatuses(specialistId: string, statuses: AppointmentStatus[]): Promise<Appointment[]>;
 }

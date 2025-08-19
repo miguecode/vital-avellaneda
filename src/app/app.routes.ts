@@ -6,18 +6,13 @@ import { publicGuard } from './core/guards/public.guard';
 import { authGuard } from './core/guards/auth.guard';
 
 export const routes: Routes = [
-  // Main (/home)
+  // Main (/)
   {
     path: '',
     component: MainLayoutComponent,
     children: [
       {
         path: '',
-        redirectTo: 'home',
-        pathMatch: 'full',
-      },
-      {
-        path: 'home',
         loadChildren: () =>
           import('./features/landing/landing.routes').then(
             (m) => m.LANDING_ROUTES
@@ -72,7 +67,7 @@ export const routes: Routes = [
       },
     ],
   },
-  // Info (/info/:slug)
+  // Info (/info/:slug, /info/help)
   // Public Paths: For all users
   {
     path: 'info',
@@ -86,5 +81,5 @@ export const routes: Routes = [
           ),
       }
     ]
-  }
+  },
 ];

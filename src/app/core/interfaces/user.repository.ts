@@ -4,6 +4,7 @@ export interface UserRepository {
   createUser(user: Patient | Specialist): Promise<void>;
   dniExists(dni: string): Promise<boolean>;
   getUserById(id: string): Promise<UserBase | null>;
+  getUsersByIds(ids: string[]): Promise<UserBase[]>;
   getUserByUId(uid: string): Promise<UserBase | null>;
   getUsersByRole(role: string): Promise<UserBase[]>;
   updateUser(updatedData: Partial<Patient | Specialist>): Promise<void>;

@@ -56,6 +56,14 @@ export const DASHBOARD_ROUTES: Routes = [
         (m) => m.UserMedicalRecordPageComponent
       ),
   },
+  {
+    path: 'patients-list',
+    canActivate: [roleGuard([UserRoles.SPECIALIST])],
+    loadComponent: () =>
+      import('./pages/patient-list-page/patient-list-page.component').then(
+        (m) => m.PatientListPageComponent
+      ),
+  },
   // Authenticated users
   {
     path: 'profile/edit',

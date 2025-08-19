@@ -1,0 +1,142 @@
+<div
+  class="flex flex-wrap justify-start items-center mt-8
+  w-full p-4 gap-5 border border-va-primary rounded-3xl shadow-md">
+  @if (loading()) {
+  <div class="flex flex-col justify-center items-center w-full min-h-60
+   rounded-4xl overflow-hidden">
+    <div class="animate-spin inline-block size-10 border-4 border-t-transparent
+     text-va-third rounded-full" role="status" aria-label="loading"></div>
+    <span class="text-center font-medium text-2xl mt-4">Cargando pacientes...</span>
+  </div>
+  } @else if (error()) {
+  <div class="flex flex-col justify-center items-center w-full h-58
+   rounded-4xl overflow-hidden">
+    <app-svg-icon icon="error" size="82px" class="text-red-primary"></app-svg-icon>
+    <p class="text-center font-medium text-xl text-red-primary">Hubo un error al cargar los pacientes.</p>
+    <p class="text-sm text-gray-500">{{ error() }}</p>
+    <button 
+      (click)="loadPatients()"
+      class="cursor-pointer underline underline-offset-1
+       mt-7 text-va-third active:text-va-third/90">
+      Reintentar
+    </button>
+  </div>
+  } @else {
+    <div class="w-full">
+      
+      <!-- Table Header -->
+      <div class="hidden md:grid grid-cols-5 gap-4 p-4 border-b
+       border-gray-400 font-bold text-va-primary select-none">
+        <div (click)="applySort('lastName')" class="flex items-center gap-1 cursor-pointer transition hover:text-va-fifth">
+          <span>Paciente</span>
+          @if (sortConfig().key === 'lastName' && sortConfig().direction !== 'none') {
+            <app-svg-icon [icon]="sortConfig().direction === 'asc' ? 'arrowDropUp' : 'arrowDropDown'" size="24px"></app-svg-icon>
+          }
+        </div>
+        <div (click)="applySort('dni')" class="flex items-center gap-1 cursor-pointer transition hover:text-va-fifth">
+          <span>DNI</span>
+          @if (sortConfig().key === 'dni' && sortConfig().direction !== 'none') {
+            <app-svg-icon [icon]="sortConfig().direction === 'asc' ? 'arrowDropUp' : 'arrowDropDown'" size="24px"></app-svg-icon>
+          }
+        </div>
+        <div (click)="applySort('email')" class="flex items-center gap-1 cursor-pointer transition hover:text-va-fifth">
+          <span>Email</span>
+          @if (sortConfig().key === 'email' && sortConfig().direction !== 'none') {
+            <app-svg-icon [icon]="sortConfig().direction === 'asc' ? 'arrowDropUp' : 'arrowDropDown'" size="24px"></app-svg-icon>
+          }
+        </div>
+        <div (click)="applySort('phone')" class="flex items-center gap-1 cursor-pointer transition hover:text-va-fifth">
+          <span>Teléfono</span>
+          @if (sortConfig().key === 'phone' && sortConfig().direction !== 'none') {
+            <app-svg-icon [icon]="sortConfig().direction === 'asc' ? 'arrowDropUp' : 'arrowDropDown'" size="24px"></app-svg-icon>
+          }
+        </div>
+        <div>Acciones</div>
+      </div>
+
+      <!-- Table Body -->
+      <div class="min-h-[390px]">
+        @for (patient of displayedPatients(); track patient.id) {
+          <div class="grid grid-cols-1 md:grid-cols-5 gap-4 items-center p-3.5
+          border-b border-gray-200 hover:bg-gray-50 transition">
+            <div class="font-medium text-gray-800">{{ patient.firstName }} {{ patient.lastName }}</div>
+            <div>{{ patient.dni }}</div>
+            <div>{{ patient.email }}</div>
+            <div>{{ patient.phone || 'Sin especificar' }}</div>
+            <div>
+              <a 
+                [routerLink]="['/dashboard/user-medical-record', patient.id]"
+                class="text-va-third hover:underline flex gap-1">
+                Ver Historia Clínica
+                <app-svg-icon icon="link"></app-svg-icon>
+              </a>
+            </div>
+          </div>
+        } @empty {
+          <div class="flex flex-col justify-center items-center w-full min-h-[390px]">
+            <app-svg-icon icon="clear" size="82px" class="text-va-third/70"></app-svg-icon>
+            <p class="text-center font-medium text-2xl">No se encontraron pacientes.</p>
+            <button 
+              (click)="loadPatients()" 
+              class="cursor-pointer underline underline-offset-1
+              mt-7 text-va-third active:text-va-third/90">
+                Volver a cargar
+            </button>
+          </div>
+        }
+      </div>
+
+      <!-- Pagination -->
+      @if (pages().length > 1) {
+        <div class="flex justify-center items-center mt-6 gap-2">
+          
+          <!-- Previous Button -->
+          <button
+            (click)="previousPage()"
+            [disabled]="currentPage() === 1"
+            class="cursor-pointer flex items-center justify-center size-9 rounded-full transition
+            text-va-primary not-disabled:hover:bg-gray-200 not-disabled:active:bg-gray-300
+            disabled:opacity-30 disabled:cursor-auto"
+          >
+            <app-svg-icon icon="arrowLeft" size="22px"></app-svg-icon>
+          </button>
+
+          <!-- Page Numbers -->
+          @for (page of pages(); track $index) {
+            @if (page === '...') {
+              <span class="flex items-center justify-center size-9 rounded-full
+               text-va-gray-dark select-none">
+                ...
+              </span>
+            } @else {
+              <button
+                (click)="goToPage(+page)"
+                [class.bg-va-third]="currentPage() === page"
+                [class.text-white]="currentPage() === page"
+                [class.bg-gray-100]="currentPage() !== page"
+                [class.text-gray-500]="currentPage() !== page"
+                [class.hover:bg-gray-200]="currentPage() !== page"
+                [class.active:bg-gray-300]="currentPage() !== page"
+                class="cursor-pointer flex items-center justify-center size-9 rounded-full
+                font-medium transition"
+              >
+                {{ page }}
+              </button>
+            }
+          }
+
+          <!-- Next Button -->
+          <button
+            (click)="nextPage()"
+            [disabled]="currentPage() === totalPages()"
+            class="cursor-pointer flex items-center justify-center size-9 rounded-full transition
+            text-va-primary not-disabled:hover:bg-gray-200 not-disabled:active:bg-gray-300
+            disabled:opacity-30 disabled:cursor-auto"
+          >
+            <app-svg-icon icon="arrowRight" size="22px"></app-svg-icon>
+          </button>
+        </div>
+      }
+    </div>
+  }
+</div>

@@ -22,7 +22,8 @@ export class AppointmentFacade {
   readonly isLoading = this._loading.asReadonly();
   readonly error = this._error.asReadonly();
   public readonly selectedAppointment = this._selectedAppointment.asReadonly();
-  public readonly viewedPatientAppointments = this._viewedPatientAppointments.asReadonly();
+  public readonly viewedPatientAppointments =
+    this._viewedPatientAppointments.asReadonly();
 
   constructor() {
     effect(() => {
@@ -133,15 +134,14 @@ export class AppointmentFacade {
     try {
       await this.appointmentService.update({ id, ...updates });
       const currentAppointments = this._appointments();
-      const updatedAppointments = currentAppointments.map(app =>
+      const updatedAppointments = currentAppointments.map((app) =>
         app.id === id ? { ...app, ...updates } : app
       );
       this._appointments.set(updatedAppointments);
 
       if (this._selectedAppointment()?.id === id) {
-        this._selectedAppointment.update(app => ({ ...app!, ...updates }));
+        this._selectedAppointment.update((app) => ({ ...app!, ...updates }));
       }
-
     } catch (err: any) {
       this._error.set(err.message || 'Error al actualizar el turno');
     } finally {
@@ -153,10 +153,31 @@ export class AppointmentFacade {
     this._loading.set(true);
     this._error.set(null);
     try {
-      const appointments = await this.appointmentService.getCompletedForPatient(patientId);
+      const appointments = await this.appointmentService.getCompletedForPatient(
+        patientId
+      );
       this._viewedPatientAppointments.set(appointments);
     } catch (err: any) {
       this._error.set(err.message || 'Error al obtener la historia clínica.');
+    } finally {
+      this._loading.set(false);
+    }
+  }
+
+  async getSpecialistAppointmentsByStatus(
+    specialistId: string,
+    statuses: AppointmentStatus[]
+  ): Promise<Appointment[]> {
+    this._loading.set(true);
+    this._error.set(null);
+    try {
+      return await this.appointmentService.getForSpecialistByStatuses(
+        specialistId,
+        statuses
+      );
+    } catch (err: any) {
+      this._error.set(err.message || 'Error al obtener los turnos por estado');
+      return [];
     } finally {
       this._loading.set(false);
     }

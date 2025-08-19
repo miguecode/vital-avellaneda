@@ -1,0 +1,33 @@
+@if (!authFacade.user() || authFacade.isCheckingAuth()) {
+  <app-splash></app-splash>
+  } @else {
+  <div class="flex justify-center items-center size-full">
+    <div
+      class="flex flex-wrap flex-col justify-start items-start min-h-dashboard-height size-full
+       outline outline-lightblue-secondary/70 bg-va-secondary/10 shadow mx-22 py-8 px-16 rounded-xl"
+    >
+      <!-- Back Button -->
+      <a
+        routerLink="/dashboard/specialist"
+        class="-mt-4 -ml-13 flex flex-wrap justify-center items-center gap-1 rounded-full
+         px-6 py-1.5 cursor-pointer hover:text-va-third hover:bg-va-secondary/50
+          active:bg-va-secondary/90 transition duration-300"
+      >
+        <app-svg-icon icon="backArrow" size="36px"></app-svg-icon>
+        <span class="text-lg">Perfil</span>
+      </a>
+  
+      <!-- Title and Description -->
+      <app-title-description
+        class="text-black mt-4"
+        title="Lista de Pacientes"
+        description="En esta sección se muestra la lista completa de pacientes ya atendidos o por atender."
+      ></app-title-description>
+  
+      <!-- List -->
+      <div class="w-full">
+        <app-patients-table></app-patients-table>
+      </div>
+    </div>
+  </div>
+}

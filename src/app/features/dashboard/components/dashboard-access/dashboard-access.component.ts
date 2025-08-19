@@ -34,7 +34,7 @@ export class DashboardAccessComponent {
   public specialistAccess = [
     {
       title: 'Ver mis Pacientes',
-      routerLink: '',
+      routerLink: '/dashboard/patients-list',
       icon: 'patient',
     },
     {

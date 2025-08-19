@@ -13,9 +13,9 @@ import { RouterLink } from '@angular/router';
     SplashComponent,
     SvgIconComponent,
     TitleDescriptionComponent,
-    AppointmentsTableComponent,
-    RouterLink
-  ],
+    RouterLink,
+    AppointmentsTableComponent
+],
   templateUrl: './appointment-list-page.component.html',
   styleUrl: './appointment-list-page.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,

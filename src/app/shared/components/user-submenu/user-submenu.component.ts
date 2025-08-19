@@ -112,6 +112,7 @@ export class UserSubmenuComponent {
   }
 
   private handleHelpClick(): void {
+    this.router.navigate(['/info/user/help']);
     this.closeDropdown();
   }
 

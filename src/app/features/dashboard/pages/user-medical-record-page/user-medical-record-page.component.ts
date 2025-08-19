@@ -63,7 +63,10 @@ export class UserMedicalRecordPageComponent implements OnInit {
       const previousUrl = this.navigationService.previousUrl();
       const user = this.authFacade.user();
 
-      if (previousUrl && previousUrl.includes('appointments-manage')) {
+      if (
+        (previousUrl && previousUrl.includes('appointments-manage')) ||
+        (previousUrl && previousUrl.includes('patients-list'))
+      ) {
         this.backButtonText.set('Turno');
         this.backButtonUrl.set([previousUrl]);
       } else {
