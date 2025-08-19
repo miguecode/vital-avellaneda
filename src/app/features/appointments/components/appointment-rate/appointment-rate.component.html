@@ -1,0 +1,104 @@
+<dialog
+  #dialog
+  class="m-auto z-10 rounded-2xl shadow backdrop:bg-black/50 px-8 max-w-xl"
+>
+  <form [formGroup]="form" (ngSubmit)="onClose(form.value)">
+    <div class="p-8 text-center">
+      @if (config.icon) {
+      <div class="flex justify-center mb-4">
+        <div
+          class="rounded-full p-4"
+          [class]="config.iconBgColor || 'bg-lightblue-secondary'"
+        >
+          <app-svg-icon
+            [icon]="$any(config.icon)"
+            [class]="config.iconColor || 'text-va-third'"
+            size="48px"
+          ></app-svg-icon>
+        </div>
+      </div>
+      }
+      <h3 class="text-3xl font-bold text-gray-800 mb-2 text-pretty">
+        {{ config.title }}
+      </h3>
+      <p class="text-gray-600 mb-8 text-lg text-pretty">{{ config.message }}</p>
+
+      <div class="text-left">
+
+        <!-- Stars Rating Input -->
+        <div class="flex flex-col items-center my-6" (mouseleave)="resetHover()">
+          <span
+            class="block font-medium text-gray-700 mb-2 text-center"
+            >
+            Calificación
+          </span
+          >
+          <div class="flex items-center">
+            @for (star of stars; track star) {
+              <span
+                class="star cursor-pointer text-4xl transition-transform duration-300 ease-in-out"
+                (click)="selectStar(star)"
+                (mouseover)="hoverStar(star)"
+              >
+                <app-svg-icon
+                  [icon]="( selectedStar) >= star ? 'starFill' : 'star'"
+                  [class]="(hoveredStar || selectedStar) >= star ? 'text-yellow-400' : 'text-gray-300'"
+                  size="56px"
+                ></app-svg-icon>
+              </span>
+            }
+          </div>
+        </div>
+
+        <!-- Comment Optional Input -->
+        <div class="mb-4">
+          <label
+            class="block text-sm font-medium text-gray-700 mb-1"
+            for="comment"
+            >Comentario
+            <span class="text-gray-400 ml-1">(Opcional)</span>
+          </label>
+          <textarea
+            id="comment"
+            name="comment"
+            formControlName="comment"
+            rows="2"
+            maxLength="145"
+            class="w-full min-h-12 max-h-20 px-3 py-2 border border-gray-300 field-sizing-content
+            rounded-md shadow-sm placeholder:text-gray-400 focus:outline-none
+           focus:ring-va-fifth focus:border-va-fifth sm:text-sm"
+            placeholder="Contanos tu experiencia."
+          ></textarea>
+          <div class="text-xs text-gray-500 text-right">
+            {{ form.value['comment'].length }}/145
+          </div>
+        </div>
+      </div>
+
+      <div class="flex justify-center gap-4 mt-6">
+        <button
+          (click)="onClose(null)"
+          type="button"
+          class="cursor-pointer py-2 px-6 rounded-lg font-semibold border transition
+           border-gray-300 hover:bg-gray-100 active:bg-gray-100/80"
+        >
+          {{ config.cancelText || "Cancelar" }}
+        </button>
+        <button
+          type="submit"
+          class="cursor-pointer py-3 px-7 rounded-lg text-lg font-semibold transition
+          disabled:opacity-50 disabled:cursor-auto disabled:select-none"
+          [ngClass]="[
+            config.confirmTextBgColor || 'bg-va-primary',
+            config.confirmTextColor || 'text-white',
+            config.confirmTextBgColorHover || 'not-disabled:hover:bg-va-primary/90',
+            config.confirmTextBgColorActive || 'not-disabled:active:bg-va-primary/80'
+          ]"
+          [disabled]="form.invalid"
+        >
+          {{ config.confirmText || "Confirmar" }}
+        </button>
+      </div>
+    </div>
+  </form>
+</dialog>

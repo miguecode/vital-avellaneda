@@ -43,6 +43,33 @@
           </p>
         </div>
       }
+
+      <!-- Rating -->
+      @if (rating) {
+        <div class="flex gap-2 justify-start items-start">
+          <app-svg-icon icon="lineStart" size="24px"></app-svg-icon>
+          <div class="flex gap-2 items-center w-full">
+            <p class="text-lg font-medium">Calificación de la Atención:</p>
+            <div class="flex items-center mt-1">
+              @for (star of stars; track star) {
+                <app-svg-icon
+                  [icon]="rating.score >= star ? 'starFill' : 'star'"
+                  class="text-yellow-400"
+                  size="20px"
+                ></app-svg-icon>
+              }
+              <span class="ml-2 font-semibold text-gray-600">({{rating.score}}/5)</span>
+            <!-- </div>
+            @if (rating.comment) {
+              <div class="w-full bg-gray-50 p-2 mt-2 rounded-md border">
+                <p class="text-base font-normal italic">"{{ rating.comment }}"</p>
+              </div>
+            }
+          </div> -->
+            </div>
+          </div>
+        </div>
+      }
     </div>
   </div>
 </div>

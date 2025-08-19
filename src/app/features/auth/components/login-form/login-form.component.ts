@@ -7,7 +7,6 @@ import {
   FormsModule,
 } from '@angular/forms';
 import { InputCustomComponent } from '../input-custom/input-custom.component';
-import { NgStyle } from '@angular/common';
 import { SvgIconComponent } from '../../../../shared/icons/svg-icon.component';
 import { RouterLink } from '@angular/router';
 import { AuthFacade } from '../../auth.facade';
@@ -19,7 +18,6 @@ import { AuthFacade } from '../../auth.facade';
     ReactiveFormsModule,
     FormsModule,
     InputCustomComponent,
-    NgStyle,
     SvgIconComponent,
 ],
   templateUrl: './login-form.component.html',

@@ -51,6 +51,7 @@
             [appointment]="appointment()!"
             (cancelAppointment)="handleCancelAppointment($event)"
             (completeAppointment)="handleCompleteAppointment($event)"
+            (rateAppointment)="handleRateAppointment($event)"
           ></app-appointment-actions>
         </div>
       } @else {

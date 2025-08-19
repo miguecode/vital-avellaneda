@@ -1,5 +1,5 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
-import { Appointment } from '../../../../core/models/appointment.model';
+import { AllowedScore, Appointment, Rating } from '../../../../core/models';
 import { DatePipe, TitleCasePipe } from '@angular/common';
 import { SvgIconComponent } from '../../../../shared/icons/svg-icon.component';
 
@@ -15,6 +15,8 @@ export class AppointmentInfoComponent implements OnChanges {
 
   appointmentData: { label: string; value: string; statusClass?: string }[] =
     [];
+  rating: Rating | null = null;
+  stars: AllowedScore[] = [1, 2, 3, 4, 5];
 
   constructor(private datePipe: DatePipe, private titleCase: TitleCasePipe) {}
 
@@ -73,9 +75,11 @@ export class AppointmentInfoComponent implements OnChanges {
           this.datePipe.transform(this.appointment.creationDate, 'y') || '',
     });
 
-    // if (this.appointment.rating) {
-    //   data.push({ label: 'Calificación', value: this.appointment.rating.comment! });
-    // }
+    if (this.appointment.rating) {
+      this.rating = this.appointment.rating;
+    } else {
+      this.rating = null;
+    }
 
     this.appointmentData = data;
   }

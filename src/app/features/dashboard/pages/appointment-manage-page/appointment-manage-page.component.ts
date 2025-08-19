@@ -13,12 +13,13 @@ import { SplashComponent } from '../../../../shared/components/splash/splash.com
 import { AppointmentInfoComponent } from '../../../appointments/components/appointment-info/appointment-info.component';
 import { AppointmentUserInfoComponent } from '../../../appointments/components/appointment-user-info/appointment-user-info.component';
 import { UserFacade } from '../../../auth/user.facade';
-import { Diagnosis, Patient, UserBase } from '../../../../core/models';
+import { Diagnosis, Patient, Rating, UserBase } from '../../../../core/models';
 import { SvgIconComponent } from '../../../../shared/icons/svg-icon.component';
 import { AppointmentActionsComponent } from '../../../appointments/components/appointment-actions/appointment-actions.component';
 import { CompleteAppointmentData } from '../../../appointments/components/complete-appointment-dialog/complete-appointment-dialog.component';
 import { AppointmentStatus, UserRoles } from '../../../../core/enums';
 import { NavigationService } from '../../../../shared/services/navigation/navigation.service';
+import { RateAppointmentData } from '../../../appointments/components/appointment-rate/appointment-rate.component';
 
 @Component({
   selector: 'app-appointment-manage-page',
@@ -163,6 +164,25 @@ export class AppointmentManagePageComponent implements OnInit {
       if (Object.keys(userUpdates).length > 0) {
         await this.userFacade.updateUser({ ...userUpdates, id: this.oppositeUser()?.id });
         await this.loadOppositeUser();
+      }
+    }
+  }
+
+  async handleRateAppointment(data: RateAppointmentData | null): Promise<void> {
+    if (data) {
+      const { score, comment } = data;
+      const rating: Rating = {
+        score,
+      };
+
+      if (comment && comment.trim() !== '') {
+        rating.comment = comment;
+      }
+      const appointmentId = this.appointment()?.id;
+      if (appointmentId) {
+        await this.appointmentFacade.updateAppointment(appointmentId, {
+          rating: rating,
+        });
       }
     }
   }

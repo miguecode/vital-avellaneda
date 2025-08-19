@@ -54,9 +54,9 @@ export class UserSubmenuComponent {
       action: () => this.handleAppointmentsClick(),
     },
     {
-      icon: 'configuration',
-      text: 'Configuración',
-      action: () => this.handleSettingsClick(),
+      icon: 'help',
+      text: 'Ayuda',
+      action: () => this.handleHelpClick(),
     },
   ];
 
@@ -111,7 +111,7 @@ export class UserSubmenuComponent {
     this.closeDropdown();
   }
 
-  private handleSettingsClick(): void {
+  private handleHelpClick(): void {
     this.closeDropdown();
   }
 

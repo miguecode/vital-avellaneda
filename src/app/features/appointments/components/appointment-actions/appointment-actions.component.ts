@@ -16,8 +16,9 @@ import {
 } from '../complete-appointment-dialog/complete-appointment-dialog.component';
 import { AppointmentStatus } from '../../../../core/enums';
 import { AppointmentInformDialogComponent } from '../appointment-inform-dialog/appointment-inform-dialog.component';
-import { Appointment } from '../../../../core/models';
+import { Appointment, Rating } from '../../../../core/models';
 import { Router } from '@angular/router';
+import { RateAppointmentComponent, RateAppointmentData } from '../appointment-rate/appointment-rate.component';
 
 @Component({
   selector: 'app-appointment-actions',
@@ -32,6 +33,7 @@ export class AppointmentActionsComponent {
   @Input({ required: true }) appointment!: Appointment;
   @Output() cancelAppointment = new EventEmitter<string>();
   @Output() completeAppointment = new EventEmitter<CompleteAppointmentData>();
+  @Output() rateAppointment = new EventEmitter<RateAppointmentData>();
 
   private dialogService = inject(DialogService);
   private datePipe = inject(DatePipe);
@@ -152,6 +154,20 @@ export class AppointmentActionsComponent {
     ]);
   };
 
+  rateAppointmentHandler = (): void => {
+    this.dialogService
+      .openGeneric<RateAppointmentComponent, RateAppointmentData>(RateAppointmentComponent, {
+        title: 'Calificar Atención',
+        message:
+          'Valoramos tu sinceridad. Esta información no será visible para el especialista.',
+      })
+      .subscribe((result) => {
+        if (result) {
+          this.rateAppointment.emit(result);
+        }
+      });
+  }
+
   get currentActions() {
     const { status } = this.appointment;
     const { userRoleToShow } = this;
@@ -172,6 +188,14 @@ export class AppointmentActionsComponent {
           icon: 'diagnosis',
         },
       ];
+
+      if (userRoleToShow === 'patient' && !this.appointment.rating) {
+        baseActions.push({
+          handler: this.rateAppointmentHandler,
+          label: 'Calificar Atención',
+          icon: 'star',
+        });
+      }
     } else if (status === AppointmentStatus.CANCELED) {
       baseActions = [
         {

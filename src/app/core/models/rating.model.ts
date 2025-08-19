@@ -3,4 +3,4 @@ export interface Rating {
   comment?: string;
 }
 
-type AllowedScore = 1 | 2 | 3 | 4 | 5;
+export type AllowedScore = 1 | 2 | 3 | 4 | 5;

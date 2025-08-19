@@ -1,0 +1,7 @@
+.star {
+  transition: transform 0.2s ease-in-out, color 0.2s ease-in-out;
+}
+
+.star:hover {
+  transform: scale(1.1);
+}

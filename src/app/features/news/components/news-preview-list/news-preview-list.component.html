@@ -3,7 +3,7 @@
     <!-- Title -->
     <div class="mb-5 px-4 sm:px-6 lg:px-8">
       <h2 class="text-4xl text-center font-bold tracking-tight text-va-primary">
-        {{ title }}
+        {{ title() }}
       </h2>
     </div>
 
@@ -52,7 +52,7 @@
             </p>
 
             <!-- Tags -->
-            @if (showTags) {
+            @if (showTags()) {
               <div class="mt-4 flex flex-wrap gap-2">
                 @for(tag of post.tags; track tag){
                 <span

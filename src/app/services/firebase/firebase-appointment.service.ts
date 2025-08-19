@@ -54,7 +54,7 @@ export class FirebaseAppointmentService implements AppointmentRepository {
       this.collectionName,
       appointment.id
     );
-    await updateDoc(appointmentRef, appointment);
+    await setDoc(appointmentRef, appointment, { merge: true });
   }
 
   private async getAppointmentsByField(
