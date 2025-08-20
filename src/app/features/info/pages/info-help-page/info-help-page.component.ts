@@ -17,7 +17,7 @@ export class InfoHelpPageComponent {
     {
       question: '¿Cómo solicito un nuevo turno?',
       answer:
-        'Para solicitar un nuevo turno, iniciá sesión como Paciente para acceder al Portal, y hacé clic en el botón "Solicitar Turno". Luego, seleccioná la especialidad, el profesional que prefieras y elegí el día y horario que más te convenga. ¡Así de fácil!',
+        'Primero, iniciá sesión como Paciente para acceder al Portal, y hacé clic en "Solicitar Nuevo Turno". Luego, seleccioná la especialidad, el profesional que prefieras y elegí el día y horario que más te convenga. ¡Así de fácil!',
     },
     {
       question: '¿Puedo ver mi historial de turnos?',

@@ -6,6 +6,7 @@ import {
   Output,
   computed,
   effect,
+  inject,
   signal,
 } from '@angular/core';
 import { Specialist, TimeInterval } from '../../../../core/models';
@@ -14,6 +15,8 @@ import {
   WEEKDAY_LABELS,
   WEEKDAYS_ORDERED,
 } from '../../../../core/constants/weekdays-map';
+import { AppointmentFacade } from '../../appointment.facade';
+import { AuthFacade } from '../../../auth/auth.facade';
 
 @Component({
   selector: 'app-appointment-date-selector',
@@ -26,6 +29,9 @@ export class AppointmentDateSelectorComponent {
   @Input({ required: true }) specialist!: Specialist | null;
   @Input() lastSelected: Date | null = null;
   @Output() dateTimeSelected = new EventEmitter<Date | null>();
+
+  private readonly appointmentFacade = inject(AppointmentFacade);
+  private readonly authFacade = inject(AuthFacade);
 
   readonly availableDays = signal<Date[]>([]);
   readonly availableTimes = signal<string[]>([]);
@@ -128,7 +134,7 @@ export class AppointmentDateSelectorComponent {
     }
   }
 
-  public onDaySelected(day: Date): void {
+  public async onDaySelected(day: Date): Promise<void> {
     // Compare by value (.getTime()) instead of reference (===) to be more robust.
     if (this.selectedDay()?.getTime() === day.getTime()) return;
 
@@ -142,7 +148,33 @@ export class AppointmentDateSelectorComponent {
 
     if (availabilityForDay) {
       const slots = this._generateTimeSlots(availabilityForDay.intervals);
-      this.availableTimes.set(slots);
+      
+      const patientId = this.authFacade.user()?.id;
+      if (!patientId) return;
+
+      const startDate = new Date(day);
+      startDate.setHours(0, 0, 0, 0);
+      const endDate = new Date(day);
+      endDate.setHours(23, 59, 59, 999);
+
+      const [specialistAppointments, patientAppointments] = await Promise.all([
+        this.appointmentFacade.getAppointmentsBySpecialistAndDateRange(this.specialist!.id, startDate, endDate),
+        this.appointmentFacade.getAppointmentsByPatientAndDateRange(patientId, startDate, endDate)
+      ]);
+
+      const bookedTimes = new Set([
+        ...specialistAppointments.map(a => a.date.getTime()),
+        ...patientAppointments.map(a => a.date.getTime())
+      ]);
+
+      const filteredSlots = slots.filter(slot => {
+        const [hours, minutes] = slot.split(':').map(Number);
+        const slotDate = new Date(day);
+        slotDate.setHours(hours, minutes);
+        return !bookedTimes.has(slotDate.getTime());
+      });
+
+      this.availableTimes.set(filteredSlots);
     } else {
       this.availableTimes.set([]);
     }

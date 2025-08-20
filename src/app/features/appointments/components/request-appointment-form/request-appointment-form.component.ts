@@ -43,6 +43,7 @@ export class RequestAppointmentFormComponent {
   readonly dialogService = inject(DialogService);
   readonly router = inject(Router);
   readonly formCompleted = signal<boolean>(false);
+  readonly waitingConfirmation = signal<boolean>(false);
 
   public steps: Step[] = [
     {
@@ -134,6 +135,8 @@ export class RequestAppointmentFormComponent {
       const dateTime = this.dateTimeSelected();
 
       if (!specialty || !specialist || !dateTime) return;
+
+      this.waitingConfirmation.set(true);
 
       const newAppointment = await this.appointmentFacade.createAppointment(
         specialty, specialist, dateTime

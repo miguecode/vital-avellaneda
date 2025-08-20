@@ -9,4 +9,6 @@ export interface AppointmentRepository {
   getForSpecialist(specialistId: string): Promise<Appointment[]>;
   getCompletedForPatient(patientId: string): Promise<Appointment[]>;
   getForSpecialistByStatuses(specialistId: string, statuses: AppointmentStatus[]): Promise<Appointment[]>;
+  getAppointmentsBySpecialistAndDateRange(specialistId: string, startDate: Date, endDate: Date): Promise<Appointment[]>;
+  getAppointmentsByPatientAndDateRange(patientId: string, startDate: Date, endDate: Date): Promise<Appointment[]>;
 }

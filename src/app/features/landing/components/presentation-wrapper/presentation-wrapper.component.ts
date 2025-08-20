@@ -1,9 +1,10 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { NgStyle } from '@angular/common';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-presentation-wrapper',
-  imports: [NgStyle],
+  imports: [NgStyle, RouterLink],
   templateUrl: './presentation-wrapper.component.html',
   styleUrl: './presentation-wrapper.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -22,5 +23,5 @@ export class PresentationWrapperComponent {
     'Atención 100% digital desde Avellaneda',
   ];
   anchorText: string = 'Conoce más';
-  anchorHref: string = '';
+  anchorLink: string = '/info/quienes-somos';
 }

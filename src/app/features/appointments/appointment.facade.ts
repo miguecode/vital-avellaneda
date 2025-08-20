@@ -182,4 +182,46 @@ export class AppointmentFacade {
       this._loading.set(false);
     }
   }
+
+  async getAppointmentsBySpecialistAndDateRange(
+    specialistId: string,
+    startDate: Date,
+    endDate: Date
+  ): Promise<Appointment[]> {
+    this._loading.set(true);
+    this._error.set(null);
+    try {
+      return await this.appointmentService.getAppointmentsBySpecialistAndDateRange(
+        specialistId,
+        startDate,
+        endDate
+      );
+    } catch (err: any) {
+      this._error.set(err.message || 'Error al obtener los turnos del especialista');
+      return [];
+    } finally {
+      this._loading.set(false);
+    }
+  }
+
+  async getAppointmentsByPatientAndDateRange(
+    patientId: string,
+    startDate: Date,
+    endDate: Date
+  ): Promise<Appointment[]> {
+    this._loading.set(true);
+    this._error.set(null);
+    try {
+      return await this.appointmentService.getAppointmentsByPatientAndDateRange(
+        patientId,
+        startDate,
+        endDate
+      );
+    } catch (err: any) {
+      this._error.set(err.message || 'Error al obtener los turnos del paciente');
+      return [];
+    } finally {
+      this._loading.set(false);
+    }
+  }
 }

@@ -124,4 +124,44 @@ export class FirebaseAppointmentService implements AppointmentRepository {
       } as Appointment;
     });
   }
+
+  async getAppointmentsBySpecialistAndDateRange(specialistId: string, startDate: Date, endDate: Date): Promise<Appointment[]> {
+    const appointmentsCol = collection(this.firestore, this.collectionName);
+    const q = query(
+      appointmentsCol,
+      where('specialistId', '==', specialistId),
+      where('date', '>=', startDate),
+      where('date', '<=', endDate)
+    );
+    const snapshot = await getDocs(q);
+
+    return snapshot.docs.map((doc) => {
+      const data = doc.data();
+      return {
+        ...data,
+        date: data['date']?.toDate() || null,
+        creationDate: data['creationDate']?.toDate() || null,
+      } as Appointment;
+    });
+  }
+
+  async getAppointmentsByPatientAndDateRange(patientId: string, startDate: Date, endDate: Date): Promise<Appointment[]> {
+    const appointmentsCol = collection(this.firestore, this.collectionName);
+    const q = query(
+      appointmentsCol,
+      where('patientId', '==', patientId),
+      where('date', '>=', startDate),
+      where('date', '<=', endDate)
+    );
+    const snapshot = await getDocs(q);
+
+    return snapshot.docs.map((doc) => {
+      const data = doc.data();
+      return {
+        ...data,
+        date: data['date']?.toDate() || null,
+        creationDate: data['creationDate']?.toDate() || null,
+      } as Appointment;
+    });
+  }
 }
