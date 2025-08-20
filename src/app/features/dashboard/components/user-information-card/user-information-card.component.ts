@@ -3,8 +3,14 @@ import {
   Component,
   inject,
   Signal,
+  computed,
 } from '@angular/core';
-import { Patient, Specialist, Specialty, UserBase } from '../../../../core/models';
+import {
+  Patient,
+  Specialist,
+  Specialty,
+  UserBase,
+} from '../../../../core/models';
 import { AuthFacade } from '../../../auth/auth.facade';
 import { SvgIconComponent } from '../../../../shared/icons/svg-icon.component';
 import {
@@ -17,6 +23,7 @@ import {
 } from '../../../../core/enums/enum-labels';
 import { AVAILABILITY_PRESETS_LABELS } from '../../../../core/constants/availability-presets';
 import { RouterLink } from '@angular/router';
+import { CloudinaryService } from '../../../../services/cloudinary/cloudinary.service';
 
 @Component({
   selector: 'app-user-information-card',
@@ -27,7 +34,22 @@ import { RouterLink } from '@angular/router';
 })
 export class UserInformationCardComponent {
   private readonly authFacade = inject(AuthFacade);
+  private readonly cloudinaryService = inject(CloudinaryService);
   readonly user: Signal<UserBase | null> = this.authFacade.user;
+
+  readonly defaultProfilePictureUrl =
+    this.cloudinaryService.defaultProfilePictureUrl;
+
+  readonly profilePictureUrl = computed(() => {
+    const user = this.user();
+    if (user && user.profilePictureUrl) {
+      return this.cloudinaryService.getTransformedUrl(
+        user.profilePictureUrl,
+        'w_150,h_150,c_fill,g_face,f_webp'
+      );
+    }
+    return this.defaultProfilePictureUrl;
+  });
 
   get roleLabel(): string {
     const role = this.user()?.role;
@@ -50,7 +72,10 @@ export class UserInformationCardComponent {
       { label: 'DNI', value: this.formatDni(user.dni) },
       { label: 'Correo', value: user.email || 'Desconocido' },
       { label: 'Teléfono', value: user.phone || 'Sin especificar' },
-      { label: 'Fecha de registro', value: this.formatDate(user.registrationDate) },
+      {
+        label: 'Fecha de registro',
+        value: this.formatDate(user.registrationDate),
+      },
     ];
   }
 
@@ -81,7 +106,7 @@ export class UserInformationCardComponent {
         // { label: 'Especificaciones', value: patient.description || '' },
       ];
 
-    // Specialist data
+      // Specialist data
     } else if (user?.role === 'specialist') {
       const specialist = user as Specialist;
       return [
@@ -91,15 +116,11 @@ export class UserInformationCardComponent {
         },
         {
           label: 'Disponibilidad',
-          value: AVAILABILITY_PRESETS_LABELS.get(specialist.availabilityName) ?? specialist.availabilityName,
+          value:
+            AVAILABILITY_PRESETS_LABELS.get(specialist.availabilityName) ??
+            specialist.availabilityName,
         },
-          /*
-        {
-          label: 'Turnos completados',
-          value: '',
-        }
-          */
-      ]
+      ];
     }
 
     return [];
@@ -122,9 +143,9 @@ export class UserInformationCardComponent {
     if (!date) return 'Desconocido';
     let d: Date;
     if (typeof date === 'object' && typeof date.toDate === 'function') {
-        d = date.toDate();
+      d = date.toDate();
     } else {
-        d = new Date(date);
+      d = new Date(date);
     }
     if (isNaN(d.getTime())) return 'Desconocido';
     const day = String(d.getDate()).padStart(2, '0');
@@ -137,7 +158,10 @@ export class UserInformationCardComponent {
   private formatAge(birthDate: any): string {
     if (!birthDate) return 'Desconocido';
     let d: Date;
-    if (typeof birthDate === 'object' && typeof birthDate.toDate === 'function') {
+    if (
+      typeof birthDate === 'object' &&
+      typeof birthDate.toDate === 'function'
+    ) {
       d = birthDate.toDate();
     } else {
       d = new Date(birthDate);

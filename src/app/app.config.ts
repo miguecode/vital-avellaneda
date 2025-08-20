@@ -19,6 +19,7 @@ import {
   withEventReplay,
   withIncrementalHydration,
 } from '@angular/platform-browser';
+import { provideHttpClient } from '@angular/common/http';
 
 // Language Configuration
 import { registerLocaleData } from '@angular/common';
@@ -55,6 +56,7 @@ export const appConfig: ApplicationConfig = {
     provideZonelessChangeDetection(),
     provideRouter(routes),
     provideClientHydration(withIncrementalHydration(), withEventReplay()),
+    provideHttpClient(),
 
     // Firebase configuration and services
     provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),

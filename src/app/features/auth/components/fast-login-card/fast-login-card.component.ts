@@ -4,16 +4,16 @@ import {
   inject,
   signal,
 } from '@angular/core';
-import { SvgIconComponent } from '../../../../shared/icons/svg-icon.component';
 import { FirebaseUserService } from '../../../../services/firebase/firebase-user.service';
 import { AuthFacade } from '../../auth.facade';
 import { UserBase } from '../../../../core/models';
 import { MockUserCacheService } from '../../services/mock-user-cache.service';
 import { MOCK_USERS } from '../../mocks/mock-users';
+import { CloudinaryService } from '../../../../services/cloudinary/cloudinary.service';
 
 @Component({
   selector: 'app-fast-login-card',
-  imports: [SvgIconComponent],
+  imports: [],
   templateUrl: './fast-login-card.component.html',
   styleUrl: './fast-login-card.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -22,8 +22,12 @@ export class FastLoginCardComponent {
   private userService = inject(FirebaseUserService);
   private cache = inject(MockUserCacheService);
   authFacade = inject(AuthFacade);
+  private readonly cloudinaryService = inject(CloudinaryService);
+
   users = signal<(UserBase & { password: string })[]>([]);
   showUsers = signal(false);
+
+  readonly defaultProfilePictureUrl = this.cloudinaryService.defaultProfilePictureUrl;
 
   constructor() {
     if (this.cache.loaded()) {
@@ -55,5 +59,12 @@ export class FastLoginCardComponent {
       Password: user.password,
     });
     await this.authFacade.login(user.email, user.password);
+  }
+
+  getProfilePictureUrl(user: UserBase): string {
+    if (user && user.profilePictureUrl) {
+      return this.cloudinaryService.getTransformedUrl(user.profilePictureUrl, 'w_60,h_60,c_fill,g_face,f_webp');
+    }
+    return this.defaultProfilePictureUrl;
   }
 }

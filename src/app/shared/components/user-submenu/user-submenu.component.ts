@@ -5,6 +5,7 @@ import {
   signal,
   HostListener,
   ElementRef,
+  computed,
 } from '@angular/core';
 import { AuthFacade } from '../../../features/auth/auth.facade';
 import { SvgIconComponent } from '../../icons/svg-icon.component';
@@ -13,6 +14,7 @@ import { ICON_PATHS } from '../../icons/icon-paths';
 import { Router } from '@angular/router';
 import { DialogService } from '../../services/dialog/dialog.service';
 import { DialogComponent } from '../dialog/dialog.component';
+import { CloudinaryService } from '../../../services/cloudinary/cloudinary.service';
 
 interface MenuItem {
   icon: keyof typeof ICON_PATHS;
@@ -32,10 +34,25 @@ export class UserSubmenuComponent {
   private elementRef = inject(ElementRef);
   private router = inject(Router);
   readonly dialogService = inject(DialogService);
+  private readonly cloudinaryService = inject(CloudinaryService);
 
   readonly user = this.authFacade.user;
   readonly name = this.user()?.firstName;
   readonly role = this.user()?.role === R.PATIENT ? 'Paciente' : 'Especialista';
+
+  readonly defaultProfilePictureUrl =
+    this.cloudinaryService.defaultProfilePictureUrl;
+
+  readonly profilePictureUrl = computed(() => {
+    const user = this.user();
+    if (user && user.profilePictureUrl) {
+      return this.cloudinaryService.getTransformedUrl(
+        user.profilePictureUrl,
+        'w_40,h_40,c_fill,g_face,f_webp'
+      );
+    }
+    return this.defaultProfilePictureUrl;
+  });
 
   // Signal to control the dropdown state
   readonly isDropdownOpen = signal(false);
@@ -120,10 +137,10 @@ export class UserSubmenuComponent {
     await this.closeDropdown();
 
     // setTimeout(() => {
-      this.dialogService.openGeneric<DialogComponent, boolean>(DialogComponent, {
+    this.dialogService
+      .openGeneric<DialogComponent, boolean>(DialogComponent, {
         title: 'Cerrar Sesión',
-        message:
-          '¿Seguro de salir de tu cuenta?',
+        message: '¿Seguro de salir de tu cuenta?',
         confirmText: 'Cerrar Sesión',
         confirmTextColor: 'text-red-secondary',
         confirmTextBgColor: 'bg-red-primary',
@@ -133,7 +150,8 @@ export class UserSubmenuComponent {
         icon: 'logout',
         iconColor: 'text-red-secondary',
         iconBgColor: 'bg-red-primary',
-      }).subscribe(async (result) => {
+      })
+      .subscribe(async (result) => {
         if (result) {
           await this.authFacade.logout();
           this.router.navigate(['/auth/login']);

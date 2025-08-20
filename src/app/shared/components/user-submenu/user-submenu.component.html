@@ -1,6 +1,6 @@
 <div class="relative">
   <button class="user-submenu-button cursor-pointer flex flex-wrap justify-center items-center
-     rounded-full gap-1 px-4 py-2 min-w-48
+     rounded-full gap-2 px-4 py-2 min-w-48
      bg-va-third/60 text-va-white font-medium
       hover:bg-va-third active:bg-va-third/80 focus:bg-va-third
         transition duration-300"
@@ -14,8 +14,8 @@
       p-3 flex flex-col shadow user-submenu-dropdown border border-va-fourth"
       [class.open]="isDropdownOpen()">
       <div class="flex flex-wrap gap-4 justify-start items-center w-full">
-        <div class="size-8 text-va-fifth">
-          <app-svg-icon icon="user" size="34px"></app-svg-icon>
+        <div class="size-12 text-va-fifth rounded-full overflow-hidden outline outline-va-fifth">
+          <img [src]="profilePictureUrl()" alt="Profile Picture" class="w-full h-full object-cover">
         </div>
         <div class="flex flex-col">
           <span class="font-semibold text-va-primary">{{ name }}</span>
