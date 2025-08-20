@@ -1,10 +1,10 @@
 <div
   class="inter-font special-glow flex flex-wrap justify-between items-center pr-16
   py-4 w-full min-h-48 rounded-4xl relative overflow-hidden
-  backdrop-blur-xl shadow-md"
+  backdrop-blur-xl shadow-md outline outline-blue-600"
   style="
-    background: radial-gradient(circle at 80% 20%, #311231 0%, transparent 40%),
-      radial-gradient(circle at 20% 80%, #311231 0%, transparent 70%),
+    background: radial-gradient(circle at 80% 20%, #121931 0%, transparent 40%),
+      radial-gradient(circle at 20% 80%, #151d41 0%, transparent 70%),
       linear-gradient(135deg, #000000 20%, #000000 100%),
       linear-gradient(135deg, #000000 0%, #000000 100%);
   "
@@ -31,12 +31,12 @@
             id="ffflux-gradient"
           >
             <stop
-              stop-color="hsl(315, 48%, 74%)"
+              stop-color="oklch(78.9% 0.154 211.53)"
               stop-opacity="1"
               offset="0%"
             ></stop>
             <stop
-              stop-color="oklch(57.7% 0.245 27.325)"
+              stop-color="oklch(54.6% 0.245 262.881)"
               stop-opacity="1"
               offset="100%"
             ></stop>
@@ -95,7 +95,7 @@
     <!-- Title and Description -->
     <div
       class="flex flex-col justify-center ml-7
-      bg-gradient-to-br from-red-600 to-50% to-fuchsia-300
+      bg-gradient-to-br from-blue-600 to-60% to-cyan-400
       to bg-clip-text text-transparent h-full"
     >
       <h3 class="text-3xl font-bold tracking-tight">Ingresos Rápidos</h3>
@@ -116,25 +116,25 @@
         (click)="fastLogin(user)"
         [disabled]="authFacade.isLoading()"
         class="cursor-pointer flex justify-center items-center
-        rounded-4xl h-full px-5 py-2
-      bg-maroon-primary hover:bg-maroon-secondary transition duration-300
-      active:hover:bg-maroon-secondary/70
+        rounded-2xl h-full px-5 py-2 outline outline-blue-400/40
+      bg-gray-900 hover:bg-gray-800 transition duration-300
+        active:hover:bg-gray-700 hover:scale-105 active:scale-100
         disabled:cursor-default disabled:bg-white/10">
         <div class="flex flex-col justify-center items-center
-        bg-gradient-to-br from-red-400 to-70% to-red-300
+        bg-gradient-to-br from-blue-600 to-60% to-cyan-200
         to bg-clip-text text-transparent">
-          <app-svg-icon class="text-red-200" [icon]="user.role === 'patient' ? 'patient' : 'specialist'"  size="75px"></app-svg-icon>
+          <app-svg-icon class="text-blue-100" [icon]="user.role === 'patient' ? 'patient' : 'specialist'"  size="75px"></app-svg-icon>
           <span class="mt-1 font-medium text-lg">{{ user.firstName }}</span>
-          <span class="text-sm">{{ user.role === 'patient' ? 'Paciente' : 'Especialista' }}</span>
+          <span class="text-sm font-medium">{{ user.role === 'patient' ? 'Paciente' : 'Especialista' }}</span>
         </div>
       </button>
       }
     } @else {
       @for (i of [0,1,2,3]; track i) {
         <div class="flex flex-col items-center rounded-4xl h-full px-5 py-4 bg-black/20">
-          <div class="rounded-full bg-maroon-primary w-16 h-16 mt-2 mb-2 animate-pulse"></div>
-          <div class="h-4 w-20 bg-maroon-primary rounded mb-1"></div>
-          <div class="h-3 w-16 bg-maroon-primary rounded"></div>
+          <div class="rounded-full bg-gray-900 w-16 h-16 mt-2 mb-2 animate-pulse"></div>
+          <div class="h-4 w-20 bg-gray-900 rounded mb-1"></div>
+          <div class="h-3 w-16 bg-gray-900 rounded"></div>
         </div>
       }
     }
