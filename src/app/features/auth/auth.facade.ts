@@ -192,7 +192,6 @@ export class AuthFacade {
         this.router.navigate(['/dashboard/specialist']);
         break;
       case UserRoles.ADMIN:
-        // For now, redirecting to specialist dashboard as fallback
         this.router.navigate(['/dashboard/specialist']);
         break;
       default:

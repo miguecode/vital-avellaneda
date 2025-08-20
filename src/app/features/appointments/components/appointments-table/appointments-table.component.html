@@ -104,9 +104,11 @@
         }
       </div>
 
+      <span class="ml-4 font-medium">Turnos totales: {{ appointments().length }}</span>
+
       <!-- Pagination -->
       @if (pages().length) {
-        <div class="flex justify-center items-center mt-6 gap-2">
+        <div class="flex justify-center items-center mt-2 mb-2 gap-2">
           
           <!-- Previous Button -->
           <button
