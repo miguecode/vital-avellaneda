@@ -2,7 +2,7 @@
 gap-4 py-2 rounded shadow max-h-86 h-78 overflow-x-auto">
   <div class="flex flex-col w-full px-10">
     <h4 class="text-xl font-semibold mb-2">Fechas disponibles</h4>
-    @if (availableDays().length > 0) {
+      @if (availableDays().length > 0) {
       <div class="flex flex-wrap gap-4 w-full">
         @for (day of availableDays(); track day) {
           <button
@@ -28,7 +28,18 @@ gap-4 py-2 rounded shadow max-h-86 h-78 overflow-x-auto">
     @if (selectedDay()) {
       <div class="mt-5">
         <h4 class="text-xl font-semibold mb-2">Horarios disponibles</h4>
-        @if (availableTimes().length > 0) {
+        @if (isLoading()) {
+          <div class="flex gap-3 mt-5 ml-5 justify-start items-center w-full
+           rounded-4xl overflow-hidden text-center">
+            <div 
+              class="animate-spin inline-block size-5 border-3 text-center
+              border-t-transparent text-va-third rounded-full" 
+              role="status" 
+              aria-label="loading">
+            </div>
+            <span class="text-center font-medium text-xl">Cargando horarios...</span>
+          </div>
+        } @else if (availableTimes().length > 0) {
           <div class="flex flex-wrap gap-4 w-full">
             @for (time of availableTimes(); track time) {
               <button

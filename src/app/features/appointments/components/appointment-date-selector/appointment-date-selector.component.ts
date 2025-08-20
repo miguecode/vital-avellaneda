@@ -37,6 +37,7 @@ export class AppointmentDateSelectorComponent {
   readonly availableTimes = signal<string[]>([]);
   readonly selectedDay = signal<Date | null>(null);
   readonly selectedTime = signal<string | null>(null);
+  readonly isLoading = signal(false); // New loading signal
 
   readonly isDateSelected = computed<boolean>(
     () => !!this.selectedDay() && !!this.selectedTime()
@@ -140,6 +141,7 @@ export class AppointmentDateSelectorComponent {
 
     this.selectedDay.set(day);
     this.selectedTime.set(null);
+    this.isLoading.set(true); // Set loading to true
 
     const dayName = WEEKDAYS_ORDERED[day.getDay()];
     const availabilityForDay = this.specialist?.availability.find(
@@ -150,7 +152,10 @@ export class AppointmentDateSelectorComponent {
       const slots = this._generateTimeSlots(availabilityForDay.intervals);
       
       const patientId = this.authFacade.user()?.id;
-      if (!patientId) return;
+      if (!patientId) {
+        this.isLoading.set(false); // Set loading to false
+        return;
+      }
 
       const startDate = new Date(day);
       startDate.setHours(0, 0, 0, 0);
@@ -178,6 +183,7 @@ export class AppointmentDateSelectorComponent {
     } else {
       this.availableTimes.set([]);
     }
+    this.isLoading.set(false); // Set loading to false
   }
 
   public onTimeSelected(time: string): void {
@@ -219,6 +225,10 @@ export class AppointmentDateSelectorComponent {
         if (currentMinute >= 60) {
           currentHour += Math.floor(currentMinute / 60);
           currentMinute %= 60;
+        }
+        // Ensure we don't go past the end time
+        if (currentHour > endHour || (currentHour === endHour && currentMinute > endMinute)) {
+          break;
         }
       }
     }
