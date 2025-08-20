@@ -11,7 +11,7 @@ import { InformationWrapperComponent } from "../../../landing/components/informa
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class InfoHelpPageComponent {
-  openFaqItem: number | null = 0;
+  openFaqItem: number | null = null;
 
   faqItems = [
     {
