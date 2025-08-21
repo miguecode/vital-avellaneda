@@ -1,38 +1,9 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  computed,
-  inject,
-  Signal,
-  signal,
-  WritableSignal,
-  effect,
-} from '@angular/core';
-import {
-  FormBuilder,
-  FormGroup,
-  Validators,
-  ReactiveFormsModule,
-  FormsModule,
-} from '@angular/forms';
+import { ChangeDetectionStrategy, Component, computed, effect, inject, Signal, signal, WritableSignal, } from '@angular/core';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators, } from '@angular/forms';
 import { Specialty } from '../../../../core/models';
-import {
-  UserRoles as R,
-  UserStatus,
-  HealthInsurances,
-  Sex,
-  BloodTypes,
-} from '../../../../core/enums';
-import {
-  BLOOD_TYPE_LABELS,
-  SEX_LABELS,
-  HEALTH_INSURANCE_LABELS,
-} from '../../../../core/enums/enum-labels';
-import {
-  AVAILABILITY_PRESETS,
-  AVAILABILITY_PRESETS_LABELS,
-  AVAILABILITY_PRESETS_OPTIONS,
-} from '../../../../core/constants/availability-presets';
+import { BloodTypes, HealthInsurances, Sex, UserRoles as R, UserStatus, } from '../../../../core/enums';
+import { BLOOD_TYPE_LABELS, HEALTH_INSURANCE_LABELS, SEX_LABELS, } from '../../../../core/enums/enum-labels';
+import { AVAILABILITY_PRESETS, AVAILABILITY_PRESETS_LABELS, AVAILABILITY_PRESETS_OPTIONS, } from '../../../../core/constants/availability-presets';
 
 import { InputCustomComponent } from '../input-custom/input-custom.component';
 import { SelectCustomComponent } from '../select-custom/select-custom.component';
@@ -43,6 +14,7 @@ import { UserFacade } from '../../user.facade';
 import { SvgIconComponent } from '../../../../shared/icons/svg-icon.component';
 import { RouterLink } from '@angular/router';
 import { Timestamp } from 'firebase/firestore';
+import { CloudinaryService } from "../../../../services/cloudinary/cloudinary.service";
 
 // User mode to toggle forms
 type UserMode = R.PATIENT | R.SPECIALIST;
@@ -66,6 +38,13 @@ type UserMode = R.PATIENT | R.SPECIALIST;
 export class RegisterFormComponent {
   private readonly authFacade = inject(AuthFacade);
   private readonly userFacade = inject(UserFacade);
+  private readonly cloudinaryService = inject(CloudinaryService);
+
+  // Profile picture
+  readonly profilePictureUrl: WritableSignal<string> = signal(
+    this.cloudinaryService.defaultProfilePictureUrl
+  );
+  readonly selectedFile: WritableSignal<File | null> = signal(null);
 
   // Options and Labels for enums properties
   readonly bloodTypeOptions = Object.values(BloodTypes);
@@ -108,6 +87,9 @@ export class RegisterFormComponent {
     }
   });
 
+  // Flag for 'onSubmit' function started
+  readonly onSubmitStarted = signal(false);
+
   // Signal to known if the current mode is specialist or not
   readonly isSpecialist: Signal<boolean> = computed(
     () => this.userMode() === R.SPECIALIST
@@ -141,6 +123,7 @@ export class RegisterFormComponent {
       password: ['', [Validators.required, CustomValidators.password(8, 50)]],
       birthDate: ['', [Validators.required, CustomValidators.age(18, 150)]],
       phone: ['', CustomValidators.phoneOptional(8, 15)],
+      profilePicture: [null],
 
       // Patient properties
       healthInsurance: ['', Validators.required],
@@ -224,6 +207,7 @@ export class RegisterFormComponent {
   async onSubmit(): Promise<void> {
     if (this.form.invalid) return;
 
+    this.onSubmitStarted.set(true);
     const formData = this.form.value;
     const email = formData.email;
     const password = formData.password;
@@ -246,6 +230,14 @@ export class RegisterFormComponent {
         return;
       }
 
+      // 2. Upload profile picture if selected
+      let profilePictureUrl = this.cloudinaryService.defaultProfilePictureUrl;
+      if (this.selectedFile()) {
+        profilePictureUrl = await this.cloudinaryService.uploadImage(
+          this.selectedFile()!
+        );
+      }
+
       const submitData = this.isSpecialist()
         ? {
             ...this.getSpecialistData(formData),
@@ -253,6 +245,7 @@ export class RegisterFormComponent {
             role: R.SPECIALIST,
             registrationDate: Timestamp.now(),
             status: UserStatus.ACTIVE,
+            profilePictureUrl,
           }
         : {
             ...this.getPatientData(formData),
@@ -260,19 +253,20 @@ export class RegisterFormComponent {
             role: R.PATIENT,
             registrationDate: Timestamp.now(),
             status: UserStatus.ACTIVE,
+            profilePictureUrl,
           };
       delete submitData.password;
 
       console.log('Form values:', formData);
       console.log('Data to submit:', submitData);
 
-      // 2. Submit the user data to Firestore
+      // 3. Submit the user data to Firestore
       await this.userFacade.createUser(submitData);
 
-      // 3. Set _user private signal in authFacade
+      // 4. Set _user private signal in authFacade
       this.authFacade.setUser(submitData);
 
-      // 4. Redirect to dashboard by role
+      // 5. Redirect to dashboard by role
       this.authFacade.redirectUserByRole(submitData);
     } catch (error) {
       console.error('Register error', error);
@@ -299,6 +293,7 @@ export class RegisterFormComponent {
       bloodType,
       height,
       weight,
+      profilePicture,
       ...rest
     } = formData;
 
@@ -348,6 +343,7 @@ export class RegisterFormComponent {
       // Specialist fields (not included in the return)
       specialties,
       availability,
+      profilePicture,
       ...rest
     } = formData;
 
@@ -366,6 +362,17 @@ export class RegisterFormComponent {
       // Other fields (not specialist)
       ...rest,
     };
+  }
+
+  // Handle file selection
+  onFileSelected(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files[0]) {
+      const file = input.files[0];
+      this.selectedFile.set(file);
+      this.profilePictureUrl.set(URL.createObjectURL(file));
+      this.form.patchValue({ profilePicture: file });
+    }
   }
 
   // Specialty Modal
