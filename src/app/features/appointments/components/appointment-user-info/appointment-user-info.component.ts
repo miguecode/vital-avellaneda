@@ -2,6 +2,7 @@ import {
   ChangeDetectionStrategy,
   Component,
   computed,
+  inject,
   Input,
   OnInit,
   signal,
@@ -21,6 +22,7 @@ import {
   STATUS_LABELS,
 } from '../../../../core/enums/enum-labels';
 import { AVAILABILITY_PRESETS_LABELS } from '../../../../core/constants/availability-presets';
+import { CloudinaryService } from '../../../../services/cloudinary/cloudinary.service';
 
 @Component({
   selector: 'app-appointment-user-info',
@@ -35,6 +37,10 @@ export class AppointmentUserInfoComponent implements OnInit {
 
   readonly minTimePassed = signal(false);
   readonly showContent = computed(() => this.minTimePassed() && !!this.user);
+
+  private readonly cloudinaryService = inject(CloudinaryService);
+  readonly defaultProfilePictureUrl =
+    this.cloudinaryService.defaultProfilePictureUrl;
 
   ngOnInit(): void {
     setTimeout(() => {
@@ -140,4 +146,14 @@ export class AppointmentUserInfoComponent implements OnInit {
     }
     return `${age} años`;
   }
+
+  readonly profilePictureUrl = computed(() => {
+    if (this.user && this.user.profilePictureUrl) {
+      return this.cloudinaryService.getTransformedUrl(
+        this.user.profilePictureUrl,
+        'w_40,h_40,c_fill,g_face,f_webp'
+      );
+    }
+    return this.defaultProfilePictureUrl;
+  });
 }

@@ -115,15 +115,20 @@
         (click)="fastLogin(user)"
         [disabled]="authFacade.isLoading()"
         class="cursor-pointer flex justify-center items-center
-        rounded-2xl h-full px-5 py-2 outline outline-blue-400/40
-      bg-gray-900 hover:bg-gray-800 transition duration-300
-        active:hover:bg-gray-700 hover:scale-105 active:scale-100
+        rounded-2xl h-full px-2 py-4 outline outline-blue-400/40 w-30
+      bg-gray-900 not-disabled:hover:bg-gray-800 transition duration-300
+        not-disabled:active:bg-gray-700 not-disabled:hover:scale-105 not-disabled:active:scale-100
         disabled:cursor-default disabled:bg-white/10">
-        <div class="flex flex-col justify-center items-center
+        <div 
+        class="flex flex-col justify-center items-center
         bg-gradient-to-br from-blue-600 to-60% to-cyan-200
         to bg-clip-text text-transparent">
           <div class="outline outline-blue-400/50 rounded-full">
-            <img [src]="getProfilePictureUrl(user)" alt="Profile Picture" class="size-16 rounded-full object-cover">
+            @defer (when getProfilePictureUrl(user)) {
+              <img [src]="getProfilePictureUrl(user)" alt="Profile Picture" class="size-16 rounded-full object-cover">
+            } @loading {
+              <div class="size-16 rounded-full bg-gray-900 animate-pulse"></div>
+            }
           </div>
           <span class="mt-1 font-medium text-lg">{{ user.firstName }}</span>
           <span class="text-sm font-medium">{{ user.role === 'patient' ? 'Paciente' : 'Especialista' }}</span>

@@ -1,10 +1,23 @@
 <div class="flex flex-col w-full">
   <!-- Title -->
-  <div class="mt-6 ml-5 flex gap-2 justify-start items-center text-va-primary">
-    <app-svg-icon
-      [icon]="userRoleToShow === 'patient' ? 'patient' : 'specialist'"
-      size="32px"
-    ></app-svg-icon>
+  <div class="mt-6 ml-5 flex gap-2 justify-start items-center text-va-primary mb-1">
+      <div class="size-12 text-va-fifth rounded-full overflow-hidden outline outline-va-fifth bg-va-fifth">
+      @defer (when showContent()) {
+        <img [src]="profilePictureUrl()" alt="Profile Picture" class="w-full h-full object-cover">
+      } 
+      @loading {
+        <div class="size-12 rounded-full bg-va-third
+        flex justify-center items-center">
+          <app-svg-icon icon="user" size="32px" class="text-lightblue-secondary"></app-svg-icon>
+        </div>
+      }
+      @placeholder {
+        <div class="size-12 rounded-full bg-va-third
+        flex justify-center items-center">
+          <app-svg-icon icon="user" size="32px" class="text-lightblue-secondary"></app-svg-icon>
+        </div>
+      }
+    </div>
     <h3 class="text-2xl font-semibold">
       {{
         userRoleToShow === "patient"

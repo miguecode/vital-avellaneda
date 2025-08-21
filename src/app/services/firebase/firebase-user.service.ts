@@ -19,7 +19,7 @@ export class FirebaseUserService implements UserRepository {
   private firestore = inject(Firestore);
 
   async createUser(user: Patient | Specialist): Promise<void> {
-    const defaultProfilePictureUrl = 'https://res.cloudinary.com/dtzcxvzbg/image/upload/v1755677979/default-profile_zvi2wq.jpg';
+    const defaultProfilePictureUrl = 'https://res.cloudinary.com/dtzcxvzbg/image/upload/v1755716006/default-profile_sg8xdb.png';
 
     const userWithProfilePicture: Patient | Specialist = {
       ...user,

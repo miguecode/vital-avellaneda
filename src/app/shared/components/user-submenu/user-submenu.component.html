@@ -15,7 +15,11 @@
       [class.open]="isDropdownOpen()">
       <div class="flex flex-wrap gap-4 justify-start items-center w-full">
         <div class="size-12 text-va-fifth rounded-full overflow-hidden outline outline-va-fifth">
-          <img [src]="profilePictureUrl()" alt="Profile Picture" class="w-full h-full object-cover">
+          @defer (when profilePictureUrl()) {
+            <img [src]="profilePictureUrl()" alt="Profile Picture" class="w-full h-full object-cover">
+          } @placeholder {
+            <div class="size-12 rounded-full bg-lightblue-secondary animate-pulse"></div>
+          }
         </div>
         <div class="flex flex-col">
           <span class="font-semibold text-va-primary">{{ name }}</span>

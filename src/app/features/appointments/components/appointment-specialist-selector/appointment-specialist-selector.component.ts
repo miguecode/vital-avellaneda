@@ -15,6 +15,7 @@ import { SvgIconComponent } from '../../../../shared/icons/svg-icon.component';
 import { UserFacade } from '../../../auth/user.facade';
 import { SEX_LABELS } from '../../../../core/enums/enum-labels';
 import { AVAILABILITY_PRESETS_LABELS } from '../../../../core/constants/availability-presets';
+import { CloudinaryService } from '../../../../services/cloudinary/cloudinary.service';
 
 @Component({
   selector: 'app-appointment-specialist-selector',
@@ -28,6 +29,9 @@ export class AppointmentSpecialistSelectorComponent implements OnInit {
   @Input() lastSelected: Specialist | null = null;
   @Input() preSpecialists: Specialist[] | null = null 
   @Output() specialistEmitted = new EventEmitter<Specialist | null>();
+  
+  private cloudinaryService = inject(CloudinaryService);
+  readonly defaultProfilePictureUrl = this.cloudinaryService.defaultProfilePictureUrl;
 
   private readonly userFacade = inject(UserFacade);
   readonly specialists: Signal<Specialist[]> = this.userFacade.users as Signal<
@@ -69,4 +73,14 @@ export class AppointmentSpecialistSelectorComponent implements OnInit {
     const current = this.selectedSpecialist();
     return current ? current.id === specialist.id : false;
   }
+
+  getProfilePictureUrl = (specialist: Specialist) => {
+    if (specialist && specialist.profilePictureUrl) {
+      return this.cloudinaryService.getTransformedUrl(
+        specialist.profilePictureUrl,
+        'w_150,h_150,c_fill,g_face,f_webp'
+      );
+    }
+    return this.defaultProfilePictureUrl;
+  };
 }

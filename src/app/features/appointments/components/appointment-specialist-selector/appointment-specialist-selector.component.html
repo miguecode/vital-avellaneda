@@ -7,13 +7,20 @@ gap-4 py-5 rounded shadow max-h-86 h-78 overflow-x-auto">
         [class.selected]="isSelected(specialist)"
         class="select-none cursor-pointer flex flex-col items-center
         justify-start p-3 min-w-56 min-h-56 h-64 rounded-lg overflow-hidden
-        bg-lightblue-secondary/30 text-va-primary
-        transition-colors outline outline-lightblue-primary">
+        bg-lightblue-secondary/30 text-va-primary hover:text-va-fifth
+        transition outline outline-lightblue-primary hover:outline-lightblue-third">
         
         <!-- Profile Icon -->
-        <div class="w-20 h-20 rounded-full outline-2 outline-va-fourth flex items-center justify-center mb-2">
-          <app-svg-icon icon="specialist" size="48px"></app-svg-icon>
-        </div>
+        @defer(when getProfilePictureUrl(specialist)) {
+          <div class="w-24 h-24 overflow-hidden rounded-full outline outline-va-fifth bg-lightblue-secondary/30
+          flex items-center justify-center mb-2">
+            <img [src]="getProfilePictureUrl(specialist)" alt="Profile Picture" class="w-full h-full object-cover">
+          </div>
+        } @loading (minimum 500ms){
+          <div class="w-24 h-24 mb-2 rounded-full flex justify-center items-center outline outline-va-fifth">
+            <app-svg-icon icon="specialist" size="44px" class="text-va-fifth"></app-svg-icon>
+          </div>
+        }
 
         <!-- Specialist Info -->
         <div class="flex flex-col w-full justify-center items-center text-center">
