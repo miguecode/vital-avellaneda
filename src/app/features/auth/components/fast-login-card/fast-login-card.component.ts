@@ -10,10 +10,11 @@ import { UserBase } from '../../../../core/models';
 import { MockUserCacheService } from '../../services/mock-user-cache.service';
 import { MOCK_USERS } from '../../mocks/mock-users';
 import { CloudinaryService } from '../../../../services/cloudinary/cloudinary.service';
+import { SvgIconComponent } from "../../../../shared/icons/svg-icon.component";
 
 @Component({
   selector: 'app-fast-login-card',
-  imports: [],
+  imports: [SvgIconComponent],
   templateUrl: './fast-login-card.component.html',
   styleUrl: './fast-login-card.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,

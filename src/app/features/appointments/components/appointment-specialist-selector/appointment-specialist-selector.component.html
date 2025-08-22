@@ -16,9 +16,9 @@ gap-4 py-5 rounded shadow max-h-86 h-78 overflow-x-auto">
           flex items-center justify-center mb-2">
             <img [src]="getProfilePictureUrl(specialist)" alt="Profile Picture" class="w-full h-full object-cover">
           </div>
-        } @loading (minimum 500ms){
-          <div class="w-24 h-24 mb-2 rounded-full flex justify-center items-center outline outline-va-fifth">
-            <app-svg-icon icon="specialist" size="44px" class="text-va-fifth"></app-svg-icon>
+        } @loading (minimum 750ms){
+          <div class="w-24 h-24 mb-2 rounded-full flex justify-center items-center outline outline-va-fifth animate-pulse">
+            <app-svg-icon icon="image" size="44px" class="text-lightblue-third/70"></app-svg-icon>
           </div>
         }
 

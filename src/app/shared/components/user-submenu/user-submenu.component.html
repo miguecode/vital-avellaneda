@@ -17,8 +17,11 @@
         <div class="size-12 text-va-fifth rounded-full overflow-hidden outline outline-va-fifth">
           @defer (when profilePictureUrl()) {
             <img [src]="profilePictureUrl()" alt="Profile Picture" class="w-full h-full object-cover">
-          } @placeholder {
-            <div class="size-12 rounded-full bg-lightblue-secondary animate-pulse"></div>
+          } @loading (minimum 750ms) {
+            <div class="size-12 rounded-full bg-lightblue-secondary text-lightblue-third/70
+             flex justify-center items-center animate-pulse">
+              <app-svg-icon icon="image" size="30px" class="text-lightblue-third/70"></app-svg-icon>
+            </div>
           }
         </div>
         <div class="flex flex-col">
