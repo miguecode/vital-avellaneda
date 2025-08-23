@@ -1,82 +1,84 @@
-<footer class="bg-va-primary">
-  <div class="mx-auto w-home-page py-6 lg:py-8">
-    <div class="md:flex md:justify-between">
+<footer class="bg-va-primary w-full px-6">
+  <div class="mx-auto max-w-home-page py-6 lg:py-8">
+    <div class="lg:flex lg:justify-between">
       <!-- Logo -->
-      <div class="mb-10 flex items-center justify-center h-full w-64">
+      <div class="mb-10 flex items-center justify-center h-full sm:w-64 w-56 lg:mr-6 lg:mx-0 mx-auto">
         <img class="object-contain" src="/logos/logo-big.webp" alt="Logo" />
       </div>
 
-      <!-- Links Grid -->
-      <div class="grid grid-cols-2 gap-8 sm:grid-cols-3">
-        <!-- Contact -->
-        <div>
-          <h2 class="mb-4 text-sm font-semibold text-white">CONTACTOS</h2>
-          <address class="not-italic">
-            <ul class="text-lightblue-secondary/90 font-medium">
-              <li class="mb-2 max-w-52">
-                <a href="tel:+541141231234" class="hover:underline"
-                  >Teléfono <br />
-                  {{ phone }}</a
-                >
-              </li>
-              <li class="max-w-52">
-                <a href="mailto:vitalavellaneda@gmail.com" class="hover:underline"
-                  >Correo <br />
-                  {{ email }}</a
-                >
-              </li>
-            </ul>
-          </address>
-        </div>
-        <!-- Locations -->
-        <div>
-          <h2 class="mb-4 text-sm font-semibold text-gray-900 dark:text-white">
-            DIRECCIONES
-          </h2>
-          <address class="not-italic">
+      <!-- Links -->
+      <div class="flex flex-col sm:flex-row flex-wrap not-lg:justify-center items-center gap-6">
+        <div class="flex md:flex-row flex-col gap-4">
+          <!-- Contact -->
+          <div>
+            <h2 class="mb-4 text-sm font-semibold text-white">CONTACTOS</h2>
+            <address class="not-italic">
+              <ul class="text-lightblue-secondary/90 font-medium">
+                <li class="mb-2 max-w-80">
+                  <a href="tel:+541141231234" class="hover:underline"
+                    >Teléfono <br />
+                    {{ phone }}</a
+                  >
+                </li>
+                <li class="max-w-52">
+                  <a href="mailto:vitalavellaneda@gmail.com" class="hover:underline"
+                    >Correo <br />
+                    {{ email }}</a
+                  >
+                </li>
+              </ul>
+            </address>
+          </div>
+          <!-- Locations -->
+          <div>
+            <h2 class="mb-4 text-sm font-semibold text-gray-900 dark:text-white">
+              DIRECCIONES
+            </h2>
+            <address class="not-italic">
+              <ul class="text-lightblue-secondary/90 font-medium">
+                <li class="mb-2 max-w-52">
+                  <a
+                    href="https://www.google.com/maps/search/?api=1&query=V.A+Avellaneda+123%2C+Provincia+de+Buenos+Aires"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="hover:underline"
+                    >{{ firstLocation }}</a
+                  >
+                </li>
+                <li class="max-w-52">
+                  <a
+                    href="https://www.google.com/maps/search/?api=1&query=C.O+Cl%C3%ADnica+Online+456+Provincia+de+Buenos+Aires"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="hover:underline"
+                    >{{ secondLocation }}</a
+                  >
+                </li>
+              </ul>
+            </address>
+          </div>
+          <!-- Legal -->
+          <div>
+            <h2 class="mb-4 text-sm font-semibold text-gray-900 dark:text-white">
+              LEGALES
+            </h2>
             <ul class="text-lightblue-secondary/90 font-medium">
               <li class="mb-2 max-w-52">
                 <a
-                  href="https://www.google.com/maps/search/?api=1&query=V.A+Avellaneda+123%2C+Provincia+de+Buenos+Aires"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="hover:underline"
-                  >{{ firstLocation }}</a
-                >
+                  routerLink="/info/politica-de-privacidad"
+                  class="hover:underline">
+                  Política de Privacidad
+                </a>
               </li>
               <li class="max-w-52">
                 <a
-                  href="https://www.google.com/maps/search/?api=1&query=C.O+Cl%C3%ADnica+Online+456+Provincia+de+Buenos+Aires"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="hover:underline"
-                  >{{ secondLocation }}</a
-                >
+                  routerLink="/info/terminos-y-condiciones"
+                  class="hover:underline">
+                  Términos y Condiciones
+                </a>
               </li>
             </ul>
-          </address>
-        </div>
-        <!-- Legal -->
-        <div>
-          <h2 class="mb-4 text-sm font-semibold text-gray-900 dark:text-white">
-            LEGALES
-          </h2>
-          <ul class="text-lightblue-secondary/90 font-medium">
-            <li class="mb-2 max-w-52">
-              <a
-                routerLink="/info/politica-de-privacidad"
-                class="hover:underline">
-                Política de Privacidad
-              </a>
-            </li>
-            <li class="max-w-52">
-              <a
-                routerLink="/info/terminos-y-condiciones"
-                class="hover:underline">
-                Términos y Condiciones
-              </a>
-            </li>
-          </ul>
+          </div>
         </div>
       </div>
     </div>
@@ -84,13 +86,18 @@
     <!-- Footer's footer -->
     <!-- Description -->
     <hr class="my-6 border-lightblue-secondary/90 sm:mx-auto lg:my-8" />
-    <div class="sm:flex sm:items-center sm:justify-between">
-      <span class="text-sm text-va-secondary/90 sm:text-center"
-        >© 2025 Vital Avellaneda™ Hecho por Miguel Ángel Gil.
-      </span>
+    <div class="sm:flex sm:items-center sm:justify-between justify-center text-center">
+      <div class="flex flex-col sm:flex-row sm:gap-2 gap-0.5 sm:mb-0 mb-2">
+        <span class="text-sm text-va-secondary/90 text-pretty">
+          © 2025 Vital Avellaneda™ 
+        </span>
+        <span class="text-sm text-va-secondary/90 text-pretty">
+          Hecho por Miguel Ángel Gil.
+        </span>
+      </div>
 
       <!-- Socials -->
-      <div class="flex mt-4 sm:justify-center sm:mt-0">
+      <div class="flex mt-4 justify-center sm:mt-0">
         <a [href]="facebook" class="text-lightblue-secondary/90 hover:text-white transition">
           <app-svg-icon icon="facebook" size="20px" viewBox="simpleIcons"></app-svg-icon>
           <span class="sr-only">Facebook page</span>

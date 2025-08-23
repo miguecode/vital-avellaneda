@@ -11,4 +11,5 @@ import { SvgIconComponent } from '../../../../shared/icons/svg-icon.component';
 })
 export class PanelSelectorComponent {
   title: string = 'Ingresar al Portal de usuarios';
+  subtitle: string = 'Solicitá y gestioná turnos, horarios y consultas. Vital Avellaneda, todo en un lugar.';
 }

@@ -1,22 +1,23 @@
-<div class="w-full mt-10">
+<div class="lg:max-w-home-page max-w-184 mt-10 mx-6">
   <div class="mx-auto max-w-home-page">
     <!-- Title -->
     <div class="mb-5 px-4 sm:px-6 lg:px-8">
-      <h2 class="text-4xl text-center font-bold tracking-tight text-va-primary">
+      <h3 class="md:text-4xl text-3xl text-center font-bold tracking-tight text-va-primary">
         {{ title() }}
-      </h2>
+      </h3>
     </div>
 
     <!-- News Grid -->
     <div
       class="grid grid-cols-1 gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-3"
     >
-      @for (post of newsPosts(); track post.id) {
+      @for (post of newsPosts(); track post.id; let i = $index) {
       <a
         [routerLink]="['/news', post.id]"
         class="block group bg-white rounded-lg shadow-md hover:shadow-lg
          transition duration-300 overflow-hidden outline
           outline-va-fourth/40 hover:outline-va-fourth"
+        [ngClass]="i === 3 ? 'hidden sm:block lg:hidden' : ''"
       >
         <article 
           class="flex flex-col">
@@ -30,7 +31,7 @@
           </div>
 
           <!-- Content -->
-          <div class="flex flex-col justify-between flex-grow px-6 py-4 min-h-72">
+          <div class="flex flex-col justify-between flex-grow px-6 py-4 sm:min-h-72 min-h-54">
             <!-- Publication Date -->
             <p class="text-sm text-gray-500 mb-2">
               {{ post.publicationDate | date: 'd' }}

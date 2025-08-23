@@ -1,35 +1,41 @@
 <div
   class="relative flex justify-between items-center
-   overflow-hidden h-50 w-home-page rounded-2xl
+   overflow-hidden mx-6 rounded-2xl
    shadow-va-fifth shadow"
 >
   <a
     routerLink="/auth/login"
-    class="flex flex-wrap justify-between items-center text-3xl
+    class="flex justify-between items-center text-3xl p-3 lg:px-11 lg:py-3
      gap-1 text-white border border-blue-900 rounded-2xl shadow
     bg-va-primary hover:bg-va-third
     active:bg-va-third/90 transition duration-400 size-full"
   >
-    <div class="ml-16 p-4 rounded-xl flex flex-col">
-      <h2 class="h-full text-3xl text-white font-bold tracking-tight">{{ title }}</h2>
-      <p class="text-xl mt-1 font-normal text-white/90 text-pretty">
-        Solicitá y gestioná turnos, horarios y consultas.
-         Vital Avellaneda, todo en un lugar.
+    <div class="lg:ml-16 p-4 rounded-xl flex flex-col lg:items-start items-center">
+      <div class="lg:hidden color-transition mx-auto mb-4 text-lightblue-third transition duration-400">
+        <app-svg-icon icon="login" size="74px"></app-svg-icon>
+      </div>
+      <h2 
+        class="h-full lg:text-3xl text-2xl text-white font-bold tracking-tight text-center text-pretty">
+        {{ title }}
+      </h2>
+      <p 
+        class="lg:text-xl text-lg sm:mt-1 mt-5 font-normal text-white/90 text-pretty lg:text-start text-center">
+        {{ subtitle }}      
       </p>
-      <div class="color-transition flex flex-wrap justify-start items-center ml-3
-      gap-2 text-lg mt-3 font-normal text-pretty
+      <div class="hidden color-transition sm:flex justify-start items-center lg:ml-3
+      gap-2 text-base lg:text-lg mt-3 font-normal text-pretty
       text-va-secondary/90 transition duration-400">
         <app-svg-icon icon="auth" size="32px"></app-svg-icon>
         Iniciá sesión o registrate como Paciente o Especialista.
       </div>
-      <div class="color-transition flex flex-wrap justify-start items-center ml-3
-      gap-2 text-lg mt-3 font-normal text-pretty
+      <div class="hidden color-transition sm:flex justify-start items-center lg:ml-3
+      gap-2 text-base lg:text-lg mt-3 font-normal text-pretty
       text-va-secondary/90 transition duration-400">
         <app-svg-icon icon="bolt" size="32px"></app-svg-icon>
         Usá los ingresos rápidos para probar el sitio sin usar datos reales.
       </div>
     </div>
-    <div class="color-transition mr-14 text-va-fifth transition duration-400">
+    <div class="not-lg:hidden color-transition mr-14 text-va-fifth transition duration-400">
       <app-svg-icon icon="login" size="200px"></app-svg-icon>
     </div>
   </a>

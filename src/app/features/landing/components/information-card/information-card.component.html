@@ -1,6 +1,6 @@
 <div
-  class="w-full h-full p-2
-  flex justify-center items-center gap-5
+  class="w-full h-full p-2 py-6 lg:py-2
+  flex sm:flex-row flex-col lg:justify-center items-center sm:gap-5 gap-2
   {{ border }}"
 >
   <div class="ml-0.5">
@@ -8,7 +8,7 @@
   </div>
 
   <div class="flex flex-col">
-    <h2 class="text-xl font-semibold">{{ title }}</h2>
+    <h2 class="xs:text-xl font-semibold sm:text-start text-center">{{ title }}</h2>
     <ng-content select="[description]"></ng-content>
   </div>
 </div>

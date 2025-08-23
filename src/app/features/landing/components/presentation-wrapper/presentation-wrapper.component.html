@@ -1,10 +1,10 @@
 <div
-  class="flex w-home-page h-presentation-wrapper mt-10 rounded-2xl
+  class="flex lg:max-w-home-page max-w-184 lg:h-presentation-wrapper mt-10 rounded-2xl mx-6
    bg-lightblue-primary border border-va-fourth shadow-sm"
 >
   <!-- Image -->
   <div
-    class="w-1/3 h-full bg-cover bg-center rounded-l-2xl"
+    class="w-0 md:w-90 lg:w-144 bg-cover bg-center rounded-l-2xl"
     [ngStyle]="{
       'background-image':
       'linear-gradient(90deg, rgba(1, 21, 58, 0.2), rgba(0, 36, 104, 0.2)), url(' + srcImage+ ')'
@@ -12,23 +12,26 @@
   ></div>
 
   <!-- Content -->
-  <div class="flex flex-col px-24 pt-18 w-2/3">
-    <p class="text-sm text-lightblue-third font-medium">{{ sectionText }}</p>
-    <h2 class="text-5xl text-va-primary font-semibold tracking-tight">
+  <div class="flex flex-col md:pt-18 pt-4 lg:px-16 sm:px-12 px-2
+    w-full sm:text-start text-center">
+    <p class="text-sm text-lightblue-third font-medium sm:mb-0 mb-4">{{ sectionText }}</p>
+    <h2 class="text-4xl md:text-5xl text-va-primary font-semibold tracking-tight">
       {{ titleFirstLine }}<br />{{ titleSecondLine }}
     </h2>
-    <p class="mt-5 text-lg text-pretty">{{ description }}</p>
+    <p class="mt-5 lg:text-lg text-pretty px-3">{{ description }}</p>
 
-    <ul class="mt-5 list-disc list-inside pl-4">
-      @for (itemText of listItems; track itemText) {
-        <li class="marker:text-va-third">{{ itemText }}</li>
-      }
-    </ul>
+    <div class="flex flex-col justify-center sm:items-start items-center px-3">
+      <ul class="mt-5 list-disc list-inside lg:pl-1 md:pl-5 sm:pl-2 text-start">
+        @for (itemText of listItems; track itemText) {
+          <li class="marker:text-va-third">{{ itemText }}</li>
+        }
+      </ul>
+    </div>
     <a
       [routerLink]="anchorLink"
-      class="text-white mt-7 py-3 px-5 w-fit font-semibold bg-va-third
-       hover:bg-va-third/90 active:bg-va-third/80
-       transition-colors shadow-md rounded-full"
+      class="text-white mt-7 py-3 sm:px-5 sm:w-fit w-11/12 font-semibold bg-va-third
+       hover:bg-va-third/90 active:bg-va-third/80 sm:mx-0 mx-auto
+       transition-colors shadow-md rounded-full mb-4 lg:mb-0"
       >{{ anchorText }}</a
     >
   </div>

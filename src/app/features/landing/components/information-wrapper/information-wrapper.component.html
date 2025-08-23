@@ -1,10 +1,10 @@
 <div
-  class="flex justify-start items-start h-36 bg-lightblue-primary rounded-2xl
-  w-home-page text-va-primary border border-va-fourth shadow-sm px-2"
+  class="flex lg:flex-row flex-col justify-start items-start lg:h-36 bg-lightblue-primary rounded-2xl
+  lg:max-w-home-page text-va-primary border border-va-fourth shadow-sm lg:px-2 sm:px-12 mx-6"
 >
   <app-information-card [title]="'Contacto vía mail'">
     <app-svg-icon icon="email" size="48px" color="currentColor"></app-svg-icon>
-    <p description class="text-sm text-black mt-0.5">
+    <p description class="text-sm text-black mt-0.5 sm:text-start text-center">
       Podés enviarnos tu consulta o cualquier inquietud acá:
       <a
         href="mailto:vitalavellaneda@gmail.com"
@@ -15,10 +15,10 @@
   </app-information-card>
   <app-information-card
     [title]="'Contacto vía WhatsApp'"
-    [border]="'border-x border-va-third/20 pl-4'"
+    [border]="'lg:border-x border-y lg:border-y-0 border-va-third/20 lg:pl-4 pl-3'"
   >
     <app-svg-icon icon="whatsapp" size="42px" viewBox="simpleIcons"></app-svg-icon>
-    <p description class="text-sm text-black mt-0.5">
+    <p description class="text-sm text-black mt-0.5 sm:text-start text-center">
       Solicitá tu turno o hacé tu consulta por WhatsApp:
       <a href="tel:+541141231234" class="font-bold underline underline-offset-2"
         >{{ phone }}
@@ -31,7 +31,7 @@
       size="48px"
       color="currentColor"
     ></app-svg-icon>
-    <p description class="text-sm text-black mt-0.5">
+    <p description class="text-sm text-black mt-0.5 sm:text-start text-center">
       {{ location }}, Argentina.
       <a
         href="https://www.google.com/maps/search/?api=1&query=V.A+Avellaneda+123%2C+Provincia+de+Buenos+Aires"

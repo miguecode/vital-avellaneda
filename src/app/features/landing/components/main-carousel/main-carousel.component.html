@@ -18,27 +18,29 @@
 
         <!-- Detail content -->
         <div
-          class="relative z-10 mx-44 px-8 flex flex-col select-none
-          justify-center text-white h-main-carousel"
+          class="relative z-10 lg:mx-38 md:mx-24 px-4 flex flex-col select-none
+          justify-center text-white h-main-carousel sm:bg-transparent bg-black/30"
         >
           <!-- Title -->
-          <h1 class="text-5xl font-bold mb-4 drop-shadow-md tracking-tight">
+          <h1 class="text-4xl lg:text-5xl font-bold mb-4 md:text-start text-center
+           drop-shadow-md tracking-tight">
             {{ slide.title }}
           </h1>
           <!-- Description -->
-          <p class="text-2xl mb-6 max-w-xl drop-shadow-md text-pretty">
+          <p class="text-xl lg:text-2xl mb-6 lg:max-w-xl max-w-2xl drop-shadow-md
+            md:mx-0 mx-auto text-pretty md:text-start text-center">
             {{ slide.description }}
           </p>
           <!-- Link Button -->
           <a
             [routerLink]="slide.buttonLink"
             class="flex justify-center items-center gap-1
-            px-10 py-3 w-fit drop-shadow-2xl rounded-full
-            bg-va-primary text-white text-main-button font-medium
+            px-10 py-3 w-fit drop-shadow-2xl rounded-full md:mx-0 mx-auto text-center
+            bg-va-primary text-white lg:text-main-button text-xl font-medium
             hover:bg-va-third active:bg-va-fifth transition duration-300"
           >
             {{ slide.buttonText }}
-            <app-svg-icon icon="link" size="28px"></app-svg-icon>
+            <!-- <app-svg-icon icon="link" size="28px"></app-svg-icon> -->
           </a
           >
         </div>
@@ -47,8 +49,8 @@
   </div>
 
   <!-- Swiper Navigation -->
-  <div class="swiper-button-prev"></div>
-  <div class="swiper-button-next"></div>
+  <div class="swiper-button-prev md:visible invisible"></div>
+  <div class="swiper-button-next md:visible invisible"></div>
   <!-- Swiper Pagination -->
   <div class="swiper-pagination"></div>
 </div>
