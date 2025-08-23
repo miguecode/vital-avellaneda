@@ -2,47 +2,55 @@
 <div class="swiper">
   <!-- Additional required wrapper -->
   <div class="swiper-wrapper">
-
     <!-- Slides -->
     @for (slide of slides; track slide.title) {
-      <div class="swiper-slide relative">
+      <div class="swiper-slide">
+        <div class="relative">
+          <img
+            [src]="slide.image"
+            [alt]="slide.title"
+            class="w-full h-auto lg:max-h-main-carousel block"
+          />
 
-        <!-- Background Image with filter -->
-        <div
-          class="absolute inset-0 bg-cover bg-center bg-no-repeat z-0"
-          [ngStyle]="{
-            'background-image':
-              'linear-gradient(90deg, rgba(1, 21, 58, 0.8), rgba(0, 36, 104, 0.5)), url(' + slide.image + ')'
-          }"
-        ></div>
+          <!-- Gradient overlay for desktop -->
+          <div
+            class="hidden md:block absolute inset-0 bg-gradient-to-r
+             from-[rgba(1,21,58,0.8)] to-[rgba(0,36,104,0.5)]"
+          ></div>
 
-        <!-- Detail content -->
-        <div
-          class="relative z-10 lg:mx-38 md:mx-24 px-4 flex flex-col select-none
-          justify-center text-white h-main-carousel sm:bg-transparent bg-black/30"
-        >
-          <!-- Title -->
-          <h1 class="text-4xl lg:text-5xl font-bold mb-4 md:text-start text-center
-           drop-shadow-md tracking-tight">
-            {{ slide.title }}
-          </h1>
-          <!-- Description -->
-          <p class="text-xl lg:text-2xl mb-6 lg:max-w-xl max-w-2xl drop-shadow-md
-            md:mx-0 mx-auto text-pretty md:text-start text-center">
-            {{ slide.description }}
-          </p>
-          <!-- Link Button -->
-          <a
-            [routerLink]="slide.buttonLink"
-            class="flex justify-center items-center gap-1
-            px-10 py-3 w-fit drop-shadow-2xl rounded-full md:mx-0 mx-auto text-center
-            bg-va-primary text-white lg:text-main-button text-xl font-medium
-            hover:bg-va-third active:bg-va-fifth transition duration-300"
+          <!-- Detail -->
+          <div
+            class="px-6 lg:py-6 bg-va-primary text-white min-h-96 sm:min-h-74
+              md:absolute md:inset-0 md:z-10 md:bg-transparent md:p-0 md:min-h-0
+              lg:mx-38 md:mx-24 md:px-4 flex flex-col select-none
+              justify-center"
           >
-            {{ slide.buttonText }}
-            <!-- <app-svg-icon icon="link" size="28px"></app-svg-icon> -->
-          </a
-          >
+            <!-- Title -->
+            <h1
+              class="text-4xl lg:text-5xl font-bold mb-4 md:text-start text-center
+                tracking-tight md:drop-shadow-md text-pretty"
+            >
+              {{ slide.title }}
+            </h1>
+            <!-- Description -->
+            <p
+              class="text-xl lg:text-2xl lg:mb-6 md:mb-1 mb-6 lg:max-w-xl max-w-2xl md:mx-0 mx-auto
+                text-pretty md:text-start text-center md:drop-shadow-md"
+            >
+              {{ slide.description }}
+            </p>
+            <!-- Link Button -->
+            <a
+              [routerLink]="slide.buttonLink"
+              class="flex justify-center items-center gap-1
+              px-10 py-3 w-fit rounded-full md:mx-0 mx-auto text-center
+              md:bg-va-primary bg-va-third text-white lg:text-main-button
+              text-xl font-medium md:hover:bg-va-third md:active:bg-va-fifth
+              hover:bg-va-fifth/90 active:bg-va-fifth transition duration-300 md:drop-shadow-2xl"
+            >
+              {{ slide.buttonText }}
+            </a>
+          </div>
         </div>
       </div>
     }
@@ -52,5 +60,5 @@
   <div class="swiper-button-prev md:visible invisible"></div>
   <div class="swiper-button-next md:visible invisible"></div>
   <!-- Swiper Pagination -->
-  <div class="swiper-pagination"></div>
+  <div class="swiper-pagination md:visible invisible"></div>
 </div>
