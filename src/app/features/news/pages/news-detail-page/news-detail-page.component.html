@@ -53,7 +53,7 @@
         <footer
           class="flex justify-between mt-8 pt-6 border-t border-gray-200"
         >
-          <div class="flex flex-wrap gap-2">
+          <div class="hidden sm:flex flex-wrap gap-2">
             @for(tag of newsPost()!.tags; track tag){
             <span
               class="inline-flex items-center rounded-md bg-lightblue-secondary/70
@@ -63,7 +63,8 @@
             }
           </div>
 
-          <a routerLink="/news" class="font-medium text-va-third hover:underline"
+          <a routerLink="/news" class="sm:pl-4 font-medium text-va-third
+           hover:underline text-pretty"
             >Blog de Vital Avellaneda
           </a>
         </footer>
