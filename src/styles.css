@@ -41,7 +41,9 @@
   --spacing-step-size: 3.5rem;
 
   /* Breakpoints */
-  --breakpoint-xs: 320px;
+  --breakpoint-xs: 480px;
+
+
 
   /* Font Sizes */
   --text-main-button: 1.4rem;

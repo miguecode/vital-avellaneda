@@ -1,6 +1,8 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { SvgIconComponent } from "../../icons/svg-icon.component";
+import { SvgIconComponent } from '../../icons/svg-icon.component';
+import { NgClass } from '@angular/common';
+import { APP_SHARED_INFO } from '../../../core/config/app-info';
 
 interface NavbarContent {
   navItems: Array<{
@@ -11,12 +13,15 @@ interface NavbarContent {
 }
 @Component({
   selector: 'app-navbar',
-  imports: [RouterLink, SvgIconComponent],
+  imports: [RouterLink, SvgIconComponent, NgClass],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NavbarComponent implements NavbarContent {
+  public isMenuOpen = signal(false);
+  public isAnimating = signal(false);
+
   navItems = [
     {
       title: 'Quiénes Somos',
@@ -39,4 +44,17 @@ export class NavbarComponent implements NavbarContent {
       href: '/news',
     },
   ];
+
+  toggleMenu() {
+    if (!this.isAnimating()) {
+      this.isAnimating.set(true);
+    }
+    this.isMenuOpen.set(!this.isMenuOpen());
+  }
+
+  // Href
+  readonly facebook = APP_SHARED_INFO.social.facebook;
+  readonly instagram = APP_SHARED_INFO.social.instagram;
+  readonly twitter = APP_SHARED_INFO.social.twitter;
+  readonly tiktok = APP_SHARED_INFO.social.tiktok;
 }

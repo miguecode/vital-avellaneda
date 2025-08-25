@@ -1,22 +1,164 @@
 <nav
-  class="flex items-center justify-between pl-10
+  class=" flex items-center xs:justify-between justify-start xl:pl-10
    size-full bg-va-primary text-white"
 >
+  <!-- Hamburger Menu (Mobile) -->
+  <div class="xl:hidden pl-4">
+    <button
+      (click)="toggleMenu()"
+      class="cursor-pointer z-50 mr-2 relative rounded-xl
+      hover:bg-va-third/60 shadow active:bg-va-third/30
+      transition-colors duration-300 xs:p-5 p-2 outline outline-va-third"
+      aria-label="Abrir menú"
+    >
+      @if (!isMenuOpen()) {
+        <app-svg-icon icon="menu" size="34px"></app-svg-icon>
+      } @else {
+        <app-svg-icon icon="close" size="34px"></app-svg-icon>
+      }
+    </button>
+  </div>
+
+  <!-- Mobile Menu Panel -->
+  <div
+    [ngClass]="{
+      'translate-x-0': isMenuOpen(),
+      '-translate-x-full': !isMenuOpen(),
+      'transition-transform duration-300 ease-in-out': isAnimating()
+    }"
+    class="hidden not-xl:fixed xs:top-28 top-18 left-0 w-full h-dvh
+     max-w-xs bg-va-primary text-white z-20 transform not-xl:flex flex-col justify-between"
+  >
+    <ul class="flex flex-col items-start space-y-2 px-8">
+      @for (item of navItems; track item.title) {
+        <li class="w-full">
+          <a
+            (click)="toggleMenu()"
+            class="flex w-full items-center justify-start p-4 text-lg
+              text-left font-medium rounded-lg hover:bg-va-third/60
+              hover:shadow active:bg-va-third/30 transition-colors duration-300"
+            [routerLink]="item.href"
+            tabindex="0"
+            [attr.aria-label]="item.ariaLabel"
+          >
+            {{ item.title }}
+          </a>
+        </li>
+      }
+      
+      <hr class="border-t border-lightblue-third w-full my-2" />
+      <li class="w-full pt-2">
+        <a
+          (click)="toggleMenu()"
+          routerLink="/info/user/help"
+          class="flex w-full items-center justify-start gap-1.5 p-4 text-lg text-left
+            font-medium rounded-lg hover:bg-va-third/60 hover:shadow
+            active:bg-va-third/30 transition-colors duration-300"
+        >
+          <app-svg-icon
+            icon="help"
+            size="32px"
+            class="text-white"
+          ></app-svg-icon>
+          <span class="text-lg text-white">Ayuda</span>
+        </a>
+      </li>
+      <li class="w-full">
+        <a
+          (click)="toggleMenu()"
+          routerLink="/auth/login"
+          class="flex w-full items-center justify-start gap-1.5 p-4 text-lg text-left
+            font-medium rounded-lg bg-white hover:bg-lightblue-primary hover:shadow
+           active:bg-lightblue-primary/90 transition-colors duration-300"
+        >
+          <app-svg-icon
+            icon="user"
+            size="32px"
+            class="text-va-primary"
+          ></app-svg-icon>
+          <span class="text-lg text-va-primary">Ingresar al Portal</span>
+        </a>
+      </li>
+
+      <hr class="border-t border-lightblue-third w-full my-2 mt-4" />
+
+      <div class="flex justify-center gap-1 w-full mt-4">
+        <a [href]="facebook" class="text-lightblue-secondary/90 hover:text-white transition">
+          <app-svg-icon icon="facebook" size="20px" viewBox="simpleIcons"></app-svg-icon>
+          <span class="sr-only">Facebook page</span>
+        </a>
+        <a [href]="instagram" class="text-lightblue-secondary/90 hover:text-white ms-5 transition">
+          <app-svg-icon icon="instagram" size="20px" viewBox="simpleIcons"></app-svg-icon>
+          <span class="sr-only">Instagram account</span>
+        </a>
+        <a [href]="twitter" class="text-lightblue-secondary/90 hover:text-white ms-5 transition">
+          <app-svg-icon icon="twitter" size="20px" viewBox="simpleIcons"></app-svg-icon>
+          <span class="sr-only">Twitter page</span>
+        </a>
+        <a [href]="tiktok" class="text-lightblue-secondary/90 hover:text-white ms-5 transition">
+          <app-svg-icon icon="tiktok" size="20px" viewBox="simpleIcons"></app-svg-icon>
+          <span class="sr-only">TikTok account</span>
+        </a>
+      </div>
+    </ul>
+
+    <div class="xs:mb-34 mb-24 ml-8 flex flex-col justify-center items-start gap-2">
+      <span class="text-sm text-va-secondary/90 text-pretty">
+        © 2025 Vital Avellaneda™ 
+      </span>
+      <span class="text-sm text-va-secondary/90 text-pretty">
+        Hecho por Miguel Ángel Gil.
+      </span>
+    </div>
+  </div>
+
+  <!-- Overlay -->
+  <div
+    (click)="toggleMenu()"
+    [ngClass]="{ block: isMenuOpen(), hidden: !isMenuOpen() }"
+    class="xl:hidden fixed xs:top-28 top-18 inset-x-0 bottom-0 bg-black/70 z-10"
+  ></div>
+
   <!-- Logo -->
   <a
     routerLink="/home"
-    class="flex items-center justify-center h-full w-72 ml-28"
+    class="flex items-center xl:justify-start h-full 2xl:ml-28 px-2 mr-2"
   >
-    <img class="object-contain" src="/logos/logo-big.webp" alt="Logo" />
+    <img
+      class="hidden xl:block object-contain xl:w-72 lg:w-48 w-32"
+      src="/logos/logo-big.webp"
+      alt="Logo"
+    />
+    <img
+      class="block xl:hidden object-contain lg:w-72 w-56"
+      src="/logos/logo-flat.webp"
+      alt="Logo"
+    />
   </a>
 
-  <!-- Navigation -->
-  <ul class="flex justify-center items-center h-full mr-8">
+  <!-- Portal Link -->
+  <a
+    routerLink="/auth/login"
+    aria-label="Acceso al Portal"
+    class="hidden xl:hidden xs:flex justify-center items-center text-center gap-2
+      md:py-4 md:px-7 p-2 lg:min-w-64 w-fit mr-4 text-lg font-semibold bg-white
+      text-va-primary rounded-full hover:bg-lightblue-primary
+      active:bg-lightblue-primary/90 transition duration-300 shadow"
+  >
+    <div class="flex flex-wrap justify-center items-center">
+      <app-svg-icon icon="user" size="32px"></app-svg-icon>
+    </div>
+    <span class="hidden lg:block">Ingresar al Portal</span>
+    <span class="hidden md:block xs:hidden lg:hidden">Portal</span>
+  </a>
+
+  <!-- Desktop Navigation -->
+  <ul class="hidden xl:flex justify-center items-center h-full mr-8 ml-3">
     @for (item of navItems; track item.title) {
     <li>
       <a
-        class="flex items-center justify-center p-4 text-lg font-medium rounded-lg
-      hover:bg-va-third/60 hover:shadow active:bg-va-third/30 transition-colors duration-300"
+        class="flex items-center justify-center p-4 text-lg text-center
+         font-medium rounded-lg hover:bg-va-third/60 hover:shadow active:bg-va-third/30 transition-colors duration-300"
         [routerLink]="item.href"
         tabindex="0"
         [attr.aria-label]="item.ariaLabel"
@@ -25,13 +167,13 @@
       </a>
     </li>
     }
-    <li class="ml-18 flex justify-between gap-20 items-center">
+    <li
+      class="2xl:ml-18 ml-4 flex justify-between 2xl:gap-20 xl:gap-12 gap-2 items-center"
+    >
       <a
         routerLink="/auth/login"
         aria-label="Acceso al Portal"
-        class="flex justify-center items-center gap-2 py-4 px-7 min-w-48
-        text-lg font-semibold bg-white text-va-primary rounded-full
-      hover:bg-lightblue-primary active:bg-lightblue-primary/90 transition duration-300 shadow"
+        class="flex justify-center items-center text-center gap-2 py-4 px-7 min-w-54 text-lg font-semibold bg-white text-va-primary rounded-full hover:bg-lightblue-primary active:bg-lightblue-primary/90 transition duration-300 shadow"
       >
         <div class="flex justify-center items-center">
           <app-svg-icon icon="user" size="32px"></app-svg-icon>
@@ -41,11 +183,13 @@
 
       <a
         routerLink="/info/user/help"
-        class="flex flex-col justify-center items-center rounded-xl py-3 px-5 gap-0.5
-         hover:bg-va-third/60 hover:shadow active:bg-va-third/30
-          transition duration-300"
+        class="flex flex-col justify-center items-center rounded-xl py-3 px-5 gap-0.5 hover:bg-va-third/60 hover:shadow active:bg-va-third/30 transition duration-300"
       >
-        <app-svg-icon icon="help" size="32px" class="text-white"></app-svg-icon>
+        <app-svg-icon
+          icon="help"
+          size="32px"
+          class="text-white"
+        ></app-svg-icon>
         <span class="text-sm text-white">Ayuda</span>
       </a>
     </li>

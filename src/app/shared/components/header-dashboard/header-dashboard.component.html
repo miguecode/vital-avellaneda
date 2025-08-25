@@ -1,22 +1,126 @@
 <header class="fixed top-0 z-30 p-0 m-0 h-16 w-full shadow-sm">
   <nav
-    class="flex items-center justify-between px-10 py-11 size-full bg-va-primary text-white"
+    class="flex items-center 2xl:justify-between lg:justify-start justify-between
+     xs:px-10 px-4 py-11 size-full bg-va-primary text-white"
   >
+
+    <!-- Hamburger Menu (Mobile) -->
+    <div class="xs:hidden block pl-2">
+      <button
+        (click)="toggleMenu()"
+        class="cursor-pointer z-50 mr-2 relative rounded-xl
+        hover:bg-va-third/60 shadow active:bg-va-third/30
+        transition-colors duration-300 xs:p-5 p-2 outline outline-va-third"
+        aria-label="Abrir menú"
+      >
+        @if (!isMenuOpen()) {
+          <app-svg-icon icon="menu" size="34px"></app-svg-icon>
+        } @else {
+          <app-svg-icon icon="close" size="34px"></app-svg-icon>
+        }
+      </button>
+    </div>
+
+    <!-- Mobile Menu Panel -->
+    <div
+      [ngClass]="{
+        'translate-x-0': isMenuOpen(),
+        '-translate-x-full': !isMenuOpen(),
+        'transition-transform duration-300 ease-in-out': isAnimating()
+      }"
+      class="xs:hidden fixed top-18 left-0 w-full h-dvh pt-4
+      max-w-xs bg-va-primary text-white z-20 transform not-xl:flex flex-col justify-between"
+    >
+    <ul class="flex flex-col items-start space-y-2 px-8">
+      @for (item of navItems; track item.title) {
+        <li class="w-full">
+          <a
+            (click)="toggleMenu()"
+            class="flex w-full items-center justify-start p-4 text-lg
+              text-left font-medium rounded-lg hover:bg-va-third/60
+              hover:shadow active:bg-va-third/30 transition-colors duration-300"
+            [routerLink]="item.href"
+            tabindex="0"
+            [attr.aria-label]="item.ariaLabel"
+          >
+            {{ item.title }}
+          </a>
+        </li>
+      }
+      
+      <hr class="border-t border-lightblue-third w-full my-2" />
+      <li class="w-full pt-2">
+        <a
+          (click)="toggleMenu()"
+          routerLink="/info/user/help"
+          class="flex w-full items-center justify-start gap-1.5 p-4 text-lg text-left
+            font-medium rounded-lg hover:bg-va-third/60 hover:shadow
+            active:bg-va-third/30 transition-colors duration-300"
+        >
+          <app-svg-icon
+            icon="help"
+            size="32px"
+            class="text-white"
+          ></app-svg-icon>
+          <span class="text-lg text-white">Ayuda</span>
+        </a>
+      </li>
+
+      <hr class="border-t border-lightblue-third w-full my-2 mt-4" />
+
+      <div class="flex justify-center gap-1 w-full mt-4">
+        <a [href]="facebook" class="text-lightblue-secondary/90 hover:text-white transition">
+          <app-svg-icon icon="facebook" size="20px" viewBox="simpleIcons"></app-svg-icon>
+          <span class="sr-only">Facebook page</span>
+        </a>
+        <a [href]="instagram" class="text-lightblue-secondary/90 hover:text-white ms-5 transition">
+          <app-svg-icon icon="instagram" size="20px" viewBox="simpleIcons"></app-svg-icon>
+          <span class="sr-only">Instagram account</span>
+        </a>
+        <a [href]="twitter" class="text-lightblue-secondary/90 hover:text-white ms-5 transition">
+          <app-svg-icon icon="twitter" size="20px" viewBox="simpleIcons"></app-svg-icon>
+          <span class="sr-only">Twitter page</span>
+        </a>
+        <a [href]="tiktok" class="text-lightblue-secondary/90 hover:text-white ms-5 transition">
+          <app-svg-icon icon="tiktok" size="20px" viewBox="simpleIcons"></app-svg-icon>
+          <span class="sr-only">TikTok account</span>
+        </a>
+      </div>
+    </ul>
+
+    <div class="mb-28 ml-8 flex flex-col justify-center items-start gap-2">
+      <span class="text-sm text-va-secondary/90 text-pretty">
+        © 2025 Vital Avellaneda™ 
+      </span>
+      <span class="text-sm text-va-secondary/90 text-pretty">
+        Hecho por Miguel Ángel Gil.
+      </span>
+    </div>
+    </div>
+
+    <!-- Overlay -->
+    <div
+      (click)="toggleMenu()"
+      [ngClass]="{ block: isMenuOpen(), hidden: !isMenuOpen() }"
+      class="xl:hidden fixed xs:top-28 top-18 inset-x-0 bottom-0 bg-black/70 z-10"
+    ></div>
+
     <!-- Logo and Title -->
     <div class="flex items-center">
       <a
         routerLink="/home"
-        class="flex items-center justify-center h-full w-80 ml-28"
+        class="flex items-center justify-center h-full xs:w-80 xl:ml-28"
       >
-        <img class="object-contain" src="/logos/logo-flat.webp" alt="Logo" />
+        <img class="hidden xs:block object-contain" src="/logos/logo-flat.webp" alt="Logo" />
+        <img class="block xs:hidden object-contain" src="/logos/logo-small.webp" alt="Logo" />
       </a>
-      <hr class="ml-16 h-14 w-0.5 bg-white" />
-      <app-svg-icon class="ml-3" [icon]="userRoleIcon" size="36px"></app-svg-icon>
-      <p class="ml-2 font-bold text-xl tracking-tight">{{ title }}</p>
+      <hr class="ml-16 h-14 w-0.5 bg-white hidden lg:block" />
+      <app-svg-icon class="ml-3 hidden lg:block" [icon]="userRoleIcon" size="36px"></app-svg-icon>
+      <p class="ml-2 font-bold text-xl tracking-tight hidden lg:block">{{ title }}</p>
     </div>
 
     <!-- Submenu button -->
-    <div class="mr-40">
+    <div class="2xl:mr-40 2xl:ml-0 xl:ml-24 xs:ml-8">
       <app-user-submenu></app-user-submenu>
     </div>
   </nav>

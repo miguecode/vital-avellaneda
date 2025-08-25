@@ -1,21 +1,28 @@
-<footer class="bg-va-primary mt-2">
-  <div class="mx-auto w-home-page py-4">
-    <div class="sm:flex sm:items-center sm:justify-between">
-      <span class="text-sm text-va-secondary/90 sm:text-center"
-        >© 2025 Vital Avellaneda™. Hecho por Miguel Ángel Gil.
-      </span>
-      <ul class="text-lightblue-secondary/90 text-sm font-medium flex gap-6">
-        <li>
+<footer class="bg-va-primary w-full px-6 mt-2">
+  <div class="mx-auto max-w-home-page py-4">
+    <div class="flex md:flex-row flex-col items-center justify-between md:gap-6 gap-2">
+      <div class="flex flex-col sm:flex-row sm:gap-2 gap-0.5 sm:mb-0 mb-2">
+        <span class="text-sm text-va-secondary/90 text-center"
+          >© 2025 Vital Avellaneda™
+        </span>
+        <span class="text-sm text-va-secondary/90 text-center text-pretty"
+          >Hecho por Miguel Ángel Gil.
+        </span>
+
+      </div>
+      <ul class="text-lightblue-secondary/90 text-sm
+       font-medium flex justify-center md:gap-6 gap-4">
+        <li class="text-center">
           <a
             routerLink="/info/politica-de-privacidad"
-            class="hover:underline">
+            class="hover:underline text-center">
             Política de Privacidad
           </a>
         </li>
-        <li>
+        <li class="text-center">
           <a
             routerLink="/info/terminos-y-condiciones"
-            class="hover:underline">
+            class="hover:underline text-center">
             Términos y Condiciones
           </a>
         </li>

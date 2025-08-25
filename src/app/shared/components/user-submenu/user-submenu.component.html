@@ -1,16 +1,28 @@
 <div class="relative">
   <button class="user-submenu-button cursor-pointer flex flex-wrap justify-center items-center
-     rounded-full gap-2 px-4 py-2 min-w-48
-     bg-va-third/60 text-va-white font-medium
-      hover:bg-va-third active:bg-va-third/80 focus:bg-va-third
+     rounded-full gap-2 md:px-4 md:py-2 md:min-w-48 p-2
+     md:bg-va-third/60 text-va-white font-medium
+      md:hover:bg-va-third md:active:bg-va-third/80 focus:bg-va-third bg-va-primary
         transition duration-300"
         (click)="toggleDropdown($event)">
-        <app-svg-icon icon="user" size="34px"></app-svg-icon>
-        {{ name }}
+        @defer (when profilePictureUrl()) {
+          <div class="md:hidden flex rounded-full bg-lightblue-secondary size-12">
+            <img [src]="profilePictureUrl()" alt="Profile Picture" class="object-cover rounded-full
+             outline outline-va-fifth shadow">
+          </div>
+        } @loading (minimum 750ms) {
+          <div class="size-12 rounded-full bg-lightblue-secondary text-lightblue-third/70
+           md:hidden flex justify-center items-center animate-pulse">
+            <app-svg-icon icon="image" size="30px" class="md:hidden flex text-lightblue-third/70"></app-svg-icon>
+          </div>
+        }
+        
+    <app-svg-icon icon="user" size="34px" class="hidden md:block"></app-svg-icon>
+    <span class="hidden md:block">{{ name }}</span>
   </button>
 
   @if (isDropdownVisible()) {
-    <div class="absolute top-13 right-0 bg-lightblue-primary rounded-2xl min-w-72 min-h-72
+    <div class="absolute md:top-13 top-15 right-0 bg-lightblue-primary rounded-2xl min-w-72 min-h-72
       p-3 flex flex-col shadow user-submenu-dropdown border border-va-fourth"
       [class.open]="isDropdownOpen()">
       <div class="flex flex-wrap gap-4 justify-start items-center w-full">
