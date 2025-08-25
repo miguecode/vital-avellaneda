@@ -1,7 +1,7 @@
 <div class="bg-lightblue-primary/70 rounded-3xl py-6
   border border-va-fourth/40 shadow flex flex-col justify-center items-center">
 
-  <div class="flex flex-col w-md">
+  <div class="flex flex-col xs:w-md">
     <div class="text-center w-full">
       <h2 
         class="text-va-primary text-3xl mb-2 font-semibold tracking-tight">
@@ -11,7 +11,7 @@
     </div>
 
     <!-- Form -->
-    <div class="relative flex flex-col justify-center items-center px-8">
+    <div class="relative flex flex-col justify-center items-center xs:px-8 px-4">
       <form
         autocomplete="on"
         [formGroup]="form"
@@ -58,7 +58,8 @@
           <!-- Error Text -->
           @if (submitted && loginError()) {
           <div
-            class="flex justify-start items-center gap-1 p-2 bg-red-primary rounded text-red-secondary text-medium text-pretty"
+            class="flex flex-wrap justify-center items-center gap-1 p-2 text-center
+             bg-red-primary rounded text-red-secondary text-medium text-pretty"
           >
             <app-svg-icon icon="error" size="20px"></app-svg-icon>
             {{ loginError() }}
@@ -66,9 +67,10 @@
           <!-- Information Text -->
           } @else {
           <div
-            class="flex justify-start items-center gap-1 p-2 bg-va-primary rounded text-lightblue-primary text-medium text-pretty"
+            class="flex flex-wrap justify-center items-center gap-1 p-2 text-center
+             bg-va-primary rounded text-lightblue-primary text-medium text-pretty"
           >
-            <app-svg-icon icon="info" size="20px"></app-svg-icon>
+            <app-svg-icon icon="info" size="20px" class="xs:block hidden"></app-svg-icon>
             Completa ambos campos para ingresar.
           </div>
           }

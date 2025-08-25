@@ -1,6 +1,6 @@
 <div
-  class="inter-font special-glow flex flex-wrap justify-between items-center pr-16
-  py-4 w-full min-h-48 rounded-4xl relative overflow-hidden
+  class="inter-font special-glow flex xl:flex-row flex-col flex-wrap justify-between items-center xl:pr-16
+  xl:py-4 py-6 w-full min-h-48 rounded-4xl relative overflow-hidden xl:gap-0 gap-4
   backdrop-blur-xl shadow-md outline outline-blue-600"
   style="
     background: radial-gradient(circle at 80% 20%, #121931 0%, transparent 40%),
@@ -14,7 +14,7 @@
   <div class="flex justify-center items-center">
 
     <!-- Icon -->
-    <div class="flex justify-center items-center ml-10 rounded-full h-full">
+    <div class="flex justify-center items-center xl:ml-10 rounded-full h-full">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="92px"
@@ -93,12 +93,12 @@
   
     <!-- Title and Description -->
     <div
-      class="flex flex-col justify-center ml-7
+      class="flex flex-col justify-center xl:ml-7
       bg-gradient-to-br from-blue-600 to-60% to-cyan-400
       to bg-clip-text text-transparent h-full"
     >
-      <h3 class="text-3xl font-bold tracking-tight">Ingresos Rápidos</h3>
-      <p class="w-96">
+      <h3 class="text-3xl md:pr-0 pr-4  font-bold tracking-tight">Ingresos Rápidos</h3>
+      <p class="xl:w-96 md:pr-0 pr-4 text-pretty">
         Para agilizar la prueba del sitio, usá nuestros usuarios por defecto, en
         un clic.
       </p>
@@ -108,14 +108,14 @@
   <!-- <hr class="w-0.5 h-full bg-red-400/40"> -->
 
   <!-- User Buttons -->
-  <div class="flex ml-6 gap-4 max-w-1/2">
+  <div class="flex flex-wrap xl:flex-nowrap xl:justify-start justify-center xl:ml-6 mx-4 gap-4 xl:max-w-1/2">
     @if (showUsers() && !authFacade.isAuthenticated()) {
       @for (user of users(); track user.id) {
         <button 
         (click)="fastLogin(user)"
         [disabled]="authFacade.isLoading()"
-        class="cursor-pointer flex justify-center items-center
-        rounded-2xl h-full px-2 py-4 outline outline-blue-400/40 w-30
+        class="cursor-pointer flex flex-wrap justify-center items-center
+        rounded-2xl h-full px-2 py-4 outline outline-blue-400/40 min-w-30
       bg-gray-900 not-disabled:hover:bg-gray-800 transition duration-300
         not-disabled:active:bg-gray-700 not-disabled:hover:scale-105 not-disabled:active:scale-100
         disabled:cursor-default disabled:bg-white/10">
