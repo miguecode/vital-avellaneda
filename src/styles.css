@@ -42,8 +42,8 @@
 
   /* Breakpoints */
   --breakpoint-xs: 480px;
-
-
+  --breakpoint-3xl: 1578px;
+  --breakpoint-4xl: 1690px;
 
   /* Font Sizes */
   --text-main-button: 1.4rem;

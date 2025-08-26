@@ -1,6 +1,6 @@
-<div class="user-card relative flex flex-col flex-wrap justify-start items-center
-  min-h-96 min-w-108 w-full bg-lightblue-primary rounded-2xl
-  border border-va-fourth shadow p-3 overflow-auto">
+<div class="user-card relative flex 3xl:flex-col not-md:flex-col flex-row justify-start 3xl:items-center not-md:items-center items-start
+  4xl:min-h-96 4xl:min-w-108 3xl:w-auto not-md:w-auto w-full bg-lightblue-primary rounded-2xl h-full
+  border border-va-fourth shadow p-3 overflow-auto 3xl:gap-0 not-md:gap-0 gap-8">
 
   <!-- Edit Button -->
   <button 
@@ -14,51 +14,55 @@
       Editar
   </button>
 
-  <!-- Profile Image -->
-  <div class="text-va-fifth bg-lightblue-primary flex justify-center items-center m-2
-    outline-2 outline-va- size-32 rounded-full shadow overflow-hidden">
-    @defer (when profilePictureUrl()) {
-      <img [src]="profilePictureUrl()" alt="Profile Picture" class="w-full h-full object-cover">
-    } @loading (minimum 750ms) {
-      <div class="size-32 rounded-full bg-lightblue-primary text-lightblue-third/70
-       flex justify-center items-center animate-pulse">
-        <app-svg-icon icon="image" size="68px"></app-svg-icon>
+  <!-- Profile and Name -->
+  <div class="px-4 m-auto flex flex-col justify-center items-center">
+    <!-- Profile Image -->
+    <div class="text-va-fifth bg-lightblue-primary flex justify-center items-center m-2
+      outline-2 outline-lightblue-secondary/40 size-32 rounded-full shadow overflow-hidden">
+      @defer (when profilePictureUrl()) {
+        <img [src]="profilePictureUrl()" alt="Profile Picture" class="w-full h-full object-cover">
+      } @loading (minimum 750ms) {
+        <div class="size-32 rounded-full bg-lightblue-primary text-lightblue-third/70
+         flex justify-center items-center animate-pulse">
+          <app-svg-icon icon="image" size="68px"></app-svg-icon>
+        </div>
+      }
+    </div>
+  
+    <!-- Name and User State -->
+    <div class="flex flex-wrap flex-col justify-center items-center mb-2.5 w-full">
+      <h3 class="xs:text-3xl text-2xl text-va-primary font-bold mt-1 text-center">{{ user()?.firstName }}</h3>
+      <div class="mt-2 flex flex-wrap justify-center items-center bg-green-primary shadow
+      outline outline-green-700 text-green-800 text-sm
+      font-medium rounded-full py-1 px-4 w-fit text-center">
+        {{ roleLabel }} {{ statusLabel }}
       </div>
-    }
-  </div>
-
-  <!-- Name and User State -->
-  <div class="flex flex-wrap flex-col justify-center items-center mb-2.5">
-    <h3 class="text-3xl text-va-primary font-bold mt-1">{{ user()?.firstName }}</h3>
-    <div class="mt-2 flex flex-wrap justify-center items-center bg-green-primary shadow
-    outline outline-green-700 text-green-800 text-sm
-    font-medium rounded-full py-1 px-4 w-fit">
-      {{ roleLabel }} {{ statusLabel }}
     </div>
   </div>
   
-  <hr class="h-0.5 w-full text-va-fourth/80 my-2.5">
+  <div class="w-px self-stretch bg-va-fourth/80 3xl:w-full not-md:w-full 3xl:h-px not-md:h-px 3xl:my-2.5 not-md:my-2.5 3xl:mx-0 not-md:mx-0"></div>
 
   <!-- Personal Data -->
-  <div class="flex flex-col flex-wrap 
-    w-full rounded-lg px-3">
+  <div class="flex flex-col flex-wrap justify-start items-start
+    size-full rounded-lg px-3">
     <h4 class="font-semibold text-va-primary mb-0.5 text-lg">Datos personales</h4>
     @for (item of personalData; track item.label) {
-      <p class="text-pretty">
+      <p class="text-pretty flex flex-wrap">
         <span class="font-medium text-va-primary">{{ item.label }}:</span>
         <span class="text-va-third ml-1">{{ item.value }}</span>
       </p>
     }
   </div>
 
-  <hr class="h-0.5 w-full text-va-fourth/80 my-3">
+  <div class="w-px self-stretch bg-va-fourth/80 3xl:w-full not-md:w-full 3xl:h-px not-md:h-px 3xl:my-2.5 not-md:my-2.5 3xl:mx-0 not-md:mx-0"></div>
+
 
   <!-- Medical Data -->
-  <div class="flex flex-col flex-wrap 
-    w-full rounded-lg px-3">
+  <div class="flex flex-col flex-wrap justify-start items-start
+    size-full rounded-lg px-3">
     <h4 class="font-semibold text-va-primary mb-0.5 text-lg">Datos médicos</h4>
     @for (item of customData; track item.label) {
-      <p class="text-pretty">
+      <p class="text-pretty flex flex-wrap">
         <span class="font-medium text-va-primary">{{ item.label }}:</span>
         <span class="text-va-third ml-1">{{ item.value }}</span>
       </p>
