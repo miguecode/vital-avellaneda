@@ -1,7 +1,9 @@
 <form [formGroup]="form" (ngSubmit)="onSubmit()">
-  <div class="relative flex flex-wrap gap-4 w-full">
+  <div class="flex flex-wrap gap-4">
     <!-- First Column -->
-    <div class="flex flex-col gap-7 w-86">
+    <div 
+      [class.hidden]="showSpecialtyModal()"
+      class="flex flex-col gap-8 p-2 w-full md:w-input-group min-w-64">
       <app-input-custom
         type="text"
         formControlName="firstName"
@@ -25,7 +27,9 @@
     </div>
 
     <!-- Second Column -->
-    <div class="flex flex-col gap-7 w-86">
+    <div 
+      [class.hidden]="showSpecialtyModal()"
+      class="flex flex-col gap-8 p-2 w-full md:w-input-group min-w-64">
       <app-select-custom
         formControlName="sex"
         label="Sexo"
@@ -49,7 +53,9 @@
     </div>
 
     <!-- Third Column -->
-    <div class="flex flex-col gap-7 w-86">
+    <div 
+      [class.hidden]="showSpecialtyModal()"
+      class="flex flex-col gap-8 p-2 w-full md:w-input-group min-w-64">
       @if (!isSpecialist()) {
         <app-select-custom
           formControlName="healthInsurance"
@@ -83,25 +89,29 @@
         [lastSelected]="form.get('specialties')?.value"
         (confirm)="onSpecialtiesSelected($event)"
         (cancel)="closeModal()"
-        class="absolute w-300 z-20 bg-white border border-va-third/20 shadow rounded"
+        class="z-20 max-w-6xl
+         bg-white border border-va-third/20 shadow rounded"
       />
     }
   </div>
 
+  <!-- Footer -->
+  <div class="md:mt-8 mt-4 flex flex-col flex-wrap
+  justify-center items-center h-full gap-3">
     <!-- Submit Button -->
-    <div class="mt-14 flex flex-col flex-wrap justify-center items-center
-     w-266 h-full gap-3">
       <button
         type="submit"
+        [class.hidden]="showSpecialtyModal()"
         [disabled]="form.invalid || !hasChanges() ||  isLoading()"
         class="cursor-pointer px-8 py-3 text-white text-lg rounded-lg font-medium
               bg-va-primary hover:bg-va-third active:bg-va-third/90
-              transition duration-300 shadow-md 
+              transition duration-300 shadow-md md:w-auto w-full
               disabled:bg-va-primary/50 disabled:shadow-none disabled:cursor-auto
               flex items-center justify-center gap-2"
       >
         @if (isLoading()) {
-          <div class="animate-spin inline-block size-6 border-3
+          <div 
+          class="animate-spin inline-block size-6 border-3
                       border-current border-t-transparent text-white rounded-full"
               role="status" aria-label="loading"></div>
           Guardando...
@@ -109,7 +119,11 @@
           Guardar cambios
         }
       </button>
-      <div class="flex justify-start items-start w-136 text-sm
+
+      <!-- Advice -->
+      <div 
+      [class.hidden]="showSpecialtyModal()"
+      class="flex justify-start items-start text-sm md:max-w-164 
        gap-2 bg-amber-200 border-2 border-amber-300 text-black rounded p-3 mt-3">
           <app-svg-icon class="h-full text-amber-900" icon="info" size="26px"></app-svg-icon>
           <div class="flex flex-col gap-2">

@@ -8,3 +8,10 @@
   0% { opacity: 0.96; }
   100% { opacity: 1; }
 }
+
+@media (max-width: 767px) {
+  .user-buttons-container > button {
+    flex-grow: 1;
+    flex-basis: calc(50% - .5rem);
+  }
+}

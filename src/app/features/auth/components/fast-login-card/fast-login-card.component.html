@@ -97,7 +97,7 @@
       bg-gradient-to-br from-blue-600 to-60% to-cyan-400
       to bg-clip-text text-transparent h-full"
     >
-      <h3 class="text-3xl md:pr-0 pr-4  font-bold tracking-tight">Ingresos Rápidos</h3>
+      <h3 class="text-3xl md:pr-0 pr-4 font-bold tracking-tight">Ingresos Rápidos</h3>
       <p class="xl:w-96 md:pr-0 pr-4 text-pretty">
         Para agilizar la prueba del sitio, usá nuestros usuarios por defecto, en
         un clic.
@@ -108,7 +108,7 @@
   <!-- <hr class="w-0.5 h-full bg-red-400/40"> -->
 
   <!-- User Buttons -->
-  <div class="flex flex-wrap xl:flex-nowrap xl:justify-start justify-center xl:ml-6 mx-4 gap-4 xl:max-w-1/2">
+  <div class="user-buttons-container flex flex-wrap xl:flex-nowrap xl:justify-start justify-center xl:ml-6 mx-4 gap-4 xl:max-w-1/2">
     @if (showUsers() && !authFacade.isAuthenticated()) {
       @for (user of users(); track user.id) {
         <button 

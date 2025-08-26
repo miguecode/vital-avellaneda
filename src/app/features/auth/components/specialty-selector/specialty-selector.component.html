@@ -1,20 +1,26 @@
-<div class="relative pl-4 flex flex-col  p-4 overflow-hidden h-full">
-  <!-- Close icon -->
-  <button 
-  type="button"
-  (click)="exit()"
-  class="cursor-pointer absolute top-3 right-3 rounded-full p-1
-  text-black hover:bg-black/10 active:bg-black/20 transition">
-    <app-svg-icon icon="close" size="35px"></app-svg-icon>
-  </button>
+<div class="relative pl-4 flex flex-col p-4 overflow-hidden h-full">
 
-  <!-- Title and description -->
-  <h2 class="text-xl font-semibold">Selector de Especialidades</h2>
-  <p>Podés seleccionar una o más especialidades.</p>
+  <!-- Header -->
+  <div class="flex justify-between gap-2">
+    <!-- Title and description -->
+     <div>
+       <h2 class="text-xl font-semibold">Selector de Especialidades</h2>
+       <p>Podés seleccionar una o más especialidades.</p>
+     </div>
+    
+     <!-- Close icon -->
+    <button 
+    type="button"
+    (click)="exit()"
+    class="cursor-pointer rounded-full size-12 p-1 flex justify-center items-center
+    text-black hover:bg-black/10 active:bg-black/20 transition">
+      <app-svg-icon icon="close" size="35px"></app-svg-icon>
+    </button>
+  </div>
 
   <!-- Specialties cards -->
-  <div class="flex flex-wrap items-center justify-center mt-3
-   gap-4 py-5 rounded border border-va-third/20 shadow max-h-112 overflow-y-auto">
+  <div class="flex flex-wrap items-center justify-center mt-3 px-4 
+   gap-4 py-5 rounded border border-va-third/20 shadow overflow-y-auto">
 
     @defer (when specialties().length > 0) {
       @for (specialty of specialties(); track $index) {
@@ -22,22 +28,18 @@
         [class.selected]="isSelected(specialty)"
         class="select-none cursor-pointer flex flex-col
          items-start justify-start outline outline-lightblue-primary
-         px-3 py-2 w-specialty-width h-24 max-h-36 rounded hover:outline-lightblue-third
+         px-3 py-2 w-specialty-width min-h-24 rounded hover:outline-lightblue-third
          overflow-hidden bg-lightblue-primary text-va-primary text-lg font-medium
         active:bg-lightblue-third/10 transition-colors">
-          <div class="flex justify-center items-center gap-1.5">
+          <div class="flex xs:flex-row flex-col flex-wrap xs:justify-start *:justify-center items-center gap-1.5 w-full">
             <app-svg-icon [icon]="$any(specialty.id)"></app-svg-icon>
-            <h3 class="mt-1">{{specialty.name}}</h3>
+            <h3 class="xs:mt-1">{{specialty.name}}</h3>
           </div>
           <hr class="text-va-primary/40 w-full h-1">
-          <p class="text-sm text-va-primary/70 font-normal text-pretty">{{specialty.description}}</p>
+          <p class="xs:flex-none flex justify-center items-center xs:text-start text-center text-sm text-va-primary/70
+           font-normal text-pretty">{{specialty.description}}</p>
         </div>
       }
-        <!-- Loading not working at all -->
-        <!-- } @loading (minimum 1.5s) { 
-          @for (i of [1, 2, 3, 4, 5, 6, 7, 8]; track $index) {
-            <div class="w-specialty-width h-20 bg-lightblue-primary animate-pulse rounded"></div>
-          } -->
     } @placeholder (minimum 1s) {
       @for (i of [1, 2, 3, 4, 5, 6, 7, 8]; track $index) {
         <div class="w-specialty-width h-24 bg-lightblue-secondary animate-pulse rounded"></div>
@@ -46,19 +48,19 @@
   </div>
 
   <!-- Information -->
-  <div class="flex flex-wrap justify-start mt-2 items-center">
-    <p class="pl-6 font-medium">
+  <div class="flex flex-wrap xs:justify-start justify-center mt-2 items-center">
+    <p class="xs:pl-6 font-medium">
       {{ selectedSpecialties().length }}
       especialidades seleccionadas
     </p>
   </div>
 
   <!-- Buttons -->
-  <div class="gap-3 right-9 flex flex-wrap justify-end items-center">
+  <div class="gap-3 right-9 flex flex-wrap xs:justify-end justify-center items-center md:mt-0 mt-3">
     <button
     type="button"
     (click)="exit()"
-    class="cursor-pointer font-medium rounded-xl
+    class="cursor-pointer font-medium rounded-xl not-xs:w-full
       py-3 px-6 border border-gray-300 hover:bg-gray-100 active:bg-gray-100/80 transition duration-300">
       Cancelar
     </button>
@@ -66,7 +68,7 @@
     type="button"
     (click)="save()"
     class="cursor-pointer font-medium
-     text-white py-3 px-6 rounded-lg
+     text-white py-3 px-6 rounded-lg not-xs:w-full
      bg-va-primary hover:bg-va-third active:bg-va-third/90 duration-300 transition">
       Guardar cambios
     </button>

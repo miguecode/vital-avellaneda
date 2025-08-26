@@ -1,11 +1,13 @@
 @if (!user() || isCheckingAuth()) {
 <app-splash></app-splash>
 } @else {
-<div class="flex justify-center items-center size-full">
+<div class="flex justify-center items-center">
   <div
-    class="flex flex-wrap flex-col justify-start items-start
-     min-h-244 size-full outline outline-lightblue-secondary/70
-      bg-va-secondary/10 shadow mx-32 py-8 px-16 rounded-xl"
+    class="lg:mx-12 xs:mx-4 mx-1 w-7xl xs:px-4 px-2 sm:px-6 lg:px-8
+      flex flex-wrap flex-col justify-start items-start
+      min-h-dashboard-height
+      outline outline-lightblue-secondary/70
+      bg-va-secondary/10 shadow py-8 rounded-xl"
   >
     <!-- Back Button -->
     <button
@@ -14,7 +16,7 @@
           ? '/dashboard/patient'
           : '/dashboard/specialist'
       "
-      class="-mt-4 -ml-13 flex flex-wrap justify-center items-center
+      class="-mt-4 -ml-6 flex flex-wrap justify-center items-center
        gap-1 rounded-full px-6 py-1.5 cursor-pointer hover:text-va-third
         hover:bg-va-secondary/50 active:bg-va-secondary/90 transition duration-300"
     >
@@ -27,13 +29,13 @@
 
     <!-- Title and Description -->
     <app-title-description
-      class="text-black mt-4"
+      class="text-black mt-4 sm:text-start text-center"
       title="Mi cuenta"
       description="En esta pantalla podés modificar los datos de tu cuenta."
     ></app-title-description>
 
     <!-- Edit Form -->
-     <div class="w-full mt-4">
+     <div class="mt-4">
        <app-user-edit-form></app-user-edit-form>
      </div>
   </div>

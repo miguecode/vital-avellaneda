@@ -1,11 +1,11 @@
-<div class="bg-lightblue-primary/70 rounded-3xl p-6 min-h-register-form
-  border border-va-fourth/40 shadow">
+<div class="bg-lightblue-primary/70 rounded-3xl py-6
+  xs:px-8 px-4 min-h-register-form border border-va-fourth/40 shadow">
   <!-- Title, description and Toggle button -->
-  <div class="ml-3">
-    <h2 class="text-va-primary text-3xl font-semibold">
+  <div class="flex flex-col">
+    <h2 class="text-va-primary text-2xl sm:text-start text-center sm:text-3xl font-semibold">
       Nuevo {{ this.isSpecialist() ? "Especialista" : "Paciente" }}
     </h2>
-    <p class="mb-4 text-lg">
+    <p class="mb-4 text-base sm:text-lg sm:text-start text-center text-pretty">
       Este es el formulario de registro para
 
       <strong class="text-va-primary">{{
@@ -37,38 +37,41 @@
     >
 
       <!-- Profile Picture Selector Input -->
-      <div class="w-fit flex justify-start items-center rounded-3xl
-        bg-lightblue-secondary/40 py-3 px-8">
+      <div class="w-full flex sm:justify-start justify-center items-center rounded-3xl
+        sm:bg-lightblue-secondary/40 py-3 sm:px-8 px-4">
         <label
           for="profilePictureInput" 
-          class="cursor-pointer flex justify-center items-start gap-4 group">
+          class="cursor-pointer flex sm:flex-row flex-col justify-center items-center gap-x-6 gap-y-0 group">
+
           <div class="relative">
             <img 
             [src]="profilePictureUrl()" 
             alt="Profile Picture" 
-            class="size-22 object-cover rounded-lg outline-2 outline-va-fifth">
+            class="sm:h-22 h-18 sm:min-w-22 min-w-18 object-cover rounded-lg outline-2 outline-va-fifth">
             <div class="absolute size-9 flex justify-center items-center
              rounded-lg bg-va-primary z-2 -top-2 -right-4 hover:bg-va-third transition-colors">
               <app-svg-icon icon="edit" class="text-va-secondary"></app-svg-icon>
             </div>
           </div>
+
           <div 
-            class="flex justify-center items-center text-va-primary
-             font-medium text-lg pl-2 py-3">
+            class="flex justify-center items-center text-va-primary w-full
+             font-medium text-lg py-3">
              <div class="flex flex-col">
-              <div>
-                <span class="pl-1 group-hover:underline">Elegir foto de perfil</span>
-                <span class="text-va-fifth/90 pl-1.5">(Opcional)</span>
+              <div class="flex xs:flex-row flex-col">
+                <span class="pl-1 group-hover:underline text-center">Elegir foto de perfil</span>
+                <span class="text-va-fifth/90 pl-1.5 text-center">(Opcional)</span>
               </div>
               <p 
-                class="text-sm font-normal pl-1.5 pt-0.5">
+                class="sm:block hidden text-sm font-normal pl-1.5 pt-0.5 text-pretty">
                 Se recomienda seleccionar una foto a modo de retrato y con buena iluminación.
               </p>
-              <p class="text-sm font-normal pl-1.5">
+              <p class="sm:block hidden text-sm font-normal pl-1.5 text-pretty">
                 Elegir una foto no es obligatorio: La idea es hacer más humano el manejo de Vital Avellaneda.
               </p>
              </div>
           </div>
+
         </label>
         <input 
           id="profilePictureInput" 
@@ -79,9 +82,9 @@
         >
       </div>
 
-      <div class="flex gap-4 justify-between">
+      <div class="flex flex-wrap gap-4 justify-center items-start lg:px-0 px-12">
         <!-- Input Group (User base 1) -->
-        <div class="flex flex-col gap-8 p-2 w-full sm:w-input-group min-w-64">
+        <div class="flex flex-col gap-8 p-2 w-full md:w-input-group min-w-64">
           <app-input-custom
             type="text"
             formControlName="firstName"
@@ -124,7 +127,7 @@
         </div>
   
         <!-- Input Group (User base 2) -->
-        <div class="flex flex-col gap-8 p-2 w-full sm:w-input-group min-w-64">
+        <div class="flex flex-col gap-8 p-2 w-full md:w-input-group min-w-64">
           <app-input-custom
             type="email"
             formControlName="email"
@@ -166,7 +169,7 @@
         </div>
   
         <!-- Input Group (Role properties) -->
-        <div class="flex flex-col gap-8 p-2 w-full sm:w-input-group min-w-64">
+        <div class="flex flex-col gap-8 p-2 w-full md:w-input-group min-w-64">
           <!-- Patient -->
           @if (userMode() === 'patient') {
           <div class="w-full">
@@ -249,14 +252,14 @@
       <div class="w-full flex flex-wrap justify-center items-center mt-8">
         <!-- Error Text -->
         @if (submitted && registerError) {
-          <div class="flex justify-center items-center gap-1 p-2 w-full
+          <div class="flex flex-wrap justify-center items-center gap-1 p-2 text-center w-full
           bg-red-primary rounded text-red-secondary text-pretty">
           <app-svg-icon icon="error" size="20px"></app-svg-icon>
             {{ registerError }}
           </div>
         <!-- Information Text -->
         } @else {
-          <div class="flex justify-center items-center gap-1 p-2 w-full
+          <div class="flex flex-wrap justify-center items-center gap-1 p-2 text-center w-full
           bg-va-primary rounded text-lightblue-primary text-pretty">
           <app-svg-icon icon="info" size="20px"></app-svg-icon>
             Completa cada campo con tus datos.
@@ -265,22 +268,22 @@
       </div>
 
       <!-- Register Button and Links -->
-      <div class="w-full flex justify-between items-center mt-3">
-        <p class="text-sm w-80 text-pretty">Al registrarte, aceptas nuestros
+      <div class="w-full flex sm:flex-row flex-col justify-between items-center mt-3 gap-4">
+        <p class="text-sm xs:w-80 w-full text-pretty text-center">Al registrarte, aceptas nuestros
           <a
             routerLink="/info/terminos-y-condiciones"
-            class="text-va-primary font-medium hover:underline" href="">Términos y Condiciones</a> 
+            class="text-va-primary font-medium hover:underline">Términos y Condiciones</a> 
           y nuestra
           <a
             routerLink="/info/politica-de-privacidad"
-            class="text-va-primary font-medium hover:underline" href="">Política de Privacidad.</a>
+            class="text-va-primary font-medium hover:underline">Política de Privacidad.</a>
         </p>
 
         <button
           type="submit"
           [disabled]="form.invalid || isLoading() || onSubmitStarted()"
           disabled
-          class="self-center cursor-pointer w-80 px-12 py-3 text-white text-lg rounded-xl font-medium
+          class="self-center cursor-pointer xs:w-80 w-full px-12 py-3 text-white text-lg rounded-xl font-medium
            bg-va-primary hover:bg-va-third active:bg-va-third/90
             transition duration-300 shadow-md 
             disabled:bg-va-primary/50 disabled:shadow-none disabled:cursor-auto
@@ -298,7 +301,7 @@
           }
         </button>
         
-        <p class="w-80 font-medium">
+        <p class="xs:w-80 w-full font-medium text-center text-pretty">
           ¿Ya tenes una cuenta?
           <a class="text-va-primary font-semibold underline underline-offset-2" 
           routerLink="/auth/login">
