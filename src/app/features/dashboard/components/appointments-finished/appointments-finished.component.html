@@ -35,12 +35,12 @@
     </div>
   } @else {
     @for (apt of displayedFinishedAppointments(); track apt.id) {
-      <div class="relative flex flex-col justify-center items-center xs:w-80 xs:h-32
+      <div class="relative flex flex-col justify-center items-center xs:w-80 xs:h-32 w-full
       bg-lightblue-primary border-1 border-va-fourth shadow rounded-4xl">
       
-        <div class="flex flex-col justify-center items-start px-3 py-2.5 gap-1.5 xs:text-base text-sm">
-          <div class="flex font-medium flex-wrap xs:justify-start justify-center
-          items-end gap-1.5 text-va-fifth px-4 text-center text-pretty">
+        <div class="flex flex-col justify-center xs:items-start items-center px-3 py-2.5 gap-1.5 xs:text-base text-sm">
+          <div class="flex xxs:flex-row flex-col font-medium flex-wrap xs:justify-start justify-center
+          xs:items-end items-center gap-1.5 text-va-fifth px-4 text-center text-pretty">
             <app-svg-icon 
               size="26px"
               [icon]="apt.status === 'completed' ? 'eventAvailable' : 'eventBusy'"
@@ -50,12 +50,13 @@
                 {{ apt.date | date: 'd' }} de {{ apt.date | date: 'MMMM' | titlecase }} de {{ apt.date | date: 'y' }}
               </span>
             } @else {
-              <span>
+              <span class="text-pretty text-center">
                 Cancelado
               </span>
             }
           </div>
-          <div class="flex flex-wrap font-medium justify-start items-end gap-1.5 text-va-third px-4">
+          <div class="flex xxs:flex-row flex-col flex-wrap font-medium xs:justify-start
+           justify-center items-center gap-1.5 text-va-third px-4 w-full">
             <app-svg-icon size="26px" [icon]="$any(apt.specialty.id)"></app-svg-icon>
             <span>{{ apt.specialty.name }}</span>
           </div>

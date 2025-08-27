@@ -16,9 +16,10 @@
           ? '/dashboard/patient'
           : '/dashboard/specialist'
       "
-      class="-mt-4 -ml-6 flex flex-wrap justify-center items-center
-       gap-1 rounded-full px-6 py-1.5 cursor-pointer hover:text-va-third
-        hover:bg-va-secondary/50 active:bg-va-secondary/90 transition duration-300"
+      class="-mt-4 lg:-ml-6 sm:-ml-4 flex flex-wrap sm:justify-center justify-start items-center
+        gap-1 rounded-full px-6 py-1.5 cursor-pointer hover:text-va-third sm:w-auto w-full
+        hover:bg-va-secondary/50 active:bg-va-secondary/90 transition duration-300
+        not-sm:outline outline-va-fourth not-sm:bg-va-secondary/50"
     >
       <app-svg-icon
         icon="backArrow"
@@ -29,7 +30,7 @@
 
     <!-- Title and Description -->
     <app-title-description
-      class="text-black mt-4 sm:text-start text-center"
+      class="text-black mt-4 sm:text-start text-center w-full"
       title="Mi cuenta"
       description="En esta pantalla podés modificar los datos de tu cuenta."
     ></app-title-description>

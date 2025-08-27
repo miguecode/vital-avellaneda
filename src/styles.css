@@ -41,6 +41,7 @@
   --spacing-step-size: 3.5rem;
 
   /* Breakpoints */
+  --breakpoint-xxs: 414px;
   --breakpoint-xs: 480px;
   --breakpoint-3xl: 1578px;
   --breakpoint-4xl: 1690px;

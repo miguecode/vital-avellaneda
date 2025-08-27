@@ -16,7 +16,7 @@
 <div class="flex flex-col size-full gap-2">
   <div 
     class="flex flex-wrap justify-center items-center bg-lightblue-primary/20
-    xl:w-290 lg:w-200 lg:px-0 px-10 w-full min-h-60
+    xl:w-290 lg:w-200 lg:px-0 xxs:px-10 px-2 w-full min-h-60
     rounded-3xl p-4 gap-5 border border-va-fourth/20 shadow">
     @if (loading()) {
     <div class="flex flex-col justify-center items-center xl:w-270 lg:w-180 lg:px-0 px-10 w-full min-h-60
@@ -44,7 +44,7 @@
       @for (apt of displayedPendingAppointments(); track apt.id) {
       <div class="flex flex-col justify-center items-center xs:w-90 bg-lightblue-primary
       border-1 border-va-fourth shadow rounded-4xl overflow-hidden xs:h-60">
-        <div class="text flex justify-center items-end gap-4
+        <div class="text flex justify-center xxs:items-end items-center xxs:gap-4 xxs:flex-row flex-col
         bg-lightblue-secondary/80 w-full h-full px-7 py-1.5 border-b border-va-fourth">
           <span class="text-va-third font-bold xs:text-2xl text-xl first-letter:capitalize">
             {{ apt.date | date : "EEEE" }}
@@ -55,25 +55,25 @@
         </div>
 
         <div class="flex flex-col justify-center items-start px-6 py-2.5 gap-1.5 xs:text-base text-sm">
-          <div class="flex font-medium flex-wrap xs:justify-start justify-center items-end
-          gap-1.5 text-va-fifth px-4 text-center text-pretty">
+          <div class="flex font-medium flex-wrap xxs:justify-start justify-center xxs:items-end items-center w-full
+          gap-1.5 text-va-fifth px-4 text-center text-pretty xxs:flex-row flex-col">
             <app-svg-icon size="26px" icon="appointment"></app-svg-icon>
             <span>
               {{ apt.date | date: 'd' }} de {{ apt.date | date: 'MMMM' | titlecase }} de {{ apt.date | date: 'y' }}
             </span>
           </div>
-          <div class="flex font-medium flex-wrap xs:justify-start justify-center
-          items-end gap-1.5 text-va-fifth px-4 text-center text-pretty">
+          <div class="flex font-medium flex-wrap xxs:justify-start justify-center w-full
+          xxs:items-end items-center gap-1.5 text-va-fifth px-4 text-center text-pretty xxs:flex-row flex-col">
             <app-svg-icon size="26px" icon="schedule"></app-svg-icon>
             <span>{{ apt.date| date : "HH:mm" }} hs.</span>
           </div>
-          <div class="flex flex-wrap font-medium xs:justify-start justify-center
-          items-end gap-1.5 text-va-fifth px-4 text-center text-pretty">
+          <div class="flex flex-wrap font-medium xxs:justify-start justify-center w-full
+          xxs:items-end items-center gap-1.5 text-va-fifth px-4 text-center text-pretty xxs:flex-row flex-col">
             <app-svg-icon size="26px" [icon]="$any(apt.specialty.id)"></app-svg-icon>
             <span>{{ apt.specialty.name }}</span>
           </div>
-          <div class="flex flex-wrap font-medium xs:justify-start justify-center
-          items-end gap-1.5 text-va-fifth px-4 text-center text-pretty">
+          <div class="flex flex-wrap font-medium xxs:justify-start justify-center w-full
+          xxs:items-end items-center gap-1.5 text-va-fifth px-4 text-center text-pretty xxs:flex-row flex-col">
             <app-svg-icon size="26px" [icon]="authFacade.user()?.role === 'patient' ? 'specialist' : 'patient'"></app-svg-icon>
             @if (authFacade.user()?.role === 'patient') {
               <span class="truncate max-w-56">{{ apt.specialistFirstName }} {{ apt.specialistLastName }}</span>
@@ -93,7 +93,7 @@
       </div>
       } @empty {
       <div class="flex flex-col justify-center items-center
-        xl:w-270 lg:w-180 lg:px-0 px-10 w-full min-h-60 rounded-4xl overflow-hidden">
+        xl:w-270 lg:w-180 lg:px-0 xxs:px-10 w-full min-h-60 rounded-4xl overflow-hidden">
         <app-svg-icon icon="clear" size="82px" class="text-va-third/70"></app-svg-icon>
         <p class="text-center font-medium xs:text-2xl text-xl">No tenés turnos pendientes.</p>
         <button 
