@@ -25,7 +25,7 @@
     <div class="w-full">
       
       <!-- Table Header -->
-      <div class="hidden md:grid grid-cols-5 gap-4 p-4 border-b
+      <div class="hidden lg:grid grid-cols-5 gap-4 p-4 border-b
        border-gray-400 font-bold text-va-primary select-none">
         <div (click)="applySort('lastName')" class="flex items-center gap-1 cursor-pointer transition hover:text-va-fifth">
           <span>Paciente</span>
@@ -40,7 +40,7 @@
           }
         </div>
         <div (click)="applySort('email')" class="flex items-center gap-1 cursor-pointer transition hover:text-va-fifth">
-          <span>Email</span>
+          <span>Correo</span>
           @if (sortConfig().key === 'email' && sortConfig().direction !== 'none') {
             <app-svg-icon [icon]="sortConfig().direction === 'asc' ? 'arrowDropUp' : 'arrowDropDown'" size="24px"></app-svg-icon>
           }
@@ -57,16 +57,36 @@
       <!-- Table Body -->
       <div class="min-h-[390px]">
         @for (patient of displayedPatients(); track patient.id) {
-          <div class="grid grid-cols-1 md:grid-cols-5 gap-4 items-center p-3.5
+          <div class="grid grid-cols-1 lg:grid-cols-5 gap-4 items-center p-3.5
           border-b border-gray-200 hover:bg-gray-50 transition">
-            <div class="font-medium text-gray-800">{{ patient.firstName }} {{ patient.lastName }}</div>
-            <div>{{ patient.dni }}</div>
-            <div>{{ patient.email }}</div>
-            <div>{{ patient.phone || 'Sin especificar' }}</div>
-            <div>
+            
+          
+          
+          
+          <div class="text-center lg:text-left">
+            <span class="font-bold sm:inline-block text lg:hidden hidden mr-2 text-va-primary">Paciente</span>
+              {{ patient.firstName }} {{ patient.lastName }}
+          </div>
+
+          <div class="text-center lg:text-left">
+            <span class="font-bold sm:inline-block text lg:hidden hidden mr-2 text-va-primary">DNI</span>
+            {{ patient.dni }}
+          </div>
+
+          <div class="text-center lg:text-left truncate">
+            <span class="font-bold sm:inline-block text lg:hidden hidden mr-2 text-va-primary">Correo</span>
+            {{ patient.email }}
+          </div>
+
+          <div class="text-center lg:text-left">
+            <span class="font-bold sm:inline-block text lg:hidden hidden mr-2 text-va-primary">Teléfono</span>
+            {{ patient.phone || 'Sin especificar' }}
+          </div>
+
+            <div class="text-center lg:text-left">
               <a 
                 [routerLink]="['/dashboard/user-medical-record', patient.id]"
-                class="text-va-third hover:underline flex gap-1">
+                class="text-va-third hover:underline inline-flex gap-1">
                 Ver Historia Clínica
                 <app-svg-icon icon="link"></app-svg-icon>
               </a>

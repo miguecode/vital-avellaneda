@@ -25,7 +25,7 @@
     <div class="w-full">
       
       <!-- Table Header -->
-      <div class="hidden md:grid grid-cols-5 gap-4 p-4 border-b
+      <div class="hidden lg:grid grid-cols-5 gap-4 p-4 border-b
        border-gray-400 font-bold text-va-primary select-none">
         <div (click)="applySort('specialty.name')" class="flex items-center gap-1 cursor-pointer transition hover:text-va-fifth">
           <span>Especialidad</span>
@@ -57,38 +57,47 @@
       <!-- Table Body -->
       <div class="min-h-[390px]">
         @for (apt of displayedAppointments(); track apt.id) {
-          <div class="grid grid-cols-1 md:grid-cols-5 gap-4 items-center p-3.5
+          <div class="grid grid-cols-1 lg:grid-cols-5 gap-4 items-center p-3.5
           border-b border-gray-200 hover:bg-gray-50 transition">
-            <div class="font-medium text-gray-800">{{ apt.specialty.name }}</div>
-            <div>
-              {{ authFacade.user()?.role === 'patient' ? 
-                (apt.specialistFirstName + ' ' + apt.specialistLastName) : 
-                (apt.patientFirstName + ' ' + apt.patientLastName) }}
-            </div>
-            <div>{{ apt.date | date:'dd/MM/yyyy HH:mm' }} hs.</div>
-            <div>
-              <span 
-                class="inline-block w-28 text-center px-4 py-2 rounded-full text-sm font-medium"
-                [class.pending]="apt.status === 'pending'"
-                [class.completed]="apt.status === 'completed'"
-                [class.canceled]="apt.status === 'canceled'"
-              >
-                  @switch (apt.status) {
-                    @case ('pending') { Pendiente }
-                    @case ('completed') { Completado }
-                    @case ('canceled') { Cancelado }
-                    @default { Desconocido }
-                  }
-              </span>
-            </div>
-            <div>
-              <a 
-                [routerLink]="['/dashboard/appointments-manage', apt.id]"
-                class="text-va-third hover:underline flex gap-1">
-                Ver Detalle
-                <app-svg-icon icon="link"></app-svg-icon>
-              </a>
-            </div>
+          
+          <div class="text-center lg:text-left">
+            <span class="font-bold sm:inline-block text lg:hidden hidden mr-2 text-va-primary">Especialidad</span>
+            <span class="font-medium text-gray-800">{{ apt.specialty.name }}</span>
+          </div>
+          <div class="text-center lg:text-left">
+            <span class="font-bold sm:inline-block lg:hidden hidden mr-2 text-va-primary">{{ authFacade.user()?.role === 'patient' ? 'Especialista' : 'Paciente' }}</span>
+            {{ authFacade.user()?.role === 'patient' ? 
+              (apt.specialistFirstName + ' ' + apt.specialistLastName) : 
+              (apt.patientFirstName + ' ' + apt.patientLastName) }}
+          </div>
+          <div class="text-center lg:text-left">
+            <span class="font-bold sm:inline-block lg:hidden hidden mr-2 text-va-primary">Fecha y Hora</span>
+            {{ apt.date | date:'dd/MM/yyyy HH:mm' }} hs.
+          </div>
+          <div class="text-center lg:text-left">
+            <span class="font-bold sm:inline-block lg:hidden hidden mr-2 text-va-primary">Estado</span>
+            <span 
+              class="inline-block w-28 text-center px-4 py-2 rounded-full text-sm font-medium"
+              [class.pending]="apt.status === 'pending'"
+              [class.completed]="apt.status === 'completed'"
+              [class.canceled]="apt.status === 'canceled'"
+            >
+                @switch (apt.status) {
+                  @case ('pending') { Pendiente }
+                  @case ('completed') { Completado }
+                  @case ('canceled') { Cancelado }
+                  @default { Desconocido }
+                }
+            </span>
+          </div>
+          <div class="text-center lg:text-left">
+            <a 
+              [routerLink]="['/dashboard/appointments-manage', apt.id]"
+              class="text-va-third hover:underline inline-flex gap-1">
+              Ver Detalle
+              <app-svg-icon icon="link"></app-svg-icon>
+            </a>
+          </div>
           </div>
         } @empty {
           <div class="flex flex-col justify-center items-center w-full min-h-[390px]">
