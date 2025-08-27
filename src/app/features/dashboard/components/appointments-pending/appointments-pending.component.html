@@ -1,4 +1,4 @@
-<div class="flex flex-wrap sm:justify-start justify-center items-center mt-2 mb-1 gap-1.5">
+<div class="flex flex-wrap justify-center items-center mt-2 mb-1 gap-1.5">
   <app-svg-icon class="text-va-primary" size="32px"  icon="assignment"></app-svg-icon>
   <h3 class="font-semibold text-va-primary xs:text-2xl text-xl text-center">
     Turnos pendientes
@@ -12,107 +12,110 @@
     </a>
   }
 </div>
-<div 
-  class="flex flex-wrap justify-center items-center bg-lightblue-primary/20 outline outline-yellow-400
-  rounded-3xl p-4 gap-5 border border-va-fourth/20 shadow">
-  @if (loading()) {
-  <div class="flex flex-col justify-center items-center w-full min-h-60
-   rounded-4xl overflow-hidden">
-    <div class="animate-spin inline-block size-10 border-4 border-t-transparent
-     text-va-third rounded-full" role="status" aria-label="loading"></div>
-    <span class="text-center font-medium xs:text-2xl text-xl mt-4">Cargando turnos...</span>
-  </div>
-  } @else if (appointmentFacade.error()) {
-  <div class="flex flex-col justify-center items-center w-full h-58
-   rounded-4xl overflow-hidden">
-    <app-svg-icon icon="error" size="82px" class="text-red-primary"></app-svg-icon>
-    <p class="text-center font-medium xs:text-xl text-lg text-red-primary">
-      Hubo un error al cargar los turnos.
-    </p>
-    <p class="text-sm text-gray-500">{{ appointmentFacade.error() }}</p>
-    <button 
-      (click)="appointmentFacade.loadUserAppointments()"
-      class="cursor-pointer underline underline-offset-1
-       mt-7 text-va-third active:text-va-third/90">
-      Reintentar
-    </button>
-  </div>
-  } @else {
-    @for (apt of displayedPendingAppointments(); track apt.id) {
-    <div class="flex flex-col justify-center items-center xs:w-90 bg-lightblue-primary
-    border-1 border-va-fourth shadow rounded-4xl overflow-hidden xs:h-60">
-      <div class="text flex justify-center items-end gap-4
-      bg-lightblue-secondary/80 w-full h-full px-7 py-1.5 border-b border-va-fourth">
-        <span class="text-va-third font-bold xs:text-2xl text-xl first-letter:capitalize">
-          {{ apt.date | date : "EEEE" }}
-        </span>
-        <span class="text-va-third xs:text-xl text-lg font-medium">
-          {{ apt.date| date : "HH:mm" }} hs.
-        </span>
-      </div>
 
-      <div class="flex flex-col justify-center items-start px-6 py-2.5 gap-1.5 xs:text-base text-sm">
-        <div class="flex font-medium flex-wrap xs:justify-start justify-center items-end
-         gap-1.5 text-va-fifth px-4 text-center text-pretty">
-          <app-svg-icon size="26px" icon="appointment"></app-svg-icon>
-          <span>
-            {{ apt.date | date: 'd' }} de {{ apt.date | date: 'MMMM' | titlecase }} de {{ apt.date | date: 'y' }}
+<div class="flex flex-col size-full gap-2">
+  <div 
+    class="flex flex-wrap justify-center items-center bg-lightblue-primary/20
+    xl:w-290 lg:w-200 lg:px-0 px-10 w-full min-h-60
+    rounded-3xl p-4 gap-5 border border-va-fourth/20 shadow">
+    @if (loading()) {
+    <div class="flex flex-col justify-center items-center xl:w-270 lg:w-180 lg:px-0 px-10 w-full min-h-60
+    rounded-4xl overflow-hidden">
+      <div class="animate-spin inline-block size-10 border-4 border-t-transparent
+      text-va-third rounded-full" role="status" aria-label="loading"></div>
+      <span class="text-center font-medium xs:text-2xl text-xl mt-4">Cargando turnos...</span>
+    </div>
+    } @else if (appointmentFacade.error()) {
+    <div class="flex flex-col justify-center items-center w-full h-58
+      rounded-4xl overflow-hidden">
+      <app-svg-icon icon="error" size="82px" class="text-red-primary"></app-svg-icon>
+      <p class="text-center font-medium xs:text-xl text-lg text-red-primary">
+        Hubo un error al cargar los turnos.
+      </p>
+      <p class="text-sm text-gray-500">{{ appointmentFacade.error() }}</p>
+      <button 
+        (click)="appointmentFacade.loadUserAppointments()"
+        class="cursor-pointer underline underline-offset-1
+        mt-7 text-va-third active:text-va-third/90">
+        Reintentar
+      </button>
+    </div>
+    } @else {
+      @for (apt of displayedPendingAppointments(); track apt.id) {
+      <div class="flex flex-col justify-center items-center xs:w-90 bg-lightblue-primary
+      border-1 border-va-fourth shadow rounded-4xl overflow-hidden xs:h-60">
+        <div class="text flex justify-center items-end gap-4
+        bg-lightblue-secondary/80 w-full h-full px-7 py-1.5 border-b border-va-fourth">
+          <span class="text-va-third font-bold xs:text-2xl text-xl first-letter:capitalize">
+            {{ apt.date | date : "EEEE" }}
+          </span>
+          <span class="text-va-third xs:text-xl text-lg font-medium">
+            {{ apt.date| date : "HH:mm" }} hs.
           </span>
         </div>
-        <div class="flex font-medium flex-wrap xs:justify-start justify-center
-         items-end gap-1.5 text-va-fifth px-4 text-center text-pretty">
-          <app-svg-icon size="26px" icon="schedule"></app-svg-icon>
-          <span>{{ apt.date| date : "HH:mm" }} hs.</span>
-        </div>
-        <div class="flex flex-wrap font-medium xs:justify-start justify-center
-         items-end gap-1.5 text-va-fifth px-4 text-center text-pretty">
-          <app-svg-icon size="26px" [icon]="$any(apt.specialty.id)"></app-svg-icon>
-          <span>{{ apt.specialty.name }}</span>
-        </div>
-        <div class="flex flex-wrap font-medium xs:justify-start justify-center
-         items-end gap-1.5 text-va-fifth px-4 text-center text-pretty">
-          <app-svg-icon size="26px" [icon]="authFacade.user()?.role === 'patient' ? 'specialist' : 'patient'"></app-svg-icon>
-          @if (authFacade.user()?.role === 'patient') {
-            <span class="truncate max-w-56">{{ apt.specialistFirstName }} {{ apt.specialistLastName }}</span>
-          } @else if (authFacade.user()?.role === 'specialist') {
-            <span class="truncate max-w-56">{{ apt.patientFirstName }} {{ apt.patientLastName }}</span>
-          }
-        </div>
-      </div>
-      <a
-        [routerLink]="['/dashboard/appointments-manage', apt.id]"
-        class="cursor-pointer flex flex-wrap rounded-2xl justify-center items-center 
-        xs:px-12 p-10 xs:w-auto py-1 mb-3 xs:text-lg text-base font-medium transition duration-300 gap-3
-        bg-va-third text-lightblue-primary hover:bg-va-third/90 active:bg-va-third/80">
-          <app-svg-icon size="24px" icon="dehaze"></app-svg-icon>
-          Gestionar
-      </a>
-    </div>
-    } @empty {
-    <div class="flex flex-col justify-center items-center
-    w-full h-60 rounded-4xl overflow-hidden">
-      <app-svg-icon icon="clear" size="82px" class="text-va-third/70"></app-svg-icon>
-      <p class="text-center font-medium xs:text-2xl text-xl">No tenés turnos pendientes.</p>
-      <button 
-        (click)="appointmentFacade.loadUserAppointments()" 
-        class="cursor-pointer underline underline-offset-1
-        mt-7 text-va-third active:text-va-third/90 xs:text-base text-sm">
-          Volver a cargar
-      </button>
-    </div>
-    }
 
-    @if ((this.authFacade.user()?.role === 'patient' && pendingAppointments().length > 3)
-          || (this.authFacade.user()?.role === 'specialist' && pendingAppointments().length > 6)) {
-      <button 
-      routerLink="/dashboard/appointments-list"
-      class="cursor-pointer flex flex-wrap gap-3
-      justify-center items-center w-full p-2 rounded-2xl font-medium transition
-      bg-va-fourth/40 text-va-fifth hover:bg-va-fourth/30 active:bg-va-fourth/20
-      xs:text-xl text-lg text-center">
-        <app-svg-icon icon="list"></app-svg-icon>
-        Ver todos
-      </button>
+        <div class="flex flex-col justify-center items-start px-6 py-2.5 gap-1.5 xs:text-base text-sm">
+          <div class="flex font-medium flex-wrap xs:justify-start justify-center items-end
+          gap-1.5 text-va-fifth px-4 text-center text-pretty">
+            <app-svg-icon size="26px" icon="appointment"></app-svg-icon>
+            <span>
+              {{ apt.date | date: 'd' }} de {{ apt.date | date: 'MMMM' | titlecase }} de {{ apt.date | date: 'y' }}
+            </span>
+          </div>
+          <div class="flex font-medium flex-wrap xs:justify-start justify-center
+          items-end gap-1.5 text-va-fifth px-4 text-center text-pretty">
+            <app-svg-icon size="26px" icon="schedule"></app-svg-icon>
+            <span>{{ apt.date| date : "HH:mm" }} hs.</span>
+          </div>
+          <div class="flex flex-wrap font-medium xs:justify-start justify-center
+          items-end gap-1.5 text-va-fifth px-4 text-center text-pretty">
+            <app-svg-icon size="26px" [icon]="$any(apt.specialty.id)"></app-svg-icon>
+            <span>{{ apt.specialty.name }}</span>
+          </div>
+          <div class="flex flex-wrap font-medium xs:justify-start justify-center
+          items-end gap-1.5 text-va-fifth px-4 text-center text-pretty">
+            <app-svg-icon size="26px" [icon]="authFacade.user()?.role === 'patient' ? 'specialist' : 'patient'"></app-svg-icon>
+            @if (authFacade.user()?.role === 'patient') {
+              <span class="truncate max-w-56">{{ apt.specialistFirstName }} {{ apt.specialistLastName }}</span>
+            } @else if (authFacade.user()?.role === 'specialist') {
+              <span class="truncate max-w-56">{{ apt.patientFirstName }} {{ apt.patientLastName }}</span>
+            }
+          </div>
+        </div>
+        <a
+          [routerLink]="['/dashboard/appointments-manage', apt.id]"
+          class="cursor-pointer flex flex-wrap rounded-2xl justify-center items-center 
+          xs:px-12 p-10 xs:w-auto py-1 mb-3 xs:text-lg text-base font-medium transition duration-300 gap-3
+          bg-va-third text-lightblue-primary hover:bg-va-third/90 active:bg-va-third/80">
+            <app-svg-icon size="24px" icon="dehaze"></app-svg-icon>
+            Gestionar
+        </a>
+      </div>
+      } @empty {
+      <div class="flex flex-col justify-center items-center
+        xl:w-270 lg:w-180 lg:px-0 px-10 w-full min-h-60 rounded-4xl overflow-hidden">
+        <app-svg-icon icon="clear" size="82px" class="text-va-third/70"></app-svg-icon>
+        <p class="text-center font-medium xs:text-2xl text-xl">No tenés turnos pendientes.</p>
+        <button 
+          (click)="appointmentFacade.loadUserAppointments()" 
+          class="cursor-pointer underline underline-offset-1
+          mt-7 text-va-third active:text-va-third/90 xs:text-base text-sm">
+            Volver a cargar
+        </button>
+      </div>
     }
   }
+</div>
+  <!-- @if ((this.authFacade.user()?.role === 'patient' && pendingAppointments().length > 3)
+        || (this.authFacade.user()?.role === 'specialist' && pendingAppointments().length > 6)) {
+    <button 
+    routerLink="/dashboard/appointments-list"
+    class="cursor-pointer flex flex-wrap gap-3
+    justify-center items-center p-2 rounded-2xl font-medium transition
+    bg-va-fourth/40 text-va-fifth hover:bg-va-fourth/30 active:bg-va-fourth/20
+    xs:text-xl text-lg text-center">
+      <app-svg-icon icon="list"></app-svg-icon>
+      Ver todos
+    </button>
+  } -->
 </div>

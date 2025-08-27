@@ -1,14 +1,14 @@
 <div class="flex justify-center items-center 
 bg-lightblue-primary rounded-2xl w-full
-  p-4 gap-5 border border-va-fourth shadow">
-  <div class="flex flex-wrap flex-start justify-center items-center gap-8">
+  p-4 border border-va-fourth shadow">
+  <div class="flex flex-wrap flex-start justify-center items-center xl:gap-8 gap-2">
     @for (item of 
       this.authFacade.user()!.role === 'patient' ?
       patientAccess : specialistAccess ; track $index) {
       <button 
         [routerLink]="item.routerLink"
-        class="text-xl font-semibold p-5 rounded-2xl w-80 
-        flex flex-wrap justify-center items-center gap-5
+        class="xs:text-xl text-lg font-semibold p-5 rounded-2xl xl:w-80 md:w-68 w-full
+        flex xl:flex-row flex-col flex-wrap justify-center items-center xl:gap-5 gap-1
         cursor-pointer bg-va-third text-white transition duration-300
         hover:bg-va-third/90 active:bg-va-third/80">
         <app-svg-icon [icon]="$any(item.icon)" size="36px"></app-svg-icon>
