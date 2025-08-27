@@ -3,23 +3,30 @@
 } @else {
 <div class="flex justify-center items-center size-full">
   <div
-    class="flex flex-wrap flex-col justify-start items-start min-h-dashboard-height size-full
-     outline outline-lightblue-secondary/70 bg-va-secondary/10 shadow mx-22 py-8 px-16 rounded-xl"
+    class="flex flex-wrap flex-col justify-start
+      items-start min-h-dashboard-height size-full
+      outline outline-lightblue-secondary/70  
+      bg-va-secondary/10 shadow lg:mx-22 mx-4
+      pb-4 md:px-16 px-6 rounded-xl"
   >
     <!-- Back Button -->
-    <a
+    <button
       [routerLink]="backButtonUrl()"
-      class="-mt-4 -ml-13 flex flex-wrap justify-center items-center gap-1 rounded-full
-       px-6 py-1.5 cursor-pointer hover:text-va-third hover:bg-va-secondary/50
-        active:bg-va-secondary/90 transition duration-300"
-    >
+      class="mt-2 lg:-ml-12 sm:-ml-8 flex flex-wrap
+        sm:justify-center justify-start items-center
+        gap-1 rounded-full px-6 py-1.5 cursor-pointer
+        hover:text-va-third sm:w-auto w-full
+        hover:bg-va-secondary/50 active:bg-va-secondary/90
+        transition duration-300 not-sm:outline
+        outline-va-fourth not-sm:bg-va-secondary/50"
+      >
       <app-svg-icon icon="backArrow" size="36px"></app-svg-icon>
       <span class="text-lg">{{ backButtonText() }}</span>
-    </a>
+    </button>
 
     <!-- Title and Description -->
     <app-title-description
-      class="text-black mt-4"
+    class="text-black mt-4 sm:text-start text-center w-full"
       title="Historia Clínica"
       description="La historia clínica de un paciente es el registro de cada diagnóstico recibido en Vital Avellaneda."
     ></app-title-description>
@@ -30,9 +37,9 @@
         @for (entry of entries(); track entry.id) {
           <div
             class="w-full bg-white rounded-lg shadow outline outline-va-fourth/40 py-5
-            px-6 mb-4 flex justify-between gap-5 items-center"
+            px-6 mb-4 flex md:flex-row flex-col md:justify-between justify-center gap-5 items-center"
           >
-            <div class="flex gap-6 justify-center items-center">
+            <div class="flex xs:flex-row flex-col xs:gap-6 gap-3 justify-center items-center">
               <div class="rounded-full bg-va-secondary/70 p-4">
                 <app-svg-icon
                   [icon]="$any(entry.specialty.id)"
@@ -41,20 +48,21 @@
                 ></app-svg-icon>
               </div>
               <div class="flex flex-col">
-                <span class="font-bold text-xl">{{ entry.specialty.name }}</span>
-                <span class="text-gray-700 text-lg"
+                <span class="font-bold xs:text-xl text-lg xs:text-start text-center">{{ entry.specialty.name }}</span>
+                <span class="text-gray-700 xs:text-lg text-base xs:text-start text-center"
                   >Especialista {{ entry.specialistFirstName }}
                   {{ entry.specialistLastName }}</span
                 >
-                <span class="text-gray-600">{{
+                <span class="text-gray-600 xs:text-start text-center">{{
                   entry.date | date : "dd/MM/yyyy 'a las' HH:mm 'hs.'"
                 }}</span>
               </div>
             </div>
             <button
               (click)="openDiagnosisDialog(entry)"
-              class="cursor-pointer rounded-xl w-72 px-7 py-4 font-medium flex flex-wrap gap-3
-              justify-between items-center text-lg transition text-white
+              class="flex flex-wrap lg:flex-row md:flex-col xxs:flex-row flex-col cursor-pointer
+                rounded-xl lg:w-72 md:w-fit w-full lg:px-7 px-5 py-4 font-medium lg:gap-3 gap-1
+                justify-between items-center xs:text-lg text-base transition text-white
                 bg-va-primary hover:bg-va-primary/90 active:bg-va-primary/80"
             >
               <app-svg-icon icon="diagnosis" size="36px"> </app-svg-icon>

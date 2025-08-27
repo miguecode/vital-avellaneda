@@ -148,7 +148,7 @@ export class RequestAppointmentFormComponent {
           .openGeneric<DialogComponent, boolean>(DialogComponent, {
             title: '¡Turno Confirmado!',
             message:
-              'Tu turno fue agendado con éxito. Podés ver los detalles en tu perfil.',
+              'Tu turno fue agendado con éxito. Podés ver los detalles y gestionarlo en tu perfil.',
             confirmText: 'Ir a Mi Perfil',
             icon: 'check',
             iconColor: 'text-green-700',

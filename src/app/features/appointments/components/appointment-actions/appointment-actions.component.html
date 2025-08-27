@@ -7,14 +7,14 @@
 
   <!-- Content -->
   <div
-    class="flex md:flex-row lg:justify-start justify-center flex-col gap-3 w-full p-4 ml-2 mt-1.5
+    class="flex lg:flex-row lg:justify-start justify-center flex-col gap-3 w-full p-4 ml-2 mt-1.5
     rounded-2xl outline-2 outline-va-fifth shadow"
   >
     @for (action of currentActions; track action.label) { 
       <button 
         (click)="action.handler()"
-        class="cursor-pointer rounded-xl md:w-68 px-6 py-4 
-          flex xs:flex-row flex-col flex-wrap gap-3 xs:justify-between
+        class="cursor-pointer rounded-xl lg:w-68 px-6 py-4 
+          flex md:flex-row flex-col flex-wrap gap-3 xs:justify-between
           justify-center items-center
           text-xl text-center transition"
         [ngClass]="[

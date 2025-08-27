@@ -1,30 +1,29 @@
 @if (!user() || isCheckingAuth()) {
 <app-splash></app-splash>
 } @else {
-<div class="flex justify-center items-center">
-  <div
-    class="lg:mx-12 xs:mx-4 mx-1 w-7xl xs:px-4 px-2 sm:px-6 lg:px-8
-      flex flex-wrap flex-col justify-start items-start
-      min-h-dashboard-height
-      outline outline-lightblue-secondary/70
-      bg-va-secondary/10 shadow py-8 rounded-xl"
-  >
+  <div class="flex justify-center items-center size-full">
+    <div
+      class="flex flex-wrap flex-col justify-start
+      items-start min-h-dashboard-height size-full
+      outline outline-lightblue-secondary/70  
+      bg-va-secondary/10 shadow lg:mx-22 mx-4
+      pb-4 md:px-16 px-6 rounded-xl"
+    >
     <!-- Back Button -->
     <button
       [routerLink]="
-        this.user()?.role === 'patient'
-          ? '/dashboard/patient'
-          : '/dashboard/specialist'
-      "
-      class="-mt-4 lg:-ml-6 sm:-ml-4 flex flex-wrap sm:justify-center justify-start items-center
-        gap-1 rounded-full px-6 py-1.5 cursor-pointer hover:text-va-third sm:w-auto w-full
-        hover:bg-va-secondary/50 active:bg-va-secondary/90 transition duration-300
-        not-sm:outline outline-va-fourth not-sm:bg-va-secondary/50"
-    >
-      <app-svg-icon
-        icon="backArrow"
-        size="36px"
-      ></app-svg-icon>
+      this.user()?.role === 'patient'
+        ? '/dashboard/patient'
+        : '/dashboard/specialist'"
+      class="mt-2 lg:-ml-12 sm:-ml-8 flex flex-wrap
+        sm:justify-center justify-start items-center
+        gap-1 rounded-full px-6 py-1.5 cursor-pointer
+        hover:text-va-third sm:w-auto w-full
+        hover:bg-va-secondary/50 active:bg-va-secondary/90
+        transition duration-300 not-sm:outline
+        outline-va-fourth not-sm:bg-va-secondary/50"
+      >
+      <app-svg-icon icon="backArrow" size="36px"></app-svg-icon>
       <span class="text-lg">Perfil</span>
     </button>
 

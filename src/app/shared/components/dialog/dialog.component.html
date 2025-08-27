@@ -1,6 +1,6 @@
 <dialog
   #dialog
-  class="m-auto z-10 rounded-2xl shadow backdrop:bg-black/50 px-8 max-w-xl"
+  class="z-10 rounded-2xl m-auto shadow backdrop:bg-black/50 w-[calc(100%-2rem)] max-w-xl"
 >
   <div class="p-8 text-center">
     @if (config.icon) {
@@ -18,15 +18,18 @@
     </div>
     }
 
-    <h3 class="text-3xl font-bold text-gray-800 mb-2 text-pretty">
-      {{ config.title }}
-    </h3>
-    <p class="text-gray-600 mb-8 text-lg text-pretty">{{ config.message }}</p>
+    <div class="flex flex-col justify-center items-center mx-auto">
+      <h3 class="xs:text-3xl text-2xl font-bold text-gray-800 mb-2 text-pretty text-center">
+        {{ config.title }}
+      </h3>
+      <p class="text-gray-600 mb-8 xs:text-lg text-base text-center
+       text-pretty w-fit">{{ config.message }}</p>
+    </div>
 
     @if (config.showInput) {
     <div class="mb-4 text-left">
       <label
-        class="block text-sm font-medium text-gray-700 mb-1"
+        class="block xs:text-sm text-xs font-medium text-gray-700 mb-1"
         for="dialog-input"
         >{{ config.inputLabel }}
         <span class="text-red-primary ml-1">(Obligatorio)</span>
@@ -37,11 +40,11 @@
         [(ngModel)]="inputValue"
         [rows]="config.textareaRows || 4"
         [maxLength]="config.inputMaxLength || 255"
-        class="w-full min-h-12 max-h-34 px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder:text-gray-400
-         focus:outline-none focus:ring-va-fifth focus:border-va-fifth sm:text-sm field-sizing-content"
+        class="w-full min-h-12 xs:max-h-34 max-h-37 px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder:text-gray-400
+         focus:outline-none focus:ring-va-fifth focus:border-va-fifth xs:text-sm text-xs field-sizing-content"
         [placeholder]="config.inputPlaceholder || ''"
       ></textarea>
-      @if(config.inputMaxLength) {
+      @if (config.inputMaxLength) {
         <div class="text-xs text-gray-500 mt-1 text-right">
           {{ inputValue().length }}/{{ config.inputMaxLength }}
         </div>
@@ -49,12 +52,12 @@
     </div>
     }
 
-    <div class="flex justify-center gap-4 mt-6">
+    <div class="flex justify-center gap-4 mt-1">
       @if (config.cancelText) {
       <button
         (click)="onClose(false)"
         type="button"
-        class="cursor-pointer py-2 px-6 rounded-lg font-semibold border transition
+        class="cursor-pointer py-2 xs:px-6 px-4 rounded-lg xs:text-base text-sm font-semibold border transition
          border-gray-300 hover:bg-gray-100 active:bg-gray-100/80"
       >
         {{ config.cancelText }}
@@ -63,7 +66,7 @@
       <button
         (click)="onClose(config.showInput ? inputValue() : true)"
         type="button"
-        class="cursor-pointer py-3 px-7 rounded-lg text-lg font-semibold transition
+        class="cursor-pointer py-3 xs:px-7 px-4 rounded-lg xs:text-lg text-base font-semibold transition
           disabled:opacity-50 disabled:cursor-auto disabled:select-none"
         [ngClass]="[
           config.confirmTextBgColor || 'bg-va-primary',

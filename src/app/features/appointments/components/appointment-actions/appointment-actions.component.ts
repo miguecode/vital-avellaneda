@@ -16,7 +16,7 @@ import {
 } from '../complete-appointment-dialog/complete-appointment-dialog.component';
 import { AppointmentStatus } from '../../../../core/enums';
 import { AppointmentInformDialogComponent } from '../appointment-inform-dialog/appointment-inform-dialog.component';
-import { Appointment, Rating } from '../../../../core/models';
+import { Appointment } from '../../../../core/models';
 import { Router } from '@angular/router';
 import { RateAppointmentComponent, RateAppointmentData } from '../appointment-rate/appointment-rate.component';
 

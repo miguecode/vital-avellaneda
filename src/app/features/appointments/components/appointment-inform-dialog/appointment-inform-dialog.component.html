@@ -1,10 +1,10 @@
 <dialog
   #dialog
-  class="m-auto z-10 rounded-2xl shadow backdrop:bg-black/50 px-8 max-w-6xl"
+  class="m-auto z-10 rounded-2xl shadow backdrop:bg-black/50 px-8 w-[calc(100%-2rem)] max-w-6xl"
 >
-  <div class="p-8 text-left">
+  <div class="p-8 xs:text-left text-center">
     @if (config.icon) {
-    <div class="flex justify-left items-center mb-4 gap-4">
+    <div class="flex xs:flex-row flex-col xs:justify-start justify-center items-center mb-4 xs:gap-4 gap-2">
       <div
         class="rounded-full p-4"
         [class]="config.iconBgColor || 'bg-lightblue-secondary'"
@@ -16,26 +16,26 @@
         ></app-svg-icon>
       </div>
       <div>
-        <p class="font-medium text-gray-700">Informe</p>
-        <h3 class="text-3xl font-bold text-gray-800 text-pretty">
+        <p class="xs:text-base text-sm font-medium text-gray-700">Informe</p>
+        <h3 class="xs:text-3xl text-2xl font-bold text-gray-800 text-pretty">
           {{ config.title }}
         </h3>
       </div>
     </div>
     }
-    <p class="text-gray-600 mb-8 ml-2 text-lg text-pretty max-w-90/100">{{ config.subtitle }}</p>
+    <p class="text-gray-600 mb-8 ml-2 xs:text-lg text-base text-pretty max-w-90/100">{{ config.subtitle }}</p>
 
     <div class="text-left">
       @for (informItem of config.inform; track informItem.label) {
         <div class="mb-4">
           <label
-            class="inline-block font-medium text-gray-800 mb-1 ml-1"
+            class="inline-block font-medium text-gray-800 mb-1 ml-1 xs:text-base text-sm"
             for="details"
             >{{ informItem.label || 'Sección' }}
           </label>
           <p
-            class="w-full min-h-12 max-h-34 px-3 py-2 border border-gray-300
-            field-sizing-content rounded-md shadow text-black text-normal text-pretty"
+            class="w-full min-h-12 xs:max-h-34 px-3 py-2 border border-gray-300
+            field-sizing-content rounded-md shadow text-black xs:text-base text-sm text-pretty"
           >
             {{ informItem.value || 'Sin especificar.' }}
           </p>
@@ -47,7 +47,7 @@
       <button
         (click)="onClose()"
         type="button"
-        class="cursor-pointer py-2 px-6 rounded-lg font-semibold border
+        class="cursor-pointer py-2 px-6 rounded-lg font-semibold border xs:text-base text-sm
          transition border-gray-300 hover:bg-gray-100 active:bg-gray-100/80"
       >
         {{ config.cancelText || "Cerrar Informe" }}
