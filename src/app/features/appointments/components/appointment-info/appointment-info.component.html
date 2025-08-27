@@ -1,32 +1,32 @@
 <div class="flex flex-col w-full">
   <!-- Title -->
-  <div class="mt-3 ml-5 flex gap-2 justify-start items-center text-va-primary">
+  <div class="sm:mt-3 mt-5 sm:ml-5 flex flex-wrap gap-2 sm:justify-start justify-center items-center text-va-primary">
     <app-svg-icon icon="assignment" size="32px"></app-svg-icon>
-    <h3 class="text-2xl font-semibold">Información del Turno</h3>
+    <h3 class="text-2xl font-semibold text-center">Información del Turno</h3>
   </div>
 
   <!-- Content -->
   <div
-    class="flex flex-col w-full ml-2 mt-1.5 rounded-2xl outline-2 outline-va-fifth shadow overflow-hidden"
+    class="flex flex-col w-full ml-2 sm:mt-1.5 mt-3 rounded-2xl outline-2 outline-va-fifth shadow overflow-hidden"
   >
     <div
-      class="flex gap-2 px-4 py-1 justify-start items-center border-b border-b-va-fifth/30"
+      class="flex flex-wrap gap-2 px-4 py-1 xs:justify-start justify-center items-center border-b border-b-va-fifth/30"
       [class.pending]="appointment.status === 'pending'"
       [class.completed]="appointment.status === 'completed'"
       [class.canceled]="appointment.status === 'canceled'"
     >
       <app-svg-icon icon="status" size="24px"></app-svg-icon>
-      <p class="text-lg font-semibold">Estado actual:</p>
-      <div
-        class="flex justify-center items-center font-semibold ml-0.5 text-lg"
-      >
-        @switch (appointment.status) {
-          @case ('pending') { Pendiente }
-          @case ('completed') { Completado }
-          @case ('canceled') { Cancelado }
-          @default { Desconocido }
-        }
-      </div>
+      <p class="text-lg font-semibold">
+        <span class="xxs:inline hidden">Estado actual:</span>
+        <span class="">
+          @switch (appointment.status) {
+            @case ('pending') { Pendiente }
+            @case ('completed') { Completado }
+            @case ('canceled') { Cancelado }
+            @default { Desconocido }
+          }
+        </span>
+      </p>
     </div>
 
     <div class="flex flex-col gap-1.5 w-full px-4 pb-4 pt-2">
@@ -35,7 +35,7 @@
           class="flex gap-2 justify-start items-start border-b border-b-va-fifth/30"
         >
         <app-svg-icon icon="lineStart" size="24px"></app-svg-icon>
-          <p class="text-lg font-medium">
+          <p class="text-lg font-medium text-pretty">
             {{ item.label }}
             <span class="font-normal">
               {{ item.value }}
@@ -48,8 +48,8 @@
       @if (rating) {
         <div class="flex gap-2 justify-start items-start">
           <app-svg-icon icon="lineStart" size="24px"></app-svg-icon>
-          <div class="flex gap-2 items-center w-full">
-            <p class="text-lg font-medium">Calificación de la Atención:</p>
+          <div class="flex flex-wrap gap-2 items-center w-full">
+            <p class="text-lg font-medium text-pretty">Calificación de la Atención:</p>
             <div class="flex items-center mt-1">
               @for (star of stars; track star) {
                 <app-svg-icon

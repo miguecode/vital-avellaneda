@@ -1,21 +1,22 @@
 <div class="flex flex-col w-full">
   <!-- Title -->
-  <div class="mt-6 ml-5 flex gap-2 justify-start items-center text-va-primary">
+  <div class="sm:mt-6 mt-5 sm:ml-5 flex flex-wrap gap-2 sm:justify-start justify-center items-center text-va-primary">
     <app-svg-icon icon="actions" size="32px"></app-svg-icon>
     <h3 class="text-2xl font-semibold">Acciones</h3>
   </div>
 
   <!-- Content -->
   <div
-    class="flex gap-3 w-full p-4 ml-2 mt-1.5
+    class="flex md:flex-row lg:justify-start justify-center flex-col gap-3 w-full p-4 ml-2 mt-1.5
     rounded-2xl outline-2 outline-va-fifth shadow"
   >
     @for (action of currentActions; track action.label) { 
       <button 
         (click)="action.handler()"
-        class="cursor-pointer rounded-xl w-68 px-6 py-4 
-        flex flex-wrap gap-3 justify-between items-center
-        text-xl transition"
+        class="cursor-pointer rounded-xl md:w-68 px-6 py-4 
+          flex xs:flex-row flex-col flex-wrap gap-3 xs:justify-between
+          justify-center items-center
+          text-xl text-center transition"
         [ngClass]="[
           action.textColor || 'text-white',
           action.bgColor || 'bg-va-primary',

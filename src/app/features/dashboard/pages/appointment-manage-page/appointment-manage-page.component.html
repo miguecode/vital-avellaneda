@@ -1,69 +1,73 @@
 @if (!authFacade.user() || authFacade.isCheckingAuth() || isLoading()) {
-  <app-splash></app-splash>
-  } @else {
-    <div class="flex justify-center items-center size-full">
-      <div
-        class="flex flex-wrap flex-col justify-start items-start
-         min-h-dashboard-height size-full outline outline-lightblue-secondary/70
-          bg-va-secondary/10 shadow mx-22 pb-4 px-16 rounded-xl"
-      >
-          <!-- Back Button -->
-          <a
-            [routerLink]="backButtonUrl()"
-            class="mt-4 -ml-13 flex flex-wrap justify-center items-center gap-1
-            rounded-full px-6 py-1.5 cursor-pointer hover:text-va-third
-            hover:bg-va-secondary/50 active:bg-va-secondary/90 transition duration-300"
-        >
-          <app-svg-icon icon="backArrow" size="36px"></app-svg-icon>
-          <span class="text-lg">{{ backButtonText() }}</span>
-        </a>
+<app-splash></app-splash>
+} @else {
+<div class="flex justify-center items-center size-full">
+  <div
+    class="flex flex-wrap flex-col justify-start
+      items-start min-h-dashboard-height size-full
+      outline outline-lightblue-secondary/70  
+      bg-va-secondary/10 shadow lg:mx-22 mx-4
+      pb-4 md:px-16 px-6 rounded-xl"
+  >
+    <button
+      [routerLink]="backButtonUrl()"
+      class="mt-2 lg:-ml-12 sm:-ml-8 flex flex-wrap sm:justify-center justify-start items-center gap-1 rounded-full px-6 py-1.5 cursor-pointer hover:text-va-third sm:w-auto w-full hover:bg-va-secondary/50 active:bg-va-secondary/90 transition duration-300 not-sm:outline outline-va-fourth not-sm:bg-va-secondary/50"
+    >
+      <app-svg-icon icon="backArrow" size="36px"></app-svg-icon>
+      <span class="text-lg">{{ backButtonText() }}</span>
+    </button>
 
-      @if (error()) {
-        <div
-        class="flex px-10 py-3 justify-center items-center mt-12 m-0
-         gap-2 bg-amber-200 border-2 border-amber-300 text-black rounded"
-        >
-          <p class="h-full text-pretty w-full text-lg">
-            Ocurrió un error al buscar el turno solicitado. Intentá más tarde.
-          </p>
-        </div>
-      } @else if (appointment()) {
-        <!-- Appointment Information -->
-        <div class="w-full">
-          <app-appointment-info [appointment]="appointment()!"></app-appointment-info>
-        </div>
-        
-        <!-- User Information -->
-        <div class="w-full">
-          <app-appointment-user-info
-            [user]="oppositeUser()"
-            [userRoleToShow]="
-              authFacade.user()?.role === 'patient' ? 'specialist' : 'patient'
-            "
-        ></app-appointment-user-info>
-        </div>
-
-        <!-- Actions -->
-        <div class="w-full">
-          <app-appointment-actions
-            [userRoleToShow]="
-            authFacade.user()?.role === 'patient' ? 'patient' : 'specialist'"
-            [appointment]="appointment()!"
-            (cancelAppointment)="handleCancelAppointment($event)"
-            (completeAppointment)="handleCompleteAppointment($event)"
-            (rateAppointment)="handleRateAppointment($event)"
-          ></app-appointment-actions>
-        </div>
-      } @else {
-        <div
-        class="flex px-10 py-3 justify-center items-center mt-12 m-0
-         gap-2 bg-amber-200 border-2 border-amber-300 text-black rounded"
-        >
-          <p class="h-full text-pretty w-full text-lg">
-            Ocurrió un error al buscar el turno solicitado. Intentá más tarde.
-          </p>
-        </div>
-      }
+    @if (error()) {
+    <div
+      class="flex px-10 py-3 justify-center items-center
+       mt-12 m-0 gap-2 bg-amber-200 border-2
+        border-amber-300 text-black rounded"
+    >
+      <p class="h-full text-pretty w-full text-lg">
+        Ocurrió un error al buscar el turno solicitado. Intentá más tarde.
+      </p>
     </div>
+    } @else if (appointment()) {
+    <!-- Appointment Information -->
+    <div class="w-full">
+      <app-appointment-info
+        [appointment]="appointment()!"
+      ></app-appointment-info>
+    </div>
+
+    <!-- User Information -->
+    <div class="w-full">
+      <app-appointment-user-info
+        [user]="oppositeUser()"
+        [userRoleToShow]="
+          authFacade.user()?.role === 'patient' ? 'specialist' : 'patient'
+        "
+      ></app-appointment-user-info>
+    </div>
+
+    <!-- Actions -->
+    <div class="w-full">
+      <app-appointment-actions
+        [userRoleToShow]="
+          authFacade.user()?.role === 'patient' ? 'patient' : 'specialist'
+        "
+        [appointment]="appointment()!"
+        (cancelAppointment)="handleCancelAppointment($event)"
+        (completeAppointment)="handleCompleteAppointment($event)"
+        (rateAppointment)="handleRateAppointment($event)"
+      ></app-appointment-actions>
+    </div>
+    } @else {
+    <div
+      class="flex px-10 py-3 justify-center items-center
+       mt-12 m-0 gap-2 bg-amber-200 border-2
+        border-amber-300 text-black rounded"
+    >
+      <p class="h-full text-pretty w-full text-lg">
+        Ocurrió un error al buscar el turno solicitado. Intentá más tarde.
+      </p>
+    </div>
+    }
   </div>
+</div>
 }
