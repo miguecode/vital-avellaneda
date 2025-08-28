@@ -1,6 +1,7 @@
 <div
   class="flex flex-wrap items-center justify-center
-   mt-3 gap-4 px-4 py-5 rounded shadow max-h-86 h-78 overflow-y-auto"
+    mt-3 xl:gap-4 gap-2 xl:px-4 px-1 py-5 rounded shadow 
+    xl:max-h-86 xl:h-78 max-h-104 overflow-y-auto"
 >
   @defer (when specialties().length > 0) { @for (specialty of specialties();
   track specialty.id) {
@@ -9,15 +10,16 @@
     [class.selected]="isSelected(specialty)"
     class="select-none cursor-pointer flex flex-col items-start
       justify-start outline outline-lightblue-primary px-3 py-2
-      w-specialty-width h-24 max-h-36 rounded overflow-hidden hover:outline-lightblue-third
-      bg-lightblue-secondary/30 text-va-primary text-lg font-medium transition"
+      w-specialty-width min-h-24 rounded overflow-hidden hover:outline-lightblue-third
+      bg-lightblue-secondary/30 text-va-primary sm:text-lg text-base
+      font-medium transition-colors"
   >
-    <div class="flex justify-center items-center gap-1.5">
+    <div class="flex xs:flex-row flex-col flex-wrap xs:justify-start justify-center items-center gap-1.5 w-full xs:text-start text-center truncate">
       <app-svg-icon [icon]="$any(specialty.id)"></app-svg-icon>
-      <h3 class="mt-1">{{ specialty.name }}</h3>
+      <h3 class="xs:mt-1">{{ specialty.name }}</h3>
     </div>
     <hr class="text-va-primary/40 w-full h-1" />
-    <p class="text-sm text-va-primary/70 font-normal text-pretty">
+    <p class="xs:flex-none flex justify-center items-center xs:text-start text-center text-sm text-va-primary/70 font-normal text-pretty">
       {{ specialty.description }}
     </p>
   </div>

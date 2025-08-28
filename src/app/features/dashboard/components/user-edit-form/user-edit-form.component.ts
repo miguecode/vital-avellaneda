@@ -7,6 +7,7 @@ import {
   Signal,
   computed,
   signal,
+  WritableSignal,
 } from '@angular/core';
 import {
   FormBuilder,
@@ -30,6 +31,7 @@ import { HealthInsurances } from '../../../../core/enums/health-insurances.enum'
 import { Router } from '@angular/router';
 import { APP_SHARED_INFO } from '../../../../core/config/app-info';
 import { SpecialtySelectorComponent } from "../../../auth/components/specialty-selector/specialty-selector.component";
+import { CloudinaryService } from '../../../../services/cloudinary/cloudinary.service';
 
 @Component({
   selector: 'app-user-edit-form',
@@ -49,6 +51,10 @@ export class UserEditFormComponent implements OnInit {
   private readonly userFacade = inject(UserFacade);
   private readonly authFacade = inject(AuthFacade);
   private readonly router = inject(Router);
+  private readonly cloudinaryService = inject(CloudinaryService);
+
+  readonly profilePictureUrl: WritableSignal<string> = signal('');
+  readonly selectedFile: WritableSignal<File | null> = signal(null);
 
   readonly user: Signal<UserBase | null> = this.authFacade.user;
   readonly sexOptions = Object.values(Sex);
@@ -110,6 +116,7 @@ export class UserEditFormComponent implements OnInit {
     effect(() => {
       const currentUser = this.user();
       if (currentUser) {
+        this.profilePictureUrl.set(currentUser.profilePictureUrl || this.cloudinaryService.defaultProfilePictureUrl);
         this.form.patchValue({
           firstName: currentUser.firstName,
           lastName: currentUser.lastName,
@@ -140,7 +147,13 @@ export class UserEditFormComponent implements OnInit {
     if (this.form.invalid) return;
 
     try {
-      const updatedData = { ...this.form.value, id: this.user()?.id };
+      const updatedData: Partial<Patient | Specialist> & { id: string } = { ...this.form.value, id: this.user()?.id };
+
+      if (this.selectedFile()) {
+        const newProfilePictureUrl = await this.cloudinaryService.uploadImage(this.selectedFile()!);
+        updatedData.profilePictureUrl = newProfilePictureUrl;
+      }
+
       await this.userFacade.updateUser(updatedData);
       this.router.navigate([
         this.user()?.role === 'patient'
@@ -153,6 +166,8 @@ export class UserEditFormComponent implements OnInit {
   }
 
   changedValues(): boolean {
+    if (this.selectedFile()) return true;
+
     const currentUser = this.user();
     const formValue = this.formValue();
     if (!currentUser || !formValue) return false;
@@ -187,4 +202,14 @@ export class UserEditFormComponent implements OnInit {
     const idsB = b.map(s => s.id).sort();
     return JSON.stringify(idsA) === JSON.stringify(idsB);
   } 
+
+  // Handle file selection
+  onFileSelected(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files[0]) {
+      const file = input.files[0];
+      this.selectedFile.set(file);
+      this.profilePictureUrl.set(URL.createObjectURL(file));
+    }
+  }
 }

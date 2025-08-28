@@ -1,8 +1,8 @@
-<form class="flex bg-lightblue-primary/20 size-full rounded-3xl
- py-8 mt-4 px-12 gap-16 border border-va-fourth/20 shadow">
+<form class="flex size-full rounded-3xl
+ py-8 mt-4 xl:px-12 px-4 lg:gap-10 gap-4">
 
   <!-- Stepper -->
-  <div class="relative max-w-96 max-h-98">
+  <div class="lg:block hidden relative max-w-96 max-h-98">
     
     <!-- Progress Line -->
     <div class="progress-container w-1 bg-gray-300">
@@ -31,7 +31,7 @@
               <span>{{ step.number }}</span>
             }
           </div>
-          <div class="ml-2 text-lg font-medium text-pretty">{{ step.title }}</div>
+          <div class="lg:block hidden ml-2 text-lg font-medium text-pretty">{{ step.title }}</div>
         </li>
       }
     </ol>
@@ -42,18 +42,18 @@
     <div class="relative overflow-hidden min-h-104">
       @for (step of steps; track step.number) {
         @if (currentStep() === step.number && step.number === 1) {
-          <div class="step-content py-2 px-4">
-            <h3 class="text-3xl font-bold mb-2">{{ step.title }}</h3>
-            <p class="text-lg">{{ step.description }}</p>
+          <div class="step-content py-2 sm:px-4 px-2">
+            <h3 class="sm:text-3xl text-2xl font-bold mb-2 sm:text-start text-center">{{ step.title }}</h3>
+            <p class="sm:text-lg text-base text-pretty sm:text-start text-center">{{ step.description }}</p>
             <app-appointment-specialty-selector 
               [lastSelected]="this.specialtySelected()"
               (specialtyEmitted)="onSpecialtySelected($event)">
             </app-appointment-specialty-selector>
           </div>
         } @else if (currentStep() === step.number && step.number === 2) {
-          <div class="step-content py-2 px-4">
-            <h3 class="text-3xl font-bold mb-2">{{ step.title }}</h3>
-            <p class="text-lg">{{ step.description }}</p>
+          <div class="step-content py-2 sm:px-4 px-2">
+            <h3 class="sm:text-3xl text-2xl font-bold mb-2 sm:text-start text-center">{{ step.title }}</h3>
+            <p class="sm:text-lg text-base text-pretty sm:text-start text-center">{{ step.description }}</p>
             <app-appointment-specialist-selector 
               [specialty]="this.specialtySelected()"
               [lastSelected]="this.specialistSelected()"
@@ -61,9 +61,9 @@
             </app-appointment-specialist-selector>
           </div>
         } @else if (currentStep() === step.number && step.number === 3) {
-          <div class="step-content py-2 px-4">
-            <h3 class="text-3xl font-bold mb-2">{{ step.title }}</h3>
-            <p class="text-lg">{{ step.description }}</p>
+          <div class="step-content py-2 sm:px-4 px-2">
+            <h3 class="sm:text-3xl text-2xl font-bold mb-2 sm:text-start text-center">{{ step.title }}</h3>
+            <p class="sm:text-lg text-base text-pretty sm:text-start text-center">{{ step.description }}</p>
             <app-appointment-date-selector
               [specialist]="this.specialistSelected()"
               [lastSelected]="this.dateTimeSelected()"
@@ -71,9 +71,9 @@
             </app-appointment-date-selector>
           </div>
         } @else if (currentStep() === step.number && step.number === 4) {
-          <div class="step-content py-2 px-4">
-            <h3 class="text-3xl font-bold mb-2">{{ step.title }}</h3>
-            <p class="text-lg">{{ step.description }}</p>
+          <div class="step-content py-2 sm:px-4 px-2">
+            <h3 class="sm:text-3xl text-2xl font-bold mb-2 sm:text-start text-center">{{ step.title }}</h3>
+            <p class="sm:text-lg text-base text-pretty sm:text-start text-center">{{ step.description }}</p>
             <app-appointment-confirm
               [specialty]="specialtySelected()"
               [specialist]="specialistSelected()"
@@ -85,14 +85,13 @@
     </div>
 
     <!-- Navigation -->
-    <div class="controls flex justify-center gap-10
-     mt-6 px-4">
+    <div class="controls flex sm:flex-row flex-col justify-center sm:gap-10 gap-1 mt-6 sm:px-4">
       <button 
         type="button"
         (click)="prevStep()"
         disabled
         [disabled]="currentStep() === 1 || waitingConfirmation()"
-        class="cursor-pointer flex justify-center items-center w-40 py-3 px-8
+        class="sm:order-1 order-2 cursor-pointer flex justify-center items-center sm:w-40 w-full py-3 sm:px-8 px-2
           font-medium text-lg text-black rounded-lg border border-gray-200
         hover:bg-gray-100 active:bg-gray-200 transition duration-200
         disabled:text-gray-400 disabled:bg-transparent disabled:cursor-auto"
@@ -104,7 +103,7 @@
         <button type="button"
           (click)="nextStep()"
           [disabled]="isNextStepDisabled() || appointmentFacade.isLoading()"
-          class="cursor-pointer flex justify-center items-center py-3 px-14 w-72
+          class="sm:order-2 order-1 cursor-pointer flex justify-center items-center py-3 sm:px-14 px-2 sm:w-72 w-full
           font-medium text-lg text-lightblue-primary rounded-lg
           bg-va-primary hover:bg-va-primary/90 active:bg-va-primary/80 transition duration-200
           disabled:bg-va-primary/50 disabled:cursor-auto"
@@ -118,7 +117,8 @@
           type="button"
           (click)="onSubmit()"
           [disabled]="appointmentFacade.isLoading() || formCompleted()"
-          class="relative cursor-pointer flex justify-center items-center py-3 px-8 w-72
+          class="sm:order-2 order-1 relative cursor-pointer
+          flex justify-center items-center py-3 sm:px-14 px-2 sm:w-72 w-full
           font-medium text-lg text-lightblue-primary rounded-lg
           bg-va-primary hover:bg-va-primary/90
           active:bg-va-primary/80 disabled:bg-va-primary/50 disabled:shadow-none 
@@ -127,7 +127,7 @@
           @if (appointmentFacade.isLoading()) {
             <div class="absolute inset-0 flex items-center justify-center">
               <div
-                class="animate-spin inline-block size-6 border-3
+                class="sm:order-2 order-1 animate-spin inline-block size-6 border-3
                  border-current border-t-transparent text-lightblue-primary rounded-full"
                 role="status"
                 aria-label="loading"

@@ -1,12 +1,12 @@
 <div class="flex flex-wrap items-center justify-center mt-3
-gap-4 py-5 rounded shadow max-h-86 h-78 overflow-x-auto">
+gap-4 py-5 rounded shadow sm:max-h-86 sm:h-78 overflow-x-auto">
 
   @defer (when filteredSpecialists().length > 0) {
     @for (specialist of filteredSpecialists(); track specialist.id) {
       <div (click)="selectSpecialist(specialist)"
         [class.selected]="isSelected(specialist)"
         class="select-none cursor-pointer flex flex-col items-center
-        justify-start p-3 min-w-56 min-h-56 h-64 rounded-lg overflow-hidden
+        justify-start p-3 sm:min-w-56 sm:min-h-56 sm:h-64 rounded-lg overflow-hidden
         bg-lightblue-secondary/30 text-va-primary hover:text-va-fifth
         transition outline outline-lightblue-primary hover:outline-lightblue-third">
         
@@ -23,15 +23,15 @@ gap-4 py-5 rounded shadow max-h-86 h-78 overflow-x-auto">
         }
 
         <!-- Specialist Info -->
-        <div class="flex flex-col w-full justify-center items-center text-center">
-          <h3 class="font-semibold text-lg">{{ specialist.firstName }} <br> {{ specialist.lastName }}</h3>
+        <div class="flex flex-col w-full justify-center items-center text-center px-1">
+          <h3 class="font-semibold sm:text-lg text-base">{{ specialist.firstName }} <br> {{ specialist.lastName }}</h3>
           <hr class="w-full h-1 text-va-primary/40 mb-1.5">
-          <div class="flex flex-col justify-start items-start gap-0.5 w-52 text-start">
-            <div class="flex gap-0.5 size-full justify-start items-start">
+          <div class="flex flex-col justify-start items-start gap-0.5 xs:w-52 w-31 text-start">
+            <div class="flex xs:flex-row flex-col gap-0.5 size-full xs:justify-start justify-center items-center text-center">
               <app-svg-icon [icon]="specialist.sex === 'male' ? 'male' : 'female'" size="19px"></app-svg-icon>
               <p class="text-sm text-va-primary">{{ sexLabels.get(specialist.sex) }}</p>
             </div>
-            <div class="flex gap-0.5 size-full">
+            <div class="flex xs:flex-row xs:justify-start items-center text-center flex-col xs:mt-0 mt-3 gap-0.5 size-full">
               <app-svg-icon icon="schedule" size="19px"></app-svg-icon>
               <p class="text-sm text-va-primary text-pretty">{{ availabilityLabels.get(specialist.availabilityName) }}</p>
             </div>

@@ -1,7 +1,55 @@
 <form [formGroup]="form" (ngSubmit)="onSubmit()">
   <div class="flex flex-wrap gap-4">
+
+    <!-- Profile Picture Selector Input -->
+    <div class="w-full flex sm:justify-start justify-center items-center rounded-3xl
+      py-3 sm:px-8 px-4">
+      <label
+        for="profilePictureInput" 
+        class="cursor-pointer flex sm:flex-row flex-col justify-center items-center gap-x-6 gap-y-0 group">
+        <div class="relative">
+          <img 
+          [src]="profilePictureUrl()"
+          alt="Profile Picture"
+          class="sm:h-22 h-18 sm:min-w-22 min-w-18 object-cover rounded-lg outline-2 outline-va-fifth">
+          <div class="absolute size-9 flex justify-center items-center
+          rounded-lg bg-va-primary z-2 -top-2 -right-4 hover:bg-va-third transition-colors">
+            <app-svg-icon icon="edit" class="text-va-secondary"></app-svg-icon>
+          </div>
+        </div>
+
+        <div
+          class="flex justify-center items-center text-va-primary w-full
+          font-medium text-lg py-3">
+          <div class="flex flex-col">
+            <div class="flex xs:flex-row flex-col">
+              <span class="pl-1 group-hover:underline text-center">Elegir foto de perfil</span>
+              <span class="text-va-fifth/90 pl-1.5 text-center">(Opcional)</span>
+            </div>
+            <p
+              class="sm:block hidden text-sm font-normal pl-1.5 pt-0.5 text-pretty">
+              Se recomienda seleccionar una foto a modo de retrato y con buena iluminación.
+            </p>
+            <p class="sm:block hidden text-sm font-normal pl-1.5 text-pretty">
+              Elegir una foto no es obligatorio: La idea es hacer más humano el manejo de Vital Avellaneda.
+            </p>
+          </div>
+        </div>
+
+      </label>
+      <input
+        id="profilePictureInput"
+        type="file"
+        class="hidden"
+        (change)="onFileSelected($event)"
+        accept="image/*"
+      >
+    </div>
+
+
+
     <!-- First Column -->
-    <div 
+    <div
       [class.hidden]="showSpecialtyModal()"
       class="flex flex-col gap-8 p-2 w-full md:w-input-group min-w-64">
       <app-input-custom

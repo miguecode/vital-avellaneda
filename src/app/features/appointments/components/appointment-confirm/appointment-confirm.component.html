@@ -1,12 +1,11 @@
-<div
-  class="flex flex-wrap items-start justify-start mt-3 gap-4
-   py-2 px-2 rounded shadow max-h-86 h-78 overflow-y-auto"
->
-  <div class="flex flex-col px-10 mt-2 w-240">
+<div class="flex flex-wrap items-start justify-center mt-3
+gap-4 py-2 rounded shadow xl:max-h-86 xl:h-78 overflow-x-auto">
+  <div class="flex flex-col justify-center sm:items-start items-center sm:text-start
+    text-center w-full sm:px-10 px-3">
     <!-- Information Title -->
-    <div class="flex gap-2 justify-start items-center">
+    <div class="flex sm:flex-row flex-col gap-2 sm:justify-start justify-center items-center">
       <app-svg-icon icon="assignment" size="28px"></app-svg-icon>
-      <h3 class="text-2xl font-semibold">Información del Turno</h3>
+      <h3 class="sm:text-2xl text-xl font-semibold sm:text-start text-center">Información del Turno</h3>
     </div>
 
     <hr class="text-va-primary w-full" />
@@ -15,13 +14,13 @@
     <div class="flex flex-col gap-1.5 mt-4">
       <div class="flex gap-2 justify-start items-start">
         <app-svg-icon icon="medicalService" size="26px"></app-svg-icon>
-        <p class="text-lg font-medium">
+        <p class="sm:text-lg text-base font-medium text-pretty">
           Especialidad: <span class="font-normal">{{ specialty?.name }}</span>
         </p>
       </div>
       <div class="flex gap-2 justify-start items-start">
         <app-svg-icon icon="specialist" size="26px"></app-svg-icon>
-        <p class="text-lg font-medium">
+        <p class="sm:text-lg text-base font-medium text-pretty">
           Especialista:
           <span class="font-normal"
             >{{ specialist?.firstName }} {{ specialist?.lastName }}</span
@@ -30,7 +29,7 @@
       </div>
       <div class="flex gap-2 justify-start items-start">
         <app-svg-icon icon="appointment" size="26px"></app-svg-icon>
-        <p class="text-lg font-medium">
+        <p class="sm:text-lg text-base font-medium text-pretty">
           Fecha:
           <span class="font-normal">{{
             (dateTime | date : "EEEE, d 'de' MMMM" | titlecase)?.replace(' De ', ' de ')
@@ -39,7 +38,7 @@
       </div>
       <div class="flex gap-2 justify-start items-start">
         <app-svg-icon icon="schedule" size="26px"></app-svg-icon>
-        <p class="text-lg font-medium">
+        <p class="sm:text-lg text-base font-medium text-pretty">
           Horario:
           <span class="font-normal">{{ dateTime | date : "HH:mm" }} hs.</span>
         </p>
@@ -48,7 +47,7 @@
 
     <!-- Detail -->
     <div
-      class="flex px-10 py-2 justify-start items-start mt-3
+      class="flex sm:flex-row flex-col sm:px-10 px-2 py-2 sm:justify-start justify-center sm:items-start items-center mt-3
        gap-2 bg-amber-200 border-2 border-amber-300 text-black rounded"
     >
       <app-svg-icon
@@ -56,7 +55,7 @@
         icon="info"
         size="26px"
       ></app-svg-icon>
-      <p class="h-full text-pretty w-full text-sm">
+      <p class="h-full text-pretty w-full sm:text-sm text-xs">
         Revisá bien los datos antes de confirmar. Si hay algo mal, podés volver
         hacia atrás para ajustar tus preferencias. En caso de que esté todo
         bien, recordá que se recomienda llegar 15 minutos antes de cada sesión.

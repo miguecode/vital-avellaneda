@@ -1,9 +1,10 @@
 <div class="flex flex-wrap items-start justify-center mt-3
-gap-4 py-2 rounded shadow max-h-86 h-78 overflow-x-auto">
-  <div class="flex flex-col w-full px-10">
-    <h4 class="text-xl font-semibold mb-2">Fechas disponibles</h4>
+gap-4 py-2 rounded shadow xl:max-h-86 xl:h-78 overflow-x-auto">
+  <div class="flex flex-col justify-center md:items-start items-center md:text-start
+    text-center w-full px-10">
+    <h4 class="sm:text-xl text-lg font-semibold mb-2">Fechas disponibles</h4>
       @if (availableDays().length > 0) {
-      <div class="flex flex-wrap gap-4 w-full">
+      <div class="flex flex-wrap md:justify-start justify-center gap-4 w-full">
         @for (day of availableDays(); track day) {
           <button
             type="button"
@@ -13,9 +14,9 @@ gap-4 py-2 rounded shadow max-h-86 h-78 overflow-x-auto">
               py-3 px-4 rounded-lg border border-va-fourth/40 shadow min-w-34 h-28
             hover:bg-lightblue-secondary/40 transition-colors duration-300"
           >
-            <span class="font-semibold text-lg">{{ getDayDisplay(day).dayName }}</span>
-            <span class="text-3xl font-bold">{{ getDayDisplay(day).dayNumber }}</span>
-            <span class="font-medium">{{ getDayDisplay(day).monthName }}</span>
+            <span class="font-semibold sm:text-lg text-base">{{ getDayDisplay(day).dayName }}</span>
+            <span class="sm:text-3xl text-2xl font-bold">{{ getDayDisplay(day).dayNumber }}</span>
+            <span class="sm:text-base text-sm font-medium">{{ getDayDisplay(day).monthName }}</span>
           </button>
         }
       </div>
@@ -27,7 +28,7 @@ gap-4 py-2 rounded shadow max-h-86 h-78 overflow-x-auto">
 
     @if (selectedDay()) {
       <div class="mt-5">
-        <h4 class="text-xl font-semibold mb-2">Horarios disponibles</h4>
+        <h4 class="sm:text-xl text-lg font-semibold mb-2">Horarios disponibles</h4>
         @if (isLoading()) {
           <div class="flex gap-3 mt-5 ml-5 justify-start items-center w-full
            rounded-4xl overflow-hidden text-center">
@@ -37,10 +38,10 @@ gap-4 py-2 rounded shadow max-h-86 h-78 overflow-x-auto">
               role="status" 
               aria-label="loading">
             </div>
-            <span class="text-center font-medium text-xl">Cargando horarios...</span>
+            <span class="text-center font-medium sm:text-xl text-lg">Cargando horarios...</span>
           </div>
         } @else if (availableTimes().length > 0) {
-          <div class="flex flex-wrap gap-4 w-full">
+          <div class="flex flex-wrap md:justify-start justify-center gap-4 w-full">
             @for (time of availableTimes(); track time) {
               <button
                 type="button"
@@ -48,7 +49,7 @@ gap-4 py-2 rounded shadow max-h-86 h-78 overflow-x-auto">
                 [class.selected]="time === selectedTime()"
                 class="cursor-pointer p-3 rounded-lg border border-va-fourth/20 w-26 shadow
                 hover:bg-lightblue-secondary/40 active:bg-lightblue-secondary/60
-                transition-colors duration-200 font-medium text-lg"
+                transition-colors duration-200 font-medium sm:text-lg text-base"
               >
                 {{ time }}
               </button>
