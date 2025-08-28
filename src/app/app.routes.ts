@@ -87,4 +87,15 @@ export const routes: Routes = [
       }
     ]
   },
+  // Not Found Page
+  {
+    path: '**',
+    component: MainLayoutComponent,
+    children: [
+      {
+        path: '',
+        loadComponent: () => import('./features/errors/pages/not-found/not-found.page').then(m => m.NotFoundPage)
+      }
+    ]
+  }
 ];
