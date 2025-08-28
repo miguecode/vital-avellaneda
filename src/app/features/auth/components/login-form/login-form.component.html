@@ -38,23 +38,17 @@
             label="Contraseña"
             placeholder="Contraseña"
             autocomplete="current-password"
-            [type]="showPassword ? 'text' : 'password'"
+            [type]="form.get('showPassword')?.value ? 'text' : 'password'"
             [maxlength]="50"
             [noShowErrors]="true"
           />
           <div class="flex items-center gap-1.5 -mt-2.5 ml-1">
-            <input
-              type="checkbox"
-              id="showPassword"
-              [(ngModel)]="showPassword"
-              [ngModelOptions]="{standalone: true}"
-              name="showPassword"
-            />
-            <label for="showPassword" class="text-sm cursor-pointer select-none"
-              >Mostrar contraseña</label
-            >
+            <app-checkbox-custom
+              formControlName="showPassword"
+              label="Mostrar contraseña"
+            ></app-checkbox-custom>
           </div>
-  
+
           <!-- Error Text -->
           @if (submitted && loginError()) {
           <div

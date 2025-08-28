@@ -5,11 +5,13 @@ import {
   Validators,
   ReactiveFormsModule,
   FormsModule,
+  FormControl,
 } from '@angular/forms';
 import { InputCustomComponent } from '../input-custom/input-custom.component';
 import { SvgIconComponent } from '../../../../shared/icons/svg-icon.component';
 import { RouterLink } from '@angular/router';
 import { AuthFacade } from '../../auth.facade';
+import { CheckboxCustomComponent } from '../../../../shared/components/checkbox-custom/checkbox-custom.component';
 
 @Component({
   selector: 'app-login-form',
@@ -19,7 +21,8 @@ import { AuthFacade } from '../../auth.facade';
     FormsModule,
     InputCustomComponent,
     SvgIconComponent,
-],
+    CheckboxCustomComponent,
+  ],
   templateUrl: './login-form.component.html',
   styleUrl: './login-form.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -38,11 +41,9 @@ export class LoginFormComponent {
   // Main Form
   readonly form: FormGroup;
 
-  showPassword = false;
-
   constructor(private fb: FormBuilder) {
     this.form = this.createForm();
-    
+
     // Effect to enable/disable form controls
     effect(() => {
       if (this.isFormDisabled()) {
@@ -57,6 +58,7 @@ export class LoginFormComponent {
     return this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required],
+      showPassword: new FormControl(false),
     });
   }
 
