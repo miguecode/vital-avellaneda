@@ -57,4 +57,5 @@ export class NavbarComponent implements NavbarContent {
   readonly instagram = APP_SHARED_INFO.social.instagram;
   readonly twitter = APP_SHARED_INFO.social.twitter;
   readonly tiktok = APP_SHARED_INFO.social.tiktok;
+  readonly github = APP_SHARED_INFO.social.github;
 }

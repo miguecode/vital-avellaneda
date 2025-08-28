@@ -4,6 +4,7 @@ export const APP_SHARED_INFO = {
     instagram: 'https://instagram.com',
     twitter: 'https://x.com',
     tiktok: 'https://tiktok.com',
+    github: 'https://github.com/miguecode',
   },
   contact: {
     phone: '(54-11) 4123-1234',

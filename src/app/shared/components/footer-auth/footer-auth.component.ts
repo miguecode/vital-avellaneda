@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { APP_SHARED_INFO } from '../../../core/config/app-info';
 
 @Component({
   selector: 'app-footer-auth',
@@ -8,4 +9,6 @@ import { RouterLink } from '@angular/router';
   styleUrl: './footer-auth.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class FooterAuthComponent {}
+export class FooterAuthComponent {
+  readonly github = APP_SHARED_INFO.social.github;
+}
