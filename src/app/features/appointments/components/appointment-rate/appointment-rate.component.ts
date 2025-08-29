@@ -70,6 +70,12 @@ export class RateAppointmentComponent implements IDialog, OnInit, AfterViewInit,
     const native = this.dialog.nativeElement;
     native.showModal();
     native.addEventListener('close', this.handleClose);
+    
+    native.offsetHeight;
+  
+    requestAnimationFrame(() => {
+      native.classList.add('showing');
+    });
   }
 
   ngOnDestroy(): void {
@@ -77,16 +83,18 @@ export class RateAppointmentComponent implements IDialog, OnInit, AfterViewInit,
   }
 
   onClose(result: RateAppointmentData | null): void {
-    this.dialog.nativeElement.removeEventListener('close', this.handleClose);
-    this.dialog.nativeElement.close();
+    this.dialog.nativeElement.classList.add('closing');
 
-    if (result && this.form.valid) {
-      const formValue = this.form.value;
-      if (formValue.comment === '') formValue.comment = undefined;
-      this.closed.emit(formValue);
-    } else {
-      this.closed.emit(null);
-    }
+    setTimeout(() => {
+      this.dialog.nativeElement.close();
+      if (result && this.form.valid) {
+        const formValue = this.form.value;
+        if (formValue.comment === '') formValue.comment = undefined;
+        this.closed.emit(formValue);
+      } else {
+        this.closed.emit(null);
+      }
+    }, 85); // -> Closing Animation Duration!
   }
 
   selectStar(star: number): void {

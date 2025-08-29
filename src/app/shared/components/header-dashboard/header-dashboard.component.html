@@ -47,8 +47,11 @@
           </a>
         </li>
       }
-      
-      <hr class="border-t border-lightblue-third w-full my-2" />
+
+      <li class="w-full">
+        <hr class="border-t border-lightblue-third w-full mt-2" />
+      </li>
+
       <li class="w-full pt-2">
         <a
           (click)="toggleMenu()"
@@ -66,26 +69,30 @@
         </a>
       </li>
 
-      <hr class="border-t border-lightblue-third w-full my-2 mt-4" />
+      <li class="w-full">
+        <hr class="border-t border-lightblue-third w-full mt-2" />
+      </li>
 
-      <div class="flex justify-center gap-1 w-full mt-4">
-        <a [href]="facebook" class="text-lightblue-secondary/90 hover:text-white transition">
-          <app-svg-icon icon="facebook" size="20px" viewBox="simpleIcons"></app-svg-icon>
-          <span class="sr-only">Facebook page</span>
-        </a>
-        <a [href]="instagram" class="text-lightblue-secondary/90 hover:text-white ms-5 transition">
-          <app-svg-icon icon="instagram" size="20px" viewBox="simpleIcons"></app-svg-icon>
-          <span class="sr-only">Instagram account</span>
-        </a>
-        <a [href]="twitter" class="text-lightblue-secondary/90 hover:text-white ms-5 transition">
-          <app-svg-icon icon="twitter" size="20px" viewBox="simpleIcons"></app-svg-icon>
-          <span class="sr-only">Twitter page</span>
-        </a>
-        <a [href]="tiktok" class="text-lightblue-secondary/90 hover:text-white ms-5 transition">
-          <app-svg-icon icon="tiktok" size="20px" viewBox="simpleIcons"></app-svg-icon>
-          <span class="sr-only">TikTok account</span>
-        </a>
-      </div>
+      <li class="w-full">
+        <div class="flex justify-center gap-1 w-full mt-4">
+          <a [href]="facebook" class="text-lightblue-secondary/90 hover:text-white transition">
+            <app-svg-icon icon="facebook" size="20px" viewBox="simpleIcons"></app-svg-icon>
+            <span class="sr-only">Facebook page</span>
+          </a>
+          <a [href]="instagram" class="text-lightblue-secondary/90 hover:text-white ms-5 transition">
+            <app-svg-icon icon="instagram" size="20px" viewBox="simpleIcons"></app-svg-icon>
+            <span class="sr-only">Instagram account</span>
+          </a>
+          <a [href]="twitter" class="text-lightblue-secondary/90 hover:text-white ms-5 transition">
+            <app-svg-icon icon="twitter" size="20px" viewBox="simpleIcons"></app-svg-icon>
+            <span class="sr-only">Twitter page</span>
+          </a>
+          <a [href]="tiktok" class="text-lightblue-secondary/90 hover:text-white ms-5 transition">
+            <app-svg-icon icon="tiktok" size="20px" viewBox="simpleIcons"></app-svg-icon>
+            <span class="sr-only">TikTok account</span>
+          </a>
+        </div>
+      </li>
     </ul>
 
     <div class="mb-28 ml-8 flex flex-col justify-center items-start gap-2">

@@ -74,6 +74,6 @@ export class DialogComponent implements AfterViewInit, OnDestroy, IDialog {
     setTimeout(() => {
       this.dialog.nativeElement.close();
       this.closed.emit(result);
-    }, 50);
+    }, 85); // -> Closing Animation Duration!
   }
 }

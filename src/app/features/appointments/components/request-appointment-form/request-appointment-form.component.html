@@ -42,39 +42,43 @@
     <div class="relative overflow-hidden min-h-104">
       @for (step of steps; track step.number) {
         @if (currentStep() === step.number && step.number === 1) {
-          <div class="step-content py-2 sm:px-4 px-2">
+          <div class="py-2 sm:px-4 px-2">
             <h3 class="sm:text-3xl text-2xl font-bold mb-2 sm:text-start text-center">{{ step.title }}</h3>
             <p class="sm:text-lg text-base text-pretty sm:text-start text-center">{{ step.description }}</p>
             <app-appointment-specialty-selector 
+              class="step-content"
               [lastSelected]="this.specialtySelected()"
               (specialtyEmitted)="onSpecialtySelected($event)">
             </app-appointment-specialty-selector>
           </div>
         } @else if (currentStep() === step.number && step.number === 2) {
-          <div class="step-content py-2 sm:px-4 px-2">
+          <div class="py-2 sm:px-4 px-2">
             <h3 class="sm:text-3xl text-2xl font-bold mb-2 sm:text-start text-center">{{ step.title }}</h3>
             <p class="sm:text-lg text-base text-pretty sm:text-start text-center">{{ step.description }}</p>
-            <app-appointment-specialist-selector 
+            <app-appointment-specialist-selector
+              class="step-content"
               [specialty]="this.specialtySelected()"
               [lastSelected]="this.specialistSelected()"
               (specialistEmitted)="onSpecialistSelected($event)">
             </app-appointment-specialist-selector>
           </div>
         } @else if (currentStep() === step.number && step.number === 3) {
-          <div class="step-content py-2 sm:px-4 px-2">
+          <div class="py-2 sm:px-4 px-2">
             <h3 class="sm:text-3xl text-2xl font-bold mb-2 sm:text-start text-center">{{ step.title }}</h3>
             <p class="sm:text-lg text-base text-pretty sm:text-start text-center">{{ step.description }}</p>
             <app-appointment-date-selector
+              class="step-content"
               [specialist]="this.specialistSelected()"
               [lastSelected]="this.dateTimeSelected()"
               (dateTimeSelected)="onDateTimeSelected($event)">
             </app-appointment-date-selector>
           </div>
         } @else if (currentStep() === step.number && step.number === 4) {
-          <div class="step-content py-2 sm:px-4 px-2">
+          <div class="py-2 sm:px-4 px-2">
             <h3 class="sm:text-3xl text-2xl font-bold mb-2 sm:text-start text-center">{{ step.title }}</h3>
             <p class="sm:text-lg text-base text-pretty sm:text-start text-center">{{ step.description }}</p>
             <app-appointment-confirm
+              class="step-content"
               [specialty]="specialtySelected()"
               [specialist]="specialistSelected()"
               [dateTime]="dateTimeSelected()"

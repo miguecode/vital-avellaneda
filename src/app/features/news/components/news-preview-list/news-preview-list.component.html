@@ -14,7 +14,7 @@
       @for (post of newsPosts(); track post.id; let i = $index) {
       <a
         [routerLink]="['/news', post.id]"
-        class="block group bg-white rounded-lg shadow-md hover:shadow-lg
+        class="block group bg-white rounded-lg shadow-md hover:shadow-lg animate-on-scroll
          transition duration-300 overflow-hidden outline
           outline-va-fourth/40 hover:outline-va-fourth"
         [ngClass]="i === 3 ? 'hidden sm:block lg:hidden' : ''"

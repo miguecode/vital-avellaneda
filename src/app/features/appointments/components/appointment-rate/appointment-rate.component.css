@@ -5,3 +5,37 @@
 .star:hover {
   transform: scale(1.1);
 }
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes fade-out {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+}
+
+dialog {
+  opacity: 0;
+  will-change: opacity transform;
+}
+
+dialog.showing {
+  animation: fade-in 0.17s linear both;
+}
+
+dialog.closing {
+  animation: fade-out 0.08s linear both;
+}

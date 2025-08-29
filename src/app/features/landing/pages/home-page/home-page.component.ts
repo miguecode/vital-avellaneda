@@ -22,3 +22,4 @@ import { NewsPreviewListComponent } from '../../../news/components/news-preview-
 export class HomePageComponent {
   constructor() {}
 }
+

@@ -69,6 +69,12 @@ export class CompleteAppointmentDialogComponent implements IDialog, OnInit, Afte
     const native = this.dialog.nativeElement;
     native.showModal();
     native.addEventListener('close', this.handleClose);
+
+    native.offsetHeight;
+  
+    requestAnimationFrame(() => {
+      native.classList.add('showing');
+    });
   }
 
   ngOnDestroy(): void {
@@ -77,16 +83,19 @@ export class CompleteAppointmentDialogComponent implements IDialog, OnInit, Afte
 
   onClose(result: CompleteAppointmentData | null): void {
     this.dialog.nativeElement.removeEventListener('close', this.handleClose);
-    this.dialog.nativeElement.close();
+    this.dialog.nativeElement.classList.add('closing');
 
-    if (result && this.form.valid) {
-      const formValue = this.form.value;
-      if (formValue.anotations === '') formValue.anotations = undefined;
-      if (formValue.height === '') formValue.height = null;
-      if (formValue.weight === '') formValue.weight = null;
-      this.closed.emit(formValue);
-    } else {
-      this.closed.emit(null);
-    }
+    setTimeout(() => {
+      this.dialog.nativeElement.close();
+      if (result && this.form.valid) {
+        const formValue = this.form.value;
+        if (formValue.anotations === '') formValue.anotations = undefined;
+        if (formValue.height === '') formValue.height = null;
+        if (formValue.weight === '') formValue.weight = null;
+        this.closed.emit(formValue);
+      } else {
+        this.closed.emit(null);
+      }
+    }, 85); // -> Closing Animation Duration!
   }
 }

@@ -67,6 +67,6 @@ export class AppointmentInformDialogComponent
     setTimeout(() => {
       this.dialog.nativeElement.close();
       this.closed.emit();
-    }, 50);
+    }, 85); // -> Closing Animation Duration!
   }
 }

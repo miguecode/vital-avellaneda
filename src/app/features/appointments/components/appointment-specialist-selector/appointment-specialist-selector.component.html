@@ -27,11 +27,11 @@ gap-4 py-5 rounded shadow sm:max-h-86 sm:h-78 overflow-x-auto">
           <h3 class="font-semibold sm:text-lg text-base">{{ specialist.firstName }} <br> {{ specialist.lastName }}</h3>
           <hr class="w-full h-1 text-va-primary/40 mb-1.5">
           <div class="flex flex-col justify-start items-start gap-0.5 xs:w-52 w-31 text-start">
-            <div class="flex xs:flex-row flex-col gap-0.5 size-full xs:justify-start justify-center items-center text-center">
+            <div class="flex xs:flex-row flex-col gap-0.5 size-full xs:justify-start justify-center items-center xs:text-start text-center">
               <app-svg-icon [icon]="specialist.sex === 'male' ? 'male' : 'female'" size="19px"></app-svg-icon>
               <p class="text-sm text-va-primary">{{ sexLabels.get(specialist.sex) }}</p>
             </div>
-            <div class="flex xs:flex-row xs:justify-start items-center text-center flex-col xs:mt-0 mt-3 gap-0.5 size-full">
+            <div class="flex xs:flex-row xs:justify-start items-center xs:text-start text-center flex-col xs:mt-0 mt-3 gap-0.5 size-full">
               <app-svg-icon icon="schedule" size="19px"></app-svg-icon>
               <p class="text-sm text-va-primary text-pretty">{{ availabilityLabels.get(specialist.availabilityName) }}</p>
             </div>
