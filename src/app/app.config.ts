@@ -1,10 +1,8 @@
 // Angular Application imports
 import {
   ApplicationConfig,
-  provideAppInitializer,
   provideBrowserGlobalErrorListeners,
   provideZonelessChangeDetection,
-  inject,
   LOCALE_ID,
 } from '@angular/core';
 
@@ -48,9 +46,6 @@ import { AuthFacade } from './features/auth/auth.facade';
 
 export const appConfig: ApplicationConfig = {
   providers: [
-    // Initialize App checking auth status
-    provideAppInitializer(() => inject(AuthFacade).checkAuthStatus()),
-
     // Core Angular providers
     provideBrowserGlobalErrorListeners(),
     provideZonelessChangeDetection(),
