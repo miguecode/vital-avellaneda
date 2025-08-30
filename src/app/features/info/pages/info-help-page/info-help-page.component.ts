@@ -1,7 +1,9 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, effect, inject } from '@angular/core';
 import { SvgIconComponent } from '../../../../shared/icons/svg-icon.component';
 import { RouterModule } from '@angular/router';
 import { InformationWrapperComponent } from "../../../landing/components/information-wrapper/information-wrapper.component";
+import { SeoService } from '../../../../shared/services/seo/seo.service';
+import { SeoData } from '../../../../core/models/seo-data.model';
 
 @Component({
   selector: 'app-info-help-page',
@@ -11,6 +13,21 @@ import { InformationWrapperComponent } from "../../../landing/components/informa
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class InfoHelpPageComponent {
+  seoService = inject(SeoService);
+
+  constructor() {
+    effect(() => {
+      const helpMeta: SeoData = {
+        title: 'Centro de Ayuda | Vital Avellaneda',
+        description: '¿Tenés dudas sobre cómo usar nuestro portal? Encontrá respuestas a las preguntas más comunes sobre turnos, historia clínica y más. Estamos para ayudarte.',
+        keywords: ['preguntas frecuentes', 'ayuda', 'soporte', 'turnos online', 'portal del paciente'],
+        author: 'Vital Avellaneda',
+        image: 'https://res.cloudinary.com/dsd1komi4/image/upload/v1756509770/logo-big_jsy8qr.jpg',
+      };
+      this.seoService.setMeta(helpMeta);
+    });
+  }
+
   openFaqItem: number | null = null;
 
   faqItems = [

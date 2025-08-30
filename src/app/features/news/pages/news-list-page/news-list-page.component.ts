@@ -1,9 +1,11 @@
-import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, effect, inject, signal } from '@angular/core';
 import { NEWS_DATA } from '../../data/news.data';
 import { NewsPost } from '../../../../core/models/news-post.model';
 import { RouterLink } from '@angular/router';
 import { DatePipe, TitleCasePipe, ViewportScroller } from '@angular/common';
 import { SvgIconComponent } from '../../../../shared/icons/svg-icon.component';
+import { SeoService } from '../../../../shared/services/seo/seo.service';
+import { SeoData } from '../../../../core/models/seo-data.model';
 
 @Component({
   selector: 'app-news-list-page',
@@ -13,6 +15,21 @@ import { SvgIconComponent } from '../../../../shared/icons/svg-icon.component';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NewsListPageComponent {
+  seoService = inject(SeoService);
+
+  constructor() {
+    effect(() => {
+      const newsMeta: SeoData = {
+        title: 'Novedades y Artículos | Vital Avellaneda',
+        description: 'Mantenete informado sobre las últimas noticias de nuestra clínica, consejos de salud, nuevos servicios y campañas de prevención. Cuidamos de vos y los tuyos.',
+        keywords: ['noticias de salud', 'consejos médicos', 'novedades', 'prevención', 'campañas de salud'],
+        author: 'Vital Avellaneda',
+        image: 'https://res.cloudinary.com/dsd1komi4/image/upload/v1756509770/logo-big_jsy8qr.jpg',
+      };
+      this.seoService.setMeta(newsMeta);
+    });
+  }
+  
   private readonly viewportScroller = inject(ViewportScroller);
 
   newsPosts: NewsPost[] = NEWS_DATA;
