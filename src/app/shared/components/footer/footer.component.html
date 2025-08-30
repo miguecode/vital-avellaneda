@@ -2,26 +2,44 @@
   <div class="mx-auto max-w-home-page py-6 lg:py-8">
     <div class="lg:flex lg:justify-between">
       <!-- Logo -->
-      <div class="md:mb-10 mb-6 flex items-center justify-center h-full sm:w-64 w-56 lg:mr-6 lg:mx-0 mx-auto">
-        <img class="object-contain" src="/logos/logo-big.webp" alt="Logo" />
+      <div
+        class="md:mb-10 mb-6 flex items-center justify-center h-full sm:w-64 w-56 lg:mr-6 lg:mx-0 mx-auto"
+      >
+        <img
+          class="object-contain"
+          src="/logos/logo-big.webp"
+          alt="Logo de Vital Avellaneda"
+        />
       </div>
 
       <!-- Links -->
-      <div class="flex flex-col sm:flex-row flex-wrap not-lg:justify-center items-center gap-6">
+      <div
+        class="flex flex-col sm:flex-row flex-wrap not-lg:justify-center items-center gap-6"
+      >
         <div class="flex md:flex-row flex-col gap-4">
           <!-- Contact -->
           <div>
-            <h2 class="mb-0.5 md:mb-4 text-sm font-semibold text-white md:text-start text-center">CONTACTO</h2>
+            <h2
+              class="mb-0.5 md:mb-4 text-sm font-semibold text-white md:text-start text-center"
+            >
+              CONTACTO
+            </h2>
             <address class="not-italic">
               <ul class="text-lightblue-secondary font-medium">
                 <li class="mb-2 max-w-80">
-                  <a href="tel:+541141231234" class="hover:underline"
+                  <a
+                    href="tel:+541141231234"
+                    class="hover:underline"
+                    rel="noopener noreferrer nofollow"
                     >Teléfono <br />
                     {{ phone }}</a
                   >
                 </li>
                 <li class="max-w-52">
-                  <a href="mailto:vitalavellaneda@gmail.com" class="hover:underline"
+                  <a
+                    href="mailto:vitalavellaneda@gmail.com"
+                    class="hover:underline"
+                    rel="noopener noreferrer nofollow"
                     >Correo <br />
                     {{ email }}</a
                   >
@@ -31,7 +49,9 @@
           </div>
           <!-- Locations -->
           <div>
-            <h2 class="mb-0.5 md:mb-4 text-sm font-semibold text-white md:text-start text-center">
+            <h2
+              class="mb-0.5 md:mb-4 text-sm font-semibold text-white md:text-start text-center"
+            >
               DIRECCIONES
             </h2>
             <address class="not-italic">
@@ -40,7 +60,7 @@
                   <a
                     href="https://www.google.com/maps/search/?api=1&query=V.A+Avellaneda+123%2C+Provincia+de+Buenos+Aires"
                     target="_blank"
-                    rel="noopener noreferrer"
+                    rel="noopener noreferrer nofollow"
                     class="hover:underline"
                     >{{ firstLocation }}</a
                   >
@@ -49,7 +69,7 @@
                   <a
                     href="https://www.google.com/maps/search/?api=1&query=C.O+Cl%C3%ADnica+Online+456+Provincia+de+Buenos+Aires"
                     target="_blank"
-                    rel="noopener noreferrer"
+                    rel="noopener noreferrer nofollow"
                     class="hover:underline"
                     >{{ secondLocation }}</a
                   >
@@ -59,21 +79,25 @@
           </div>
           <!-- Legal -->
           <div>
-            <h2 class="mb-0.5 md:mb-4 text-sm font-semibold text-white md:text-start text-center">
+            <h2
+              class="mb-0.5 md:mb-4 text-sm font-semibold text-white md:text-start text-center"
+            >
               LEGALES
             </h2>
             <ul class="text-lightblue-secondary font-medium">
               <li class="mb-2 max-w-52">
                 <a
                   routerLink="/info/politica-de-privacidad"
-                  class="hover:underline">
+                  class="hover:underline"
+                >
                   Política de Privacidad
                 </a>
               </li>
               <li class="max-w-52">
                 <a
                   routerLink="/info/terminos-y-condiciones"
-                  class="hover:underline">
+                  class="hover:underline"
+                >
                   Términos y Condiciones
                 </a>
               </li>
@@ -86,35 +110,71 @@
     <!-- Footer's footer -->
     <!-- Description -->
     <hr class="my-6 border-lightblue-secondary sm:mx-auto lg:my-8" />
-    <div class="sm:flex sm:items-center sm:justify-between justify-center text-center">
+    <div
+      class="sm:flex sm:items-center sm:justify-between justify-center text-center"
+    >
       <div class="flex flex-col sm:flex-row sm:gap-2 gap-0.5 sm:mb-0 mb-2">
         <span class="text-sm text-va-secondary text-pretty">
-          © 2025 Vital Avellaneda™ 
+          © 2025 Vital Avellaneda™
         </span>
-        <a 
+        <a
           [href]="github"
-          class="text-sm text-va-secondary text-pretty hover:underline cursor-pointer">
+          class="text-sm text-va-secondary text-pretty hover:underline cursor-pointer"
+          rel="noopener noreferrer nofollow"
+        >
           Hecho por Miguel Ángel Gil.
         </a>
       </div>
 
       <!-- Socials -->
       <div class="flex mt-4 justify-center sm:mt-0">
-        <a [href]="facebook" class="text-lightblue-secondary hover:text-white transition">
-          <app-svg-icon icon="facebook" size="20px" viewBox="simpleIcons"></app-svg-icon>
-          <span class="sr-only">Facebook page</span>
+        <a
+          [href]="facebook"
+          class="text-lightblue-secondary hover:text-white transition"
+          rel="noopener noreferrer nofollow"
+        >
+          <app-svg-icon
+            icon="facebook"
+            size="20px"
+            viewBox="simpleIcons"
+          ></app-svg-icon>
+          <span class="sr-only">Página de Facebook</span>
         </a>
-        <a [href]="instagram" class="text-lightblue-secondary hover:text-white ms-5 transition">
-          <app-svg-icon icon="instagram" size="20px" viewBox="simpleIcons"></app-svg-icon>
-          <span class="sr-only">Instagram account</span>
+        <a
+          [href]="instagram"
+          class="text-lightblue-secondary hover:text-white ms-5 transition"
+          rel="noopener noreferrer nofollow"
+        >
+          <app-svg-icon
+            icon="instagram"
+            size="20px"
+            viewBox="simpleIcons"
+          ></app-svg-icon>
+          <span class="sr-only">Cuenta de Instagram</span>
         </a>
-        <a [href]="twitter" class="text-lightblue-secondary hover:text-white ms-5 transition">
-          <app-svg-icon icon="twitter" size="20px" viewBox="simpleIcons"></app-svg-icon>
-          <span class="sr-only">Twitter page</span>
+        <a
+          [href]="twitter"
+          class="text-lightblue-secondary hover:text-white ms-5 transition"
+          rel="noopener noreferrer nofollow"
+        >
+          <app-svg-icon
+            icon="twitter"
+            size="20px"
+            viewBox="simpleIcons"
+          ></app-svg-icon>
+          <span class="sr-only">Cuenta de X</span>
         </a>
-        <a [href]="tiktok" class="text-lightblue-secondary hover:text-white ms-5 transition">
-          <app-svg-icon icon="tiktok" size="20px" viewBox="simpleIcons"></app-svg-icon>
-          <span class="sr-only">TikTok account</span>
+        <a
+          [href]="tiktok"
+          class="text-lightblue-secondary hover:text-white ms-5 transition"
+          rel="noopener noreferrer nofollow"
+        >
+          <app-svg-icon
+            icon="tiktok"
+            size="20px"
+            viewBox="simpleIcons"
+          ></app-svg-icon>
+          <span class="sr-only">Cuenta de TikTok</span>
         </a>
       </div>
     </div>

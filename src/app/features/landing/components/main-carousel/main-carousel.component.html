@@ -27,13 +27,23 @@
               lg:mx-38 md:mx-24 md:px-4 flex flex-col select-none
               justify-center"
           >
-            <!-- Title -->
-            <h1
+            <!-- Main Title -->
+            @if (slide.title === 'Bienvenido a Vital Avellaneda') {
+              <h1
               class="text-4xl lg:text-5xl font-bold mb-4 md:text-start text-center
                 tracking-tight md:drop-shadow-md text-pretty"
-            >
-              {{ slide.title }}
-            </h1>
+              >
+                {{ slide.title }}
+              </h1>
+            } @else {
+              <!-- Titles -->
+              <h2
+                class="text-4xl lg:text-5xl font-bold mb-4 md:text-start text-center
+                  tracking-tight md:drop-shadow-md text-pretty"
+              >
+                {{ slide.title }}
+              </h2>
+            }
             <!-- Description -->
             <p
               class="text-xl lg:text-2xl lg:mb-6 md:mb-1 mb-6 lg:max-w-xl max-w-2xl md:mx-0 mx-auto
@@ -59,8 +69,8 @@
   </div>
 
   <!-- Swiper Navigation -->
-  <div class="swiper-button-prev md:visible invisible"></div>
-  <div class="swiper-button-next md:visible invisible"></div>
+  <div class="swiper-button-prev md:visible invisible" aria-label="Diapositiva anterior"></div>
+  <div class="swiper-button-next md:visible invisible" aria-label="Diapositiva siguiente"></div>
   <!-- Swiper Pagination -->
   <div class="swiper-pagination md:visible invisible"></div>
 </div>

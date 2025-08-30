@@ -9,7 +9,9 @@
       'background-image':
       'linear-gradient(90deg, rgba(1, 21, 58, 0.2), rgba(0, 36, 104, 0.2)), url(' + srcImage+ ')'
     }"
-  ></div>
+  >
+    <span class="sr-only">{{ altImage }}</span>
+  </div>
 
   <!-- Content -->
   <div class="flex flex-col md:pt-18 pt-4 lg:px-16 sm:px-12 px-2
@@ -32,7 +34,8 @@
       class="text-white mt-7 py-3 sm:px-5 sm:w-fit w-11/12 font-semibold bg-va-third
        hover:bg-va-third/90 active:bg-va-third/80 sm:mx-0 mx-auto
        transition-colors shadow-md rounded-full mb-4 lg:mb-0"
-      >{{ anchorText }}</a
-    >
+      >{{ anchorText }}
+    </a
+  >
   </div>
 </div>

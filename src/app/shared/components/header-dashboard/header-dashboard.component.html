@@ -3,42 +3,42 @@
     class="relative flex items-center 2xl:justify-between lg:justify-start justify-between
      xs:px-10 px-4 py-11 size-full bg-va-primary text-white"
   >
-
     <!-- Hamburger Menu (Mobile) -->
     <div class="xs:hidden block pl-2">
       <button
         (click)="toggleMenu()"
-        class="cursor-pointer z-50 mr-2 relative rounded-xl
-        hover:bg-va-third/60 shadow active:bg-va-third/30
-        transition-colors duration-300 xs:p-5 p-2 outline outline-va-third"
+        class="cursor-pointer z-50 mr-2 relative rounded-xl hover:bg-va-third/60 shadow
+         active:bg-va-third/30 transition-colors duration-300 xs:p-5 p-2 outline outline-va-third"
         aria-label="Abrir menú"
+        [attr.aria-expanded]="isMenuOpen()"
+        aria-controls="mobile-menu-panel-dashboard"
       >
         @if (!isMenuOpen()) {
-          <app-svg-icon icon="menu" size="34px"></app-svg-icon>
+        <app-svg-icon icon="menu" size="34px"></app-svg-icon>
         } @else {
-          <app-svg-icon icon="close" size="34px"></app-svg-icon>
+        <app-svg-icon icon="close" size="34px"></app-svg-icon>
         }
       </button>
     </div>
 
     <!-- Mobile Menu Panel -->
-    <div
+    <nav
+      id="mobile-menu-panel-dashboard"
       [ngClass]="{
         'translate-x-0': isMenuOpen(),
         '-translate-x-full': !isMenuOpen(),
         'transition-transform duration-300 ease-in-out': isAnimating()
       }"
-      class="xs:hidden fixed top-18 left-0 w-full h-dvh pt-4
-      max-w-xs bg-va-primary text-white z-20 transform not-xl:flex flex-col justify-between"
+      class="xs:hidden fixed top-18 left-0 w-full h-dvh pt-4 max-w-xs bg-va-primary text-white
+       z-20 transform not-xl:flex flex-col justify-between"
     >
-    <ul class="flex flex-col items-start space-y-2 px-8">
-      @for (item of navItems; track item.title) {
+      <ul class="flex flex-col items-start space-y-2 px-8">
+        @for (item of navItems; track item.title) {
         <li class="w-full">
           <a
             (click)="toggleMenu()"
-            class="flex w-full items-center justify-start p-4 text-lg
-              text-left font-medium rounded-lg hover:bg-va-third/60
-              hover:shadow active:bg-va-third/30 transition-colors duration-300"
+            class="flex w-full items-center justify-start p-4 text-lg text-left font-medium rounded-lg
+             hover:bg-va-third/60 hover:shadow active:bg-va-third/30 transition-colors duration-300"
             [routerLink]="item.href"
             tabindex="0"
             [attr.aria-label]="item.ariaLabel"
@@ -46,66 +46,99 @@
             {{ item.title }}
           </a>
         </li>
-      }
+        }
 
-      <li class="w-full">
-        <hr class="border-t border-lightblue-third w-full mt-2" />
-      </li>
+        <li class="w-full">
+          <hr class="border-t border-lightblue-third w-full mt-2" />
+        </li>
 
-      <li class="w-full pt-2">
+        <li class="w-full pt-2">
+          <a
+            (click)="toggleMenu()"
+            routerLink="/info/user/help"
+            class="flex w-full items-center justify-start gap-1.5 p-4 text-lg text-left font-medium
+             rounded-lg hover:bg-va-third/60 hover:shadow active:bg-va-third/30 transition-colors duration-300"
+          >
+            <app-svg-icon
+              icon="help"
+              size="32px"
+              class="text-white"
+            ></app-svg-icon>
+            <span class="text-lg text-white">Ayuda</span>
+          </a>
+        </li>
+
+        <li class="w-full">
+          <hr class="border-t border-lightblue-third w-full mt-2" />
+        </li>
+
+        <li class="w-full">
+          <div class="flex justify-center gap-1 w-full mt-4">
+            <a
+              [href]="facebook"
+              class="text-lightblue-secondary/90 hover:text-white transition"
+              rel="noopener noreferrer nofollow"
+            >
+              <app-svg-icon
+                icon="facebook"
+                size="20px"
+                viewBox="simpleIcons"
+              ></app-svg-icon>
+              <span class="sr-only">Página de Facebook</span>
+            </a>
+            <a
+              [href]="instagram"
+              class="text-lightblue-secondary/90 hover:text-white ms-5 transition"
+              rel="noopener noreferrer nofollow"
+            >
+              <app-svg-icon
+                icon="instagram"
+                size="20px"
+                viewBox="simpleIcons"
+              ></app-svg-icon>
+              <span class="sr-only">Cuenta de Instagram</span>
+            </a>
+            <a
+              [href]="twitter"
+              class="text-lightblue-secondary/90 hover:text-white ms-5 transition"
+              rel="noopener noreferrer nofollow"
+            >
+              <app-svg-icon
+                icon="twitter"
+                size="20px"
+                viewBox="simpleIcons"
+              ></app-svg-icon>
+              <span class="sr-only">Cuenta de X</span>
+            </a>
+            <a
+              [href]="tiktok"
+              class="text-lightblue-secondary/90 hover:text-white ms-5 transition"
+              rel="noopener noreferrer nofollow"
+            >
+              <app-svg-icon
+                icon="tiktok"
+                size="20px"
+                viewBox="simpleIcons"
+              ></app-svg-icon>
+              <span class="sr-only">Cuenta de TikTok</span>
+            </a>
+          </div>
+        </li>
+      </ul>
+
+      <div class="mb-28 ml-8 flex flex-col justify-center items-start gap-2">
+        <span class="text-sm text-va-secondary/90 text-pretty">
+          © 2025 Vital Avellaneda™
+        </span>
         <a
-          (click)="toggleMenu()"
-          routerLink="/info/user/help"
-          class="flex w-full items-center justify-start gap-1.5 p-4 text-lg text-left
-            font-medium rounded-lg hover:bg-va-third/60 hover:shadow
-            active:bg-va-third/30 transition-colors duration-300"
+          [href]="github"
+          class="text-sm text-va-secondary/90 text-pretty hover:underline cursor-pointer"
+          rel="noopener noreferrer nofollow"
         >
-          <app-svg-icon
-            icon="help"
-            size="32px"
-            class="text-white"
-          ></app-svg-icon>
-          <span class="text-lg text-white">Ayuda</span>
+          Hecho por Miguel Ángel Gil.
         </a>
-      </li>
-
-      <li class="w-full">
-        <hr class="border-t border-lightblue-third w-full mt-2" />
-      </li>
-
-      <li class="w-full">
-        <div class="flex justify-center gap-1 w-full mt-4">
-          <a [href]="facebook" class="text-lightblue-secondary/90 hover:text-white transition">
-            <app-svg-icon icon="facebook" size="20px" viewBox="simpleIcons"></app-svg-icon>
-            <span class="sr-only">Facebook page</span>
-          </a>
-          <a [href]="instagram" class="text-lightblue-secondary/90 hover:text-white ms-5 transition">
-            <app-svg-icon icon="instagram" size="20px" viewBox="simpleIcons"></app-svg-icon>
-            <span class="sr-only">Instagram account</span>
-          </a>
-          <a [href]="twitter" class="text-lightblue-secondary/90 hover:text-white ms-5 transition">
-            <app-svg-icon icon="twitter" size="20px" viewBox="simpleIcons"></app-svg-icon>
-            <span class="sr-only">Twitter page</span>
-          </a>
-          <a [href]="tiktok" class="text-lightblue-secondary/90 hover:text-white ms-5 transition">
-            <app-svg-icon icon="tiktok" size="20px" viewBox="simpleIcons"></app-svg-icon>
-            <span class="sr-only">TikTok account</span>
-          </a>
-        </div>
-      </li>
-    </ul>
-
-    <div class="mb-28 ml-8 flex flex-col justify-center items-start gap-2">
-      <span class="text-sm text-va-secondary/90 text-pretty">
-        © 2025 Vital Avellaneda™ 
-      </span>
-      <a 
-        [href]="github"  
-        class="text-sm text-va-secondary/90 text-pretty hover:underline cursor-pointer">
-        Hecho por Miguel Ángel Gil.
-      </a>
-    </div>
-    </div>
+      </div>
+    </nav>
 
     <!-- Overlay -->
     <div
@@ -119,32 +152,42 @@
       <a
         routerLink="/home"
         class="flex items-center justify-center h-full xs:w-80 xl:ml-28"
+        aria-label="Ir a la página de inicio de Vital Avellaneda"
       >
-        <img class="hidden xs:block object-contain" src="/logos/logo-flat.webp" alt="Logo" />
-        <img class="block xs:hidden object-contain" src="/logos/logo-small.webp" alt="Logo" />
+        <img
+          class="hidden xs:block object-contain"
+          src="/logos/logo-flat.webp"
+          alt="Logo de Vital Avellaneda"
+        />
+        <img
+          class="block xs:hidden object-contain"
+          src="/logos/logo-small.webp"
+          alt="Logo de Vital Avellaneda"
+        />
       </a>
       <hr class="ml-16 h-14 w-0.5 bg-white hidden lg:block" />
-      <app-svg-icon class="ml-3 hidden lg:block" [icon]="userRoleIcon" size="36px"></app-svg-icon>
-      <p class="ml-2 font-bold text-xl tracking-tight hidden lg:block">{{ title }}</p>
+      <app-svg-icon
+        class="ml-3 hidden lg:block"
+        [icon]="userRoleIcon"
+        size="36px"
+      ></app-svg-icon>
+      <p class="ml-2 font-bold text-xl tracking-tight hidden lg:block">
+        {{ title }}
+      </p>
     </div>
 
     <!-- Submenu button -->
     <div class="2xl:mr-40 2xl:ml-0 xl:ml-24 xs:ml-8">
       <app-user-submenu></app-user-submenu>
     </div>
-    
+
     <!-- Help Button -->
     <a
       routerLink="/info/user/help"
-      class="absolute right-4 hidden 2xl:flex flex-col justify-center items-center rounded-xl py-2
-      px-4 gap-0.5 hover:bg-va-third/60 hover:shadow
-    active:bg-va-third/30 transition duration-300"
+      class="absolute right-4 hidden 2xl:flex flex-col justify-center items-center rounded-xl
+       py-2 px-4 gap-0.5 hover:bg-va-third/60 hover:shadow active:bg-va-third/30 transition duration-300"
     >
-      <app-svg-icon
-        icon="help"
-        size="32px"
-        class="text-white"
-      ></app-svg-icon>
+      <app-svg-icon icon="help" size="32px" class="text-white"></app-svg-icon>
       <span class="text-sm text-white">Ayuda</span>
     </a>
   </nav>

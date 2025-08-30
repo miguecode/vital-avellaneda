@@ -4,10 +4,11 @@
      md:bg-va-third/60 text-va-white font-medium
       md:hover:bg-va-third md:active:bg-va-third/80 focus:bg-va-third bg-va-primary
         transition duration-300"
+        aria-label="Abrir submenú de usuario"
         (click)="toggleDropdown($event)">
         @defer (when profilePictureUrl()) {
           <div class="md:hidden flex rounded-full bg-lightblue-secondary size-12">
-            <img [src]="profilePictureUrl()" alt="Profile Picture" class="object-cover rounded-full
+            <img [src]="profilePictureUrl()" alt="Foto de perfil" class="object-cover rounded-full
              outline outline-va-fifth shadow">
           </div>
         } @loading (minimum 750ms) {

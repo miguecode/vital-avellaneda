@@ -20,7 +20,7 @@
     <div class="text-va-fifth bg-lightblue-primary flex justify-center items-center m-2
       outline-2 outline-lightblue-secondary/40 size-32 rounded-full shadow overflow-hidden">
       @defer (when profilePictureUrl()) {
-        <img [src]="profilePictureUrl()" alt="Profile Picture" class="w-full h-full object-cover">
+        <img [src]="profilePictureUrl()" alt="Foto de perfil" class="w-full h-full object-cover">
       } @loading (minimum 750ms) {
         <div class="size-32 rounded-full bg-lightblue-primary text-lightblue-third/70
          flex justify-center items-center animate-pulse">

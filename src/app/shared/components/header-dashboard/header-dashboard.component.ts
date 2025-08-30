@@ -48,22 +48,22 @@ export class HeaderDashboardComponent {
   navItems = [
     {
       title: 'Quiénes Somos',
-      ariaLabel: 'Sección sobre quiénes somos',
+      ariaLabel: 'Abrir Sección sobre quiénes somos',
       href: '/info/quienes-somos',
     },
     {
       title: 'Especialidades y Servicios',
-      ariaLabel: 'Sección de Especialidades y Servicios',
+      ariaLabel: 'Abrir Sección de Especialidades y Servicios',
       href: '/info/especialidades-y-servicios',
     },
     {
       title: 'Nuestros Profesionales',
-      ariaLabel: 'Sección de Nuestros Profesionales',
+      ariaLabel: 'Abrir Sección de Nuestros Profesionales',
       href: '/info/nuestros-profesionales',
     },
     {
       title: 'Novedades',
-      ariaLabel: 'Sección de Novedades',
+      ariaLabel: 'Abrir Sección de Novedades',
       href: '/news',
     },
   ];

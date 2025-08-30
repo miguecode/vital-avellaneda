@@ -24,8 +24,9 @@
           <!-- Image -->
           <div class="aspect-video w-full h-full overflow-hidden">
             <img
+              loading="lazy"
               [src]="post.imageUrl"
-              [alt]="'Imagen para la noticia: ' + post.title"
+              [alt]="'Imagen de la noticia: ' + post.title"
               class="w-full object-cover group-hover:scale-105 transition-transform duration-300"
             />
           </div>
@@ -56,10 +57,11 @@
             @if (showTags()) {
               <div class="mt-4 flex flex-wrap gap-2">
                 @for(tag of post.tags; track tag){
-                <span
-                  class="inline-flex items-center rounded-md
-                   bg-lightblue-secondary/70 px-2 py-1 text-xs font-medium text-va-third"
-                  >{{ tag }}</span
+                  <span
+                    class="inline-flex items-center rounded-md
+                    bg-lightblue-secondary/70 px-2 py-1 text-xs font-medium text-va-third"
+                    >{{ tag }}
+                  </span
                 >
                 }
               </div>

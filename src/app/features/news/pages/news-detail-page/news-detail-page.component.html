@@ -39,9 +39,11 @@
             <div>
               <span class="ml-1">|</span>
               Publicado el
-              {{ newsPost()!.publicationDate | date: 'd' }}
-              de {{ newsPost()!.publicationDate | date: 'MMMM' | titlecase }}
-              de {{ newsPost()!.publicationDate | date: 'y' }}
+              <time [attr.datetime]="newsPost()!.publicationDate | date: 'yyyy-MM-dd'">
+                {{ newsPost()!.publicationDate | date: 'd' }}
+                de {{ newsPost()!.publicationDate | date: 'MMMM' | titlecase }}
+                de {{ newsPost()!.publicationDate | date: 'y' }}
+              </time>
             </div>
           </div>
         </header>

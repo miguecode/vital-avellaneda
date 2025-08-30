@@ -1,6 +1,5 @@
 <div
-  class="flex lg:flex-row flex-col justify-start items-start lg:h-36 bg-lightblue-primary rounded-2xl
-  lg:max-w-home-page text-va-primary border border-va-fourth shadow-sm lg:px-2 sm:px-12 mx-6"
+  class="flex lg:flex-row flex-col justify-start items-start lg:h-36 bg-lightblue-primary rounded-2xl lg:max-w-home-page text-va-primary border border-va-fourth shadow-sm lg:px-2 sm:px-12 mx-6"
 >
   <app-information-card [title]="'Contacto vía mail'">
     <app-svg-icon icon="email" size="48px" color="currentColor"></app-svg-icon>
@@ -8,21 +7,33 @@
       Podés enviarnos tu consulta o cualquier inquietud acá:
       <a
         href="mailto:vitalavellaneda@gmail.com"
+        aria-label="Dirección de correo electrónico"
         class="font-bold underline underline-offset-2"
+        rel="noopener noreferrer nofollow"
         >{{ email }}
       </a>
     </p>
   </app-information-card>
   <app-information-card
     [title]="'Contacto vía WhatsApp'"
-    [border]="'lg:border-x border-y lg:border-y-0 border-va-third/20 lg:pl-4 pl-3'"
+    [border]="
+      'lg:border-x border-y lg:border-y-0 border-va-third/20 lg:pl-4 pl-3'
+    "
   >
-    <app-svg-icon icon="whatsapp" size="42px" viewBox="simpleIcons"></app-svg-icon>
+    <app-svg-icon
+      icon="whatsapp"
+      size="42px"
+      viewBox="simpleIcons"
+    ></app-svg-icon>
     <p description class="text-sm text-black mt-0.5 sm:text-start text-center">
       Solicitá tu turno o hacé tu consulta por WhatsApp:
-      <a href="tel:+541141231234" class="font-bold underline underline-offset-2"
-        >{{ phone }}
-      </a>
+      <a
+        href="tel:+541141231234"
+        aria-label="Número de contacto"
+        class="font-bold underline underline-offset-2"
+        rel="noopener noreferrer nofollow"
+        >{{ phone }}</a
+      >
     </p>
   </app-information-card>
   <app-information-card [title]="'Ubicación'">
@@ -36,8 +47,9 @@
       <a
         href="https://www.google.com/maps/search/?api=1&query=V.A+Avellaneda+123%2C+Provincia+de+Buenos+Aires"
         target="_blank"
-        rel="noopener noreferrer" 
-        class="font-bold underline underline-offset-2">
+        rel="noopener noreferrer"
+        class="font-bold underline underline-offset-2"
+      >
         Ver en el mapa
       </a>
     </p>

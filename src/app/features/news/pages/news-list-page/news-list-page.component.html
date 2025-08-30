@@ -78,6 +78,7 @@
           <button
             (click)="previousPage()"
             [disabled]="currentPage() === 1"
+            [attr.aria-label]="'Página anterior'"
             class="cursor-pointer flex items-center justify-center size-9 rounded-full transition
             text-va-primary not-disabled:hover:bg-gray-200 not-disabled:active:bg-gray-300
             disabled:opacity-30 disabled:cursor-auto"
@@ -101,6 +102,7 @@
                 [class.text-gray-500]="currentPage() !== page"
                 [class.hover:bg-gray-200]="currentPage() !== page"
                 [class.active:bg-gray-300]="currentPage() !== page"
+                [attr.aria-label]="'Página ' + page"
                 class="cursor-pointer flex items-center justify-center size-9 rounded-full
                 font-medium transition"
               >
@@ -113,6 +115,7 @@
           <button
             (click)="nextPage()"
             [disabled]="currentPage() === totalPages()"
+            [attr.aria-label]="'Página siguiente'"
             class="cursor-pointer flex items-center justify-center size-9 rounded-full transition
             text-va-primary not-disabled:hover:bg-gray-200 not-disabled:active:bg-gray-300
             disabled:opacity-30 disabled:cursor-auto"
