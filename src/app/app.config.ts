@@ -6,17 +6,16 @@ import {
   LOCALE_ID,
 } from '@angular/core';
 
-
 // Angular Router imports
 import { provideRouter } from '@angular/router';
 import { routes } from './app.routes';
 
 // Platform Browser imports
-import {
-  provideClientHydration,
-  withEventReplay,
-  withIncrementalHydration,
-} from '@angular/platform-browser';
+// import {
+//   provideClientHydration,
+//   withEventReplay,
+//   withIncrementalHydration,
+// } from '@angular/platform-browser';
 import { provideHttpClient } from '@angular/common/http';
 
 // Language Configuration
@@ -42,7 +41,6 @@ import { FirebaseAuthService } from './services/firebase/firebase-auth.service';
 import { FirebaseUserService } from './services/firebase/firebase-user.service';
 import { FirebaseSpecialtyService } from './services/firebase/firebase-specialty.service';
 import { FirebaseAppointmentService } from './services/firebase/firebase-appointment.service';
-import { AuthFacade } from './features/auth/auth.facade';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -50,7 +48,7 @@ export const appConfig: ApplicationConfig = {
     provideBrowserGlobalErrorListeners(),
     provideZonelessChangeDetection(),
     provideRouter(routes),
-    provideClientHydration(withIncrementalHydration(), withEventReplay()),
+    // provideClientHydration(withIncrementalHydration(), withEventReplay()), // Disabled for classic SPA deployment
     provideHttpClient(),
 
     // Firebase configuration and services

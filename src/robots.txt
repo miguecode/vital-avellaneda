@@ -1,0 +1,6 @@
+# Allow all crawlers to access all content
+User-agent: *
+Allow: /
+
+# Point to the sitemap
+Sitemap: https://vital-avellaneda.web.app/sitemap.xml
