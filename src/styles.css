@@ -18,6 +18,7 @@
   --color-va-third: #204da0;
   --color-va-fourth: #b6d3ff;
   --color-va-fifth: #305db1;
+  --color-selection: #0b2a5f;
   --color-lightblue-primary: #f5f9ff;
   --color-lightblue-secondary: #deebff;
   --color-lightblue-third: #6292fa;
@@ -64,6 +65,7 @@ body {
   @apply focus:shadow-red-primary;
 }
 
+/* Inter Font for Fast Login Component */
 .inter-font {
   font-family: "Inter Variable", sans-serif, system-ui, -apple-system,
     BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell,
@@ -86,4 +88,29 @@ body {
   animation: pop-up 0.8s ease-out forwards;
   animation-timeline: view();
   animation-range-end: entry 30%;
+}
+
+/* Custom Focus Styles for Better Accessibility */
+:is(a, button, input, textarea, select, [tabindex]):focus-visible {
+  outline: 3px solid transparent;
+  outline-offset: 2px;
+  box-shadow: 0 0 0 5px oklch(62.815% 0.20376 254.812 / 0.95);
+  transition: box-shadow 0.15s ease-in-out;
+}
+
+/* Special case for fully rounded elements to maintain their shape */
+:is(a, button, input, textarea, select, [tabindex]).rounded-full:focus-visible {
+  border-radius: 9999px;
+}
+
+
+ /* Custom Text Selection Styles */
+ ::selection {
+  background-color: var(--color-selection);
+  color: var(--color-lightblue-primary);
+}
+
+::-moz-selection {
+  background-color: var(--color-selection);
+  color: var(--color-lightblue-primary);
 }

@@ -5,7 +5,8 @@
 >
   @defer (when specialties().length > 0) { @for (specialty of specialties();
   track specialty.id) {
-  <div
+  <button
+    type="button"
     (click)="selectSpecialty(specialty)"
     [class.selected]="isSelected(specialty)"
     class="select-none cursor-pointer flex flex-col items-start
@@ -22,7 +23,7 @@
     <p class="xs:flex-none flex justify-center items-center xs:text-start text-center text-sm text-va-primary/70 font-normal text-pretty">
       {{ specialty.description }}
     </p>
-  </div>
+  </button>
   } } @placeholder (minimum 1.8s) { @for (i of [1, 2, 3, 4, 5, 6, 7, 8]; track
   $index) {
   <div

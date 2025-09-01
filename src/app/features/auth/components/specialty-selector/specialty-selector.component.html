@@ -24,7 +24,8 @@
 
     @defer (when specialties().length > 0) {
       @for (specialty of specialties(); track $index) {
-        <div (click)="toggleSelected(specialty)"
+        <button (click)="toggleSelected(specialty)"
+        type="button"
         [class.selected]="isSelected(specialty)"
         class="select-none cursor-pointer flex flex-col
          items-start justify-start outline outline-lightblue-primary
@@ -38,7 +39,7 @@
           <hr class="text-va-primary/40 w-full h-1">
           <p class="xs:flex-none flex justify-center items-center xs:text-start text-center text-sm text-va-primary/70
            font-normal text-pretty">{{specialty.description}}</p>
-        </div>
+        </button>
       }
     } @placeholder (minimum 1s) {
       @for (i of [1, 2, 3, 4, 5, 6, 7, 8]; track $index) {
