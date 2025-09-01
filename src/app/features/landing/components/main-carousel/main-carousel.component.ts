@@ -1,4 +1,9 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  ElementRef,
+  ViewChild,
+} from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { AfterViewInit } from '@angular/core';
 import Swiper from 'swiper';
@@ -20,6 +25,9 @@ interface Slide {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MainCarouselComponent implements AfterViewInit {
+  @ViewChild('swiperContainer') swiperContainer!: ElementRef;
+  private swiperInstance?: Swiper;
+
   slides: Slide[] = [
     {
       image: '/images/carousel/carousel-1.webp',
@@ -65,7 +73,7 @@ export class MainCarouselComponent implements AfterViewInit {
 
   ngAfterViewInit() {
     if (typeof window !== 'undefined' && typeof document !== 'undefined') {
-      new Swiper('.swiper', {
+      this.swiperInstance = new Swiper(this.swiperContainer.nativeElement, {
         modules: [Navigation, Pagination, Autoplay],
         loop: true,
         allowTouchMove: true,
@@ -85,7 +93,38 @@ export class MainCarouselComponent implements AfterViewInit {
           nextEl: '.swiper-button-next',
           prevEl: '.swiper-button-prev',
         },
+        on: {
+          init: () => {
+            this.updateTabIndex();
+          },
+          slideChange: () => {
+            this.updateTabIndex();
+          },
+        },
       });
     }
+  }
+
+  private updateTabIndex(): void {
+    if (!this.swiperInstance) return;
+
+    const slides = this.swiperInstance.slides;
+    const activeIndex = this.swiperInstance.realIndex;
+
+    slides.forEach((slide, index) => {
+      const button = slide.querySelector('a');
+      if (button) {
+        // The `data-swiper-slide-index` attribute holds the real index in loop mode
+        const realIndex = parseInt(
+          slide.getAttribute('data-swiper-slide-index') || '0',
+          10
+        );
+        if (realIndex === activeIndex) {
+          button.setAttribute('tabindex', '0');
+        } else {
+          button.setAttribute('tabindex', '-1');
+        }
+      }
+    });
   }
 }

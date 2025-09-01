@@ -27,6 +27,11 @@
   opacity: 1;
 }
 
+.swiper-button-prev:focus,
+.swiper-button-next:focus {
+  opacity: 1;
+}
+
 /* Swiper Pagination */
 .swiper-pagination {
   z-index: 2;
