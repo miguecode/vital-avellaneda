@@ -7,7 +7,7 @@ import {
 } from '@angular/core';
 
 // Angular Router imports
-import { provideRouter } from '@angular/router';
+import { provideRouter, withInMemoryScrolling } from '@angular/router';
 import { routes } from './app.routes';
 
 // Platform Browser imports
@@ -47,7 +47,7 @@ export const appConfig: ApplicationConfig = {
     // Core Angular providers
     provideBrowserGlobalErrorListeners(),
     provideZonelessChangeDetection(),
-    provideRouter(routes),
+    provideRouter(routes, withInMemoryScrolling({ scrollPositionRestoration: 'enabled' })),
     // provideClientHydration(withIncrementalHydration(), withEventReplay()), // Disabled for classic SPA deployment
     provideHttpClient(),
 

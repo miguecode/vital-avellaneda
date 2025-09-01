@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, computed, effect, inject, signal } 
 import { NEWS_DATA } from '../../data/news.data';
 import { NewsPost } from '../../../../core/models/news-post.model';
 import { RouterLink } from '@angular/router';
-import { DatePipe, TitleCasePipe, ViewportScroller } from '@angular/common';
+import { DatePipe, TitleCasePipe } from '@angular/common';
 import { SvgIconComponent } from '../../../../shared/icons/svg-icon.component';
 import { SeoService } from '../../../../shared/services/seo/seo.service';
 import { SeoData } from '../../../../core/models/seo-data.model';
@@ -29,8 +29,6 @@ export class NewsListPageComponent {
       this.seoService.setMeta(newsMeta);
     });
   }
-  
-  private readonly viewportScroller = inject(ViewportScroller);
 
   newsPosts: NewsPost[] = NEWS_DATA;
 
@@ -86,21 +84,18 @@ export class NewsListPageComponent {
   nextPage(): void {
     if (this.currentPage() < this.totalPages()) {
       this.currentPage.update((page) => page + 1);
-      this.viewportScroller.scrollToPosition([0, 0]);
     }
   }
 
   previousPage(): void {
     if (this.currentPage() > 1) {
       this.currentPage.update((page) => page - 1);
-      this.viewportScroller.scrollToPosition([0, 0]);
     }
   }
 
   goToPage(page: number): void {
     if (page >= 1 && page <= this.totalPages()) {
       this.currentPage.set(page);
-      this.viewportScroller.scrollToPosition([0, 0]);
     }
   }
 }
