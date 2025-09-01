@@ -5,7 +5,7 @@
 
 .completed {
   background-color: var(--color-green-primary);
-  color: var(--color-green-700)
+  color: var(--color-green-800)
 }
 
 .canceled {

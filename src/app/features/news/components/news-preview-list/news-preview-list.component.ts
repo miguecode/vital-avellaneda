@@ -16,13 +16,13 @@ import { SvgIconComponent } from '../../../../shared/icons/svg-icon.component';
   templateUrl: './news-preview-list.component.html',
   styleUrl: './news-preview-list.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: true,
 })
 export class NewsPreviewListComponent {
   limit = input(4);
   title = input('Otras noticias que podrían interesarte');
   currentNewsId = input<string | null>(null);
   showTags = input(false);
+  secondHeader = input(false);
 
   private readonly newsFacade = inject(NewsFacade);
 

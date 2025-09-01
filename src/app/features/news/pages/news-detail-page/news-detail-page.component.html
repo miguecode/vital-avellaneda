@@ -79,7 +79,10 @@
     </article>
 
     <div class="mt-16">
-      <app-news-preview-list [currentNewsId]="newsPost()!.id">
+      <app-news-preview-list 
+        [currentNewsId]="newsPost()!.id"
+        [secondHeader]="true"
+      >
       </app-news-preview-list>
     </div>
 

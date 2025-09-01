@@ -2,9 +2,16 @@
   <div class="mx-auto max-w-home-page">
     <!-- Title -->
     <div class="mb-5 px-4 sm:px-6 lg:px-8">
-      <h3 class="md:text-4xl text-3xl text-center font-bold tracking-tight text-va-primary">
-        {{ title() }}
-      </h3>
+
+      @if (secondHeader()) {
+        <h2 class="md:text-4xl text-3xl text-center font-bold tracking-tight text-va-primary">
+          {{ title() }}
+        </h2>
+      } @else {
+        <h3 class="md:text-4xl text-3xl text-center font-bold tracking-tight text-va-primary">
+          {{ title() }}
+        </h3>
+      }
     </div>
 
     <!-- News Grid -->
