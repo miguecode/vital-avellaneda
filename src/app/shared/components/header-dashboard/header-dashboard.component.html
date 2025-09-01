@@ -7,6 +7,7 @@
     <div class="xs:hidden block pl-2">
       <button
         (click)="toggleMenu()"
+        tabindex="0"
         class="cursor-pointer z-50 mr-2 relative rounded-xl hover:bg-va-third/60 shadow
          active:bg-va-third/30 transition-colors duration-300 xs:p-5 p-2 outline outline-va-third"
         aria-label="Abrir menú"
@@ -40,7 +41,7 @@
             class="flex w-full items-center justify-start p-4 text-lg text-left font-medium rounded-lg
              hover:bg-va-third/60 hover:shadow active:bg-va-third/30 transition-colors duration-300"
             [routerLink]="item.href"
-            tabindex="0"
+            [attr.tabindex]="isMenuOpen() ? 0 : -1"
             [attr.aria-label]="item.ariaLabel"
           >
             {{ item.title }}
@@ -55,6 +56,7 @@
         <li class="w-full pt-2">
           <a
             (click)="toggleMenu()"
+            [attr.tabindex]="isMenuOpen() ? 0 : -1"
             routerLink="/info/user/help"
             class="flex w-full items-center justify-start gap-1.5 p-4 text-lg text-left font-medium
              rounded-lg hover:bg-va-third/60 hover:shadow active:bg-va-third/30 transition-colors duration-300"
@@ -76,6 +78,7 @@
           <div class="flex justify-center gap-1 w-full mt-4">
             <a
               [href]="facebook"
+              [attr.tabindex]="isMenuOpen() ? 0 : -1"
               class="text-lightblue-secondary/90 hover:text-white transition"
               rel="noopener noreferrer nofollow"
             >
@@ -88,6 +91,7 @@
             </a>
             <a
               [href]="instagram"
+              [attr.tabindex]="isMenuOpen() ? 0 : -1"
               class="text-lightblue-secondary/90 hover:text-white ms-5 transition"
               rel="noopener noreferrer nofollow"
             >
@@ -100,6 +104,7 @@
             </a>
             <a
               [href]="twitter"
+              [attr.tabindex]="isMenuOpen() ? 0 : -1"
               class="text-lightblue-secondary/90 hover:text-white ms-5 transition"
               rel="noopener noreferrer nofollow"
             >
@@ -112,6 +117,7 @@
             </a>
             <a
               [href]="tiktok"
+              [attr.tabindex]="isMenuOpen() ? 0 : -1"
               class="text-lightblue-secondary/90 hover:text-white ms-5 transition"
               rel="noopener noreferrer nofollow"
             >
@@ -132,6 +138,7 @@
         </span>
         <a
           [href]="github"
+          [attr.tabindex]="isMenuOpen() ? 0 : -1"
           class="text-sm text-va-secondary/90 text-pretty hover:underline cursor-pointer"
           rel="noopener noreferrer nofollow"
         >
