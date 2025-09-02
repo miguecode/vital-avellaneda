@@ -11,16 +11,22 @@ gap-4 py-5 rounded shadow sm:max-h-86 sm:h-78 overflow-x-auto">
         transition outline outline-lightblue-primary hover:outline-lightblue-third">
         
         <!-- Profile Icon -->
-        @defer(when getProfilePictureUrl(specialist)) {
+        <div class="text-va-fifth bg-lightblue-primary flex justify-center items-center
+          outline-2 outline-lightblue-secondary/40 size-26 rounded-full shadow overflow-hidden img-fade-container">
+          <img [src]="getProfilePictureUrl(specialist)" alt="Foto de perfil" class="w-full h-full object-cover img-fade-in">
+        </div>
+
+
+        <!-- @defer(when getProfilePictureUrl(specialist)) {
           <div class="w-24 h-24 overflow-hidden rounded-full outline outline-va-fifth bg-lightblue-secondary/30
           flex items-center justify-center mb-2">
-            <img [src]="getProfilePictureUrl(specialist)" alt="Profile Picture" class="w-full h-full object-cover">
+            <img [src]="getProfilePictureUrl(specialist)" alt="Foto de perfil" class="w-full h-full object-cover">
           </div>
         } @loading (minimum 750ms){
           <div class="w-24 h-24 mb-2 rounded-full flex justify-center items-center outline outline-va-fifth animate-pulse">
             <app-svg-icon icon="image" size="44px" class="text-lightblue-third/70"></app-svg-icon>
           </div>
-        }
+        } -->
 
         <!-- Specialist Info -->
         <div class="flex flex-col w-full justify-center items-center text-center px-1">

@@ -29,13 +29,19 @@
         <article 
           class="flex flex-col">
           <!-- Image -->
-          <div class="aspect-video w-full h-full overflow-hidden">
-            <img
-              loading="lazy"
-              [src]="post.imageUrl"
-              [alt]="'Imagen de la noticia: ' + post.title"
-              class="w-full object-cover group-hover:scale-105 transition-transform duration-300"
-            />
+          <div class="aspect-video w-full overflow-hidden img-fade-container">
+            <picture>
+              <source
+                media="(max-width: 767px)"
+                [srcset]="getMobileImageUrl(post.imageUrl)"
+              />
+              <img
+                loading="lazy"
+                [src]="post.imageUrl"
+                [alt]="'Imagen de la noticia: ' + post.title"
+                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300 img-fade-in"
+              />
+            </picture>
           </div>
 
           <!-- Content -->

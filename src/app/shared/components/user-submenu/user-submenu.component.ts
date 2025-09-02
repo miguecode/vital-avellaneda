@@ -6,6 +6,7 @@ import {
   HostListener,
   ElementRef,
   computed,
+  effect,
 } from '@angular/core';
 import { AuthFacade } from '../../../features/auth/auth.facade';
 import { SvgIconComponent } from '../../icons/svg-icon.component';
@@ -157,6 +158,28 @@ export class UserSubmenuComponent {
           this.router.navigate(['/auth/login']);
         }
       });
-    // }, 150);
+  }
+
+  constructor() {
+    // Effect to handle image loading animations
+    effect(() => {
+      this.profilePictureUrl();
+
+      setTimeout(() => {
+        if (typeof window !== 'undefined' && typeof document !== 'undefined') {
+          const image: HTMLImageElement | null =
+            this.elementRef.nativeElement.querySelector('.img-fade-in');
+          if (image) {
+            if (image.complete) {
+              image.classList.add('is-loaded');
+            } else {
+              image.addEventListener('load', () => {
+                image.classList.add('is-loaded');
+              }, { once: true });
+            }
+          }
+        }
+      });
+    });
   }
 }

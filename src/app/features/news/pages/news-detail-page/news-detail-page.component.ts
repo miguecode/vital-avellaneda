@@ -3,6 +3,7 @@ import {
   Component,
   computed,
   effect,
+  ElementRef,
   inject,
 } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
@@ -26,6 +27,7 @@ export class NewsDetailPageComponent {
   private newsFacade = inject(NewsFacade);
   private viewportScroller = inject(ViewportScroller);
   private seoService = inject(SeoService);
+  private elementRef = inject(ElementRef);
 
   private params = toSignal(this.route.paramMap);
   public newsPost = computed(() => {
@@ -54,7 +56,31 @@ export class NewsDetailPageComponent {
           author: page.author,
         };
         this.seoService.setMeta(seoData);
+
+        // Handle image loading animation
+        setTimeout(() => {
+          if (typeof window !== 'undefined' && typeof document !== 'undefined') {
+            const image: HTMLImageElement | null =
+              this.elementRef.nativeElement.querySelector('.img-fade-in');
+            if (image) {
+              if (image.complete) {
+                image.classList.add('is-loaded');
+              } else {
+                image.addEventListener('load', () => {
+                  image.classList.add('is-loaded');
+                }, { once: true });
+              }
+            }
+          }
+        });
       }
     });
+  }
+
+  getMobileImageUrl(url: string): string {
+    const parts = url.split('.');
+    const extension = parts.pop();
+    const base = parts.join('.');
+    return `${base}-mobile.${extension}`;
   }
 }

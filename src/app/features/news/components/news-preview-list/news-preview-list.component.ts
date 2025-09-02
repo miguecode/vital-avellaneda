@@ -2,6 +2,8 @@ import {
   ChangeDetectionStrategy,
   Component,
   computed,
+  effect,
+  ElementRef,
   inject,
   input,
 } from '@angular/core';
@@ -25,6 +27,31 @@ export class NewsPreviewListComponent {
   secondHeader = input(false);
 
   private readonly newsFacade = inject(NewsFacade);
+  private readonly elementRef = inject(ElementRef);
+
+  constructor() {
+    // Effect to handle image loading animations
+    effect(() => {
+      this.newsPosts(); // Depend on this signal
+
+      // Defer to the next microtask to allow the DOM to update
+      setTimeout(() => {
+        if (typeof window !== 'undefined' && typeof document !== 'undefined') {
+          const images: NodeListOf<HTMLImageElement> =
+            this.elementRef.nativeElement.querySelectorAll('.img-fade-in');
+          images.forEach((img) => {
+            if (img.complete) {
+              img.classList.add('is-loaded');
+            } else {
+              img.addEventListener('load', () => {
+                img.classList.add('is-loaded');
+              }, { once: true });
+            }
+          });
+        }
+      });
+    });
+  }
 
   readonly newsPosts = computed(() => {
     const allNews = this.newsFacade.news();
@@ -36,4 +63,11 @@ export class NewsPreviewListComponent {
     }
     return allNews.slice(0, this.limit());
   });
+
+  getMobileImageUrl(url: string): string {
+    const parts = url.split('.');
+    const extension = parts.pop();
+    const base = parts.join('.');
+    return `${base}-mobile.${extension}`;
+  }
 }

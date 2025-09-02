@@ -4,6 +4,8 @@ import {
   inject,
   Signal,
   computed,
+  effect,
+  ElementRef,
 } from '@angular/core';
 import {
   Patient,
@@ -35,7 +37,31 @@ import { CloudinaryService } from '../../../../services/cloudinary/cloudinary.se
 export class UserInformationCardComponent {
   private readonly authFacade = inject(AuthFacade);
   private readonly cloudinaryService = inject(CloudinaryService);
+  private readonly elementRef = inject(ElementRef);
   readonly user: Signal<UserBase | null> = this.authFacade.user;
+
+  constructor() {
+    // Effect to handle image loading animations
+    effect(() => {
+      this.profilePictureUrl();
+
+      setTimeout(() => {
+        if (typeof window !== 'undefined' && typeof document !== 'undefined') {
+          const image: HTMLImageElement | null =
+            this.elementRef.nativeElement.querySelector('.img-fade-in');
+          if (image) {
+            if (image.complete) {
+              image.classList.add('is-loaded');
+            } else {
+              image.addEventListener('load', () => {
+                image.classList.add('is-loaded');
+              }, { once: true });
+            }
+          }
+        }
+      });
+    });
+  }
 
   readonly defaultProfilePictureUrl =
     this.cloudinaryService.defaultProfilePictureUrl;

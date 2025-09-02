@@ -14,12 +14,19 @@
      outline outline-va-fourth/40 overflow-hidden"
     >
       <!-- Image -->
-      <img
-        class="aspect-video h-auto md:h-98 w-full object-cover
-        transition-transform duration-300"
-        [src]="newsPost()!.imageUrl"
-        [alt]="newsPost()!.title"
-      />
+      <div class="aspect-video h-auto md:h-98 w-full img-fade-container">
+        <picture>
+          <source
+            media="(max-width: 767px)"
+            [srcset]="getMobileImageUrl(newsPost()!.imageUrl)"
+          />
+          <img
+            class="h-full w-full object-cover transition-transform duration-300 img-fade-in"
+            [src]="newsPost()!.imageUrl"
+            [alt]="newsPost()!.title"
+          />
+        </picture>
+      </div>
 
       <div class="p-6 sm:p-8">
         <!-- Header -->

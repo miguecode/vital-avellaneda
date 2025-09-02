@@ -1,4 +1,11 @@
-import { ChangeDetectionStrategy, Component, computed, effect, inject } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  effect,
+  inject,
+  ElementRef,
+} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { InfoFacade } from '../../../info/info.facade';
 import { ViewportScroller } from '@angular/common';
@@ -11,7 +18,7 @@ import { SeoData } from '../../../../core/models/seo-data.model';
   imports: [],
   templateUrl: './info-detail-page.component.html',
   styleUrl: './info-detail-page.component.css',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class InfoDetailPageComponent {
   private route = inject(ActivatedRoute);
@@ -19,6 +26,7 @@ export class InfoDetailPageComponent {
   private infoFacade = inject(InfoFacade);
   private viewportScroller = inject(ViewportScroller);
   private seoService = inject(SeoService);
+  private elementRef = inject(ElementRef);
 
   private params = toSignal(this.route.paramMap);
   public infoPage = computed(() => {
@@ -48,5 +56,35 @@ export class InfoDetailPageComponent {
         this.seoService.setMeta(seoData);
       }
     });
+
+    effect(() => {
+      // Handle image loading animation
+      setTimeout(() => {
+        if (typeof window !== 'undefined' && typeof document !== 'undefined') {
+          const image: HTMLImageElement | null =
+            this.elementRef.nativeElement.querySelector('.img-fade-in');
+          if (image) {
+            if (image.complete) {
+              image.classList.add('is-loaded');
+            } else {
+              image.addEventListener(
+                'load',
+                () => {
+                  image.classList.add('is-loaded');
+                },
+                { once: true }
+              );
+            }
+          }
+        }
+      });
+    });
+  }
+
+  getMobileImageUrl(url: string): string {
+    const parts = url.split('.');
+    const extension = parts.pop();
+    const base = parts.join('.');
+    return `${base}-mobile.${extension}`;
   }
 }

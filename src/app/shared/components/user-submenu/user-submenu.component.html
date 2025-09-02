@@ -1,22 +1,18 @@
 <div class="relative">
   <button class="user-submenu-button cursor-pointer flex flex-wrap justify-center items-center
-     rounded-full gap-2 md:px-4 md:py-2 md:min-w-48 p-2
-     md:bg-va-third/60 text-va-white font-medium
-      md:hover:bg-va-third md:active:bg-va-third/80 focus:bg-va-third bg-va-primary
-        transition duration-300"
-        aria-label="Abrir submenú de usuario"
-        (click)="toggleDropdown($event)">
-        @defer (when profilePictureUrl()) {
-          <div class="md:hidden flex rounded-full bg-lightblue-secondary size-12">
-            <img [src]="profilePictureUrl()" alt="Foto de perfil" class="object-cover rounded-full
-             outline outline-va-fifth shadow">
-          </div>
-        } @loading (minimum 750ms) {
-          <div class="size-12 rounded-full bg-lightblue-secondary text-lightblue-third/70
-           md:hidden flex justify-center items-center animate-pulse">
-            <app-svg-icon icon="image" size="30px" class="md:hidden flex text-lightblue-third/70"></app-svg-icon>
-          </div>
-        }
+    rounded-full gap-2 md:px-4 md:py-2 md:min-w-48 p-2
+  md:bg-va-third/60 text-va-white font-medium
+  md:hover:bg-va-third md:active:bg-va-third/80 focus:bg-va-third bg-va-primary
+    transition duration-300"
+    aria-label="Abrir submenú de usuario"
+    (click)="toggleDropdown($event)">
+        
+    <div class="text-va-fifth bg-lightblue-primary md:hidden flex justify-center items-center
+      outline-2 outline-lightblue-secondary/40 size-9 rounded-full shadow overflow-hidden img-fade-container">
+      @defer (when profilePictureUrl()) {
+        <img [src]="profilePictureUrl()" alt="Foto de perfil" class="w-full h-full object-cover img-fade-in">
+      }
+    </div>
         
     <app-svg-icon icon="user" size="34px" class="hidden md:block"></app-svg-icon>
     <span class="hidden md:block">{{ name }}</span>
@@ -29,7 +25,7 @@
       <div class="flex flex-wrap gap-4 justify-start items-center w-full">
         <div class="size-12 text-va-fifth rounded-full overflow-hidden outline outline-va-fifth">
           @defer (when profilePictureUrl()) {
-            <img [src]="profilePictureUrl()" alt="Profile Picture" class="w-full h-full object-cover">
+            <img [src]="profilePictureUrl()" alt="Foto de perfil" class="w-full h-full object-cover">
           } @loading (minimum 750ms) {
             <div class="size-12 rounded-full bg-lightblue-secondary text-lightblue-third/70
              flex justify-center items-center animate-pulse">

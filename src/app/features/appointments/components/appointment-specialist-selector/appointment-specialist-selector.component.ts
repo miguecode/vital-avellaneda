@@ -9,6 +9,8 @@ import {
   Output,
   signal,
   Signal,
+  effect,
+  ElementRef,
 } from '@angular/core';
 import { Specialty, Specialist } from '../../../../core/models';
 import { SvgIconComponent } from '../../../../shared/icons/svg-icon.component';
@@ -29,7 +31,8 @@ export class AppointmentSpecialistSelectorComponent implements OnInit {
   @Input() lastSelected: Specialist | null = null;
   @Input() preSpecialists: Specialist[] | null = null 
   @Output() specialistEmitted = new EventEmitter<Specialist | null>();
-  
+  private elementRef = inject(ElementRef);
+
   private cloudinaryService = inject(CloudinaryService);
   readonly defaultProfilePictureUrl = this.cloudinaryService.defaultProfilePictureUrl;
 
@@ -83,4 +86,25 @@ export class AppointmentSpecialistSelectorComponent implements OnInit {
     }
     return this.defaultProfilePictureUrl;
   };
+
+  constructor() {
+    effect(() => {
+      this.filteredSpecialists();
+      setTimeout(() => {
+        if (typeof window !== 'undefined' && typeof document !== 'undefined') {
+          const images: NodeListOf<HTMLImageElement> =
+            this.elementRef.nativeElement.querySelectorAll('.img-fade-in');
+          images.forEach((img) => {
+            if (img.complete) {
+              img.classList.add('is-loaded');
+            } else {
+              img.addEventListener('load', () => {
+                img.classList.add('is-loaded');
+              }, { once: true });
+            }
+          });
+        }
+      });
+    });
+  }
 }

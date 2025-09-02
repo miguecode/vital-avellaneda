@@ -90,7 +90,7 @@ body {
   animation-range-end: entry 30%;
 }
 
-/* Custom Focus Styles for Better Accessibility */
+/* Custom Focus */
 :is(a, button, input, textarea, select, [tabindex]):focus-visible {
   outline: 3px solid transparent;
   outline-offset: 2px;
@@ -103,8 +103,7 @@ body {
   border-radius: 9999px;
 }
 
-
- /* Custom Text Selection Styles */
+ /* Custom Text Selection */
  ::selection {
   background-color: var(--color-selection);
   color: var(--color-lightblue-primary);
@@ -113,4 +112,20 @@ body {
 ::-moz-selection {
   background-color: var(--color-selection);
   color: var(--color-lightblue-primary);
+}
+
+/* Image Fade-In Animation */
+.img-fade-container {
+  background-color: var(--color-va-primary);
+  overflow: hidden;
+  position: relative;
+}
+
+.img-fade-in {
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.img-fade-in.is-loaded {
+  opacity: 1;
 }

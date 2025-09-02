@@ -18,14 +18,9 @@
   <div class="px-4 m-auto flex flex-col justify-center items-center">
     <!-- Profile Image -->
     <div class="text-va-fifth bg-lightblue-primary flex justify-center items-center m-2
-      outline-2 outline-lightblue-secondary/40 size-32 rounded-full shadow overflow-hidden">
+      outline-2 outline-lightblue-secondary/40 size-32 rounded-full shadow overflow-hidden img-fade-container">
       @defer (when profilePictureUrl()) {
-        <img [src]="profilePictureUrl()" alt="Foto de perfil" class="w-full h-full object-cover">
-      } @loading (minimum 750ms) {
-        <div class="size-32 rounded-full bg-lightblue-primary text-lightblue-third/70
-         flex justify-center items-center animate-pulse">
-          <app-svg-icon icon="image" size="68px"></app-svg-icon>
-        </div>
+        <img [src]="profilePictureUrl()" alt="Foto de perfil" class="w-full h-full object-cover img-fade-in">
       }
     </div>
   

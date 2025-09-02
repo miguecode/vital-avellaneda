@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, computed, effect, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, effect, ElementRef, inject, signal } from '@angular/core';
 import { NEWS_DATA } from '../../data/news.data';
 import { NewsPost } from '../../../../core/models/news-post.model';
 import { RouterLink } from '@angular/router';
@@ -16,6 +16,7 @@ import { SeoData } from '../../../../core/models/seo-data.model';
 })
 export class NewsListPageComponent {
   seoService = inject(SeoService);
+  private elementRef = inject(ElementRef);
 
   constructor() {
     effect(() => {
@@ -27,6 +28,26 @@ export class NewsListPageComponent {
         image: 'https://res.cloudinary.com/dsd1komi4/image/upload/v1756509770/logo-big_jsy8qr.jpg',
       };
       this.seoService.setMeta(newsMeta);
+    });
+
+    effect(() => {
+      this.displayedNewsPosts();
+
+      setTimeout(() => {
+        if (typeof window !== 'undefined' && typeof document !== 'undefined') {
+          const images: NodeListOf<HTMLImageElement> =
+            this.elementRef.nativeElement.querySelectorAll('.img-fade-in');
+          images.forEach((img) => {
+            if (img.complete) {
+              img.classList.add('is-loaded');
+            } else {
+              img.addEventListener('load', () => {
+                img.classList.add('is-loaded');
+              }, { once: true });
+            }
+          });
+        }
+      });
     });
   }
 
@@ -97,5 +118,12 @@ export class NewsListPageComponent {
     if (page >= 1 && page <= this.totalPages()) {
       this.currentPage.set(page);
     }
+  }
+
+  getMobileImageUrl(url: string): string {
+    const parts = url.split('.');
+    const extension = parts.pop();
+    const base = parts.join('.');
+    return `${base}-mobile.${extension}`;
   }
 }

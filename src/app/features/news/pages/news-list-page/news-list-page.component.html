@@ -20,13 +20,20 @@
       >
         <article class="flex flex-col h-126">
           <!-- Image -->
-          <div class="aspect-video w-full overflow-hidden">
-            <img
-              [src]="post.imageUrl"
-              [alt]="'Imagen para la noticia: ' + post.title"
-              class="w-full h-full object-cover group-hover:scale-105
-               transition-transform duration-300"
-            />
+          <div class="aspect-video w-full overflow-hidden img-fade-container">
+            <picture>
+              <source
+                media="(max-width: 767px)"
+                [srcset]="getMobileImageUrl(post.imageUrl)"
+              />
+              <img
+                [src]="post.imageUrl"
+                [alt]="'Imagen para la noticia: ' + post.title"
+                loading="lazy"
+                class="w-full h-full object-cover group-hover:scale-105
+                 transition-transform duration-300 img-fade-in"
+              />
+            </picture>
           </div>
 
           <!-- Content -->

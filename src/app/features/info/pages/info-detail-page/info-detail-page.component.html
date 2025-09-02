@@ -8,12 +8,19 @@
 
       @if (infoPage()?.imageUrl) {
         <!-- Image -->
-        <img
-          class="aspect-video h-auto md:h-98 w-full object-cover
-          transition-transform duration-300"
-          [src]="infoPage()?.imageUrl"
-          [alt]="'Imagen de la sección: ' + infoPage()?.title"
-        />
+        <div class="aspect-video h-auto md:h-98 w-full img-fade-container">
+          <picture>
+            <source
+              media="(max-width: 767px)"
+              [srcset]="getMobileImageUrl(infoPage()!.imageUrl!)"
+            />
+            <img
+              class="h-full w-full object-cover transition-transform duration-300 img-fade-in"
+              [src]="infoPage()!.imageUrl"
+              [alt]="infoPage()!.title"
+            />
+          </picture>
+        </div>
       }
 
       <div class="p-6 sm:p-8">
