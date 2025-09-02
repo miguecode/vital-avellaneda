@@ -40,3 +40,18 @@
   --swiper-pagination-bullet-inactive-color: white;
   --swiper-pagination-bullet-inactive-opacity: 0.3;
 }
+
+/* Custom Lazy Loading Animation */
+.swiper-slide .relative {
+  background-color: #002468;
+}
+:host ::ng-deep .swiper-lazy-preloader {
+  display: none;
+}
+.swiper-slide img {
+  opacity: 0;
+  transition: opacity 0.6s ease-in-out;
+}
+.swiper-slide img.is-loaded {
+  opacity: 1;
+}

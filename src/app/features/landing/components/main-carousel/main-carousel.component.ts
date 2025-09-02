@@ -10,7 +10,10 @@ import Swiper from 'swiper';
 import { Navigation, Pagination, Autoplay } from 'swiper/modules';
 
 interface Slide {
-  image: string;
+  image: {
+    mobile: string;
+    desktop: string;
+  };
   title: string;
   description: string;
   buttonText: string;
@@ -30,7 +33,10 @@ export class MainCarouselComponent implements AfterViewInit {
 
   slides: Slide[] = [
     {
-      image: '/images/carousel/carousel-1.webp',
+      image: {
+        mobile: '/images/carousel/carousel-1-mobile.webp',
+        desktop: '/images/carousel/carousel-1.webp',
+      },
       title: 'Bienvenido a Vital Avellaneda',
       description:
         'Somos una Clínica digital y presencial al servicio de tu salud. Hacemos nuestro trabajo de forma humana y segura.',
@@ -38,7 +44,10 @@ export class MainCarouselComponent implements AfterViewInit {
       buttonLink: '/info/quienes-somos',
     },
     {
-      image: '/images/carousel/carousel-2.webp',
+      image: {
+        mobile: '/images/carousel/carousel-2-mobile.webp',
+        desktop: '/images/carousel/carousel-2.webp',
+      },
       title: 'Portal para Pacientes',
       description:
         'Solicitá turnos, gestioná consultas y accedé a tu historial. Tu salud y bienestar, a un clic.',
@@ -46,7 +55,10 @@ export class MainCarouselComponent implements AfterViewInit {
       buttonLink: '/auth/login',
     },
     {
-      image: '/images/carousel/carousel-3.webp',
+      image: {
+        mobile: '/images/carousel/carousel-3-mobile.webp',
+        desktop: '/images/carousel/carousel-3.webp',
+      },
       title: 'Portal para Especialistas',
       description:
         'Organizá tus turnos, gestioná y registrá diagnósticos de forma rápida y simple. Todo en un único panel.',
@@ -54,7 +66,10 @@ export class MainCarouselComponent implements AfterViewInit {
       buttonLink: '/auth/login',
     },
     {
-      image: '/images/carousel/carousel-4.webp',
+      image: {
+        mobile: '/images/carousel/carousel-4-mobile.webp',
+        desktop: '/images/carousel/carousel-4.webp',
+      },
       title: 'Especialidades y Servicios',
       description:
         'Descubrí nuestra amplia oferta médica: clínica general, pediatría, cardiología, dermatología y más.',
@@ -62,7 +77,10 @@ export class MainCarouselComponent implements AfterViewInit {
       buttonLink: '/info/especialidades-y-servicios',
     },
     {
-      image: '/images/carousel/carousel-5.webp',
+      image: {
+        mobile: '/images/carousel/carousel-5-mobile.webp',
+        desktop: '/images/carousel/carousel-5.webp',
+      },
       title: 'Nuestros Profesionales',
       description:
         'Conocé al equipo médico que hace posible Vital Avellaneda. Calidez humana en cada consulta.',
@@ -101,6 +119,19 @@ export class MainCarouselComponent implements AfterViewInit {
             this.updateTabIndex();
           },
         },
+      });
+
+      // Custom fade-in animation for lazy-loaded images
+      const images =
+        this.swiperContainer.nativeElement.querySelectorAll('img');
+      images.forEach((img: HTMLImageElement) => {
+        if (img.complete) {
+          img.classList.add('is-loaded');
+        } else {
+          img.addEventListener('load', () => {
+            img.classList.add('is-loaded');
+          });
+        }
       });
     }
   }
