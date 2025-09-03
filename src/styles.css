@@ -84,10 +84,12 @@ body {
   }
 }
 
-.animate-on-scroll {
-  animation: pop-up 0.8s ease-out forwards;
-  animation-timeline: view();
-  animation-range-end: entry 30%;
+@media (min-width: 1024px) {
+  .animate-on-scroll {
+    animation: pop-up 0.8s ease-out forwards;
+    animation-timeline: view();
+    animation-range-end: entry 30%;
+  }
 }
 
 /* Custom Focus */
