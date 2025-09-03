@@ -93,7 +93,7 @@ body {
 }
 
 /* Custom Focus */
-:is(a, button, input, textarea, select, [tabindex]):focus-visible {
+:is(a, button, [tabindex]):focus-visible {
   outline: 3px solid transparent;
   outline-offset: 2px;
   box-shadow: 0 0 0 5px oklch(62.815% 0.20376 254.812 / 0.95);
@@ -101,7 +101,7 @@ body {
 }
 
 /* Special case for fully rounded elements to maintain their shape */
-:is(a, button, input, textarea, select, [tabindex]).rounded-full:focus-visible {
+:is(a, button, [tabindex]).rounded-full:focus-visible {
   border-radius: 9999px;
 }
 
