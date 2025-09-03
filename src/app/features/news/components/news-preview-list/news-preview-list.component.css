@@ -1,0 +1,7 @@
+.post-image {
+  transition: opacity 0.5s ease-in-out, scale 0.3s ease-in-out;
+}
+
+.anchor-container:hover .post-image {
+  scale: 1.05;
+}

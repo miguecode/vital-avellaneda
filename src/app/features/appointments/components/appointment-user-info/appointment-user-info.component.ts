@@ -2,6 +2,8 @@ import {
   ChangeDetectionStrategy,
   Component,
   computed,
+  effect,
+  ElementRef,
   inject,
   Input,
   OnInit,
@@ -39,8 +41,38 @@ export class AppointmentUserInfoComponent implements OnInit {
   readonly showContent = computed(() => this.minTimePassed() && !!this.user);
 
   private readonly cloudinaryService = inject(CloudinaryService);
+  private readonly elementRef = inject(ElementRef);
   readonly defaultProfilePictureUrl =
     this.cloudinaryService.defaultProfilePictureUrl;
+
+  constructor() {
+    // Effect to handle image loading animations
+    effect(() => {
+      this.showContent();
+
+      setTimeout(() => {
+        if (typeof window !== 'undefined' && typeof document !== 'undefined') {
+          const images: NodeListOf<HTMLImageElement> =
+            this.elementRef.nativeElement.querySelectorAll('.img-fade-in');
+          images.forEach((image) => {
+            if (image && !image.classList.contains('is-loaded')) {
+              if (image.complete) {
+                image.classList.add('is-loaded');
+              } else {
+                image.addEventListener(
+                  'load',
+                  () => {
+                    image.classList.add('is-loaded');
+                  },
+                  { once: true }
+                );
+              }
+            }
+          });
+        }
+      });
+    });
+  }
 
   ngOnInit(): void {
     setTimeout(() => {

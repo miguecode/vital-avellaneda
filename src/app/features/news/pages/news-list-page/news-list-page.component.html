@@ -15,7 +15,7 @@
       @for (post of displayedNewsPosts(); track post.id) {
       <a
         [routerLink]="['/news', post.id]"
-        class="block group bg-white rounded-lg shadow-md hover:shadow-lg
+        class="anchor-container block group bg-white rounded-lg shadow-md hover:shadow-lg
          transition duration-300 overflow-hidden outline outline-va-fourth/40 hover:outline-va-fourth"
       >
         <article class="flex flex-col h-126">
@@ -30,8 +30,7 @@
                 [src]="post.imageUrl"
                 [alt]="'Imagen para la noticia: ' + post.title"
                 loading="lazy"
-                class="w-full h-full object-cover group-hover:scale-105
-                 transition-transform duration-300 img-fade-in"
+                class="w-full h-full object-cover post-image img-fade-in"
               />
             </picture>
           </div>

@@ -6,6 +6,7 @@ import { DatePipe, TitleCasePipe } from '@angular/common';
 import { SvgIconComponent } from '../../../../shared/icons/svg-icon.component';
 import { SeoService } from '../../../../shared/services/seo/seo.service';
 import { SeoData } from '../../../../core/models/seo-data.model';
+import { ViewportScroller } from '@angular/common';
 
 @Component({
   selector: 'app-news-list-page',
@@ -17,6 +18,7 @@ import { SeoData } from '../../../../core/models/seo-data.model';
 export class NewsListPageComponent {
   seoService = inject(SeoService);
   private elementRef = inject(ElementRef);
+  private viewportScoller = inject(ViewportScroller);
 
   constructor() {
     effect(() => {
@@ -105,18 +107,21 @@ export class NewsListPageComponent {
   nextPage(): void {
     if (this.currentPage() < this.totalPages()) {
       this.currentPage.update((page) => page + 1);
+      this.viewportScoller.scrollToPosition([0, 0]);
     }
   }
 
   previousPage(): void {
     if (this.currentPage() > 1) {
       this.currentPage.update((page) => page - 1);
+      this.viewportScoller.scrollToPosition([0, 0]);
     }
   }
 
   goToPage(page: number): void {
     if (page >= 1 && page <= this.totalPages()) {
       this.currentPage.set(page);
+      this.viewportScoller.scrollToPosition([0, 0]);
     }
   }
 

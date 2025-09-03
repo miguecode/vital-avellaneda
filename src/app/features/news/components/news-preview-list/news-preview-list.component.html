@@ -19,11 +19,11 @@
       class="grid grid-cols-1 gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-3"
     >
       @for (post of newsPosts(); track post.id; let i = $index) {
-      <a
+            <a
         [routerLink]="['/news', post.id]"
         class="block group bg-white rounded-lg shadow-md hover:shadow-lg animate-on-scroll
          transition duration-300 overflow-hidden outline
-          outline-va-fourth/40 hover:outline-va-fourth"
+          outline-va-fourth/40 hover:outline-va-fourth anchor-container"
         [ngClass]="i === 3 ? 'hidden sm:block lg:hidden' : ''"
       >
         <article 
@@ -39,7 +39,7 @@
                 loading="lazy"
                 [src]="post.imageUrl"
                 [alt]="'Imagen de la noticia: ' + post.title"
-                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300 img-fade-in"
+                class="w-full h-full object-cover img-fade-in post-image"
               />
             </picture>
           </div>

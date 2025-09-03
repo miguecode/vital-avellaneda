@@ -1,0 +1,6 @@
+.selected {
+  background-color: #f8fdff;
+  color: #1e5baa;
+  outline-width: 0.2rem;
+  outline-color: #266fcf;
+}

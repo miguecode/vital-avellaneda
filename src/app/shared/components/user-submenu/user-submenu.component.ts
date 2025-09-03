@@ -164,20 +164,24 @@ export class UserSubmenuComponent {
     // Effect to handle image loading animations
     effect(() => {
       this.profilePictureUrl();
+      this.isDropdownVisible();
 
       setTimeout(() => {
         if (typeof window !== 'undefined' && typeof document !== 'undefined') {
-          const image: HTMLImageElement | null =
-            this.elementRef.nativeElement.querySelector('.img-fade-in');
-          if (image) {
-            if (image.complete) {
-              image.classList.add('is-loaded');
-            } else {
-              image.addEventListener('load', () => {
+          const images: NodeListOf<HTMLImageElement> =
+            this.elementRef.nativeElement.querySelectorAll('.img-fade-in');
+          images.forEach(image => {
+            // Only add listener if it's not already loaded
+            if (image && !image.classList.contains('is-loaded')) {
+              if (image.complete) {
                 image.classList.add('is-loaded');
-              }, { once: true });
+              } else {
+                image.addEventListener('load', () => {
+                  image.classList.add('is-loaded');
+                }, { once: true });
+              }
             }
-          }
+          });
         }
       });
     });

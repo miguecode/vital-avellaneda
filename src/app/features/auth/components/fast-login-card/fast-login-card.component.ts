@@ -3,6 +3,8 @@ import {
   Component,
   inject,
   signal,
+  ElementRef,
+  effect,
 } from '@angular/core';
 import { FirebaseUserService } from '../../../../services/firebase/firebase-user.service';
 import { AuthFacade } from '../../auth.facade';
@@ -10,11 +12,10 @@ import { UserBase } from '../../../../core/models';
 import { MockUserCacheService } from '../../services/mock-user-cache.service';
 import { MOCK_USERS } from '../../mocks/mock-users';
 import { CloudinaryService } from '../../../../services/cloudinary/cloudinary.service';
-import { SvgIconComponent } from "../../../../shared/icons/svg-icon.component";
 
 @Component({
   selector: 'app-fast-login-card',
-  imports: [SvgIconComponent],
+  imports: [],
   templateUrl: './fast-login-card.component.html',
   styleUrl: './fast-login-card.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -24,11 +25,13 @@ export class FastLoginCardComponent {
   private cache = inject(MockUserCacheService);
   authFacade = inject(AuthFacade);
   private readonly cloudinaryService = inject(CloudinaryService);
+  private elementRef = inject(ElementRef);
 
   users = signal<(UserBase & { password: string })[]>([]);
   showUsers = signal(false);
 
-  readonly defaultProfilePictureUrl = this.cloudinaryService.defaultProfilePictureUrl;
+  readonly defaultProfilePictureUrl =
+    this.cloudinaryService.defaultProfilePictureUrl;
 
   constructor() {
     if (this.cache.loaded()) {
@@ -37,6 +40,35 @@ export class FastLoginCardComponent {
     } else {
       this.loadMockUsers();
     }
+
+    // Effect to handle image loading animations
+    effect(() => {
+      // Rerun when the users change
+      this.users();
+
+      setTimeout(() => {
+        if (typeof window !== 'undefined' && typeof document !== 'undefined') {
+          const images: NodeListOf<HTMLImageElement> =
+            this.elementRef.nativeElement.querySelectorAll('.img-fade-in');
+          images.forEach((image) => {
+            // Only add listener if it's not already loaded
+            if (image && !image.classList.contains('is-loaded')) {
+              if (image.complete) {
+                image.classList.add('is-loaded');
+              } else {
+                image.addEventListener(
+                  'load',
+                  () => {
+                    image.classList.add('is-loaded');
+                  },
+                  { once: true }
+                );
+              }
+            }
+          });
+        }
+      });
+    });
   }
 
   async loadMockUsers() {
@@ -64,7 +96,10 @@ export class FastLoginCardComponent {
 
   getProfilePictureUrl(user: UserBase): string {
     if (user && user.profilePictureUrl) {
-      return this.cloudinaryService.getTransformedUrl(user.profilePictureUrl, 'w_60,h_60,c_fill,g_face,f_webp');
+      return this.cloudinaryService.getTransformedUrl(
+        user.profilePictureUrl,
+        'w_60,h_60,c_fill,g_face,f_webp'
+      );
     }
     return this.defaultProfilePictureUrl;
   }

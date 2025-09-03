@@ -23,14 +23,9 @@
       p-3 flex flex-col shadow user-submenu-dropdown border border-va-fourth"
       [class.open]="isDropdownOpen()">
       <div class="flex flex-wrap gap-4 justify-start items-center w-full">
-        <div class="size-12 text-va-fifth rounded-full overflow-hidden outline outline-va-fifth">
+        <div class="size-12 text-va-fifth rounded-full overflow-hidden outline outline-va-fifth img-fade-container bg-va-primary">
           @defer (when profilePictureUrl()) {
-            <img [src]="profilePictureUrl()" alt="Foto de perfil" class="w-full h-full object-cover">
-          } @loading (minimum 750ms) {
-            <div class="size-12 rounded-full bg-lightblue-secondary text-lightblue-third/70
-             flex justify-center items-center animate-pulse">
-              <app-svg-icon icon="image" size="30px" class="text-lightblue-third/70"></app-svg-icon>
-            </div>
+            <img [src]="profilePictureUrl()" alt="Foto de perfil" class="w-full h-full object-cover img-fade-in">
           }
         </div>
         <div class="flex flex-col">

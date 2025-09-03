@@ -1,16 +1,10 @@
 <div class="flex flex-col w-full">
   <!-- Title -->
   <div class="sm:mt-6 mt-8 sm:ml-5 flex xs:flex-row flex-col flex-wrap xs:gap-2 gap-1 sm:justify-start justify-center items-center text-va-primary mb-1">
-      <div class="size-12 text-va-fifth rounded-full overflow-hidden outline outline-va-fifth bg-lightblue-primary">
+      <div class="size-12 text-va-fifth rounded-full overflow-hidden outline outline-va-fifth bg-va-primary img-fade-container">
       @defer (when showContent()) {
-        <img [src]="profilePictureUrl()" alt="Foto de perfil" class="w-full h-full object-cover">
+        <img [src]="profilePictureUrl()" alt="Foto de perfil" class="w-full h-full object-cover img-fade-in user-info-image">
       } 
-      @loading (minimum 750ms) {
-        <div class="size-12 rounded-full bg-lightblue-primary text-lightblue-third/70
-        flex justify-center items-center animate-pulse">
-          <app-svg-icon icon="image" size="32px"></app-svg-icon>
-        </div>
-      }
     </div>
     <h3 class="text-2xl font-semibold text-center">
       {{
