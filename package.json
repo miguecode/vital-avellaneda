@@ -27,6 +27,7 @@
     "environment": "^1.1.0",
     "express": "^5.1.0",
     "firebase": "^11.9.1",
+    "jspdf": "^3.0.2",
     "postcss": "^8.5.4",
     "rxjs": "~7.8.0",
     "swiper": "^11.2.8",

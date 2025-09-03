@@ -14,11 +14,17 @@ import {
   CompleteAppointmentData,
   CompleteAppointmentDialogComponent,
 } from '../complete-appointment-dialog/complete-appointment-dialog.component';
+import { APPOINTMENT_STATUS_LABELS } from '../../../../core/enums/enum-labels';
 import { AppointmentStatus } from '../../../../core/enums';
 import { AppointmentInformDialogComponent } from '../appointment-inform-dialog/appointment-inform-dialog.component';
 import { Appointment } from '../../../../core/models';
 import { Router } from '@angular/router';
-import { RateAppointmentComponent, RateAppointmentData } from '../appointment-rate/appointment-rate.component';
+import {
+  RateAppointmentComponent,
+  RateAppointmentData,
+} from '../appointment-rate/appointment-rate.component';
+import jsPDF from 'jspdf';
+
 
 @Component({
   selector: 'app-appointment-actions',
@@ -95,8 +101,12 @@ export class AppointmentActionsComponent {
         this.appointment.canceledBy === 'patient' ? 'paciente' : 'especialista'
       } ${
         this.appointment.canceledBy === 'patient'
-          ? this.appointment.patientFirstName + ' ' + this.appointment.patientLastName
-          : this.appointment.specialistFirstName + ' ' + this.appointment.specialistLastName
+          ? this.appointment.patientFirstName +
+            ' ' +
+            this.appointment.patientLastName
+          : this.appointment.specialistFirstName +
+            ' ' +
+            this.appointment.specialistLastName
       }. El motivo de la cancelación se muestra a continuación en este informe.`,
       icon: 'eventBusy',
       inform: [
@@ -156,16 +166,69 @@ export class AppointmentActionsComponent {
 
   rateAppointmentHandler = (): void => {
     this.dialogService
-      .openGeneric<RateAppointmentComponent, RateAppointmentData>(RateAppointmentComponent, {
-        title: 'Calificar Atención',
-        message:
-          'Valoramos tu sinceridad. Esta información no será visible para el especialista.',
-      })
+      .openGeneric<RateAppointmentComponent, RateAppointmentData>(
+        RateAppointmentComponent,
+        {
+          title: 'Calificar Atención',
+          message:
+            'Valoramos tu sinceridad. Esta información no será visible para el especialista.',
+        }
+      )
       .subscribe((result) => {
         if (result) {
           this.rateAppointment.emit(result);
         }
       });
+  };
+
+  downloadPdfHandler = (): void => {
+    const doc = new jsPDF();
+    const appointment = this.appointment;
+    const statusLabel = APPOINTMENT_STATUS_LABELS.get(appointment.status) || appointment.status;
+
+    // Titles
+    doc.setFontSize(20);
+    doc.text('Vital Avellaneda', 105, 25, { align: 'center' });
+    doc.setFontSize(16);
+    doc.text('Comprobante de Turno', 105, 35, { align: 'center' });
+
+    // Description
+    const currentDate = new Date().toLocaleDateString('es-AR');
+    const preamble = `Este comprobante de turno fue generado desde el sitio web oficial de Vital Avellaneda, el día ${currentDate}.`;
+    doc.setFontSize(10);
+    doc.text(preamble, 105, 45, { align: 'center' });
+
+    // Appointment Infor
+    doc.setFontSize(12);
+    let y = 65;
+    y = this.generatePdfLine(doc, y, 'ID del Turno:', appointment.id);
+    y = this.generatePdfLine(doc, y + 10, 'Paciente:', `${appointment.patientFirstName} ${appointment.patientLastName}`);
+    y = this.generatePdfLine(doc, y + 10, 'Especialista:', `${appointment.specialistFirstName} ${appointment.specialistLastName}`);
+    y = this.generatePdfLine(doc, y + 10, 'Especialidad:', appointment.specialty.name);
+    y = this.generatePdfLine(doc, y + 10, 'Fecha:', this.datePipe.transform(appointment.date, 'dd/MM/yyyy') || '');
+    y = this.generatePdfLine(doc, y + 10, 'Hora:', this.datePipe.transform(appointment.date, 'HH:mm') + ' hs.' || '');
+    y = this.generatePdfLine(doc, y + 10, 'Estado:', statusLabel);
+
+    // Advice
+    doc.setFontSize(10);
+    doc.setTextColor(100);
+    const notice = 'Se le recomienda tanto al paciente como al especialista llegar 15 minutos antes de cada sesión. En el Portal de Vital Avellaneda se puede revisar esta información, gestionar el estado del turno y más.';
+    const splitNotice = doc.splitTextToSize(notice, 170);
+    doc.text(splitNotice, 20, y + 20);
+
+    // Save
+    doc.save(`turno-${appointment.id}.pdf`);
+  };
+
+  private generatePdfLine(
+    doc: any,
+    y: number,
+    label: string,
+    value: string
+  ): number {
+    doc.text(label, 20, y);
+    doc.text(value, 70, y);
+    return y;
   }
 
   get currentActions() {
@@ -176,6 +239,12 @@ export class AppointmentActionsComponent {
       handler: this.medicalRecordHandler,
       label: 'Ver Historia Clínica',
       icon: 'medicalInformation',
+    };
+
+    const downloadMedicalRecordAction = {
+      handler: this.downloadPdfHandler,
+      label: 'Descargar en PDF',
+      icon: 'download',
     };
 
     let baseActions: any[] = [];
@@ -230,9 +299,9 @@ export class AppointmentActionsComponent {
     }
 
     if (userRoleToShow === 'specialist') {
-      return [...baseActions, medicalRecordAction];
+      return [...baseActions, medicalRecordAction, downloadMedicalRecordAction];
     }
 
-    return baseActions;
+    return [...baseActions, downloadMedicalRecordAction];
   }
 }
