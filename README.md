@@ -121,6 +121,7 @@ app/
 - 🧪 Aprendizajes
 
   - Programar en inglés.
+  - Hacer constantes commits en Git.
   - Mantener y trabajar en un proyecto intermedio-grande. Casi 3 meses sin parar.
   - La reutilización de componentes y tener componentes "Page" o "Layout".
   - La reutilización de estilos (gracias a las clases utilitarias de Tailwind o variables CSS).
