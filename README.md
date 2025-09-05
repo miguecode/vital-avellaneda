@@ -21,13 +21,9 @@ La idea principal es crear un sitio completo desde una lógica de negocio sólid
 ## 🛠️ Stack Tecnológico
 
 - Frontend: Angular 20 (standalone, signals, zoneless, control flow syntax, SSR)
-
 - Estilos: Tailwind CSS
-
 - Backend/Hosting: Firebase (auth, db, hosting)
-
 - Media: Cloudinary (media storage)
-
 - Forms: Reactive Forms + Validaciones personalizadas
 
 ## 📂 Arquitectura
