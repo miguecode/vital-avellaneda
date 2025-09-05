@@ -16,8 +16,8 @@ Es mi proyecto principal hasta el momento, donde puse en práctica todo lo que a
   - [🛠️ Stack Tecnológico](#%EF%B8%8F-stack-tecnol%C3%B3gico)
   - [📂 Arquitectura](#-arquitectura)
   - [✨ Características](#-características)
-  - [🔮 Futuro del proyecto](#-futuro-del-proyecto)
   - [📸 Capturas](#-capturas)
+  - [🔮 Futuro del proyecto](#-futuro-del-proyecto)
   - [📌 Aclaraciones](#-aclaraciones)
 
 <img width="1920" height="1080" alt="Imagen de presentación" src="https://github.com/user-attachments/assets/0e4194e3-d47c-4729-9ead-7d2f6b047f6a" />
@@ -141,6 +141,11 @@ app/
 
 ## 📸 Capturas
 
+  <img width="1904" height="1078" alt="Imagen de Login" src="https://github.com/user-attachments/assets/9c8f23ed-8ce5-47a1-97f0-52a8943d63f2" />
+  <img width="1904" height="1078" alt="Imagen de Solicitar Turno" src="https://github.com/user-attachments/assets/92685029-9a9d-4261-9a12-cda957457bcc" />
+  <img width="1904" height="1078" alt="Imagen de Panel de Especialista" src="https://github.com/user-attachments/assets/20807b46-4e2a-474e-ae4b-7de5c8a05015" />
+  <img width="1904" height="1078" alt="Imagen de Lista de Turnos" src="https://github.com/user-attachments/assets/f0cd2ac0-c663-458e-8451-d2ec91f8bcf0" />
+  <img width="1904" height="1078" alt="Imagen de Gestión de Turno" src="https://github.com/user-attachments/assets/cfcbf9a1-1906-4c05-a1ac-43e5ce005106" />
 
 ## 🔮 Futuro del proyecto
 
