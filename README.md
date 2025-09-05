@@ -7,9 +7,20 @@ Es mi proyecto principal hasta el momento, donde puse en práctica todo lo que a
 ## 🔗 Enlaces directos
 
 - ⭐ **[Sitio Web de Vital Avellaneda](https://vital-avellaneda.web.app/)**
+
 - ▶ **[Video Demostración en YouTube]()**
 
-<img width="1920" height="768" alt="Imagen de presentación" src="https://github.com/user-attachments/assets/3bf72874-b04e-48e8-8f78-26e06cdd75ff" />
+## 📚 Índice
+
+  - [📖 Historia y Motivos](#-historia-y-motivos)
+  - [🛠️ Stack Tecnológico](#%EF%B8%8F-stack-tecnol%C3%B3gico)
+  - [📂 Arquitectura](#-arquitectura)
+  - [✨ Características](#-características)
+  - [🔮 Futuro del proyecto](#-futuro-del-proyecto)
+  - [📸 Capturas](#-capturas)
+  - [📌 Aclaraciones](#-aclaraciones)
+
+<img width="1920" height="1080" alt="Imagen de presentación" src="https://github.com/user-attachments/assets/0e4194e3-d47c-4729-9ead-7d2f6b047f6a" />
 
 ## 📖 Historia y Motivos
 
@@ -84,6 +95,7 @@ app/
 
 - 🔑 Autenticación
 
+  - Uso del servicio Authentication de Firebase.
   - Login clásico (email/contraseña).
   - Accesos rápidos para probar el sitio (2 pacientes, 2 especialistas).
   - Registro con validaciones personalizadas por rol.
@@ -108,11 +120,11 @@ app/
 
   - Responsive real → funciona y se ve perfecto hasta en 320px (ej: iPhone 5 / Samsung Pocket).
   - Diseño simple, minimalista y moderno. Todos los botones y secciones son autoexplicativos, todo está claro y se realiza en pocos clics.
-  - Análisis de Lighthouse:
-      - SEO: 100/100 en todas las páginas.
-      - Accesibilidad: 100/100 en todas las páginas.
-      - Buenas prácticas: 100/100 en todas las páginas.
-      - Performance: 95–100 en escritorio, 75–80 en mobile (limitación típica en Angular, pero en uso real va perfecto).
+  - Análisis de Lighthouse/Google PageSpeed Insights:
+      - SEO: **100/100** en todas las páginas.
+      - Accesibilidad: **100/100** en todas las páginas.
+      - Buenas prácticas: **100/100** en todas las páginas.
+      - Performance: **95–100** en escritorio, **75–80** en mobile (limitación típica en Angular, pero en uso real va perfecto).
 
 - 🧪 Aprendizajes
 
@@ -127,7 +139,7 @@ app/
   - Hacer un HTML semántico para mejor Accesibilidad y SEO. Analizar página por página con Lighthouse.
   - Cómo hacer un buen README 😁.
 
-- 📸 Capturas
+## 📸 Capturas
 
 
 ## 🔮 Futuro del proyecto
@@ -141,7 +153,3 @@ app/
 - Vital Avellaneda NO es una clínica médica real.
 - Ninguna imagen usada en el sitio web es mía, y las fotos de perfil de los usuarios no son reales. Las saqué de ["This Person Does Not Exist"](https://thispersondoesnotexist.com/).
 - Se aceptan propuestas de mejora del sitio o reportes de errores.
-
-## 🗃️ Otros proyectos similares
-
-- [Playroom MG](https://github.com/miguecode/playroom-angular)
