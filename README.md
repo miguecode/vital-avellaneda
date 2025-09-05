@@ -6,7 +6,7 @@ Es mi proyecto principal hasta el momento, donde puse en práctica todo lo que a
 
 ## 🔗 Enlaces directos
 
-- ⭐ **[Sitio Web de Vital Avellaneda](https://vital-avellaneda.web.app/)**
+- ⭐ **[Sitio Web de Vital Avellaneda](https://vital-avellaneda.web.app/)** → *¡Probalo con los Ingresos Rápidos!*
 
 - ▶ **[Video Demostración en YouTube]()**
 
