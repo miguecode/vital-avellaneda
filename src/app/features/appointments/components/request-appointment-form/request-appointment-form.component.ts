@@ -17,6 +17,7 @@ import { DialogService } from '../../../../shared/services/dialog/dialog.service
 import { Router } from '@angular/router';
 import { UserFacade } from '../../../auth/user.facade';
 import { DialogComponent } from '../../../../shared/components/dialog/dialog.component';
+import { ViewportScroller } from '@angular/common';
 
 interface Step {
   number: number;
@@ -44,6 +45,8 @@ export class RequestAppointmentFormComponent {
   readonly router = inject(Router);
   readonly formCompleted = signal<boolean>(false);
   readonly waitingConfirmation = signal<boolean>(false);
+  private viewportScoller = inject(ViewportScroller);
+
 
   public steps: Step[] = [
     {
@@ -119,12 +122,14 @@ export class RequestAppointmentFormComponent {
   public nextStep(): void {
     if (this.currentStep() < this.steps.length) {
       this.currentStep.update((prev) => prev + 1);
+      this.viewportScoller.scrollToPosition([0, 0]);
     }
   }
 
   public prevStep(): void {
     if (this.currentStep() > 1) {
       this.currentStep.update((prev) => prev - 1);
+      this.viewportScoller.scrollToPosition([0, 0]);
     }
   }
 
