@@ -1,6 +1,6 @@
 # 🩺 Vital Avellaneda - Clínica Online
 
-Vital Avellaneda es la simulación de una clínica médica online desarrollada con Angular 20 y TailwindCSS. Permite a pacientes y especialistas gestionar turnos médicos, historial clínico y perfiles de usuario en un entorno moderno, responsive y con arquitectura profesional.
+Vital Avellaneda es la simulación de una clínica médica online desarrollada con Angular 20 y Tailwind CSS. Permite a pacientes y especialistas gestionar turnos médicos, historial clínico y perfiles de usuario en un entorno moderno, responsive y con arquitectura profesional.
 
 Es mi proyecto principal hasta el momento, donde puse en práctica todo lo que aprendí sobre Clean Architecture, Angular moderno (Signals, Zoneless, SSR), Tailwind CSS, Firebase y Cloudinary. Buenas prácticas, diseño responsive, accesibilidad, SEO y rendimiento.
 
@@ -8,7 +8,7 @@ Es mi proyecto principal hasta el momento, donde puse en práctica todo lo que a
 
 - ⭐ **[Sitio Web de Vital Avellaneda](https://vital-avellaneda.web.app/)** → *¡Probalo con los Ingresos Rápidos!*
 
-- ▶ **[Video Demostración en YouTube]()**
+- ▶ **[Video Demostración en YouTube](https://youtu.be/PC0unpPIUWw)**
 
 ## 📚 Índice
 
