@@ -156,5 +156,5 @@ app/
 ## 📌 Aclaraciones
 
 - Vital Avellaneda NO es una clínica médica real.
-- Ninguna imagen usada en el sitio web es mía, y las fotos de perfil de los usuarios no son reales. Las saqué de ["This Person Does Not Exist"](https://thispersondoesnotexist.com/).
+- Ninguna imagen usada en el sitio web es mía, y los datos y fotos de perfil de los usuarios ya creados no son reales. Las saqué de ["This Person Does Not Exist"](https://thispersondoesnotexist.com/).
 - Se aceptan propuestas de mejora del sitio o reportes de errores.
